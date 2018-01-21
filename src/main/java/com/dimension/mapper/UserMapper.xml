@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimension.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.User">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="roleId" jdbcType="INTEGER" property="roleid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="identityId" jdbcType="VARCHAR" property="identityid" />
+    <result column="telephone" jdbcType="CHAR" property="telephone" />
+    <result column="departmentId" jdbcType="BIGINT" property="departmentid" />
+    <result column="generatorTime" jdbcType="TIMESTAMP" property="generatortime" />
+    <result column="loginTime" jdbcType="TIMESTAMP" property="logintime" />
+    <result column="isValid" jdbcType="CHAR" property="isvalid" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, roleId, userName, password, identityId, telephone, departmentId, generatorTime, 
+    loginTime, isValid, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.User">
+    insert into user (Id, roleId, userName, 
+      password, identityId, telephone, 
+      departmentId, generatorTime, loginTime, 
+      isValid, description)
+    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{identityid,jdbcType=VARCHAR}, #{telephone,jdbcType=CHAR}, 
+      #{departmentid,jdbcType=BIGINT}, #{generatortime,jdbcType=TIMESTAMP}, #{logintime,jdbcType=TIMESTAMP}, 
+      #{isvalid,jdbcType=CHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="roleid != null">
+        roleId,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="identityid != null">
+        identityId,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="departmentid != null">
+        departmentId,
+      </if>
+      <if test="generatortime != null">
+        generatorTime,
+      </if>
+      <if test="logintime != null">
+        loginTime,
+      </if>
+      <if test="isvalid != null">
+        isValid,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="identityid != null">
+        #{identityid,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=CHAR},
+      </if>
+      <if test="departmentid != null">
+        #{departmentid,jdbcType=BIGINT},
+      </if>
+      <if test="generatortime != null">
+        #{generatortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logintime != null">
+        #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isvalid != null">
+        #{isvalid,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.User">
+    update user
+    <set>
+      <if test="roleid != null">
+        roleId = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="identityid != null">
+        identityId = #{identityid,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=CHAR},
+      </if>
+      <if test="departmentid != null">
+        departmentId = #{departmentid,jdbcType=BIGINT},
+      </if>
+      <if test="generatortime != null">
+        generatorTime = #{generatortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logintime != null">
+        loginTime = #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isvalid != null">
+        isValid = #{isvalid,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.User">
+    update user
+    set roleId = #{roleid,jdbcType=INTEGER},
+      userName = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      identityId = #{identityid,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=CHAR},
+      departmentId = #{departmentid,jdbcType=BIGINT},
+      generatorTime = #{generatortime,jdbcType=TIMESTAMP},
+      loginTime = #{logintime,jdbcType=TIMESTAMP},
+      isValid = #{isvalid,jdbcType=CHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.User">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="roleId" jdbcType="INTEGER" property="roleid" />
+    <result column="userName" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="identityId" jdbcType="VARCHAR" property="identityid" />
+    <result column="telephone" jdbcType="CHAR" property="telephone" />
+    <result column="departmentId" jdbcType="BIGINT" property="departmentid" />
+    <result column="generatorTime" jdbcType="TIMESTAMP" property="generatortime" />
+    <result column="loginTime" jdbcType="TIMESTAMP" property="logintime" />
+    <result column="isValid" jdbcType="CHAR" property="isvalid" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, roleId, userName, password, identityId, telephone, departmentId, generatorTime, 
+    loginTime, isValid, description
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.User">
+    insert into user (Id, roleId, userName, 
+      password, identityId, telephone, 
+      departmentId, generatorTime, loginTime, 
+      isValid, description)
+    values (#{id,jdbcType=INTEGER}, #{roleid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{identityid,jdbcType=VARCHAR}, #{telephone,jdbcType=CHAR}, 
+      #{departmentid,jdbcType=BIGINT}, #{generatortime,jdbcType=TIMESTAMP}, #{logintime,jdbcType=TIMESTAMP}, 
+      #{isvalid,jdbcType=CHAR}, #{description,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.User">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="roleid != null">
+        roleId,
+      </if>
+      <if test="username != null">
+        userName,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="identityid != null">
+        identityId,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="departmentid != null">
+        departmentId,
+      </if>
+      <if test="generatortime != null">
+        generatorTime,
+      </if>
+      <if test="logintime != null">
+        loginTime,
+      </if>
+      <if test="isvalid != null">
+        isValid,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="roleid != null">
+        #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="identityid != null">
+        #{identityid,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=CHAR},
+      </if>
+      <if test="departmentid != null">
+        #{departmentid,jdbcType=BIGINT},
+      </if>
+      <if test="generatortime != null">
+        #{generatortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logintime != null">
+        #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isvalid != null">
+        #{isvalid,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.User">
+    update user
+    <set>
+      <if test="roleid != null">
+        roleId = #{roleid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        userName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="identityid != null">
+        identityId = #{identityid,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=CHAR},
+      </if>
+      <if test="departmentid != null">
+        departmentId = #{departmentid,jdbcType=BIGINT},
+      </if>
+      <if test="generatortime != null">
+        generatorTime = #{generatortime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logintime != null">
+        loginTime = #{logintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isvalid != null">
+        isValid = #{isvalid,jdbcType=CHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.User">
+    update user
+    set roleId = #{roleid,jdbcType=INTEGER},
+      userName = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      identityId = #{identityid,jdbcType=VARCHAR},
+      telephone = #{telephone,jdbcType=CHAR},
+      departmentId = #{departmentid,jdbcType=BIGINT},
+      generatorTime = #{generatortime,jdbcType=TIMESTAMP},
+      loginTime = #{logintime,jdbcType=TIMESTAMP},
+      isValid = #{isvalid,jdbcType=CHAR},
+      description = #{description,jdbcType=VARCHAR}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

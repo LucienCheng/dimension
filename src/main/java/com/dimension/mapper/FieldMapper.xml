@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimension.dao.FieldMapper">
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.Field">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="englishName" jdbcType="VARCHAR" property="englishname" />
+    <result column="chineseName" jdbcType="VARCHAR" property="chinesename" />
+    <result column="fieldType" jdbcType="VARCHAR" property="fieldtype" />
+    <result column="nodeClassfyId" jdbcType="INTEGER" property="nodeclassfyid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, englishName, chineseName, fieldType, nodeClassfyId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from field
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from field
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.Field">
+    insert into field (Id, englishName, chineseName, 
+      fieldType, nodeClassfyId)
+    values (#{id,jdbcType=INTEGER}, #{englishname,jdbcType=VARCHAR}, #{chinesename,jdbcType=VARCHAR}, 
+      #{fieldtype,jdbcType=VARCHAR}, #{nodeclassfyid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.Field">
+    insert into field
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="englishname != null">
+        englishName,
+      </if>
+      <if test="chinesename != null">
+        chineseName,
+      </if>
+      <if test="fieldtype != null">
+        fieldType,
+      </if>
+      <if test="nodeclassfyid != null">
+        nodeClassfyId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="englishname != null">
+        #{englishname,jdbcType=VARCHAR},
+      </if>
+      <if test="chinesename != null">
+        #{chinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldtype != null">
+        #{fieldtype,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeclassfyid != null">
+        #{nodeclassfyid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Field">
+    update field
+    <set>
+      <if test="englishname != null">
+        englishName = #{englishname,jdbcType=VARCHAR},
+      </if>
+      <if test="chinesename != null">
+        chineseName = #{chinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldtype != null">
+        fieldType = #{fieldtype,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeclassfyid != null">
+        nodeClassfyId = #{nodeclassfyid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Field">
+    update field
+    set englishName = #{englishname,jdbcType=VARCHAR},
+      chineseName = #{chinesename,jdbcType=VARCHAR},
+      fieldType = #{fieldtype,jdbcType=VARCHAR},
+      nodeClassfyId = #{nodeclassfyid,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.Field">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="englishName" jdbcType="VARCHAR" property="englishname" />
+    <result column="chineseName" jdbcType="VARCHAR" property="chinesename" />
+    <result column="fieldType" jdbcType="VARCHAR" property="fieldtype" />
+    <result column="nodeClassfyId" jdbcType="INTEGER" property="nodeclassfyid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, englishName, chineseName, fieldType, nodeClassfyId
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from field
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from field
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.Field">
+    insert into field (Id, englishName, chineseName, 
+      fieldType, nodeClassfyId)
+    values (#{id,jdbcType=INTEGER}, #{englishname,jdbcType=VARCHAR}, #{chinesename,jdbcType=VARCHAR}, 
+      #{fieldtype,jdbcType=VARCHAR}, #{nodeclassfyid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.Field">
+    insert into field
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="englishname != null">
+        englishName,
+      </if>
+      <if test="chinesename != null">
+        chineseName,
+      </if>
+      <if test="fieldtype != null">
+        fieldType,
+      </if>
+      <if test="nodeclassfyid != null">
+        nodeClassfyId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="englishname != null">
+        #{englishname,jdbcType=VARCHAR},
+      </if>
+      <if test="chinesename != null">
+        #{chinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldtype != null">
+        #{fieldtype,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeclassfyid != null">
+        #{nodeclassfyid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Field">
+    update field
+    <set>
+      <if test="englishname != null">
+        englishName = #{englishname,jdbcType=VARCHAR},
+      </if>
+      <if test="chinesename != null">
+        chineseName = #{chinesename,jdbcType=VARCHAR},
+      </if>
+      <if test="fieldtype != null">
+        fieldType = #{fieldtype,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeclassfyid != null">
+        nodeClassfyId = #{nodeclassfyid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Field">
+    update field
+    set englishName = #{englishname,jdbcType=VARCHAR},
+      chineseName = #{chinesename,jdbcType=VARCHAR},
+      fieldType = #{fieldtype,jdbcType=VARCHAR},
+      nodeClassfyId = #{nodeclassfyid,jdbcType=INTEGER}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

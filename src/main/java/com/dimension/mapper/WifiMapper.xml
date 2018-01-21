@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimension.dao.WifiMapper">
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.Wifi">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nodeId" jdbcType="BIGINT" property="nodeid" />
+    <result column="wifiId" jdbcType="INTEGER" property="wifiid" />
+    <result column="ch" jdbcType="INTEGER" property="ch" />
+    <result column="rssi" jdbcType="INTEGER" property="rssi" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, nodeId, wifiId, ch, rssi
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wifi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wifi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.Wifi">
+    insert into wifi (id, nodeId, wifiId, 
+      ch, rssi)
+    values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=BIGINT}, #{wifiid,jdbcType=INTEGER}, 
+      #{ch,jdbcType=INTEGER}, #{rssi,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.Wifi">
+    insert into wifi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nodeid != null">
+        nodeId,
+      </if>
+      <if test="wifiid != null">
+        wifiId,
+      </if>
+      <if test="ch != null">
+        ch,
+      </if>
+      <if test="rssi != null">
+        rssi,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nodeid != null">
+        #{nodeid,jdbcType=BIGINT},
+      </if>
+      <if test="wifiid != null">
+        #{wifiid,jdbcType=INTEGER},
+      </if>
+      <if test="ch != null">
+        #{ch,jdbcType=INTEGER},
+      </if>
+      <if test="rssi != null">
+        #{rssi,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Wifi">
+    update wifi
+    <set>
+      <if test="nodeid != null">
+        nodeId = #{nodeid,jdbcType=BIGINT},
+      </if>
+      <if test="wifiid != null">
+        wifiId = #{wifiid,jdbcType=INTEGER},
+      </if>
+      <if test="ch != null">
+        ch = #{ch,jdbcType=INTEGER},
+      </if>
+      <if test="rssi != null">
+        rssi = #{rssi,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Wifi">
+    update wifi
+    set nodeId = #{nodeid,jdbcType=BIGINT},
+      wifiId = #{wifiid,jdbcType=INTEGER},
+      ch = #{ch,jdbcType=INTEGER},
+      rssi = #{rssi,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.Wifi">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="nodeId" jdbcType="BIGINT" property="nodeid" />
+    <result column="wifiId" jdbcType="INTEGER" property="wifiid" />
+    <result column="ch" jdbcType="INTEGER" property="ch" />
+    <result column="rssi" jdbcType="INTEGER" property="rssi" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, nodeId, wifiId, ch, rssi
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wifi
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from wifi
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.Wifi">
+    insert into wifi (id, nodeId, wifiId, 
+      ch, rssi)
+    values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=BIGINT}, #{wifiid,jdbcType=INTEGER}, 
+      #{ch,jdbcType=INTEGER}, #{rssi,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.Wifi">
+    insert into wifi
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="nodeid != null">
+        nodeId,
+      </if>
+      <if test="wifiid != null">
+        wifiId,
+      </if>
+      <if test="ch != null">
+        ch,
+      </if>
+      <if test="rssi != null">
+        rssi,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nodeid != null">
+        #{nodeid,jdbcType=BIGINT},
+      </if>
+      <if test="wifiid != null">
+        #{wifiid,jdbcType=INTEGER},
+      </if>
+      <if test="ch != null">
+        #{ch,jdbcType=INTEGER},
+      </if>
+      <if test="rssi != null">
+        #{rssi,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Wifi">
+    update wifi
+    <set>
+      <if test="nodeid != null">
+        nodeId = #{nodeid,jdbcType=BIGINT},
+      </if>
+      <if test="wifiid != null">
+        wifiId = #{wifiid,jdbcType=INTEGER},
+      </if>
+      <if test="ch != null">
+        ch = #{ch,jdbcType=INTEGER},
+      </if>
+      <if test="rssi != null">
+        rssi = #{rssi,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Wifi">
+    update wifi
+    set nodeId = #{nodeid,jdbcType=BIGINT},
+      wifiId = #{wifiid,jdbcType=INTEGER},
+      ch = #{ch,jdbcType=INTEGER},
+      rssi = #{rssi,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

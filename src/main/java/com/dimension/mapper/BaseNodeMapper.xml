@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimension.dao.BaseNodeMapper">
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.BaseNode">
+    <id column="nodeId" jdbcType="BIGINT" property="nodeid" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+    <result column="location" jdbcType="CHAR" property="location" />
+    <result column="collectTime" jdbcType="TIMESTAMP" property="collecttime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="nodeName" jdbcType="VARCHAR" property="nodename" />
+    <result column="nodeClassfyId" jdbcType="INTEGER" property="nodeclassfyid" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="nodeType" jdbcType="INTEGER" property="nodetype" />
+    <result column="isValid" jdbcType="CHAR" property="isvalid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    nodeId, longitude, latitude, location, collectTime, description, nodeName, nodeClassfyId, 
+    address, userId, nodeType, isValid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_node
+    where nodeId = #{nodeid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_node
+    where nodeId = #{nodeid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.BaseNode">
+    insert into base_node (nodeId, longitude, latitude, 
+      location, collectTime, description, 
+      nodeName, nodeClassfyId, address, 
+      userId, nodeType, isValid
+      )
+    values (#{nodeid,jdbcType=BIGINT}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{location,jdbcType=CHAR}, #{collecttime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{nodename,jdbcType=VARCHAR}, #{nodeclassfyid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=INTEGER}, #{nodetype,jdbcType=INTEGER}, #{isvalid,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.BaseNode">
+    insert into base_node
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nodeid != null">
+        nodeId,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="collecttime != null">
+        collectTime,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="nodename != null">
+        nodeName,
+      </if>
+      <if test="nodeclassfyid != null">
+        nodeClassfyId,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="nodetype != null">
+        nodeType,
+      </if>
+      <if test="isvalid != null">
+        isValid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nodeid != null">
+        #{nodeid,jdbcType=BIGINT},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=CHAR},
+      </if>
+      <if test="collecttime != null">
+        #{collecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="nodename != null">
+        #{nodename,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeclassfyid != null">
+        #{nodeclassfyid,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nodetype != null">
+        #{nodetype,jdbcType=INTEGER},
+      </if>
+      <if test="isvalid != null">
+        #{isvalid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.BaseNode">
+    update base_node
+    <set>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=CHAR},
+      </if>
+      <if test="collecttime != null">
+        collectTime = #{collecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="nodename != null">
+        nodeName = #{nodename,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeclassfyid != null">
+        nodeClassfyId = #{nodeclassfyid,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nodetype != null">
+        nodeType = #{nodetype,jdbcType=INTEGER},
+      </if>
+      <if test="isvalid != null">
+        isValid = #{isvalid,jdbcType=CHAR},
+      </if>
+    </set>
+    where nodeId = #{nodeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.BaseNode">
+    update base_node
+    set longitude = #{longitude,jdbcType=DECIMAL},
+      latitude = #{latitude,jdbcType=DECIMAL},
+      location = #{location,jdbcType=CHAR},
+      collectTime = #{collecttime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      nodeName = #{nodename,jdbcType=VARCHAR},
+      nodeClassfyId = #{nodeclassfyid,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      nodeType = #{nodetype,jdbcType=INTEGER},
+      isValid = #{isvalid,jdbcType=CHAR}
+    where nodeId = #{nodeid,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.BaseNode">
+    <id column="nodeId" jdbcType="BIGINT" property="nodeid" />
+    <result column="longitude" jdbcType="DECIMAL" property="longitude" />
+    <result column="latitude" jdbcType="DECIMAL" property="latitude" />
+    <result column="location" jdbcType="CHAR" property="location" />
+    <result column="collectTime" jdbcType="TIMESTAMP" property="collecttime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="nodeName" jdbcType="VARCHAR" property="nodename" />
+    <result column="nodeClassfyId" jdbcType="INTEGER" property="nodeclassfyid" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="nodeType" jdbcType="INTEGER" property="nodetype" />
+    <result column="isValid" jdbcType="CHAR" property="isvalid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    nodeId, longitude, latitude, location, collectTime, description, nodeName, nodeClassfyId, 
+    address, userId, nodeType, isValid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_node
+    where nodeId = #{nodeid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_node
+    where nodeId = #{nodeid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.BaseNode">
+    insert into base_node (nodeId, longitude, latitude, 
+      location, collectTime, description, 
+      nodeName, nodeClassfyId, address, 
+      userId, nodeType, isValid
+      )
+    values (#{nodeid,jdbcType=BIGINT}, #{longitude,jdbcType=DECIMAL}, #{latitude,jdbcType=DECIMAL}, 
+      #{location,jdbcType=CHAR}, #{collecttime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{nodename,jdbcType=VARCHAR}, #{nodeclassfyid,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, 
+      #{userid,jdbcType=INTEGER}, #{nodetype,jdbcType=INTEGER}, #{isvalid,jdbcType=CHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.BaseNode">
+    insert into base_node
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="nodeid != null">
+        nodeId,
+      </if>
+      <if test="longitude != null">
+        longitude,
+      </if>
+      <if test="latitude != null">
+        latitude,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="collecttime != null">
+        collectTime,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="nodename != null">
+        nodeName,
+      </if>
+      <if test="nodeclassfyid != null">
+        nodeClassfyId,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="nodetype != null">
+        nodeType,
+      </if>
+      <if test="isvalid != null">
+        isValid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="nodeid != null">
+        #{nodeid,jdbcType=BIGINT},
+      </if>
+      <if test="longitude != null">
+        #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=CHAR},
+      </if>
+      <if test="collecttime != null">
+        #{collecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="nodename != null">
+        #{nodename,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeclassfyid != null">
+        #{nodeclassfyid,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nodetype != null">
+        #{nodetype,jdbcType=INTEGER},
+      </if>
+      <if test="isvalid != null">
+        #{isvalid,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.BaseNode">
+    update base_node
+    <set>
+      <if test="longitude != null">
+        longitude = #{longitude,jdbcType=DECIMAL},
+      </if>
+      <if test="latitude != null">
+        latitude = #{latitude,jdbcType=DECIMAL},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=CHAR},
+      </if>
+      <if test="collecttime != null">
+        collectTime = #{collecttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="nodename != null">
+        nodeName = #{nodename,jdbcType=VARCHAR},
+      </if>
+      <if test="nodeclassfyid != null">
+        nodeClassfyId = #{nodeclassfyid,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="nodetype != null">
+        nodeType = #{nodetype,jdbcType=INTEGER},
+      </if>
+      <if test="isvalid != null">
+        isValid = #{isvalid,jdbcType=CHAR},
+      </if>
+    </set>
+    where nodeId = #{nodeid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.BaseNode">
+    update base_node
+    set longitude = #{longitude,jdbcType=DECIMAL},
+      latitude = #{latitude,jdbcType=DECIMAL},
+      location = #{location,jdbcType=CHAR},
+      collectTime = #{collecttime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      nodeName = #{nodename,jdbcType=VARCHAR},
+      nodeClassfyId = #{nodeclassfyid,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      userId = #{userid,jdbcType=INTEGER},
+      nodeType = #{nodetype,jdbcType=INTEGER},
+      isValid = #{isvalid,jdbcType=CHAR}
+    where nodeId = #{nodeid,jdbcType=BIGINT}
+  </update>
+</mapper>
