@@ -7,14 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.dimension.pojo.User;
 import com.dimension.service.UserService;
 
 
 @Controller
 public class BackLoginControl {
-	@Resource
-	private UserService userService;
 	@RequestMapping(value="/back",method={RequestMethod.GET})
 	public String back(){
 		return "/back/login";

@@ -5,7 +5,7 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="userId" jdbcType="INTEGER" property="userid" />
     <result column="operationType" jdbcType="VARCHAR" property="operationtype" />
-    <result column="nodeId" jdbcType="INTEGER" property="nodeid" />
+    <result column="nodeId" jdbcType="BIGINT" property="nodeid" />
     <result column="ip" jdbcType="CHAR" property="ip" />
     <result column="operationTime" jdbcType="TIMESTAMP" property="operationtime" />
   </resultMap>
@@ -27,7 +27,7 @@
       nodeId, ip, operationTime
       )
     values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{operationtype,jdbcType=VARCHAR}, 
-      #{nodeid,jdbcType=INTEGER}, #{ip,jdbcType=CHAR}, #{operationtime,jdbcType=TIMESTAMP}
+      #{nodeid,jdbcType=BIGINT}, #{ip,jdbcType=CHAR}, #{operationtime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.dimension.pojo.Log">
@@ -63,7 +63,7 @@
         #{operationtype,jdbcType=VARCHAR},
       </if>
       <if test="nodeid != null">
-        #{nodeid,jdbcType=INTEGER},
+        #{nodeid,jdbcType=BIGINT},
       </if>
       <if test="ip != null">
         #{ip,jdbcType=CHAR},
@@ -83,7 +83,7 @@
         operationType = #{operationtype,jdbcType=VARCHAR},
       </if>
       <if test="nodeid != null">
-        nodeId = #{nodeid,jdbcType=INTEGER},
+        nodeId = #{nodeid,jdbcType=BIGINT},
       </if>
       <if test="ip != null">
         ip = #{ip,jdbcType=CHAR},
@@ -98,109 +98,7 @@
     update log
     set userId = #{userid,jdbcType=INTEGER},
       operationType = #{operationtype,jdbcType=VARCHAR},
-      nodeId = #{nodeid,jdbcType=INTEGER},
-      ip = #{ip,jdbcType=CHAR},
-      operationTime = #{operationtime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <resultMap id="BaseResultMap" type="com.dimension.pojo.Log">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="userId" jdbcType="INTEGER" property="userid" />
-    <result column="operationType" jdbcType="VARCHAR" property="operationtype" />
-    <result column="nodeId" jdbcType="INTEGER" property="nodeid" />
-    <result column="ip" jdbcType="CHAR" property="ip" />
-    <result column="operationTime" jdbcType="TIMESTAMP" property="operationtime" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    id, userId, operationType, nodeId, ip, operationTime
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from log
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from log
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.dimension.pojo.Log">
-    insert into log (id, userId, operationType, 
-      nodeId, ip, operationTime
-      )
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{operationtype,jdbcType=VARCHAR}, 
-      #{nodeid,jdbcType=INTEGER}, #{ip,jdbcType=CHAR}, #{operationtime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.dimension.pojo.Log">
-    insert into log
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="userid != null">
-        userId,
-      </if>
-      <if test="operationtype != null">
-        operationType,
-      </if>
-      <if test="nodeid != null">
-        nodeId,
-      </if>
-      <if test="ip != null">
-        ip,
-      </if>
-      <if test="operationtime != null">
-        operationTime,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="operationtype != null">
-        #{operationtype,jdbcType=VARCHAR},
-      </if>
-      <if test="nodeid != null">
-        #{nodeid,jdbcType=INTEGER},
-      </if>
-      <if test="ip != null">
-        #{ip,jdbcType=CHAR},
-      </if>
-      <if test="operationtime != null">
-        #{operationtime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Log">
-    update log
-    <set>
-      <if test="userid != null">
-        userId = #{userid,jdbcType=INTEGER},
-      </if>
-      <if test="operationtype != null">
-        operationType = #{operationtype,jdbcType=VARCHAR},
-      </if>
-      <if test="nodeid != null">
-        nodeId = #{nodeid,jdbcType=INTEGER},
-      </if>
-      <if test="ip != null">
-        ip = #{ip,jdbcType=CHAR},
-      </if>
-      <if test="operationtime != null">
-        operationTime = #{operationtime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Log">
-    update log
-    set userId = #{userid,jdbcType=INTEGER},
-      operationType = #{operationtype,jdbcType=VARCHAR},
-      nodeId = #{nodeid,jdbcType=INTEGER},
+      nodeId = #{nodeid,jdbcType=BIGINT},
       ip = #{ip,jdbcType=CHAR},
       operationTime = #{operationtime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}

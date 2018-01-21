@@ -1,14 +1,15 @@
 package com.dimension.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class BaseNode implements Serializable {
     private Long nodeid;
 
-    private Long longitude;
+    private BigDecimal longitude;
 
-    private Long latitude;
+    private BigDecimal latitude;
 
     private String location;
 
@@ -18,7 +19,7 @@ public class BaseNode implements Serializable {
 
     private String nodename;
 
-    private Integer nodeclassfyid;
+    private Integer tableid;
 
     private String address;
 
@@ -38,19 +39,19 @@ public class BaseNode implements Serializable {
         this.nodeid = nodeid;
     }
 
-    public Long getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(Long longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 
-    public Long getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(Long latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
@@ -86,12 +87,12 @@ public class BaseNode implements Serializable {
         this.nodename = nodename == null ? null : nodename.trim();
     }
 
-    public Integer getNodeclassfyid() {
-        return nodeclassfyid;
+    public Integer getTableid() {
+        return tableid;
     }
 
-    public void setNodeclassfyid(Integer nodeclassfyid) {
-        this.nodeclassfyid = nodeclassfyid;
+    public void setTableid(Integer tableid) {
+        this.tableid = tableid;
     }
 
     public String getAddress() {

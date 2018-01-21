@@ -11,7 +11,7 @@ public class Field implements Serializable {
 
     private String fieldtype;
 
-    private Integer nodeclassfyid;
+    private Integer tableid;
 
     private static final long serialVersionUID = 1L;
 
@@ -47,11 +47,11 @@ public class Field implements Serializable {
         this.fieldtype = fieldtype == null ? null : fieldtype.trim();
     }
 
-    public Integer getNodeclassfyid() {
-        return nodeclassfyid;
+    public Integer getTableid() {
+        return tableid;
     }
 
-    public void setNodeclassfyid(Integer nodeclassfyid) {
-        this.nodeclassfyid = nodeclassfyid;
+    public void setTableid(Integer tableid) {
+        this.tableid = tableid;
     }
 }

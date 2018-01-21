@@ -1,4 +1,4 @@
-package com.dimension.serviceImpl;
+/*package com.dimension.serviceImpl;
 
 import javax.annotation.Resource;
 
@@ -19,3 +19,4 @@ private String s;
 	}
 
 }
+*/

@@ -10,7 +10,7 @@ public class Log implements Serializable {
 
     private String operationtype;
 
-    private Integer nodeid;
+    private Long nodeid;
 
     private String ip;
 
@@ -42,11 +42,11 @@ public class Log implements Serializable {
         this.operationtype = operationtype == null ? null : operationtype.trim();
     }
 
-    public Integer getNodeid() {
+    public Long getNodeid() {
         return nodeid;
     }
 
-    public void setNodeid(Integer nodeid) {
+    public void setNodeid(Long nodeid) {
         this.nodeid = nodeid;
     }
 

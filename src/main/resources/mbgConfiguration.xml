@@ -48,15 +48,7 @@
 
 
 		<!-- 列出要生成代码的所有表，这里配置的是不生成Example文件 -->
-		<table tableName="basestation" domainObjectName="Basestation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"    
-               enableSelectByExample="false" selectByExampleQueryId="false" >    
-            <property name="useActualColumnNames" value="false"/>    
-        </table> 
-		<table tableName="base_node" domainObjectName="BaseNode" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"    
-               enableSelectByExample="false" selectByExampleQueryId="false" >    
-            <property name="useActualColumnNames" value="false"/>    
-        </table> 
-		<table tableName="file" domainObjectName="File" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"    
+	<table tableName="file" domainObjectName="File" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"    
                enableSelectByExample="false" selectByExampleQueryId="false" >    
             <property name="useActualColumnNames" value="false"/>    
         </table> 
@@ -105,6 +97,11 @@
             <property name="useActualColumnNames" value="false"/>    
         </table> 
 		<table tableName="group" domainObjectName="Group" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"    
+               enableSelectByExample="false" selectByExampleQueryId="false" >    
+            <property name="useActualColumnNames" value="false"/>    
+        </table> 
+	
+		<table tableName="basestation" domainObjectName="Basestation" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"    
                enableSelectByExample="false" selectByExampleQueryId="false" >    
             <property name="useActualColumnNames" value="false"/>    
         </table> 
