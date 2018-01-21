@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- 这里写的是一个映射类的接口名字一定要一样 -->
+<mapper namespace="com.dimension.dao.UserDao">
+<select id="searchUser" resultType="User">
+select * from user
+</select>
+</mapper>
+
