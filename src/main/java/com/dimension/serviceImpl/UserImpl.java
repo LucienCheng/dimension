@@ -11,6 +11,7 @@ import com.dimension.service.UserService;
 public class UserImpl implements UserService{
 @Resource
 private UserDao userDao;
+private String s;
 	@Override
 	public boolean vertifyLogin(User user) {
 		// TODO Auto-generated method stub
