@@ -35,7 +35,7 @@
 		</javaModelGenerator>
 
 		<!--对应的mapper.xml文件 -->
-		<sqlMapGenerator targetPackage="com.dimension.mapper"
+		<sqlMapGenerator targetPackage="mapper"
 			targetProject="./src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>

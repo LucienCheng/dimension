@@ -6,6 +6,20 @@
         <setting name="logImpl" value="STDOUT_LOGGING" />
  </settings>
  <typeAliases>
-<typeAlias type="com.dimension.pojo.User" alias="User"/>
+    <typeAlias type="com.dimension.pojo.User" alias="User"/>
+<typeAlias type="com.dimension.pojo.BaseNode" alias="BaseNode"/>
+<typeAlias type="com.dimension.pojo.Basestation" alias="Basestation"/>
+<typeAlias type="com.dimension.pojo.Field" alias="Field"/>
+<typeAlias type="com.dimension.pojo.File" alias="File"/>
+<typeAlias type="com.dimension.pojo.Case" alias="Case"/>
+<typeAlias type="com.dimension.pojo.Group" alias="Group"/>
+<typeAlias type="com.dimension.pojo.GroupUser" alias="GroupUser"/>
+<typeAlias type="com.dimension.pojo.Log" alias="Log"/>
+<typeAlias type="com.dimension.pojo.Message" alias="Message"/>
+<typeAlias type="com.dimension.pojo.Role" alias="Role"/>
+<typeAlias type="com.dimension.pojo.Table" alias="Table"/>
+<typeAlias type="com.dimension.pojo.Wifi" alias="Wifi"/>
+<typeAlias type="com.dimension.pojo.CaseNode" alias="CaseNode"/>
+<typeAlias type="com.dimension.pojo.Department" alias="Department"/>
 </typeAliases>
 </configuration>
