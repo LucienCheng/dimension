@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimension.dao.TableFieldMapper">
+	<update id="createTable" statementType="STATEMENT">
+		create table ${tableName} (
+		id int(11) NOT NULL AUTO_INCREMENT,
+		nodeId
+		bigint(20) UNSIGNED NULL DEFAULT NULL ,
+		<foreach collection="fields" item="field"  separator="," close=",">
+			${field.englishname} ${field.fieldtype} DEFAULT NULL
+		</foreach>
+		INDEX `nodeId` (`nodeId`) USING BTREE ,
+		primary key(id)
+		)
+		ENGINE=InnoDB
+		DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+		AUTO_INCREMENT=1
+	</update>
+	<delete id="deleteById">
+		delete from ${tableName}
+		where id = #{id}
+	</delete>
+	<select id="getFieldVariable" resultType="String">
+		select ${tableField} from ${tableName}
+		<where>
+			<if test="nodeId != null">
+				nodeId = #{nodeId}
+			</if>
+		</where>
+	</select>
+	<update id="setFieldVariable" parameterType="Map">
+		update ${tableName}
+		SET
+		<foreach item="value" index="key" collection="var" separator=",">
+			<if test="key != 'id'">
+				${key} = #{value}
+			</if>
+		</foreach>
+		WHERE
+		<foreach item="value" index="key" collection="var" separator=",">
+			<if test="key == 'id'">
+				id = #{value}
+			</if>
+		</foreach>
+	</update>
+</mapper>
