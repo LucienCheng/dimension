@@ -12,6 +12,10 @@ public class CaseNode implements Serializable {
     private Integer caseid;
 
     private Integer alarmid;
+    
+    private BaseNode baseNode;
+    
+    private Case case1;
 
     private static final long serialVersionUID = 1L;
 
@@ -54,4 +58,20 @@ public class CaseNode implements Serializable {
     public void setAlarmid(Integer alarmid) {
         this.alarmid = alarmid;
     }
+
+	public BaseNode getBaseNode() {
+		return baseNode;
+	}
+
+	public void setBaseNode(BaseNode baseNode) {
+		this.baseNode = baseNode;
+	}
+
+	public Case getCase1() {
+		return case1;
+	}
+
+	public void setCase1(Case case1) {
+		this.case1 = case1;
+	}
 }

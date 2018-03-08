@@ -1,5 +1,7 @@
 package com.dimension.dao;
 
+import java.util.List;
+
 import com.dimension.pojo.File;
 
 public interface FileMapper {
@@ -14,4 +16,6 @@ public interface FileMapper {
     int updateByPrimaryKeySelective(File record);
 
     int updateByPrimaryKey(File record);
+    
+    List<File> getFileByNodeId(Long nodeId);
 }

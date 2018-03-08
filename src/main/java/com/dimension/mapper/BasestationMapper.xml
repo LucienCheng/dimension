@@ -101,4 +101,7 @@
       rssi = #{rssi,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+    <select id="getBasestationByNodeId" resultMap="BaseResultMap">
+  select * from basestation nodeId = #{nodeId,jdbcType=BIGINT}
+  </select>
 </mapper>

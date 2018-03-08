@@ -12,6 +12,9 @@ public class Field implements Serializable {
     private String fieldtype;
 
     private Integer tableid;
+    
+    private String value;
+    
 
     private static final long serialVersionUID = 1L;
 
@@ -54,4 +57,21 @@ public class Field implements Serializable {
     public void setTableid(Integer tableid) {
         this.tableid = tableid;
     }
+
+	public String getValue() {
+		return value;
+	}
+
+	public void setValue(String value) {
+		this.value = value;
+	}
+
+	
+
+	
+	
+
+	
+
+	
 }

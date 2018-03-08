@@ -1,5 +1,7 @@
 package com.dimension.dao;
 
+import java.util.List;
+
 import com.dimension.pojo.Basestation;
 
 public interface BasestationMapper {
@@ -14,4 +16,6 @@ public interface BasestationMapper {
     int updateByPrimaryKeySelective(Basestation record);
 
     int updateByPrimaryKey(Basestation record);
+    
+    List<Basestation> getBasestationByNodeId(Long nodeId);
 }

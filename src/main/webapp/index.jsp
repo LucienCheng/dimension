@@ -15,7 +15,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="/dimension/source/js/jquery-3.2.1.js"></script>
 <script src="/dimension/source/bootstrap/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-$.ajax();
+
 </script>
 </head>
 <body id="login">

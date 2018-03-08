@@ -11,6 +11,10 @@
   <sql id="Base_Column_List">
     Id, nodeId, record, caseId, alarmId
   </sql>
+  <select id="getCaseNodeByNodeId" resultMap="BaseResultMap">
+  select * from case_node
+  where nodeId = #{nodeId,jdbcType=BIGINT}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

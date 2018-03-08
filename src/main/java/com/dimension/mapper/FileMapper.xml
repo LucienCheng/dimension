@@ -103,4 +103,7 @@
       updateTime = #{updatetime,jdbcType=TIMESTAMP}
     where Id = #{id,jdbcType=INTEGER}
   </update>
+   <select id="getFileByNodeId" resultMap="BaseResultMap">
+  select * from file nodeId=#{nodeId,jdbcType=BIGINT}
+  </select>
 </mapper>

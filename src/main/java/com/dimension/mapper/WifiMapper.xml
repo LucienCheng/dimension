@@ -90,4 +90,8 @@
       rssi = #{rssi,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="getWifiByNodeId" resultMap="BaseResultMap">
+  select * from wifi nodeId=#{nodeId,jdbcType=BIGINT}
+  </select>
 </mapper>

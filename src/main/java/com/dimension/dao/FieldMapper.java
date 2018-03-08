@@ -1,5 +1,7 @@
 package com.dimension.dao;
 
+import java.util.List;
+
 import com.dimension.pojo.Field;
 
 public interface FieldMapper {
@@ -14,4 +16,6 @@ public interface FieldMapper {
     int updateByPrimaryKeySelective(Field record);
 
     int updateByPrimaryKey(Field record);
+    
+    List<Field> getFieldByTableId(Integer tableId);
 }

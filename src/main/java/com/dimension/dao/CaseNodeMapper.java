@@ -14,4 +14,6 @@ public interface CaseNodeMapper {
     int updateByPrimaryKeySelective(CaseNode record);
 
     int updateByPrimaryKey(CaseNode record);
+    
+    CaseNode getCaseNodeByNodeId(Long nodeId);
 }

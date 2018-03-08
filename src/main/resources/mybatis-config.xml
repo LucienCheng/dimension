@@ -21,5 +21,6 @@
 <typeAlias type="com.dimension.pojo.Wifi" alias="Wifi"/>
 <typeAlias type="com.dimension.pojo.CaseNode" alias="CaseNode"/>
 <typeAlias type="com.dimension.pojo.Department" alias="Department"/>
+<typeAlias type="com.dimension.pojo.MarkNode" alias="MarkNode"/>
 </typeAliases>
 </configuration>

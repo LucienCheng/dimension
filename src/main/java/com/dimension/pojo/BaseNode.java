@@ -3,6 +3,7 @@ package com.dimension.pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class BaseNode implements Serializable {
     private Long nodeid;
@@ -28,6 +29,16 @@ public class BaseNode implements Serializable {
     private Integer nodetype;
 
     private String isvalid;
+    
+    private List<Wifi> wifis;
+    
+    private List<Basestation> basestations;
+    
+    private List<File> files;
+    
+    private List<Field> other;
+    
+    private Table table;
 
     private static final long serialVersionUID = 1L;
 
@@ -126,4 +137,45 @@ public class BaseNode implements Serializable {
     public void setIsvalid(String isvalid) {
         this.isvalid = isvalid == null ? null : isvalid.trim();
     }
+
+	public List<Wifi> getWifis() {
+		return wifis;
+	}
+
+	public void setWifis(List<Wifi> wifis) {
+		this.wifis = wifis;
+	}
+
+	public List<Basestation> getBasestations() {
+		return basestations;
+	}
+
+	public void setBasestations(List<Basestation> basestations) {
+		this.basestations = basestations;
+	}
+
+	public List<File> getFiles() {
+		return files;
+	}
+
+	public void setFiles(List<File> files) {
+		this.files = files;
+	}
+
+	public List<Field> getOther() {
+		return other;
+	}
+
+	public void setOther(List<Field> other) {
+		this.other = other;
+	}
+
+	public Table getTable() {
+		return table;
+	}
+
+	public void setTable(Table table) {
+		this.table = table;
+	}
+    
 }

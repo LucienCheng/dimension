@@ -21,6 +21,7 @@ public class Case implements Serializable {
     private Date begintime;
 
     private Date endtime;
+    
 
     private static final long serialVersionUID = 1L;
 

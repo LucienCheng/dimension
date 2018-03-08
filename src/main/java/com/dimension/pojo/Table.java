@@ -1,6 +1,7 @@
 package com.dimension.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Table implements Serializable {
     private Integer id;
@@ -8,6 +9,8 @@ public class Table implements Serializable {
     private String englishname;
 
     private String chinesename;
+    
+    private List<Field> fields;
 
     private static final long serialVersionUID = 1L;
 
@@ -34,4 +37,12 @@ public class Table implements Serializable {
     public void setChinesename(String chinesename) {
         this.chinesename = chinesename == null ? null : chinesename.trim();
     }
+
+	public List<Field> getFields() {
+		return fields;
+	}
+
+	public void setFields(List<Field> fields) {
+		this.fields = fields;
+	}
 }

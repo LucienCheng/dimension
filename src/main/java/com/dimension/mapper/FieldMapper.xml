@@ -11,6 +11,11 @@
   <sql id="Base_Column_List">
     Id, englishName, chineseName, fieldType, tableId
   </sql>
+  <select id="getFieldByTableId" resultMap="BaseResultMap">
+  select * from field
+  where
+  tableId = #{tableId}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -90,4 +95,5 @@
       tableId = #{tableid,jdbcType=INTEGER}
     where Id = #{id,jdbcType=INTEGER}
   </update>
+  
 </mapper>
