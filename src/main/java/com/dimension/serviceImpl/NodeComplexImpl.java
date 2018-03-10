@@ -12,30 +12,32 @@ import com.dimension.pojo.CaseNode;
 import com.dimension.pojo.Field;
 import com.dimension.pojo.Table;
 import com.dimension.service.BaseNodeBuilder;
+import com.dimension.service.CaseNodeBuilder;
 import com.dimension.service.NodeComplex;
+import com.dimension.service.TableFieldService;
 
 public class NodeComplexImpl implements NodeComplex {
 	@Resource
+	private TableFieldService tableFieldService;
+	@Resource
 	private TableMapper tableMapper;
 	@Resource
-	private FieldMapper fieldMapper;
-	@Resource
-	private TableFieldMapper tableFieldMapper;
 	private BaseNodeBuilder baseNodeBuilder;
+	@Resource
+	private CaseNodeBuilder caseNodeBuilder;
 	/**
 	 * 复杂的构造一个基本点，首先构造基本的信息的点，然后从table中搜索，然后再从文本域中搜索，然后再动态检索表，和字段信息
 	 */
 	@Override
 	public BaseNode constructBaseNode(Long nodeId) {
 		baseNodeBuilder.setNodeId(nodeId);
+		baseNodeBuilder.buildBasestation();
+		baseNodeBuilder.buildFile();
+		baseNodeBuilder.buildWifi();
 		BaseNode baseNode = baseNodeBuilder.getResult();
 		if (baseNode.getTableid()!=null) {
 			Table table = tableMapper.selectByPrimaryKey(baseNode.getTableid());
-			List<Field> fields = fieldMapper.getFieldByTableId(baseNode.getTableid());
-			// 获取每个文本域的值
-			for (Field field : fields) {
-				field.setValue(tableFieldMapper.getFieldVariable(nodeId, table.getEnglishname(),field.getEnglishname()));
-			}
+			List<Field> fields=tableFieldService.getFieldValue(table, nodeId);
 			// 设置文本域
 			baseNode.setOther(fields);
 			baseNode.setTable(table);
@@ -44,17 +46,17 @@ public class NodeComplexImpl implements NodeComplex {
 	}
 
 	/**
-	 * 构造一个案件点。
+	 * 构造一个复杂的案件点。
 	 */
 	@Override
 	public CaseNode constructCaseNode(Long nodeId) {
-		BaseNode baseNode = constructBaseNode(nodeId);
-		CaseNode caseNode = new CaseNodeBuilderImpl(nodeId).getResult();
-		caseNode.setBaseNode(baseNode);
+		caseNodeBuilder.setNodeId(nodeId);
+		caseNodeBuilder.buildCase();
+		CaseNode caseNode = caseNodeBuilder.getResult();
+		caseNode.setBaseNode(constructBaseNode(nodeId));
 		return caseNode;
 	}
-	public NodeComplexImpl(Long nodeId) {
-		baseNodeBuilder = new BaseNodeBuilderImpl(nodeId);
-	}
+	
+	
 
 }

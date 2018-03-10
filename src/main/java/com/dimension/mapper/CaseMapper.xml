@@ -6,14 +6,13 @@
     <result column="caseCode" jdbcType="VARCHAR" property="casecode" />
     <result column="caseName" jdbcType="VARCHAR" property="casename" />
     <result column="caseType" jdbcType="VARCHAR" property="casetype" />
-    <result column="userId" jdbcType="INTEGER" property="userid" />
     <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="groupId" jdbcType="INTEGER" property="groupid" />
     <result column="beginTime" jdbcType="TIMESTAMP" property="begintime" />
     <result column="endTime" jdbcType="TIMESTAMP" property="endtime" />
   </resultMap>
   <sql id="Base_Column_List">
-    Id, caseCode, caseName, caseType, userId, description, groupId, beginTime, endTime
+    Id, caseCode, caseName, caseType, description, groupId, beginTime, endTime
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -27,13 +26,11 @@
   </delete>
   <insert id="insert" parameterType="com.dimension.pojo.Case">
     insert into case (Id, caseCode, caseName, 
-      caseType, userId, description, 
-      groupId, beginTime, endTime
-      )
+      caseType, description, groupId, 
+      beginTime, endTime)
     values (#{id,jdbcType=INTEGER}, #{casecode,jdbcType=VARCHAR}, #{casename,jdbcType=VARCHAR}, 
-      #{casetype,jdbcType=VARCHAR}, #{userid,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR}, 
-      #{groupid,jdbcType=INTEGER}, #{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}
-      )
+      #{casetype,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{groupid,jdbcType=INTEGER}, 
+      #{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.dimension.pojo.Case">
     insert into case
@@ -49,9 +46,6 @@
       </if>
       <if test="casetype != null">
         caseType,
-      </if>
-      <if test="userid != null">
-        userId,
       </if>
       <if test="description != null">
         description,
@@ -79,9 +73,6 @@
       <if test="casetype != null">
         #{casetype,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null">
-        #{userid,jdbcType=INTEGER},
-      </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
       </if>
@@ -108,9 +99,6 @@
       <if test="casetype != null">
         caseType = #{casetype,jdbcType=VARCHAR},
       </if>
-      <if test="userid != null">
-        userId = #{userid,jdbcType=INTEGER},
-      </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
       </if>
@@ -131,7 +119,6 @@
     set caseCode = #{casecode,jdbcType=VARCHAR},
       caseName = #{casename,jdbcType=VARCHAR},
       caseType = #{casetype,jdbcType=VARCHAR},
-      userId = #{userid,jdbcType=INTEGER},
       description = #{description,jdbcType=VARCHAR},
       groupId = #{groupid,jdbcType=INTEGER},
       beginTime = #{begintime,jdbcType=TIMESTAMP},

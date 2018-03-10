@@ -26,6 +26,10 @@
     delete from field
     where Id = #{id,jdbcType=INTEGER}
   </delete>
+   <delete id="deleteByTableId" parameterType="java.lang.Integer">
+    delete from field
+    where tableId = #{id,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.dimension.pojo.Field">
     insert into field (Id, englishName, chineseName, 
       fieldType, tableId)

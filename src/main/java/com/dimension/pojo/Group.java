@@ -9,6 +9,8 @@ public class Group implements Serializable {
 
     private String description;
 
+    private Integer grouperid;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -33,5 +35,13 @@ public class Group implements Serializable {
 
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
+    }
+
+    public Integer getGrouperid() {
+        return grouperid;
+    }
+
+    public void setGrouperid(Integer grouperid) {
+        this.grouperid = grouperid;
     }
 }

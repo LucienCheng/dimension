@@ -6,6 +6,8 @@ import com.dimension.pojo.Field;
 
 public interface FieldMapper {
     int deleteByPrimaryKey(Integer id);
+    
+    int deleteByTableId(Integer tableId);
 
     int insert(Field record);
 

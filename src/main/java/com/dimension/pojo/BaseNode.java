@@ -26,7 +26,7 @@ public class BaseNode implements Serializable {
 
     private Integer userid;
 
-    private Integer nodetype;
+    private String nodetype;
 
     private String isvalid;
     
@@ -39,6 +39,9 @@ public class BaseNode implements Serializable {
     private List<Field> other;
     
     private Table table;
+    
+    //是否可以编辑这个点
+    private int isEdited;
 
     private static final long serialVersionUID = 1L;
 
@@ -122,11 +125,11 @@ public class BaseNode implements Serializable {
         this.userid = userid;
     }
 
-    public Integer getNodetype() {
+    public String getNodetype() {
         return nodetype;
     }
 
-    public void setNodetype(Integer nodetype) {
+    public void setNodetype(String nodetype) {
         this.nodetype = nodetype;
     }
 
@@ -176,6 +179,14 @@ public class BaseNode implements Serializable {
 
 	public void setTable(Table table) {
 		this.table = table;
+	}
+
+	public int getIsEdited() {
+		return isEdited;
+	}
+
+	public void setIsEdited(int isEdited) {
+		this.isEdited = isEdited;
 	}
     
 }

@@ -25,6 +25,8 @@ public class User implements Serializable {
     private String isvalid;
 
     private String description;
+    
+    private Department department;
 
     private static final long serialVersionUID = 1L;
 
@@ -115,4 +117,12 @@ public class User implements Serializable {
     public void setDescription(String description) {
         this.description = description == null ? null : description.trim();
     }
+
+	public Department getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(Department department) {
+		this.department = department;
+	}
 }

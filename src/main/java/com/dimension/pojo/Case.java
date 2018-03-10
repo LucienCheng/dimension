@@ -12,8 +12,6 @@ public class Case implements Serializable {
 
     private String casetype;
 
-    private Integer userid;
-
     private String description;
 
     private Integer groupid;
@@ -21,7 +19,6 @@ public class Case implements Serializable {
     private Date begintime;
 
     private Date endtime;
-    
 
     private static final long serialVersionUID = 1L;
 
@@ -55,14 +52,6 @@ public class Case implements Serializable {
 
     public void setCasetype(String casetype) {
         this.casetype = casetype == null ? null : casetype.trim();
-    }
-
-    public Integer getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Integer userid) {
-        this.userid = userid;
     }
 
     public String getDescription() {

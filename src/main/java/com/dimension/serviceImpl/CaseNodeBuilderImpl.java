@@ -2,6 +2,7 @@ package com.dimension.serviceImpl;
 
 import javax.annotation.Resource;
 
+import org.springframework.stereotype.Service;
 
 import com.dimension.dao.CaseMapper;
 import com.dimension.dao.CaseNodeMapper;
@@ -11,33 +12,54 @@ import com.dimension.pojo.CaseNode;
 import com.dimension.service.BaseNodeBuilder;
 import com.dimension.service.CaseNodeBuilder;
 
+@Service
 public class CaseNodeBuilderImpl implements CaseNodeBuilder {
 	@Resource
 	private CaseMapper caseMapper;
 	@Resource
 	private CaseNodeMapper caseNodeMapper;
-	private Long nodeId;
+	@Resource
 	private BaseNodeBuilder baseNodeBuilder;
-	@Override
-	public BaseNode buildBaseNode(Long nodeId) {
-		return baseNodeBuilder.getResult();
-	}
-	
+	private Long nodeId;
+	private CaseNode caseNode;
+	private BaseNode baseNode;
 	@Override
 	public CaseNode getResult() {
-		CaseNode caseNode=caseNodeMapper.getCaseNodeByNodeId(nodeId);
-		caseNode.setCase1(buildCase(caseNode.getCaseid()));
-		caseNode.setBaseNode(buildBaseNode(nodeId));
 		return caseNode;
 	}
+
 	@Override
-	public Case buildCase(Integer caseId) {
-		// TODO Auto-generated method stub
-		return caseMapper.selectByPrimaryKey(caseId);
+	public boolean buildCase() {
+		caseNode.setCase1(caseMapper.selectByPrimaryKey(caseNode.getCaseid()));
+		return true;
+
 	}
-	public CaseNodeBuilderImpl(Long nodeId) {
-		baseNodeBuilder=new BaseNodeBuilderImpl(nodeId);
-		this.nodeId=nodeId;
+
+	public Long getNodeId() {
+		return nodeId;
+	}
+
+	public void setNodeId(Long nodeId) {
+		caseNode = caseNodeMapper.getCaseNodeByNodeId(nodeId);
+		baseNodeBuilder.setNodeId(nodeId);
+		baseNode = baseNodeBuilder.getResult();
+		caseNode.setBaseNode(baseNode);
+		this.nodeId = nodeId;
+	}
+	@Override
+	public boolean buildWifi() {
+		return baseNodeBuilder.buildWifi();
+	}
+
+	@Override
+	public boolean buildFile() {
+		return baseNodeBuilder.buildFile();
+	}
+
+	@Override
+	public boolean buildBasestation() {
+
+		return baseNodeBuilder.buildBasestation();
 	}
 
 	

@@ -3,7 +3,9 @@ package com.dimension.serviceImpl;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.enterprise.inject.New;
 
+import org.springframework.stereotype.Service;
 
 import com.dimension.dao.BaseNodeMapper;
 import com.dimension.dao.BasestationMapper;
@@ -13,7 +15,7 @@ import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.Basestation;
 import com.dimension.pojo.File;
 import com.dimension.pojo.Wifi;
-
+@Service
 public class BaseNodeBuilderImpl implements com.dimension.service.BaseNodeBuilder {
 	@Resource
 	private WifiMapper wifiMapper;
@@ -26,40 +28,40 @@ public class BaseNodeBuilderImpl implements com.dimension.service.BaseNodeBuilde
 
 	private Long nodeId;
 	
-	public BaseNodeBuilderImpl(Long nodeId) {
-		this.setNodeId(nodeId);
-	}
+	private BaseNode baseNode;
+	
+	
 	@Override
-	public List<Wifi> buildWifi(Long nodeId) {
-		// TODO Auto-generated method stub
-		return wifiMapper.getWifiByNodeId(nodeId);
-	}
-
-	@Override
-	public List<File> buildFile(Long nodeId) {
-		// TODO Auto-generated method stub
-		return fileMapper.getFileByNodeId(nodeId);
+	public boolean buildWifi() {
+		baseNode.setWifis( wifiMapper.getWifiByNodeId(nodeId));
+		return true;
 	}
 
 	@Override
-	public List<Basestation> buildBasestation(Long nodeId) {
-		// TODO Auto-generated method stub
-		return basestationMapper.getBasestationByNodeId(nodeId);
+	public boolean buildFile() {
+		baseNode.setFiles(fileMapper.getFileByNodeId(nodeId)); 
+		return true;
+	}
+
+	@Override
+	public boolean buildBasestation() {
+		baseNode.setBasestations(basestationMapper.getBasestationByNodeId(nodeId));
+		return true;
+		
 	}
 
 	@Override
 	public BaseNode getResult() {
-		BaseNode baseNode=baseNodeMapper.selectByPrimaryKey(nodeId);
-		baseNode.setFiles(buildFile(nodeId));
-		baseNode.setWifis(buildWifi(nodeId));
-		baseNode.setBasestations(buildBasestation(nodeId));
 		return baseNode;
 	}
 	public Long getNodeId() {
 		return nodeId;
 	}
 	public void setNodeId(Long nodeId) {
+		 baseNode=baseNodeMapper.selectByPrimaryKey(nodeId);
 		this.nodeId = nodeId;
 	}
+
+	
 
 }
