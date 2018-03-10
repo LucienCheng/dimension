@@ -25,14 +25,15 @@ public class BaseNodeConditon {
 	private Integer userId;
 	//查询用户的角色
 	private Integer roleId;
-	//可查询的部门id
+	//可查询的子部门id
 	private List<Integer> DpIds;
 	//自己所在的部门
 	private Integer DpId;
-	//所在的小组
-	private Integer groupId;
-	//
-	private boolean isGrouper;
+	//所在的小组(只是组员的)
+	private List<Integer> groupIds;
+	//所在的小组（是组长的）
+	private List<Integer> grouperIds;
+	
 	//经纬度
 	private BigDecimal firstlongitude;
 
@@ -104,14 +105,7 @@ public class BaseNodeConditon {
 
 	
 
-	public Integer getGroupId() {
-		return groupId;
-	}
-
-	public void setGroupId(Integer groupId) {
-		this.groupId = groupId;
-	}
-
+	
 	public Date getBeginTime() {
 		return beginTime;
 	}
@@ -152,13 +146,7 @@ public class BaseNodeConditon {
 		this.address = address;
 	}
 
-	public boolean isGrouper() {
-		return isGrouper;
-	}
-
-	public void setGrouper(boolean isGrouper) {
-		this.isGrouper = isGrouper;
-	}
+	
 
 	public List<Integer> getDpIds() {
 		return DpIds;
@@ -175,4 +163,22 @@ public class BaseNodeConditon {
 	public void setDpId(Integer dpId) {
 		DpId = dpId;
 	}
+
+	public List<Integer> getGroupIds() {
+		return groupIds;
+	}
+
+	public void setGroupIds(List<Integer> groupIds) {
+		this.groupIds = groupIds;
+	}
+
+	public List<Integer> getGrouperIds() {
+		return grouperIds;
+	}
+
+	public void setGrouperIds(List<Integer> grouperIds) {
+		this.grouperIds = grouperIds;
+	}
+
+	
 }

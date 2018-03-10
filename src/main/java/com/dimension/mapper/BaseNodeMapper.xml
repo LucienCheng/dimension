@@ -191,11 +191,13 @@
 		#{nodeid,jdbcType=BIGINT}
 	</update>
 	<select id="selectEdited" resultType="com.dimension.pojo.BaseNode">
-		select base_node.* ,`user`.departmentId,groupId ,1 as isEdited from base_node
+		select base_node.* ,`user`.departmentId,groupId ,1 as isEdited from
+		base_node
 		LEFT
 		JOIN case_node on
 		base_node.nodeId=case_node.nodeId
-		LEFT JOIN `case` on
+		LEFT
+		JOIN `case` on
 		`case`.id=case_node.caseId
 		LEFT JOIN `user` ON
 		`user`.Id=base_node.userId
@@ -224,15 +226,16 @@
 			<!-- 这里是根据用户的角色和部门来的， -->
 			<if test="roleId != null">
 				<choose>
-					<!-- 组长 ，可编辑自己的点位和案件点位信息 -->
-					<when test="roleId == 1">
-						<if test="groupId != null">
-							and (userId=#{userId} or groupId = #{groupId})
-						</if>
-					</when>
-					<!-- 普通业务员 ,只可以编辑自己的点位 -->
+					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
 					<when test="roleId == 2">
-						and userId=#{userId}
+						<if test="grouperIds != null">
+							and (userId=#{userId} or groupId in
+							<foreach collection="grouperIds" item="groupId" open="("
+								close=")" separator=",">
+								#{groupId}
+							</foreach>
+							)
+						</if>
 					</when>
 					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
 					<when test="roleId == 4">
@@ -246,11 +249,13 @@
 		</trim>
 	</select>
 	<select id="selectUnEdited" resultType="com.dimension.pojo.BaseNode">
-		select base_node.* ,`user`.departmentId,groupId ,1 as isEdited from base_node
+		select base_node.* ,`user`.departmentId,groupId ,0 as isEdited from
+		base_node
 		LEFT
 		JOIN case_node on
 		base_node.nodeId=case_node.nodeId
-		LEFT JOIN `case` on
+		LEFT
+		JOIN `case` on
 		`case`.id=case_node.caseId
 		LEFT JOIN `user` ON
 		`user`.Id=base_node.userId
@@ -280,9 +285,15 @@
 			<if test="roleId != null">
 				<choose>
 					<!-- 普通业务员和组长查看不属于自己的基础点或者案件中心点 -->
-					<when test="roleId == 1 or roleId == 2">
-						<if test="groupId != null">
-							and userId!=#{userId} and (nodetype='1' or nodetype='3')
+					<when test="roleId == 2">
+						<if test="groupIds != null">
+							and ( userId!=#{userId} and (nodetype='1' or
+							nodetype='3') or groupId in 
+							<foreach collection="groupIds" item="groupId" open="("
+								close=")" separator=",">
+								#{groupId}
+							</foreach>
+							)
 						</if>
 					</when>
 					<!-- 部门管理员 ，查看自己子部门的所有点位 -->

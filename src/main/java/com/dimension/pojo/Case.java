@@ -2,6 +2,7 @@ package com.dimension.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class Case implements Serializable {
     private Integer id;
@@ -19,7 +20,10 @@ public class Case implements Serializable {
     private Date begintime;
 
     private Date endtime;
-
+    
+private Long departmentId;
+    //是否可以编辑这个案件
+    private int isEdited;
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -85,4 +89,22 @@ public class Case implements Serializable {
     public void setEndtime(Date endtime) {
         this.endtime = endtime;
     }
+
+	public int getIsEdited() {
+		return isEdited;
+	}
+
+	public void setIsEdited(int isEdited) {
+		this.isEdited = isEdited;
+	}
+
+	public Long getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(Long departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	
 }

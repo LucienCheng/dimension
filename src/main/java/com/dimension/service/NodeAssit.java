@@ -53,8 +53,8 @@ public interface NodeAssit {
 	//提供给检索点位时使用，点的类型包括了案件点，基础点，标记点。
 	List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon);
 	
-	//提供给地图检索使用。这里的点位包括了图片信息。
-	List<BaseNode> searchMapNode(BaseNodeConditon baseNodeConditon);
+	//查看自己标记的点位。
+	List<BaseNode> searchMarkNode(Integer userId);
 	
 	//提供搜索案件点位的检索。通过搜索案件，可以获得案件点位信息。
 	List<Case> searchCase(CaseCondition caseCondition);

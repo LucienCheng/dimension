@@ -1,5 +1,8 @@
 package com.dimension.dao;
 
+import java.util.List;
+
+import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.MarkNode;
 
 public interface MarkNodeMapper {
@@ -14,4 +17,6 @@ public interface MarkNodeMapper {
     int updateByPrimaryKeySelective(MarkNode record);
 
     int updateByPrimaryKey(MarkNode record);
+    
+    public List<BaseNode> searchMarkNode(Integer userId) ;
 }

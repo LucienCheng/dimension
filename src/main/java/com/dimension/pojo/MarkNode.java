@@ -9,6 +9,8 @@ public class MarkNode implements Serializable {
 
     private Long nodeid;
 
+    private Integer isedited;
+
     private static final long serialVersionUID = 1L;
 
     public Long getMarkid() {
@@ -33,5 +35,13 @@ public class MarkNode implements Serializable {
 
     public void setNodeid(Long nodeid) {
         this.nodeid = nodeid;
+    }
+
+    public Integer getIsedited() {
+        return isedited;
+    }
+
+    public void setIsedited(Integer isedited) {
+        this.isedited = isedited;
     }
 }

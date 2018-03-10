@@ -232,24 +232,26 @@ public class NodeAssitImpl implements NodeAssit {
 		tableFieldService.dropRecord(baseNode.getTable().getEnglishname(), baseNode.getNodeid());
 		return true;
 	}
-
+	
 	// 获取的是简单点位的信息。
 	@Override
 	public List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon) {
-		// 包括案件点，基础点，标记点
+		// 包括案件点，基础点
 		List<BaseNode> baseNodes =baseNodeMapper.selectEdited(baseNodeConditon);
-		baseNodes.addAll(baseNodeMapper.selectUnEdited(baseNodeConditon));
+		if (baseNodeConditon.getRoleId()!=3) {
+			//添加不可编辑的店
+			baseNodes.addAll(baseNodeMapper.selectUnEdited(baseNodeConditon));
+		}
 		return baseNodes;
 	}
-
-	// 获取的是地图上的信息。
+	
+	//搜索标记点
 	@Override
-	public List<BaseNode> searchMapNode(BaseNodeConditon baseNodeConditon) {
-		// 包括案件点，基础点，标记点，基本信息加上图片
-		List<BaseNode> baseNodes = new ArrayList<BaseNode>();
-		return baseNodes;
+	public List<BaseNode> searchMarkNode(Integer userId) {
+		// TODO Auto-generated method stub
+		return markNodeMapper.searchMarkNode(userId);
 	}
-
+	
 	// 搜索案件，并且展示案件点。
 	@Override
 	public List<Case> searchCase(CaseCondition caseCondition) {
@@ -257,4 +259,6 @@ public class NodeAssitImpl implements NodeAssit {
 		List<Case> cases = new ArrayList<Case>();
 		return cases;
 	}
+
+	
 }

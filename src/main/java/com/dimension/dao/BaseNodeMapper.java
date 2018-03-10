@@ -24,4 +24,5 @@ public interface BaseNodeMapper {
     //搜索只能查看的点位
     List<BaseNode> selectUnEdited(BaseNodeConditon baseNodeConditon);
     
+    
 }
