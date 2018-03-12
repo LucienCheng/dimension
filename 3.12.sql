@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-01-21 17:56:03
+Date: 2018-03-12 14:57:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,7 @@ CREATE TABLE `base_node` (
 `tableId`  int(11) NULL DEFAULT NULL ,
 `address`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '详细的地址' ,
 `userId`  int(11) NULL DEFAULT NULL ,
-`nodeType`  int(11) NULL DEFAULT NULL COMMENT '点位类型，1基础点，2案件点，3案件中心点' ,
+`nodeType`  char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' COMMENT '点位类型，1基础点，2案件点，3案件中心点' ,
 `isValid`  char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '是否有效' ,
 PRIMARY KEY (`nodeId`),
 FOREIGN KEY (`userId`) REFERENCES `user` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
@@ -48,7 +48,7 @@ AUTO_INCREMENT=3
 -- Records of base_node
 -- ----------------------------
 BEGIN;
-INSERT INTO `base_node` VALUES ('1', null, '11.0000000000', null, null, null, null, null, null, null, null, null), ('2', '113.0846840000', null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `base_node` VALUES ('1', null, '11.0000000000', null, null, null, null, null, null, null, null, '1'), ('2', '113.0846840000', null, null, null, null, null, null, null, null, null, '1');
 COMMIT;
 
 -- ----------------------------
@@ -87,16 +87,17 @@ CREATE TABLE `case` (
 `caseCode`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '案件的编号' ,
 `caseName`  varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '案件名字' ,
 `caseType`  varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '案件类型' ,
-`userId`  int(16) NULL DEFAULT NULL COMMENT '接处警的人员' ,
 `description`  varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' COMMENT '案件描述' ,
 `groupId`  int(11) NULL DEFAULT NULL COMMENT '属于哪个成员组的' ,
 `beginTime`  datetime(4) NULL DEFAULT '0000-00-00 00:00:00.0000' COMMENT '开始时间' ,
 `endTime`  datetime(4) NULL DEFAULT '0000-00-00 00:00:00.0000' ,
+`departmentId`  bigint(20) UNSIGNED NULL DEFAULT NULL ,
 PRIMARY KEY (`Id`),
 FOREIGN KEY (`groupId`) REFERENCES `group` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+FOREIGN KEY (`departmentId`) REFERENCES `department` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 INDEX `case_type_id` (`caseType`) USING BTREE ,
-INDEX `user_id` (`userId`) USING BTREE ,
-INDEX `groupId` (`groupId`) USING BTREE 
+INDEX `groupId` (`groupId`) USING BTREE ,
+INDEX `departmentId` (`departmentId`) USING BTREE 
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
@@ -251,6 +252,7 @@ CREATE TABLE `group` (
 `Id`  int(11) NOT NULL AUTO_INCREMENT ,
 `groupName`  varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' ,
 `description`  varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '' ,
+`grouperId`  int(11) NULL DEFAULT NULL COMMENT '组长的id' ,
 PRIMARY KEY (`Id`)
 )
 ENGINE=InnoDB
@@ -320,6 +322,32 @@ BEGIN;
 COMMIT;
 
 -- ----------------------------
+-- Table structure for mark_node
+-- ----------------------------
+DROP TABLE IF EXISTS `mark_node`;
+CREATE TABLE `mark_node` (
+`markId`  bigint(20) NOT NULL ,
+`userId`  int(11) NOT NULL ,
+`nodeId`  bigint(20) UNSIGNED NOT NULL ,
+`isEdited`  int(11) NULL DEFAULT NULL ,
+PRIMARY KEY (`markId`),
+FOREIGN KEY (`userId`) REFERENCES `user` (`Id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`nodeId`) REFERENCES `base_node` (`nodeId`) ON DELETE CASCADE ON UPDATE CASCADE,
+INDEX `mark_node_ibfk_1` (`userId`) USING BTREE ,
+INDEX `mark_node_ibfk_2` (`nodeId`) USING BTREE 
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+
+;
+
+-- ----------------------------
+-- Records of mark_node
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for message
 -- ----------------------------
 DROP TABLE IF EXISTS `message`;
@@ -360,7 +388,7 @@ PRIMARY KEY (`id`)
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-AUTO_INCREMENT=1
+AUTO_INCREMENT=5
 
 ;
 
@@ -368,6 +396,7 @@ AUTO_INCREMENT=1
 -- Records of role
 -- ----------------------------
 BEGIN;
+INSERT INTO `role` VALUES ('2', '普通业务员'), ('3', '超级管理员'), ('4', '部门管理员');
 COMMIT;
 
 -- ----------------------------
@@ -501,7 +530,7 @@ ALTER TABLE `message` AUTO_INCREMENT=1;
 -- ----------------------------
 -- Auto increment value for role
 -- ----------------------------
-ALTER TABLE `role` AUTO_INCREMENT=1;
+ALTER TABLE `role` AUTO_INCREMENT=5;
 
 -- ----------------------------
 -- Auto increment value for table_type
