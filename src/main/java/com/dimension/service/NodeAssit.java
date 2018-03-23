@@ -21,17 +21,17 @@ import com.dimension.pojo.MarkNode;
  * @Description:点位操作的助手，包括点位的查找，获取，删除，修改操作。
  */
 public interface NodeAssit {
-
+	//通过id获取一个完整的基础点位信息
 	BaseNode getBaseNode(Long nodeId);
-
+	//通过id获取一个完整的案件点位信息
 	CaseNode getCaseNode(Long nodeId);
-
+	//将文件添加
 	boolean addFile(File file,HttpServletRequest request,MultipartFile multipartFile);
-
+	//删除文件
 	boolean deleteFile(File file,HttpServletRequest request);
-
+	//设置特殊点位的值
 	boolean setFields(BaseNode baseNode);
-
+	//删除某条记录
 	boolean dropRecord(BaseNode baseNode);
 	
 	boolean setCase(CaseNode caseNode);

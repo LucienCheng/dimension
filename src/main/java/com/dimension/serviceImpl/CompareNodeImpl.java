@@ -2,8 +2,10 @@ package com.dimension.serviceImpl;
 
 import java.math.BigDecimal;
 
-import com.dimension.service.CompareNodeService;
+import org.springframework.stereotype.Service;
 
+import com.dimension.service.CompareNodeService;
+@Service
 public class CompareNodeImpl implements CompareNodeService {
 
 	@Override

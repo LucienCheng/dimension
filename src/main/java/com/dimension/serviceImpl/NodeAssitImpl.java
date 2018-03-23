@@ -2,8 +2,8 @@ package com.dimension.serviceImpl;
 
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.naming.java.javaURLContextFactory;
+import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.dimension.dao.BaseNodeMapper;
@@ -35,7 +35,7 @@ import com.dimension.service.CompareNodeService;
 import com.dimension.service.NodeAssit;
 import com.dimension.service.NodeComplex;
 import com.dimension.service.TableFieldService;
-
+@Service
 public class NodeAssitImpl implements NodeAssit {
 	private final static String filePathPrefix = "/file/";
 	private CompareNodeService compareNodeService = new CompareNodeImpl();
@@ -86,6 +86,7 @@ public class NodeAssitImpl implements NodeAssit {
 		return compareNodeService.compareNode(nodeIdFirst, nodeIdSecond);
 	}
 
+	//这个是需要在casenode中设置一下从哪升级过来的，设置一下baseNodeid,默认来说，是不复制文件的
 	@Override
 	public boolean upgradeNode(CaseNode caseNode) {
 		// 插入案件信息
@@ -93,11 +94,6 @@ public class NodeAssitImpl implements NodeAssit {
 		// 复制基础点位信息，并且添加案件的信息
 		BaseNode baseNode = nodeComplex.constructBaseNode(caseNode.getBaseNode().getNodeid());
 		baseNodeMapper.insert(baseNode);
-		// 插入文件
-		for (File file : baseNode.getFiles()) {
-			file.setNodeid(baseNode.getNodeid());
-			fileMapper.insert(file);
-		}
 		// 插入wifi
 		for (Wifi wifi : baseNode.getWifis()) {
 			wifi.setNodeid(baseNode.getNodeid());
@@ -118,38 +114,46 @@ public class NodeAssitImpl implements NodeAssit {
 		tableFieldService.insertRecord(baseNode.getTable().getEnglishname(), map);
 		return true;
 	}
-
+//不对文件处理，并且将基础点的信息和降级后，和基础信息相关的信息进行一个比较，提供给点位拥有着进行比较的方便
 	@Override
 	public boolean degradeNode(BaseNode baseNode) {
-		// 复制案件点位的BaseNode的信息，并且设置案件点无效
-		baseNode.setIsvalid("0");
-		baseNodeMapper.updateByPrimaryKeySelective(baseNode);
-		baseNode.setIsvalid("1");
-		baseNodeMapper.insert(baseNode);
-
-		// 插入文件
-		for (File file : baseNode.getFiles()) {
-			file.setNodeid(baseNode.getNodeid());
-			fileMapper.insert(file);
+		
+		//首先先看一下caseNode中的baseNodeId,如果为空，那就直接删除案件信息。
+		CaseNode caseNode=caseNodeMapper.getCaseNodeByNodeId(baseNode.getNodeid());
+		if (caseNode.getBaseNodeId()==null) {
+			//直接删除,然后这个基础点位就是归属一个这个用户了
+			caseNodeMapper.deleteByPrimaryKey(caseNode.getId());
+			baseNode.setNodetype("1");
+			baseNodeMapper.updateByPrimaryKeySelective(baseNode);
 		}
-		// 插入wifi
-		for (Wifi wifi : baseNode.getWifis()) {
-			wifi.setNodeid(baseNode.getNodeid());
-			wifiMapper.insert(wifi);
+		else {
+			caseNodeMapper.deleteByPrimaryKey(caseNode.getId());
+			// 复制案件点位的BaseNode的信息，并且设置案件点无效
+			baseNode.setIsvalid("0");
+			baseNodeMapper.updateByPrimaryKeySelective(baseNode);
+			baseNode.setIsvalid("1");
+			baseNode.setNodetype("2");//案件点
+			baseNodeMapper.insert(baseNode);
+			// 插入wifi
+			for (Wifi wifi : baseNode.getWifis()) {
+				wifi.setNodeid(baseNode.getNodeid());
+				wifiMapper.insert(wifi);
+			}
+			// 插入basestation
+			for (Basestation basestation : baseNode.getBasestations()) {
+				basestation.setNodeid(baseNode.getNodeid());
+				basestationMapper.insert(basestation);
+			}
+			// 插入具体表的值
+			List<Field> fields = baseNode.getOther();
+			Map<String, Object> map = new HashMap<String, Object>();
+			for (Field field : fields) {
+				map.put(field.getEnglishname(), field.getValue());
+			}
+			map.put("nodeId", baseNode.getNodeid());
+			tableFieldService.insertRecord(baseNode.getTable().getEnglishname(), map);
+			
 		}
-		// 插入basestation
-		for (Basestation basestation : baseNode.getBasestations()) {
-			basestation.setNodeid(baseNode.getNodeid());
-			basestationMapper.insert(basestation);
-		}
-		// 插入具体表的值
-		List<Field> fields = baseNode.getOther();
-		Map<String, Object> map = new HashMap<String, Object>();
-		for (Field field : fields) {
-			map.put(field.getEnglishname(), field.getValue());
-		}
-		map.put("nodeId", baseNode.getNodeid());
-		tableFieldService.insertRecord(baseNode.getTable().getEnglishname(), map);
 		return true;
 	}
 
@@ -229,18 +233,40 @@ public class NodeAssitImpl implements NodeAssit {
 
 	@Override
 	public boolean dropRecord(BaseNode baseNode) {
-		tableFieldService.dropRecord(baseNode.getTable().getEnglishname(), baseNode.getNodeid());
+		//设置为无效
+		baseNode.setIsvalid("0");
+		baseNodeMapper.updateByPrimaryKeySelective(baseNode);
 		return true;
 	}
 	
-	// 获取的是简单点位的信息。
+	// 获取的是简单点位的信息。这这里需要处理一下相同坐标的点位，会在客户端有个提示，表示这是同一个坐标的点位信息
 	@Override
 	public List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon) {
+		
 		// 包括案件点，基础点
 		List<BaseNode> baseNodes =baseNodeMapper.selectEdited(baseNodeConditon);
-		if (baseNodeConditon.getRoleId()!=3) {
-			//添加不可编辑的店
-			baseNodes.addAll(baseNodeMapper.selectUnEdited(baseNodeConditon));
+			if (baseNodeConditon.getRoleId()!=3) {
+				//添加不可编辑的店
+				baseNodes.addAll(baseNodeMapper.selectUnEdited(baseNodeConditon));
+			}
+		
+		if (baseNodes.size()!=0) {
+			Collections.sort(baseNodes);
+			double count=0.00001;
+			BaseNode baseNode=baseNodes.get(0);
+			for (int i = 1; i < baseNodes.size(); i++) {
+				if (baseNode.equals(baseNodes.get(i))) {
+					//改变经纬度
+					baseNodes.get(i).setLongitude(baseNode.getLongitude().add(new BigDecimal(count)));
+					baseNodes.get(i).setText(baseNode.getText());
+					count+=0.00001;
+				}
+				else {
+					baseNode=baseNodes.get(i);
+					count=0.00001;
+					baseNode.setText("同一个经纬度点"+Integer.toString(i));
+				}
+			}	
 		}
 		return baseNodes;
 	}

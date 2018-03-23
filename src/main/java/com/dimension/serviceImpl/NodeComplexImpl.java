@@ -4,8 +4,8 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import com.dimension.dao.FieldMapper;
-import com.dimension.dao.TableFieldMapper;
+import org.springframework.stereotype.Service;
+
 import com.dimension.dao.TableMapper;
 import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.CaseNode;
@@ -15,7 +15,7 @@ import com.dimension.service.BaseNodeBuilder;
 import com.dimension.service.CaseNodeBuilder;
 import com.dimension.service.NodeComplex;
 import com.dimension.service.TableFieldService;
-
+@Service
 public class NodeComplexImpl implements NodeComplex {
 	@Resource
 	private TableFieldService tableFieldService;

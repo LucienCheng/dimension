@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimension.dao.FileMapper">
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.File">
+    <id column="Id" jdbcType="INTEGER" property="id" />
+    <result column="nodeId" jdbcType="BIGINT" property="nodeid" />
+    <result column="fileType" jdbcType="VARCHAR" property="filetype" />
+    <result column="fileName" jdbcType="VARCHAR" property="filename" />
+    <result column="fileAddress" jdbcType="VARCHAR" property="fileaddress" />
+    <result column="updateTime" jdbcType="TIMESTAMP" property="updatetime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, nodeId, fileType, fileName, fileAddress, updateTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from file
+    where Id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from file
+    where Id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.File">
+    insert into file (Id, nodeId, fileType, 
+      fileName, fileAddress, updateTime
+      )
+    values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=BIGINT}, #{filetype,jdbcType=VARCHAR}, 
+      #{filename,jdbcType=VARCHAR}, #{fileaddress,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.File">
+    insert into file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="nodeid != null">
+        nodeId,
+      </if>
+      <if test="filetype != null">
+        fileType,
+      </if>
+      <if test="filename != null">
+        fileName,
+      </if>
+      <if test="fileaddress != null">
+        fileAddress,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="nodeid != null">
+        #{nodeid,jdbcType=BIGINT},
+      </if>
+      <if test="filetype != null">
+        #{filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileaddress != null">
+        #{fileaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.File">
+    update file
+    <set>
+      <if test="nodeid != null">
+        nodeId = #{nodeid,jdbcType=BIGINT},
+      </if>
+      <if test="filetype != null">
+        fileType = #{filetype,jdbcType=VARCHAR},
+      </if>
+      <if test="filename != null">
+        fileName = #{filename,jdbcType=VARCHAR},
+      </if>
+      <if test="fileaddress != null">
+        fileAddress = #{fileaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.File">
+    update file
+    set nodeId = #{nodeid,jdbcType=BIGINT},
+      fileType = #{filetype,jdbcType=VARCHAR},
+      fileName = #{filename,jdbcType=VARCHAR},
+      fileAddress = #{fileaddress,jdbcType=VARCHAR},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="getFileByNodeId" resultMap="BaseResultMap">
+  select * from file nodeId=#{nodeId,jdbcType=BIGINT}
+  </select>
+</mapper>

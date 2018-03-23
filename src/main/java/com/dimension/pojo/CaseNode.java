@@ -13,7 +13,11 @@ public class CaseNode implements Serializable {
 
     private Integer alarmid;
     
+    //这个是一定有的基础点位信息
     private BaseNode baseNode;
+    
+    //这个是不一定有的，如果是来自与某个点位，就会有这个信息
+    private Long baseNodeId;
     
     private Case case1;
 
@@ -73,5 +77,13 @@ public class CaseNode implements Serializable {
 
 	public void setCase1(Case case1) {
 		this.case1 = case1;
+	}
+
+	public Long getBaseNodeId() {
+		return baseNodeId;
+	}
+
+	public void setBaseNodeId(Long baseNodeId) {
+		this.baseNodeId = baseNodeId;
 	}
 }

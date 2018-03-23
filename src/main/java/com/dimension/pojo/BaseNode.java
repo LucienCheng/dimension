@@ -5,141 +5,143 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class BaseNode implements Serializable {
-    private Long nodeid;
+public class BaseNode implements Serializable, Comparable<BaseNode> {
+	private Long nodeid;
 
-    private BigDecimal longitude;
+	private BigDecimal longitude;
 
-    private BigDecimal latitude;
+	private BigDecimal latitude;
 
-    private String location;
+	private String location;
 
-    private Date collecttime;
+	private Date collecttime;
 
-    private String description;
+	private String description;
 
-    private String nodename;
+	private String nodename;
 
-    private Integer tableid;
+	private Integer tableid;
 
-    private String address;
+	private String address;
 
-    private Integer userid;
+	private Integer userid;
 
-    private String nodetype;
+	private String nodetype;
 
-    private String isvalid;
-    
-    private List<Wifi> wifis;
-    
-    private List<Basestation> basestations;
-    
-    private List<File> files;
-    
-    private List<Field> other;
-    
-    private Table table;
-    
-    //是否可以编辑这个点
-    private int isEdited;
+	private String isvalid;
 
-    private static final long serialVersionUID = 1L;
+	private List<Wifi> wifis;
 
-    public Long getNodeid() {
-        return nodeid;
-    }
+	private List<Basestation> basestations;
 
-    public void setNodeid(Long nodeid) {
-        this.nodeid = nodeid;
-    }
+	private List<File> files;
 
-    public BigDecimal getLongitude() {
-        return longitude;
-    }
+	private List<Field> other;
 
-    public void setLongitude(BigDecimal longitude) {
-        this.longitude = longitude;
-    }
+	private Table table;
+	//添加是否为同一个点信息
+	private String text;
 
-    public BigDecimal getLatitude() {
-        return latitude;
-    }
+	// 是否可以编辑这个点
+	private int isEdited;
 
-    public void setLatitude(BigDecimal latitude) {
-        this.latitude = latitude;
-    }
+	private static final long serialVersionUID = 1L;
 
-    public String getLocation() {
-        return location;
-    }
+	public Long getNodeid() {
+		return nodeid;
+	}
 
-    public void setLocation(String location) {
-        this.location = location == null ? null : location.trim();
-    }
+	public void setNodeid(Long nodeid) {
+		this.nodeid = nodeid;
+	}
 
-    public Date getCollecttime() {
-        return collecttime;
-    }
+	public BigDecimal getLongitude() {
+		return longitude;
+	}
 
-    public void setCollecttime(Date collecttime) {
-        this.collecttime = collecttime;
-    }
+	public void setLongitude(BigDecimal longitude) {
+		this.longitude = longitude;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public BigDecimal getLatitude() {
+		return latitude;
+	}
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
+	public void setLatitude(BigDecimal latitude) {
+		this.latitude = latitude;
+	}
 
-    public String getNodename() {
-        return nodename;
-    }
+	public String getLocation() {
+		return location;
+	}
 
-    public void setNodename(String nodename) {
-        this.nodename = nodename == null ? null : nodename.trim();
-    }
+	public void setLocation(String location) {
+		this.location = location == null ? null : location.trim();
+	}
 
-    public Integer getTableid() {
-        return tableid;
-    }
+	public Date getCollecttime() {
+		return collecttime;
+	}
 
-    public void setTableid(Integer tableid) {
-        this.tableid = tableid;
-    }
+	public void setCollecttime(Date collecttime) {
+		this.collecttime = collecttime;
+	}
 
-    public String getAddress() {
-        return address;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
-    }
+	public void setDescription(String description) {
+		this.description = description == null ? null : description.trim();
+	}
 
-    public Integer getUserid() {
-        return userid;
-    }
+	public String getNodename() {
+		return nodename;
+	}
 
-    public void setUserid(Integer userid) {
-        this.userid = userid;
-    }
+	public void setNodename(String nodename) {
+		this.nodename = nodename == null ? null : nodename.trim();
+	}
 
-    public String getNodetype() {
-        return nodetype;
-    }
+	public Integer getTableid() {
+		return tableid;
+	}
 
-    public void setNodetype(String nodetype) {
-        this.nodetype = nodetype;
-    }
+	public void setTableid(Integer tableid) {
+		this.tableid = tableid;
+	}
 
-    public String getIsvalid() {
-        return isvalid;
-    }
+	public String getAddress() {
+		return address;
+	}
 
-    public void setIsvalid(String isvalid) {
-        this.isvalid = isvalid == null ? null : isvalid.trim();
-    }
+	public void setAddress(String address) {
+		this.address = address == null ? null : address.trim();
+	}
+
+	public Integer getUserid() {
+		return userid;
+	}
+
+	public void setUserid(Integer userid) {
+		this.userid = userid;
+	}
+
+	public String getNodetype() {
+		return nodetype;
+	}
+
+	public void setNodetype(String nodetype) {
+		this.nodetype = nodetype;
+	}
+
+	public String getIsvalid() {
+		return isvalid;
+	}
+
+	public void setIsvalid(String isvalid) {
+		this.isvalid = isvalid == null ? null : isvalid.trim();
+	}
 
 	public List<Wifi> getWifis() {
 		return wifis;
@@ -188,5 +190,67 @@ public class BaseNode implements Serializable {
 	public void setIsEdited(int isEdited) {
 		this.isEdited = isEdited;
 	}
-    
+
+	@Override
+	public int compareTo(BaseNode o) {
+		//比较经度，小于就返回-1；
+		if (o.latitude.compareTo(latitude) == -1)
+			return -1;
+		//等于经度继续下去
+		if (o.latitude.equals(this.latitude)) {
+			// 当经纬度相同的时候就相等，
+			if (o.longitude.compareTo(longitude) == 0) {
+				return 0;
+			}
+			if (o.longitude.compareTo(longitude) == 1) {
+				return 1;
+			}
+			if (o.longitude.compareTo(longitude) == -1) {
+				return -1;
+			}
+		}
+		//其他情况为大于
+		return 1;
+
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((latitude == null) ? 0 : latitude.hashCode());
+		result = prime * result + ((longitude == null) ? 0 : longitude.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		BaseNode other = (BaseNode) obj;
+		if (latitude == null) {
+			if (other.latitude != null)
+				return false;
+		} else if (!latitude.equals(other.latitude))
+			return false;
+		if (longitude == null) {
+			if (other.longitude != null)
+				return false;
+		} else if (!longitude.equals(other.longitude))
+			return false;
+		return true;
+	}
+
+	public String getText() {
+		return text;
+	}
+
+	public void setText(String text) {
+		this.text = text;
+	}
+
 }

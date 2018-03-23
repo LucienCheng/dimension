@@ -36,7 +36,7 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource"></property>
 		<property name="configLocation" value="classpath:mybatis-config.xml"></property>
-		<property name="mapperLocations" value="classpath:com/dimension/mapper/*.xml"></property>
+		<property name="mapperLocations" value="classpath:mapper/*.xml"></property>
 	</bean>
 	<!-- 生成sqlSession,这里是安全的。使用已经构造好的数据连接dao层进行赋值给相应的映射java接口，完成数据层实例构造 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
