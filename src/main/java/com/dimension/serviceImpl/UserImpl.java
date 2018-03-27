@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import com.dimension.dao.DepartmentMapper;
 import org.springframework.stereotype.Service;
 
 import com.dimension.dao.UserMapper;
@@ -17,11 +18,15 @@ import com.dimension.service.UserService;
 public class UserImpl implements UserService {
 	@Resource
 	private UserMapper userMapper;
+	@Resource
+	private DepartmentMapper departmentMapper;
 
 	@Override
 	public boolean vertifyLogin(User user, HttpSession session) {
 		User user1 = userMapper.vertifyUser(user);
+		System.out.println(user1);
 		if (user1 != null) {
+			user1.setSubDepartment(departmentMapper.subDepartment(user1.getDepartment().getLongnumber()));
 			session.setAttribute("user", user1);
 			user1.setLogintime(new Date());
 			userMapper.updateByPrimaryKeySelective(user1);
@@ -33,6 +38,7 @@ public class UserImpl implements UserService {
 	@Override
 	public void loginOut(HttpSession session) {
 		// 设置session无效
+		System.out.println("登出");
 		session.invalidate();
 
 	}
@@ -68,8 +74,10 @@ public class UserImpl implements UserService {
 	}
 
 	@Override
-	public void setUser(User user) {
-		// TODO Auto-generated method stub
+	public void setUser(User user,HttpSession session) {
+		userMapper.updateByPrimaryKeySelective(user);
+		user=userMapper.vertifyUser(user);
+        session.setAttribute("user",user);
 
 	}
 

@@ -2,6 +2,8 @@ package com.dimension.dao;
 
 import com.dimension.pojo.Department;
 
+import java.util.List;
+
 public interface DepartmentMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -14,4 +16,6 @@ public interface DepartmentMapper {
     int updateByPrimaryKeySelective(Department record);
 
     int updateByPrimaryKey(Department record);
+
+    List<Long> subDepartment(String longnumber);
 }

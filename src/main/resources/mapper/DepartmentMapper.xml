@@ -8,6 +8,7 @@
     <result column="departmentNumber" jdbcType="VARCHAR" property="departmentnumber" />
     <result column="isvalid" jdbcType="CHAR" property="isvalid" />
   </resultMap>
+
   <sql id="Base_Column_List">
     Id, longNumber, departmentName, departmentNumber, isvalid
   </sql>
@@ -90,4 +91,7 @@
       isvalid = #{isvalid,jdbcType=CHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="subDepartment" resultType="long">
+    select department.id from department where longNumber like CONCAT(#{longnumber},"_%")
+  </select>
 </mapper>

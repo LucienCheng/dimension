@@ -26,7 +26,7 @@ public interface UserService {
 	//删除组员
 	void deleteGrouper(GroupUser groupUser);
 	//设置用户信息
-	void setUser(User user);
+	void setUser(User user,HttpSession session);
 	//删除用户
 	void deleteUser(User user);
 }

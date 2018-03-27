@@ -2,6 +2,7 @@ package com.dimension.pojo;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 public class User implements Serializable {
     private Integer id;
@@ -28,7 +29,20 @@ public class User implements Serializable {
     
     private Department department;
 
+    private String rolename;
+
+
+
+    private List<Long> subDepartment;
+
     private static final long serialVersionUID = 1L;
+    public List<Long> getSubDepartment() {
+        return subDepartment;
+    }
+
+    public void setSubDepartment(List<Long> subDepartment) {
+        this.subDepartment = subDepartment;
+    }
 
     public Integer getId() {
         return id;
@@ -125,4 +139,31 @@ public class User implements Serializable {
 	public void setDepartment(Department department) {
 		this.department = department;
 	}
+
+    public String getRolename() {
+        return rolename;
+    }
+
+    public void setRolename(String rolename) {
+        this.rolename = rolename;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", roleid=" + roleid +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", identityid='" + identityid + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", departmentid=" + departmentid +
+                ", generatortime=" + generatortime +
+                ", logintime=" + logintime +
+                ", isvalid='" + isvalid + '\'' +
+                ", description='" + description + '\'' +
+                ", department=" + department +
+                ", rolename='" + rolename + '\'' +
+                '}';
+    }
 }
