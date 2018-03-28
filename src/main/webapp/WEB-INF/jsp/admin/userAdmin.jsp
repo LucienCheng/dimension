@@ -167,6 +167,13 @@
                         </button>
                         <strong>删除成功!</strong>
                     </div>
+                    <div class="hidden alert alert-warning alert-dismissible  in add" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>添加成功!</strong>
+                    </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="card">
@@ -180,9 +187,12 @@
                                                 <input type="text" class="form-control" name="department"
                                                        placeholder="部门名称">
                                             </div>
-
-
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-10">
+                                                <input onclick="addModal()" class="btn btn-info" value="添加">
+                                            </div>
                                         </div>
+
 
                                     </div>
                                     <div class="col-sm-6">
@@ -251,6 +261,8 @@
                 </div>
                 <div class="col-sm-12" id="Page">
                 </div>
+
+                <%--下面都是模态框--%>
                 <div class="col-sm-12">
                     <div id="personInfo" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                          aria-hidden="true">
@@ -285,7 +297,7 @@
                                         <button type="button" class="btn btn-default"
                                                 data-dismiss="modal">关闭
                                         </button>
-                                        <button type="button" class="btn btn-primary" id="update">
+                                        <button type="button" class="btn btn-primary" id="update" onclick=" updateUser($(this).val());">
                                             提交更改
                                         </button>
                                     </div>
@@ -313,7 +325,7 @@
                                     <button type="button" class="btn btn-default"
                                             data-dismiss="modal">关闭
                                     </button>
-                                    <button type="button" class="btn btn-primary" id="delete">
+                                    <button type="button" class="btn btn-primary" id="delete" onclick="deleteUser($(this).val())">
                                         删除
                                     </button>
                                 </div>
@@ -321,6 +333,90 @@
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
                 </div>
+                <div class="col-sm-12">
+                    <div id="addUser" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form id="addUserForm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">添加用户信息</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group ">
+                                            <label class=" form-control-label">用户名</label>
+                                            <div>
+                                                <input name="username" type="text"
+                                                       class="form-control" placeholder="用户名">
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class=" form-control-label">密码</label>
+                                            <div>
+                                                <input name="password" type="text"
+                                                       class="form-control" placeholder="密码">
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class=" form-control-label">身份证</label>
+                                            <div>
+                                                <input name="identityid" type="text"
+                                                       class="form-control" placeholder="身份证">
+                                            </div>
+                                        </div>
+                                        <div class="form-group ">
+                                            <label class=" form-control-label">电话</label>
+                                            <div>
+                                                <input name="telephone" type="text"
+                                                       class="form-control" placeholder="电话">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-control-label">备注信息:</label>
+                                            <div>
+                                                <textarea rows="5" class="form-control form-control-line"
+                                                          name="description"></textarea>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label class="form-control-label">角色选择:</label>
+                                            <div>
+                                                <select class="c-select" id="roleid" name="roleid">
+                                                    <option value="2" selected>普通用户</option>
+                                                    <option value="4">部门管理员</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="hidden " id="department">
+                                            <label class="form-control-label ">部门选择:</label>
+                                            <div class="row">
+                                                <select class="c-select col-sm-12" id="departmentid" name="departmentid">
+
+                                                </select>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="add1">
+                                            添加
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </form>
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
+                <%--结束模态框--%>
             </div>
 
             <!-- End PAge Content -->
@@ -359,15 +455,51 @@
 <!--Custom JavaScript -->
 <script src="<%=basePath %>source/js/custom.min.js"></script>
 
-<!-- Style switcher -->
 
 <script type="text/javascript">
     var data = new Object();
+    var adminDepartment =${user.departmentid};
     data.currentPage =${currentPage};
     data.totalPage =${totalPage};
     data.users =${usersJson};
+
     $(function () {
+        $("#add1").bind("click", function () {
+            addUser();
+        })
         updatePage(data);
+        var role =${user.roleid};
+        //超级管理员
+        if (role == 3) {
+            $("#department").removeClass("hidden");
+            $.each(${subDepartmentJson}, function (index, item) {
+                var option = $("<option>").val(item.id).text(item.departmentname);
+                $("#departmentid").append(option);
+            })
+        }
+
+        //部门管理员，如果是本部门，就只有一个选项
+        else {
+            $("#roleid").bind("click", function () {
+                $("#department").removeClass("hidden");
+                var roleid = $(this).val();
+                //本部门
+                if (roleid == 2) {
+                    $("#departmentid").empty();
+                    var option = $("<option>").val(adminDepartment).text("${user.department.departmentname}");
+                    $("#departmentid").append(option);
+                } else {
+                    $("#departmentid").empty();
+                    //需要遍历一下subDepartmentJson
+                    $.each(${subDepartmentJson}, function (index, item) {
+                        var option = $("<option>").val(item.id).text(item.departmentname);
+                        $("#departmentid").append(option);
+                    })
+
+                }
+            })
+        }
+
     });
 
     function personInfo(id) {
@@ -379,16 +511,18 @@
             }
         })
         $('#personInfo').modal('show');
-        $('#update').bind("click", function () {
-            updateUser(id);
-        })
+        $('#update').val(id);
     }
 
     function deletePerson(id) {
         $('#deletePerson').modal('show');
-        $("#delete").bind("click", function () {
-            deleteUser(id);
-        })
+        $('#delete').val(id);
+
+    }
+
+    //显示添加用户的模态框
+    function addModal() {
+        $('#addUser').modal('show');
     }
 
     function updateTable(data) {
@@ -509,7 +643,7 @@
     }
 
     function updateUser(id) {
-        var form = new FormData(document.getElementById("updateUserForm"));
+        var form = new FormData($("#updateUserForm")[0]);
         form.append("id", id);
         $.ajax({
             url: '<%=basePath%>admin/updateUser',
@@ -529,7 +663,7 @@
                     }
                 });
                 updateTable(data);
-                $("#personInfo").modal("toggle");
+                $("#personInfo").modal("hide");
                 $(".modify").removeClass("hidden");
             },
             error: function (e) {
@@ -549,8 +683,31 @@
             /* 指定返回类型为json */
             dataType: 'json',
             success: function (d) {
-                $("#deletePerson").modal("toggle");
-                $("#delete").removeClass("hidden");
+                $("#deletePerson").modal("hide");
+                $(".delete").removeClass("hidden");
+                sendAjaxPage(data.currentPage);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    function addUser() {
+        var form = new FormData($("#addUserForm")[0]);
+        $.ajax({
+            url: '<%=basePath%>admin/addUser',
+            type: "post",
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            data: form,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                $("#addUser").modal("hide");
+                $(".add").removeClass("hidden");
                 sendAjaxPage(data.currentPage);
             },
             error: function (e) {

@@ -34,10 +34,22 @@ public class User implements Serializable {
 
 
     private List<Long> subDepartment;
+    private List<Department> subDepartments;
 
     private static final long serialVersionUID = 1L;
+
+
+
     public List<Long> getSubDepartment() {
         return subDepartment;
+    }
+
+    public List<Department> getSubDepartments() {
+        return subDepartments;
+    }
+
+    public void setSubDepartments(List<Department> subDepartments) {
+        this.subDepartments = subDepartments;
     }
 
     public void setSubDepartment(List<Long> subDepartment) {

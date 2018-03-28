@@ -195,16 +195,34 @@
             <if test="userCondition.department != null">
                 and departmentname like concat("%",#{userCondition.department},"%")
             </if>
-            <if test="userCondition.roleId != null">
-                and roleId=#{userCondition.roleId}
+
+            <choose>
+                <when test="userCondition.roleId == 3">
+                    <if test="userCondition.subDepartmentId != null">
+                      and department.id in
+                        <foreach collection="userCondition.subDepartmentId" open="(" close=")" item="id" separator=",">
+                            #{id}
+                        </foreach>
+                    </if>
+                </when>
+                <otherwise>
+                    <if test="userCondition.departmentid != null">
+                        and ((departmentid=#{userCondition.departmentid} and roleid=2)
+                    </if>
+                    <if test="userCondition.subDepartmentId != null">
+                        or (department.id in
+                        <foreach collection="userCondition.subDepartmentId" open="(" close=")" item="id" separator=",">
+                            #{id}
+                        </foreach>
+                        and roleId=4)
+                    </if>
+                    )
+                </otherwise>
+            </choose>
+            <if test="start != null and count != null">
+                limit #{start},#{count}
             </if>
-            <if test="userCondition.subDepartmentId != null">
-                and department.id in
-                <foreach collection="userCondition.subDepartmentId" open="(" close=")" item="id" separator=",">
-                 #{id}
-                </foreach>
-            </if>
-            limit #{start},#{count}
+
         </trim>
 
 
@@ -221,15 +239,30 @@
             <if test="department != null">
                 and departmentname like concat("%",#{department},"%")
             </if>
-            <if test="roleId != null">
-                and roleId=#{roleId}
-            </if>
-            <if test="subDepartmentId != null">
-                and department.id in
-                <foreach collection="subDepartmentId" open="(" close=")" item="id" separator=",">
-                    #{id}
-                </foreach>
-            </if>
+            <choose>
+                <when test="roleId == 3">
+                    <if test="subDepartmentId != null">
+                        and department.id in
+                        <foreach collection="subDepartmentId" open="(" close=")" item="id" separator=",">
+                            #{id}
+                        </foreach>
+                    </if>
+                </when>
+                <otherwise>
+                    <if test="departmentid != null">
+                        and ((departmentid=#{departmentid} and roleid=2)
+                    </if>
+                    <if test="subDepartmentId != null">
+                        or (department.id in
+                        <foreach collection="subDepartmentId" open="(" close=")" item="id" separator=",">
+                            #{id}
+                        </foreach>
+                        and roleId=4))
+                    </if>
+                </otherwise>
+
+            </choose>
+
         </trim>
 
 

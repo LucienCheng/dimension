@@ -29,7 +29,7 @@ public class CaseCondition {
 	private List<Integer> DpIds;
 	
 	// 自己所在的部门
-	private Integer DpId;
+	private Long departmentid;
 	
 	// 所在的小组(只是组员的)
 	private List<Integer> groupIds;
@@ -112,13 +112,11 @@ public class CaseCondition {
 		DpIds = dpIds;
 	}
 
-	public Integer getDpId() {
-		return DpId;
+	public Long getDepartmentid() {
+		return departmentid;
 	}
 
-	public void setDpId(Integer dpId) {
-		DpId = dpId;
+	public void setDepartmentid(Long departmentid) {
+		this.departmentid = departmentid;
 	}
-
-	
 }

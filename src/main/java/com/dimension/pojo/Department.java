@@ -11,6 +11,8 @@ public class Department implements Serializable {
 
     private String departmentnumber;
 
+    private Long parentid;
+
     private String isvalid;
 
     private static final long serialVersionUID = 1L;
@@ -37,6 +39,14 @@ public class Department implements Serializable {
 
     public void setDepartmentname(String departmentname) {
         this.departmentname = departmentname == null ? null : departmentname.trim();
+    }
+
+    public Long getParentid() {
+        return parentid;
+    }
+
+    public void setParentid(Long parentid) {
+        this.parentid = parentid;
     }
 
     public String getDepartmentnumber() {

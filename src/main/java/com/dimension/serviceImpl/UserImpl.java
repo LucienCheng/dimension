@@ -1,17 +1,20 @@
 package com.dimension.serviceImpl;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
 import com.dimension.dao.DepartmentMapper;
+import com.dimension.pojo.*;
+import org.apache.ibatis.scripting.xmltags.ForEachSqlNode;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 import com.dimension.dao.UserMapper;
-import com.dimension.pojo.Group;
-import com.dimension.pojo.GroupUser;
-import com.dimension.pojo.User;
 import com.dimension.service.UserService;
 
 @Service
@@ -24,10 +27,36 @@ public class UserImpl implements UserService {
 	@Override
 	public boolean vertifyLogin(User user, HttpSession session) {
 		User user1 = userMapper.vertifyUser(user);
+
 		System.out.println(user1);
 		if (user1 != null) {
-			user1.setSubDepartment(departmentMapper.subDepartment(user1.getDepartment().getLongnumber()));
+			List<Long> list=new ArrayList<>();
+			List<Department> departments=null;
+			if (user1.getRoleid()!=2){
+				//这是超级管理员
+				if (user1.getRoleid()==3){
+					departments=departmentMapper.subDepartment(user1.getDepartment().getLongnumber());
+				}
+				//部门管理员
+				else if(user1.getRoleid()==4){
+					departments=departmentMapper.subPartDepartment(user1.getDepartmentid());
+				}
+
+				for (Department department:departments) {
+					list.add(department.getId());
+				}
+				user1.setSubDepartment(list);
+
+				//设置department的json对象
+				session.setAttribute("subDepartmentJson",new JSONArray(departments));
+			}
+			UserCondition userCondition=new UserCondition();
+			userCondition.setRoleId(user1.getRoleid());
+			userCondition.setDepartmentid(user1.getDepartmentid());
+
+			List<User> users=userMapper.selectUsers(userCondition,null,null);
 			session.setAttribute("user", user1);
+			session.setAttribute("groupUsers",users);
 			user1.setLogintime(new Date());
 			userMapper.updateByPrimaryKeySelective(user1);
 			return true;
@@ -43,35 +72,7 @@ public class UserImpl implements UserService {
 
 	}
 
-	@Override
-	public void addUser(User user) {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void setGroup(Group group) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteGroup(Group group) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void setGrouper(GroupUser groupUser) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void deleteGrouper(GroupUser groupUser) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public void setUser(User user,HttpSession session) {
@@ -81,10 +82,6 @@ public class UserImpl implements UserService {
 
 	}
 
-	@Override
-	public void deleteUser(User user) {
-		// TODO Auto-generated method stub
 
-	}
 
 }

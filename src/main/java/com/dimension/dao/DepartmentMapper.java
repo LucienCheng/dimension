@@ -16,6 +16,8 @@ public interface DepartmentMapper {
     int updateByPrimaryKeySelective(Department record);
 
     int updateByPrimaryKey(Department record);
-
-    List<Long> subDepartment(String longnumber);
+//超级管理员的
+    List<Department> subDepartment(String longnumber);
+    //部门管理员
+    List<Department> subPartDepartment(Long parentid);
 }

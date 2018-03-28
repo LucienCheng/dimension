@@ -21,7 +21,7 @@ public class Case implements Serializable {
 
     private Date endtime;
     
-private Long departmentId;
+    private Long departmentId;
     //是否可以编辑这个案件
     private int isEdited;
     private static final long serialVersionUID = 1L;

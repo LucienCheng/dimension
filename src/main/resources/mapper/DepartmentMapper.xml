@@ -91,7 +91,11 @@
       isvalid = #{isvalid,jdbcType=CHAR}
     where Id = #{id,jdbcType=BIGINT}
   </update>
-  <select id="subDepartment" resultType="long">
-    select department.id from department where longNumber like CONCAT(#{longnumber},"_%")
+  <select id="subDepartment" resultType="com.dimension.pojo.Department">
+    select * from department where longNumber like CONCAT(#{longnumber},"_%")
+  </select>
+  
+  <select id="subPartDepartment" resultType="com.dimension.pojo.Department">
+    select * from department where parentid=#{parentid}
   </select>
 </mapper>

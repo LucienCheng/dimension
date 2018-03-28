@@ -7,6 +7,15 @@ public class UserCondition {
     private String department;
     private List<Long> subDepartmentId;
     private Integer roleId;
+    private Long departmentid;
+
+    public Long getDepartmentid() {
+        return departmentid;
+    }
+
+    public void setDepartmentid(Long departmentid) {
+        this.departmentid = departmentid;
+    }
 
     public String getUsername() {
         return username;
