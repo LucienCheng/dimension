@@ -1,6 +1,9 @@
 package com.dimension.dao;
 
 import com.dimension.pojo.Message;
+import com.dimension.pojo.MessageConditon;
+
+import java.util.List;
 
 public interface MessageMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,8 @@ public interface MessageMapper {
     int updateByPrimaryKeySelective(Message record);
 
     int updateByPrimaryKey(Message record);
+
+    List<Message> selectMessage(MessageConditon messageConditon);
+
+    int count(MessageConditon messageConditon);
 }

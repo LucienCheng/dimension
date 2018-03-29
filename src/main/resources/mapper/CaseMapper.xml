@@ -38,9 +38,9 @@
 		#{casename,jdbcType=VARCHAR},
 		#{casetype,jdbcType=VARCHAR},
 		#{description,jdbcType=VARCHAR}, #{groupid,jdbcType=INTEGER},
-		#{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}，#(departmentId,jdbcType=BIGINT))
+		#{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP},#(departmentId,jdbcType=BIGINT))
 	</insert>
-    <insert id="insertSelective" parameterType="com.dimension.pojo.Case">
+    <insert id="insertSelective" parameterType="com.dimension.pojo.Case" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
         insert into `case`
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">

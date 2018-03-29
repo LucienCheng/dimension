@@ -1,6 +1,7 @@
 package com.dimension.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Message implements Serializable {
     private Integer id;
@@ -11,17 +12,53 @@ public class Message implements Serializable {
 
     private String content;
 
-    private Integer submittime;
+    private Date submittime;
 
     private String replyconten;
 
-    private Integer replytime;
+    private Date replytime;
 
     private String state;
 
     private Long departionid;
+    private Integer adminid;
+
+    private String casename;
+    private String casecode;
+    private String username;
+    public String getCasename() {
+        return casename;
+    }
+
+    public void setCasename(String casename) {
+        this.casename = casename;
+    }
+
+    public String getCasecode() {
+        return casecode;
+    }
+
+    public void setCasecode(String casecode) {
+        this.casecode = casecode;
+    }
 
     private static final long serialVersionUID = 1L;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Integer getAdminid() {
+        return adminid;
+    }
+
+    public void setAdminid(Integer adminid) {
+        this.adminid = adminid;
+    }
 
     public Integer getId() {
         return id;
@@ -55,11 +92,11 @@ public class Message implements Serializable {
         this.content = content == null ? null : content.trim();
     }
 
-    public Integer getSubmittime() {
+    public Date getSubmittime() {
         return submittime;
     }
 
-    public void setSubmittime(Integer submittime) {
+    public void setSubmittime(Date submittime) {
         this.submittime = submittime;
     }
 
@@ -71,11 +108,11 @@ public class Message implements Serializable {
         this.replyconten = replyconten == null ? null : replyconten.trim();
     }
 
-    public Integer getReplytime() {
+    public Date getReplytime() {
         return replytime;
     }
 
-    public void setReplytime(Integer replytime) {
+    public void setReplytime(Date replytime) {
         this.replytime = replytime;
     }
 

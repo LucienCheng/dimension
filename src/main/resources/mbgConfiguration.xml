@@ -50,7 +50,7 @@
 		<!-- 列出要生成代码的所有表，这里配置的是不生成Example文件 -->
 	
 	
-		<table tableName="mark_node" domainObjectName="MarkNode" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"    
+		<table tableName="message" domainObjectName="Message" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false" >    
             <property name="useActualColumnNames" value="false"/>    
         </table> 

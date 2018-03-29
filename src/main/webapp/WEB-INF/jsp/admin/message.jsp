@@ -4,6 +4,7 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -34,7 +35,8 @@
 
 <div class="preloader">
     <svg class="circular" viewBox="25 25 50 50">
-        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" /> </svg>
+        <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
 </div>
 
 <!-- Main wrapper - style you can find in pages.scss -->
@@ -90,7 +92,7 @@
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
 
 
-                    <li ><a href="#" data-toggle="collapse" data-target="#submenu1"><i
+                    <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
@@ -137,10 +139,10 @@
 
             <div class="row page-titles">
                 <div class="col-md-6 col-8 align-self-center">
-                    <h3 class="text-themecolor m-b-0 m-t-0">案件管理</h3>
+                    <h3 class="text-themecolor m-b-0 m-t-0">消息处理</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">案件管理</li>
+                        <li class="breadcrumb-item active">消息处理</li>
                     </ol>
                 </div>
 
@@ -153,100 +155,92 @@
 
             <div class="row">
                 <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-block">
-                            <form>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputEmail3"
-                                                       placeholder="Email">
-                                            </div>
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-10" style="margin-top: 10px;">
-                                                <select class="c-select">
-                                                    <option selected>点位类型</option>
-                                                    <option value="1">案件点</option>
-                                                    <option value="2">基础点</option>
-                                                    <option value="3">标记点</option>
-                                                </select>
-
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <input type="email" class="form-control" placeholder="Email">
-                                            </div>
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-10" style="margin-top: 10px;">
-                                                <button type="submit" class="btn btn-info">搜索</button>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </form>
-
-
-                        </div>
+                    <div class="hidden alert alert-warning alert-dismissible  in modify" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>发送成功!</strong>
                     </div>
                 </div>
-                <!-- column -->
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">点位</h4>
+                            <h4 class="card-title">消息</h4>
 
                             <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
+                                        <th>关于案件</th>
+                                        <th>案件编号</th>
+                                        <th>请求人</th>
+                                        <th>请求时间</th>
+                                        <th>请求消息内容</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Deshmukh</td>
-                                        <td>Prohaska</td>
-                                        <td>Prohaska</td>
-                                        <td>
-                                            <button type="submit" class="btn btn-danger">删除</button>
-                                            <button type="submit" class="btn btn-warning">查看</button>
-                                        </td>
-
-                                    </tr>
-
+                                    <tbody id="Table">
+                                    <c:forEach items="${messages}" var="item" varStatus="status">
+                                        <tr>
+                                            <td>${status.index+1}</td>
+                                            <td>${item.casename}</td>
+                                            <td>${item.casecode}</td>
+                                            <td>${item.username}</td>
+                                            <td>${item.submittime}</td>
+                                            <td>${item.content}</td>
+                                            <td>
+                                                <button class="btn btn-warning"
+                                                        onclick="updateModel(${item.id});">回复
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12">
-
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-
+                <div class="col-sm-12" id="Page">
                 </div>
+                <%--模态框--%>
+                <div class="col-sm-12">
+                    <div class="modal fade" id="updateModel" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">回复信息</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                </div>
+                                <form id="updateForm">
+                                    <div class="modal-body ">
+                                        <label class="form-control-label">消息内容:</label>
+                                        <div>
+                                                <textarea rows="5" class="form-control form-control-line"
+                                                          name="replyconten"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="updateButton"
+                                                onclick="update($(this).val());">发送
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%--end模态框，展示具体点位--%>
             </div>
 
             <!-- End PAge Content -->
@@ -281,9 +275,163 @@
 <script src="<%=basePath%>source/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
 <!--Custom JavaScript -->
 <script src="<%=basePath%>source/js/custom.min.js"></script>
+<script type="text/javascript">
+    /*初始化参数*/
+    var data = new Object();
+    data.currentPage =${currentPage};
+    data.totalPage =${totalPage};
+    data.messages =${messagesJson};
+    $(function () {
+        updatePage(data);
+    })
 
-<!-- Style switcher -->
+    /*一下是关于更新的操作
+        触发更新模态框*/
+    function updateModel(id) {
 
+        $('#updateModel').modal('show');
+        $('#updateButton').val(id);
+    }
+
+    /*发送更新某一个对象的ajax的请求*/
+    function update(id) {
+        var form = new FormData($("#updateForm")[0]);
+        form.append("id", id);
+        $.ajax({
+            url: '<%=basePath%>admin/updateMessage',
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                //发送请求重新刷新一下页面
+                searchPage(data.currentPage);
+                //更新模态框隐藏
+                $("#updateModel").modal("hide");
+                $(".modify").removeClass("hidden");
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    /*结束更新ajax请求*/
+    /*异步接收数据之后更新表*/
+    function updateTable(data) {
+        var table = $("#Table");
+        var str = "";
+        if (data.messages.length != 0) {
+            $.each(data.messages, function (index, item) {
+                str += "<tr>";
+                str += "<td>" + (index + 1) + "</td>";
+                str += "<td>" + item.casename + "</td>";
+                str += "<td>" + item.casecode + "</td>";
+                str += "<td>" + item.username + "</td>";
+                str += "<td>" + item.submittime + "</td>";
+                str += "<td>" + item.content + "</td>";
+                str += '<td> <button class="btn btn-warning" onclick="updateModel(' + item.id+ ')"> 回复 </button> </td>';
+                str += ' </tr>';
+            });
+
+
+        }
+        table.html(str);
+    }
+
+    /*结束更新表*/
+
+
+    /*更新页表*/
+    function updatePage(data) {
+        var currentPage = data.currentPage;
+        var totalPage = data.totalPage;
+
+
+        var s = " <ul class=\"pagination\"> ";
+        if (currentPage == 1)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0) '>上一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage - 1) + ">上一页</a></li>";
+        }
+
+        //如果总的页数在6页只能就可以这样
+        if (totalPage <= 6) {
+            for (var i = 1; i <= totalPage; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled' ><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+
+        }
+        //这个是页面大于6的时候
+        else {
+            var base = 0;
+            if ((currentPage - 3 >= 0) && (currentPage + 3 <= totalPage))
+                base = currentPage - 3;
+            else if ((currentPage + 3) > totalPage) {
+
+                base = totalPage - 6;
+
+            }
+
+            for (var i = base + 1; i <= base + 6; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+        }
+
+        if (currentPage >= totalPage)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>下一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage + 1) + ">下一页</a></li>";
+        }
+
+        s += "</ul>";
+        $("#Page").html(s);
+
+        $("#Page ul li a").bind('click', function () {
+            var rel = $(this).attr("rel");
+            window.history.pushState(null, null, "<%=basePath%>admin/message/" + rel);
+            searchPage(rel);
+        });
+    }
+
+    /*结束更新分页*/
+    //按照页面，条件搜索
+    function searchPage(rel) {
+        var form = new FormData($('#searchForm')[0]);
+
+        $.ajax({
+            url: '<%=basePath%>admin/message/' + rel,
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                data = d;
+                updateTable(d);
+                updatePage(d);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+</script>
 </body>
 
 </html>

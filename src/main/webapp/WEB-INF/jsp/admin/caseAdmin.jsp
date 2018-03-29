@@ -381,7 +381,7 @@
                                                        class="form-control" placeholder="小组名称">
                                             </div>
                                         </div>
-                                        <div  id="department">
+                                        <div id="department">
                                             <label class="form-control-label ">组长选择:</label>
                                             <div class="row">
                                                 <select class="c-select col-sm-12" id="grouperid" name="grouperid">
@@ -456,12 +456,13 @@
 
 
 <script type="text/javascript">
+    /*初始化参数*/
     var data = new Object();
-    var adminDepartment =${user.departmentid};
     data.currentPage =${currentPage};
     data.totalPage =${totalPage};
     data.cases =${casesJson};
 
+    /*绑定添加操作的button*/
     $(function () {
         $("#addButton").bind("click", function () {
             add();
@@ -471,6 +472,9 @@
 
     });
 
+
+    /*一下是关于更新的操作
+        触发更新模态框*/
     function updateModel(id) {
         $.each(data.cases, function (index, item) {
             if (item.id == id) {
@@ -483,17 +487,41 @@
         $('#updateButton').val(id);
     }
 
-    function deleteModel(id) {
-        $('#deleteModel').modal('show');
-        $('#deleteButton').val(id);
+    /*发送更新某一个对象的ajax的请求*/
+    function update(id) {
+        var form = new FormData($("#updateForm")[0]);
+        form.append("id", id);
+        $.ajax({
+            url: '<%=basePath%>admin/updateCase',
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                //更新data中case的内容，重新刷新一遍
+                $.each(data.cases, function (index, case1) {
+                    if (case1.id == d.case1.id) {
+                        case1.casename = d.case1.casename;
+                        case1.casetype = d.case1.casetype;
+                    }
+                });
+                updateTable(data);
+                //更新模态框隐藏
+                $("#updateModel").modal("hide");
+                $(".modify").removeClass("hidden");
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
 
     }
 
-    //显示添加用户的模态框
-    function addModal() {
-        $('#addModel').modal('show');
-    }
-
+    /*结束更新ajax请求*/
+    /*异步接收数据之后更新表*/
     function updateTable(data) {
         var table = $("#Table");
         var str = "";
@@ -520,7 +548,10 @@
         table.html(str);
     }
 
+    /*结束更新表*/
 
+
+    /*更新页表*/
     function updatePage(data) {
         var currentPage = data.currentPage;
         var totalPage = data.totalPage;
@@ -580,6 +611,42 @@
         });
     }
 
+    /*结束更新分页*/
+
+
+
+    //显示添加用户的模态框
+    function addModal() {
+        $('#addModel').modal('show');
+    }
+
+    //添加用户的ajax
+    function add() {
+        var form = new FormData($("#addForm")[0]);
+        $.ajax({
+            url: '<%=basePath%>admin/addCase',
+            type: "post",
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            data: form,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                $("#addModel").modal("hide");
+                $(".add").removeClass("hidden");
+                searchPage(data.currentPage);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    //结束添加
+
+    //地址栏变化
     window.addEventListener("popstate",
         function (e) {
             var link = location.pathname;
@@ -588,6 +655,7 @@
         }
     );
 
+    //按照页面，条件搜索
     function searchPage(rel) {
         var form = new FormData($('#searchForm')[0]);
 
@@ -612,38 +680,14 @@
 
     }
 
-    function update(id) {
-        var form = new FormData($("#updateForm")[0]);
-        form.append("id", id);
-        $.ajax({
-            url: '<%=basePath%>admin/updateCase',
-            type: "post",
-            data: form,
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            /* 指定返回类型为json */
-            dataType: 'json',
-            success: function (d) {
-                //更新data中case的内容，重新刷新一遍
-                $.each(data.cases, function (index, case1) {
-                    if (case1.id == d.case1.id) {
-                        case1.casename = d.case1.casename;
-                        case1.casetype = d.case1.casetype;
-                    }
-                });
-                updateTable(data);
-                //更新模态框隐藏
-                $("#updateModel").modal("hide");
-                $(".modify").removeClass("hidden");
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
+    //触发删除模态框
+    function deleteModel(id) {
+        $('#deleteModel').modal('show');
+        $('#deleteButton').val(id);
 
     }
 
+    //发送删除某一个对象请求
     function delete1(id) {
         $.ajax({
             url: '<%=basePath%>admin/deleteCase/' + id,
@@ -665,28 +709,6 @@
 
     }
 
-    function add() {
-        var form = new FormData($("#addForm")[0]);
-        $.ajax({
-            url: '<%=basePath%>admin/addCase',
-            type: "post",
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            data: form,
-            /* 指定返回类型为json */
-            dataType: 'json',
-            success: function (d) {
-                $("#addModel").modal("hide");
-                $(".add").removeClass("hidden");
-                searchPage(data.currentPage);
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
-
-    }
 
 </script>
 </body>

@@ -13,21 +13,21 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from group
+    from `group`
     where Id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from group
+    delete from `group`
     where Id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.dimension.pojo.Group">
-    insert into group (Id, groupName, description, 
+  <insert id="insert" parameterType="com.dimension.pojo.Group" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    insert into `group` (Id, groupName, description,
       grouperId)
     values (#{id,jdbcType=INTEGER}, #{groupname,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{grouperid,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.dimension.pojo.Group">
-    insert into group
+  <insert id="insertSelective" parameterType="com.dimension.pojo.Group" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+    insert into `group`
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         Id,
@@ -58,7 +58,7 @@
     </trim>
   </insert>
   <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Group">
-    update group
+    update `group`
     <set>
       <if test="groupname != null">
         groupName = #{groupname,jdbcType=VARCHAR},
@@ -73,7 +73,7 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Group">
-    update group
+    update `group`
     set groupName = #{groupname,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       grouperId = #{grouperid,jdbcType=INTEGER}

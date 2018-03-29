@@ -1,11 +1,11 @@
-package com.dimension.control;
+package com.dimension.control.UserControl;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/user")
-public class UserAdminControl {
+public class UserControl {
     //普通用户的案件管理，只有是组长的时候才能管理案件信息，案件分配是由管理员创建的，这里只能修改案件信息
     @RequestMapping("/caseAdmin")
     public String caseAdmin() {

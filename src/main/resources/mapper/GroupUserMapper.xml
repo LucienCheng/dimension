@@ -19,13 +19,13 @@
     delete from group_user
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.dimension.pojo.GroupUser">
+  <insert id="insert" parameterType="com.dimension.pojo.GroupUser" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into group_user (id, groupId, userId
       )
     values (#{id,jdbcType=INTEGER}, #{groupid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.dimension.pojo.GroupUser">
+  <insert id="insertSelective" parameterType="com.dimension.pojo.GroupUser" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
     insert into group_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

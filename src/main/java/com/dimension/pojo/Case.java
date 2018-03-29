@@ -106,5 +106,19 @@ public class Case implements Serializable {
 		this.departmentId = departmentId;
 	}
 
-	
+    @Override
+    public String toString() {
+        return "Case{" +
+                "id=" + id +
+                ", casecode='" + casecode + '\'' +
+                ", casename='" + casename + '\'' +
+                ", casetype='" + casetype + '\'' +
+                ", description='" + description + '\'' +
+                ", groupid=" + groupid +
+                ", begintime=" + begintime +
+                ", endtime=" + endtime +
+                ", departmentId=" + departmentId +
+                ", isEdited=" + isEdited +
+                '}';
+    }
 }

@@ -44,4 +44,14 @@ public class Group implements Serializable {
     public void setGrouperid(Integer grouperid) {
         this.grouperid = grouperid;
     }
+
+    @Override
+    public String toString() {
+        return "Group{" +
+                "id=" + id +
+                ", groupname='" + groupname + '\'' +
+                ", description='" + description + '\'' +
+                ", grouperid=" + grouperid +
+                '}';
+    }
 }
