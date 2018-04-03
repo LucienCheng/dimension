@@ -1,90 +1,161 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dimension.dao.TableMapper">
-	<resultMap id="BaseResultMap" type="com.dimension.pojo.Table">
-		<id column="id" jdbcType="INTEGER" property="id" />
-		<result column="englishName" jdbcType="VARCHAR" property="englishname" />
-		<result column="chineseName" jdbcType="VARCHAR" property="chinesename" />
-	</resultMap>
-	<sql id="Base_Column_List">
-		id, englishName, chineseName
+    <resultMap id="BaseResultMap" type="com.dimension.pojo.Table">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="englishName" jdbcType="VARCHAR" property="englishname"/>
+        <result column="chineseName" jdbcType="VARCHAR" property="chinesename"/>
+        <result column="isvalid" jdbcType="CHAR" property="isvalid"/>
+    </resultMap>
+    <resultMap id="ListField" type="Field">
+        <id property="id" column="field.id"/>
+        <result property="englishname" column="field.englishname"/>
+        <result property="chinesename" column="field.chinesename"/>
+        <result property="fieldtype" column="field.fieldtype"/>
+        <result property="isvalid" column="field.isvalid"/>
+        <association property="regexp" column="regexp.id" javaType="com.dimension.pojo.Regexp">
+            <id property="id" column="regexp.id"></id>
+            <result property="regex" column="regexp.regex"></result>
+            <result property="description" column="regexp.description"></result>
+        </association>
+    </resultMap>
+    <select id="getField" parameterType="int" resultMap="ListField">
+        select   field.id as 'field.id'
+        ,field.englishname as 'field.englishname'
+        ,field.chinesename as 'field.chinesename'
+        ,field.fieldtype as 'field.fieldtype'
+        ,field.isvalid as 'field.isvalid'
+        ,`regexp`.id as 'regexp.id'
+        ,`regexp`.regex as 'regexp.regex'
+        ,`regexp`.description as 'regexp.description'
+        from field   LEFT JOIN `regexp` on `regexp`.id=field.regexid
+        where tableid = #{id}
+    </select>
+
+    <resultMap id="FieldResult" type="com.dimension.pojo.Table">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="englishName" jdbcType="VARCHAR" property="englishname"/>
+        <result column="chineseName" jdbcType="VARCHAR" property="chinesename"/>
+        <result column="isvalid" jdbcType="CHAR" property="isvalid"/>
+        <collection property="fields" ofType="Field" javaType="ArrayList" column="id" select="com.dimension.dao.TableMapper.getField">
+        </collection>
+    </resultMap>
+
+
+    <sql id="Base_Column_List">
+		id, englishName, chineseName,isvalid
 	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Integer"
-		resultMap="BaseResultMap">
-		select
-		<include refid="Base_Column_List" />
-		from table_type
-		where id = #{id,jdbcType=INTEGER}
-	</select>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
+            resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from table_type
+        where id = #{id,jdbcType=INTEGER}
+    </select>
 
-	<select id="selectByCondition" resultMap="BaseResultMap">
-		SELECT * from table_type
-		<trim prefix="where" prefixOverrides="and | or">
-			<if test="id != null">
-				and id = #{id}
-			</if>
-			<if test="englishname != null">
-				and englishname = #{englishname}
-			</if>
-			<if test="chinesename != null">
-				and chinesename = #{chinesename}
-			</if>
+    <select id="selectByCondition" resultMap="FieldResult">
+        select table_type.*
+        FROM table_type
 
-		</trim>
-	</select>
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="table.id != null">
+                and table_type.id = #{table.id}
+            </if>
+            <if test="table.englishname != null">
+                and table_type.englishname = #{table.englishname}
+            </if>
+            <if test="table.chinesename != null">
+                and table_type.chinesename like concat('%',#{table.chinesename},'%')
+            </if>
+            <if test="table.isvalid != null">
+                and table_type.isvalid = #{table.isvalid}
+            </if>
+        </trim>
+        <if test="start != null and count != null">
+            limit #{start},#{count}
+        </if>
+    </select>
+    <select id="count" resultType="int">
+        select count(*)
+        FROM table_type
 
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        <trim prefix="where" prefixOverrides="and | or">
+            <if test="table.id != null">
+                and table_type.id = #{table.id}
+            </if>
+            <if test="table.englishname != null">
+                and table_type.englishname = #{table.englishname}
+            </if>
+            <if test="table.chinesename != null">
+                and table_type.chinesename like concat('%',#{table.chinesename},'%')
+            </if>
+            <if test="table.isvalid != null">
+                and table_type.isvalid = #{table.isvalid}
+            </if>
+        </trim>
+
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from table_type
 		where id = #{id,jdbcType=INTEGER}
 	</delete>
-	<insert id="insert" parameterType="com.dimension.pojo.Table">
-		insert into table_type (id, englishName, chineseName
+    <insert id="insert" parameterType="com.dimension.pojo.Table" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+		insert into table_type (id, englishName, chineseName,isvalid
 		)
 		values (#{id,jdbcType=INTEGER}, #{englishname,jdbcType=VARCHAR},
-		#{chinesename,jdbcType=VARCHAR}
+		#{chinesename,jdbcType=VARCHAR},#{isvalid,jdbcType=CHAR}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.dimension.pojo.Table">
-		insert into table_type
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				id,
-			</if>
-			<if test="englishname != null">
-				englishName,
-			</if>
-			<if test="chinesename != null">
-				chineseName,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null">
-				#{id,jdbcType=INTEGER},
-			</if>
-			<if test="englishname != null">
-				#{englishname,jdbcType=VARCHAR},
-			</if>
-			<if test="chinesename != null">
-				#{chinesename,jdbcType=VARCHAR},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Table">
-		update table_type
-		<set>
-			<if test="englishname != null">
-				englishName = #{englishname,jdbcType=VARCHAR},
-			</if>
-			<if test="chinesename != null">
-				chineseName = #{chinesename,jdbcType=VARCHAR},
-			</if>
-		</set>
-		where id = #{id,jdbcType=INTEGER}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Table">
+    <insert id="insertSelective" parameterType="com.dimension.pojo.Table" useGeneratedKeys="true" keyProperty="id"
+            keyColumn="id">
+        insert into table_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="englishname != null">
+                englishName,
+            </if>
+            <if test="chinesename != null">
+                chineseName,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="englishname != null">
+                #{englishname,jdbcType=VARCHAR},
+            </if>
+            <if test="chinesename != null">
+                #{chinesename,jdbcType=VARCHAR},
+            </if>
+            <if test="isvalid != null">
+                #{isvalid,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Table">
+        update table_type
+        <set>
+            <if test="englishname != null">
+                englishName = #{englishname,jdbcType=VARCHAR},
+            </if>
+            <if test="chinesename != null">
+                chineseName = #{chinesename,jdbcType=VARCHAR},
+            </if>
+            <if test="isvalid != null">
+                isvalid = #{isvalid,jdbcType=CHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Table">
 		update table_type
 		set englishName = #{englishname,jdbcType=VARCHAR},
-		chineseName = #{chinesename,jdbcType=VARCHAR}
+		chineseName = #{chinesename,jdbcType=VARCHAR},
+		isvalid = #{isvalid,jdbcType=CHAR}
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 </mapper>

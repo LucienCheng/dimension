@@ -16,6 +16,8 @@ public class File implements Serializable {
 
     private Date updatetime;
 
+    private String isvalid;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -32,6 +34,14 @@ public class File implements Serializable {
 
     public void setNodeid(Long nodeid) {
         this.nodeid = nodeid;
+    }
+
+    public String getIsvalid() {
+        return isvalid;
+    }
+
+    public void setIsvalid(String isvalid) {
+        this.isvalid = isvalid;
     }
 
     public String getFiletype() {

@@ -18,11 +18,15 @@
     Id, roleId, userName, password, identityId, telephone, departmentId, generatorTime, 
     loginTime, isValid, description
   </sql>
-    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from user
-        where Id = #{id,jdbcType=INTEGER}
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultType="User">
+        select user.*,
+        department.departmentName as "department.departmentname",
+        department.longnumber as "department.longnumber",
+        role.rolename
+        from user left join department
+        on user.departmentid=department.id
+        left join role on user.roleid=role.id
+        where user.Id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from user

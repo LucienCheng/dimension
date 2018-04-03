@@ -5,23 +5,26 @@ import java.util.Map;
 
 import com.dimension.pojo.Field;
 import com.dimension.pojo.Table;
-/**
- * 
- * @author chengliao
- * @date 2018年3月8日
- * @Description:提供动态表操作的主要服务。
- */
+import org.springframework.transaction.annotation.Transactional;
+
 public interface TableFieldService {
 
-boolean createTable(Table table,List<Field> fields);
 
-boolean dropTable(Table table);
+    boolean createTable(Table table, List<Field> fields);
 
-boolean setField(String tableName,Map<String , Object> fields);
+    //删除表
+    boolean dropTable(Table table);
 
-boolean dropRecord(String tableName,Long nodeId);
+    //设置某个文本域
+    boolean setField(String tableName, Map<String, Object> fields);
 
-boolean insertRecord(String tableName,Map<String , Object> fields);
+    //删除某个文本域
+    boolean dropRecord(String tableName, Long nodeId);
 
-List<Field> getFieldValue(Table table,Long nodeId);
+    //插入某个记录
+    boolean insertRecord(String tableName, Map<String, Object> fields);
+
+    //获取某个点位
+    List<Field> getFieldValue(Table table, Long nodeId);
+
 }

@@ -12,6 +12,9 @@ import com.dimension.dao.TableFieldMapper;
 import com.dimension.dao.TableMapper;
 import com.dimension.pojo.Field;
 import com.dimension.pojo.Table;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
+
 @Service
 public class TableFieldImpl implements com.dimension.service.TableFieldService {
 	@Resource
@@ -21,8 +24,11 @@ private TableFieldMapper tableFieldMapper;
 	@Resource
 	private FieldMapper fieldMapper;
 	@Override
+	@Transactional(rollbackFor=Exception.class)
+	@Rollback(true)
 	public boolean createTable(Table table, List<Field> fields) {
-		tableMapper.insert(table);
+		tableFieldMapper.createTable(table.getEnglishname(), fields);
+		tableMapper.insertSelective(table);
 		for (Field field : fields) {
 			field.setTableid(table.getId());
 			fieldMapper.insertSelective(field);
@@ -32,14 +38,13 @@ private TableFieldMapper tableFieldMapper;
 		record.setChinesename("唯一标识");
 		record.setFieldtype("bigint");
 		record.setTableid(table.getId());
-		fieldMapper.insert(record);
-		tableFieldMapper.createTable(table.getEnglishname(), fields);
+		fieldMapper.insertSelective(record);
 		return true;
 	}
 
 	@Override
 	public boolean dropTable(Table table) {
-		tableMapper.selectByCondition(table);
+
 		fieldMapper.deleteByTableId(table.getId());
 		tableFieldMapper.dropTable(table.getEnglishname());
 		

@@ -12,10 +12,13 @@ public class Field implements Serializable {
     private String fieldtype;
 
     private Integer tableid;
-    
-    private String value;
-    
 
+    private String value;
+
+    private Regexp regexp;
+
+    private Integer regexid;
+    private String isvalid;
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -42,6 +45,22 @@ public class Field implements Serializable {
         this.chinesename = chinesename == null ? null : chinesename.trim();
     }
 
+    public Regexp getRegexp() {
+        return regexp;
+    }
+
+    public void setRegexp(Regexp regexp) {
+        this.regexp = regexp;
+    }
+
+    public Integer getRegexid() {
+        return regexid;
+    }
+
+    public void setRegexid(Integer regexid) {
+        this.regexid = regexid;
+    }
+
     public String getFieldtype() {
         return fieldtype;
     }
@@ -58,20 +77,33 @@ public class Field implements Serializable {
         this.tableid = tableid;
     }
 
-	public String getValue() {
-		return value;
-	}
+    public String getValue() {
+        return value;
+    }
 
-	public void setValue(String value) {
-		this.value = value;
-	}
+    public void setValue(String value) {
+        this.value = value;
+    }
 
-	
+    public String getIsvalid() {
+        return isvalid;
+    }
 
-	
-	
+    public void setIsvalid(String isvalid) {
+        this.isvalid = isvalid;
+    }
 
-	
-
-	
+    @Override
+    public String toString() {
+        return "Field{" +
+                "id=" + id +
+                ", englishname='" + englishname + '\'' +
+                ", chinesename='" + chinesename + '\'' +
+                ", fieldtype='" + fieldtype + '\'' +
+                ", tableid=" + tableid +
+                ", value='" + value + '\'' +
+                ", regexp=" + regexp +
+                ", isvalid='" + isvalid + '\'' +
+                '}';
+    }
 }

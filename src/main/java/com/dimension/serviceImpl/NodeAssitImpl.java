@@ -212,7 +212,8 @@ public class NodeAssitImpl implements NodeAssit {
 		//删除数据库的记录
 		fileMapper.deleteByPrimaryKey(file.getId());
 		String fileAddress = file.getFileaddress();
-		fileAddress = fileAddress.substring(0, 10);
+		int index=fileAddress.indexOf(filePathPrefix);
+		fileAddress = fileAddress.substring(index);
 		String contentPathString = request.getServletContext().getRealPath("/");
 		java.io.File file2 = new java.io.File(contentPathString, fileAddress);
 		//删除本地文件

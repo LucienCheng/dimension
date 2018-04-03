@@ -20,4 +20,6 @@ public interface FieldMapper {
     int updateByPrimaryKey(Field record);
     
     List<Field> getFieldByTableId(Integer tableId);
+
+    int maxFieldId(Integer tableid);
 }

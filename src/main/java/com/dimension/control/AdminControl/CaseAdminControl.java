@@ -30,7 +30,7 @@ public class CaseAdminControl {
     private static final int count = 1;
 
 
-    //管理员案件管理,可以添加案件，并且设置组长
+
     @RequestMapping("/caseAdmin")
     public String caseAdmin(CaseCondition caseCondition, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
@@ -46,7 +46,7 @@ public class CaseAdminControl {
         return "/admin/caseAdmin";
     }
 
-    //管理员案件管理,可以添加案件，并且设置组长
+
     @RequestMapping("/caseAdmin/{start}")
     @ResponseBody
     public Map<String, Object> caseAdminAjax(CaseCondition caseCondition, HttpSession session, @PathVariable int start) {

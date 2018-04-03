@@ -7,8 +7,9 @@ import javax.json.JsonObject;
 
 import com.dimension.dao.CaseMapper;
 import com.dimension.dao.DepartmentMapper;
-import com.dimension.pojo.CaseCondition;
-import com.dimension.pojo.UserCondition;
+import com.dimension.dao.TableMapper;
+import com.dimension.pojo.*;
+import com.dimension.service.TableFieldService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
@@ -19,16 +20,39 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.dimension.dao.UserMapper;
-import com.dimension.pojo.User;
 
 import java.util.*;
 
-@ContextConfiguration(locations = { "file:src/main/webapp/WEB-INF/springmvc-servlet.xml",
-		"classpath:spring-mybatis.xml" })
+@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/springmvc-servlet.xml",
+        "classpath:spring-mybatis.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestUser {
-	@Test
-	public void testUserDao() throws JsonProcessingException {
+    @Resource
+    TableFieldService tableFieldService;
+@Resource
+    TableMapper tableMapper;
+    @Test
+    public void user() throws JsonProcessingException {
 
-	}
+    }
+
+    @Test
+    public void table() {
+        Table table=new Table();
+        table.setChinesename("测试");
+        table.setEnglishname("test");
+        List<Field> fields=new ArrayList<>();
+        Field field=new Field();
+        field.setEnglishname("telephone");
+        field.setChinesename("电话");
+        field.setFieldtype("varchar(64)");
+        fields.add(field);
+        tableFieldService.createTable(table,fields);
+    }
+    @Test
+    public void tableSearch() {
+        Table table=new Table();
+        table.setChinesename("测试");
+        List<Table> tables = tableMapper.selectByCondition(table,0,1);
+    }
 }

@@ -281,19 +281,15 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">案件名称</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">案件名称</label>
                                                 <input id="casename" name="casename" type="text"
-                                                       class="form-control" placeholder="案件名称">
-                                            </div>
+                                                       class="col-sm-8 form-control" placeholder="案件名称">
                                         </div>
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">案件类型</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">案件类型</label>
                                                 <input id="casetype" name="casetype" type="text"
-                                                       class="form-control" placeholder="案件类型">
-                                            </div>
+                                                       class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
 
                                     </div>
@@ -353,51 +349,43 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">案件名称</label>
-                                            <div>
-                                                <input name="casename" type="text"
-                                                       class="form-control" placeholder="案件名称">
-                                            </div>
+                                        <div class="row form-group ">
+                                            <label class="col-sm-3 form-control-label ">案件名称</label>
+                                            <input name="casename" type="text"
+                                                   class="col-sm-8 form-control" placeholder="案件名称">
                                         </div>
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">案件类型</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">案件类型</label>
                                                 <input name="casetype" type="text"
-                                                       class="form-control" placeholder="案件类型">
-                                            </div>
+                                                       class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">案件编号</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">案件编号</label>
                                                 <input name="casecode" type="text"
-                                                       class="form-control" placeholder="案件编号">
-                                            </div>
+                                                       class="col-sm-8 form-control" placeholder="案件编号">
                                         </div>
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">小组名称</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">小组名称</label>
                                                 <input name="groupname" type="text"
-                                                       class="form-control" placeholder="小组名称">
-                                            </div>
+                                                       class="col-sm-8 form-control" placeholder="小组名称">
                                         </div>
-                                        <div id="department">
-                                            <label class="form-control-label ">组长选择:</label>
-                                            <div class="row">
-                                                <select class="c-select col-sm-12" id="grouperid" name="grouperid">
+                                        <div id="department"  class="form-group row">
+                                            <label class="col-sm-3 form-control-label ">组长选择:</label>
+                                                <select class="c-select col-sm-8" id="grouperid" name="grouperid">
                                                     <c:forEach items="${groupUsers}" var="user">
                                                         <<option value="${user.id}">${user.username}</option>>
                                                     </c:forEach>
                                                 </select>
-                                            </div>
 
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form-control-label">备注信息:</label>
-                                            <div>
+                                        <div class="form-group row">
+
+                                            <label class="col-sm-12">备注信息:</label>
+                                            <div class="col-sm-12">
                                                 <textarea rows="5" class="form-control form-control-line"
                                                           name="description"></textarea>
                                             </div>
+
                                         </div>
 
 
@@ -669,6 +657,7 @@
             /* 指定返回类型为json */
             dataType: 'json',
             success: function (d) {
+                console.log(d);
                 data = d;
                 updateTable(d);
                 updatePage(d);

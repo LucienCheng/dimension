@@ -9,8 +9,14 @@ public class Table implements Serializable {
     private String englishname;
 
     private String chinesename;
-    
+
+    private String isvalid;
+
+    //文本域
     private List<Field> fields;
+
+    //点的个数
+    private Integer count;
 
     private static final long serialVersionUID = 1L;
 
@@ -38,7 +44,23 @@ public class Table implements Serializable {
         this.chinesename = chinesename == null ? null : chinesename.trim();
     }
 
-	public List<Field> getFields() {
+    public Integer getCount() {
+        return count;
+    }
+
+    public void setCount(Integer count) {
+        this.count = count;
+    }
+
+    public String getIsvalid() {
+        return isvalid;
+    }
+
+    public void setIsvalid(String isvalid) {
+        this.isvalid = isvalid;
+    }
+
+    public List<Field> getFields() {
 		return fields;
 	}
 

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Param;
 
 import com.dimension.pojo.Field;
+import org.apache.ibatis.session.ResultHandler;
 
 public interface TableFieldMapper {
 	// 获得某个字段的值
@@ -36,5 +37,9 @@ public interface TableFieldMapper {
 	// 修改字段
 	Integer alterField(@Param("tableName") String tableName, @Param("origin") String origin, @Param("dest") String dest,
 			@Param("type") String type);
+
+
+	//获取每个表的点位个数
+	Map<Integer,Integer> count(ResultHandler resultHandler);
 
 }

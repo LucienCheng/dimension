@@ -77,6 +77,7 @@ public class UserAdminControl {
     public Map<String, Object> updateUser(User user) {
         Map<String, Object> map = new HashMap<>();
         userMapper.updateByPrimaryKeySelective(user);
+        user=userMapper.selectByPrimaryKey(user.getId());
         map.put("user", user);
         return map;
     }

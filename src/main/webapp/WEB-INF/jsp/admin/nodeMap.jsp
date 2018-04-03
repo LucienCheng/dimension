@@ -96,7 +96,7 @@
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
 
 
-                    <li ><a href="#" data-toggle="collapse" data-target="#submenu1"><i
+                    <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
@@ -158,229 +158,294 @@
             <div class="row">
 
                 <div class="col-12">
+
                     <%--这是案件点位的搜索--%>
                     <div class="col-sm-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
+                                    案件相关点位查询
                                     <a data-toggle="collapse" data-parent="#accordion"
-                                       href="#case">
-                                        案件相关点位查询
+                                       href="#case" style="color:#0f1111;">
+                                        <i class="fa  fa-angle-double-down m-l-10 pull-right"></i>
                                     </a>
+
                                 </h4>
+
                             </div>
+                            <div id="case" class="panel-collapse collapse ">
+                                <div class="panel-body">
+                                    <div class="card-block">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3"
+                                                               class="col-sm-2 form-control-label">Email</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="email" class="form-control" id="inputEmail3"
+                                                                   placeholder="Email">
+                                                        </div>
+                                                        <div class="col-sm-2"></div>
+                                                        <div class="col-sm-10" style="margin-top: 10px;">
+                                                            <select class="c-select">
+                                                                <option selected>点位类型</option>
+                                                                <option value="1">案件点</option>
+                                                                <option value="2">基础点</option>
+                                                                <option value="3">标记点</option>
+                                                            </select>
 
-                        </div>
-                    </div>
-                    <div class="col-sm-12 collapse" id="case">
-
-                        <!-- column -->
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-block">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3"
-                                                           class="col-sm-2 form-control-label">Email</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" id="inputEmail3"
-                                                               placeholder="Email">
-                                                    </div>
-                                                    <div class="col-sm-2"></div>
-                                                    <div class="col-sm-10" style="margin-top: 10px;">
-                                                        <select class="c-select">
-                                                            <option selected>点位类型</option>
-                                                            <option value="1">案件点</option>
-                                                            <option value="2">基础点</option>
-                                                            <option value="3">标记点</option>
-                                                        </select>
+                                                        </div>
 
                                                     </div>
 
                                                 </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3"
+                                                               class="col-sm-2 form-control-label">Email</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="email" class="form-control"
+                                                                   placeholder="Email">
+                                                        </div>
+                                                        <div class="col-sm-2"></div>
+                                                        <div class="col-sm-10" style="margin-top: 10px;">
+                                                            <button type="submit" class="btn btn-info">搜索</button>
+                                                        </div>
 
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3"
-                                                           class="col-sm-2 form-control-label">Email</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" placeholder="Email">
                                                     </div>
-                                                    <div class="col-sm-2"></div>
-                                                    <div class="col-sm-10" style="margin-top: 10px;">
-                                                        <button type="submit" class="btn btn-info">搜索</button>
-                                                    </div>
-
                                                 </div>
                                             </div>
+
+
+                                        </form>
+                                        <h4 class="card-title">点位</h4>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Username</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Deshmukh</td>
+                                                    <td>Prohaska</td>
+                                                    <td>Prohaska</td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-danger">删除</button>
+                                                        <button type="submit" class="btn btn-warning">查看</button>
+                                                    </td>
+
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        <nav class="text-center">
 
+                                            <ul class="pagination">
+                                                <li class="page-item disabled"><a class="page-link"
+                                                                                  href="#">Previous</a>
+                                                </li>
+                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                            </ul>
+                                        </nav>
 
-                                    </form>
-                                    <h4 class="card-title">点位</h4>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
-                                                <th>操作</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Deshmukh</td>
-                                                <td>Prohaska</td>
-                                                <td>Prohaska</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-danger">删除</button>
-                                                    <button type="submit" class="btn btn-warning">查看</button>
-                                                </td>
-
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
                                     </div>
-                                    <nav class="text-center">
-
-                                        <ul class="pagination">
-                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                        </ul>
-                                    </nav>
-
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
+
                     <%--这是普通点位的搜索--%>
                     <div class="col-sm-12">
                         <div class="panel panel-info">
                             <div class="panel-heading">
                                 <h4 class="panel-title">
+                                    普通点位查询
                                     <a data-toggle="collapse" data-parent="#accordion"
-                                       href="#common">
-                                        普通点位查询
+                                       href="#common" style="color:#0f1111;">
+                                        <i class="fa  fa-angle-double-down m-l-10 pull-right"></i>
                                     </a>
+
                                 </h4>
                             </div>
+                            <div id="common" class="panel-collapse collapse ">
+                                <div class="panel-body">
+                                    <div class="card-block">
+                                        <form>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3"
+                                                               class="col-sm-2 form-control-label">Email</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="email" class="form-control" id="inputEmail3"
+                                                                   placeholder="Email">
+                                                        </div>
+                                                        <div class="col-sm-2"></div>
+                                                        <div class="col-sm-10" style="margin-top: 10px;">
+                                                            <select class="c-select">
+                                                                <option selected>点位类型</option>
+                                                                <option value="1">案件点</option>
+                                                                <option value="2">基础点</option>
+                                                                <option value="3">标记点</option>
+                                                            </select>
 
-                        </div>
-                    </div>
-                    <div class="col-sm-12 collapse" id="common">
-
-                        <!-- column -->
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-block">
-                                    <form>
-                                        <div class="row">
-                                            <div class="col-sm-6">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3"
-                                                           class="col-sm-2 form-control-label">Email</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" id="inputEmail3"
-                                                               placeholder="Email">
-                                                    </div>
-                                                    <div class="col-sm-2"></div>
-                                                    <div class="col-sm-10" style="margin-top: 10px;">
-                                                        <select class="c-select">
-                                                            <option selected>点位类型</option>
-                                                            <option value="1">案件点</option>
-                                                            <option value="2">基础点</option>
-                                                            <option value="3">标记点</option>
-                                                        </select>
+                                                        </div>
 
                                                     </div>
 
                                                 </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        <label for="inputEmail3"
+                                                               class="col-sm-2 form-control-label">Email</label>
+                                                        <div class="col-sm-10">
+                                                            <input type="email" class="form-control"
+                                                                   placeholder="Email">
+                                                        </div>
+                                                        <div class="col-sm-2"></div>
+                                                        <div class="col-sm-10" style="margin-top: 10px;">
+                                                            <button type="submit" class="btn btn-info">搜索</button>
+                                                        </div>
 
-                                            </div>
-                                            <div class="col-sm-6">
-                                                <div class="form-group row">
-                                                    <label for="inputEmail3"
-                                                           class="col-sm-2 form-control-label">Email</label>
-                                                    <div class="col-sm-10">
-                                                        <input type="email" class="form-control" placeholder="Email">
                                                     </div>
-                                                    <div class="col-sm-2"></div>
-                                                    <div class="col-sm-10" style="margin-top: 10px;">
-                                                        <button type="submit" class="btn btn-info">搜索</button>
-                                                    </div>
-
                                                 </div>
                                             </div>
+
+
+                                        </form>
+                                        <h4 class="card-title">点位</h4>
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                <tr>
+                                                    <th>#</th>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Username</th>
+                                                    <th>操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>1</td>
+                                                    <td>Deshmukh</td>
+                                                    <td>Prohaska</td>
+                                                    <td>Prohaska</td>
+                                                    <td>
+                                                        <button type="submit" class="btn btn-danger">删除</button>
+                                                        <button type="submit" class="btn btn-warning">查看</button>
+                                                    </td>
+
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
                                         </div>
+                                        <nav class="text-center">
 
+                                            <ul class="pagination">
+                                                <li class="page-item disabled"><a class="page-link"
+                                                                                  href="#">Previous</a>
+                                                </li>
+                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                            </ul>
+                                        </nav>
 
-                                    </form>
-                                    <h4 class="card-title">点位</h4>
-                                    <div class="table-responsive">
-                                        <table class="table">
-                                            <thead>
-                                            <tr>
-                                                <th>#</th>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Username</th>
-                                                <th>操作</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody>
-                                            <tr>
-                                                <td>1</td>
-                                                <td>Deshmukh</td>
-                                                <td>Prohaska</td>
-                                                <td>Prohaska</td>
-                                                <td>
-                                                    <button type="submit" class="btn btn-danger">删除</button>
-                                                    <button type="submit" class="btn btn-warning">查看</button>
-                                                </td>
-
-                                            </tr>
-
-                                            </tbody>
-                                        </table>
                                     </div>
-                                    <nav class="text-center">
-
-                                        <ul class="pagination">
-                                            <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                        </ul>
-                                    </nav>
-
                                 </div>
-
                             </div>
                         </div>
-
                     </div>
-
+                    <div class="col-sm-2">
+                        <input class="btn btn-info" value="添加单个点" onclick="addNode()" type="button">
+                    </div>
+                    <div class="col-sm-2">
+                        <input class="btn btn-info" value="添加事件点" onclick="addCaseNode()" type="button">
+                    </div>
                     <div class="card">
                         <div class="card-block">
 
                             <div id="allmap" class="maps"></div>
                         </div>
                     </div>
+                    <%--模态框--%>
+                    <div class="col-sm-12">
+                        <div class="modal fade" id="updateModel" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">回复信息</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                    </div>
+                                    <form id="updateForm">
+                                        <div class="modal-body ">
+                                            <label class="form-control-label">消息内容:</label>
+                                            <div>
+                                                <textarea rows="5" class="form-control form-control-line"
+                                                          name="replyconten"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary" id="updateButton"
+                                                    onclick="update($(this).val());">发送
+                                            </button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%--end模态框，展示具体点位--%>
+                    <%--模态框具体点位，展示具体点位--%>
+                    <div class="col-sm-12">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog " role="document" style="max-width: 80%">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <h4 class="modal-title" id="exampleModalLabel">具体点位信息</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body embed-responsive embed-responsive-16by9">
+                                        <iframe class="embed-responsive-item" allowfullscreen></iframe>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary">Send message</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <%--end模态框，展示具体点位--%>
                 </div>
             </div>
 
@@ -422,24 +487,145 @@
 <script src="<%=basePath %>/source/js/custom.min.js"></script>
 <script type="text/javascript"
         src="http://api.map.baidu.com/getscript?v=2.0&ak=mv0HsmB5GwdGiXw6oRUq3XsjsZbfXibc&services=&t="></script>
-
-<!-- Style switcher -->
-
-<script
-        src="<%=basePath %>/source/assets/plugins/style/switcher/jQuery.style.switcher.js"></script>
 <script type="text/javascript">
-    // 百度地图API功能
-    var map = new BMap.Map("allmap");    // 创建Map实例
-    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
-    //添加地图类型控件
-    map.addControl(new BMap.MapTypeControl({
-        mapTypes: [
-            BMAP_NORMAL_MAP,
-            BMAP_HYBRID_MAP
-        ]
-    }));
-    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    // 初始化百度地图
+    var map = new BMap.Map("allmap", {minZoom: 16, maxZoom: 20});
     map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    var point = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(point, 15);
+    var count = 1;
+    var myCity = new BMap.LocalCity();
+    myCity.get(getCity);
+
+
+    //添加一个事件点
+    function addCaseNode() {
+        var bounds = map.getBounds();
+        var sw = bounds.getSouthWest();
+        var ne = bounds.getNorthEast();
+        var lngSpan = Math.abs(sw.lng - ne.lng);
+        var latSpan = Math.abs(ne.lat - sw.lat);
+        //设置窗口内容
+        var img = '<%=basePath%>source/tianAnMen.jpg';
+        var title = '天安门';
+        var content = '天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...';
+        var sContent =
+            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + title + "</h4>" +
+            "<img style='float:right;margin:4px' id='imgDemo' src='" + img +
+            "' width='139' height='104' />" +
+            "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + content +
+            "</p></div>";
+        var points = [];
+        for (var i = 0; i < 3; i++) {
+            var markerMenu = new BMap.ContextMenu();
+            var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+            var marker = new BMap.Marker(point);
+            marker.id = count;
+            //添加右键窗口
+            markerMenu.addItem(new BMap.MenuItem('发送消息', function () {
+                console.log(this.getTitle());
+                $('#updateModel').modal('toggle');
+            }));
+            markerMenu.addItem(new BMap.MenuItem('标记点位', function () {
+                console.log(this.id);
+            }));
+            markerMenu.addItem(new BMap.MenuItem('在地图上删除', function () {
+                map.removeOverlay(this);
+            }));
+            marker.addContextMenu(markerMenu);
+            //添加单击展示窗口
+            marker.addEventListener("click", function () {
+                //初始化地图以及窗口
+                var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+                this.openInfoWindow(infoWindow);
+                /* //图片加载完毕重绘infowindow
+                 document.getElementById('imgDemo').onload = function () {
+                     infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+                 }*/
+            });
+            //添加双击时显示点位具体信息
+            marker.addEventListener("dblclick", function () {
+                console.log(this.id);
+                //弹出具体点位的信息
+                $('#exampleModal').modal('toggle');
+                $('#exampleModal .modal-body iframe').prop("src", this.count);
+
+            });
+            points.push(point);
+            count++;
+            map.addOverlay(marker);
+        }
+
+
+        var polyline = new BMap.Polyline(points, {strokeColor: "blue", strokeWeight: 10, strokeOpacity: 0.5});   //创建折线
+        polyline.caseId = count;
+        polyline.addEventListener("click", function (e) {
+            console.log(this.caseId)
+        });
+        map.addOverlay(polyline); //添加到地图中
+    }
+
+    //添加点位操作
+    function addNode() {
+
+        var bounds = map.getBounds();
+        var sw = bounds.getSouthWest();
+        var ne = bounds.getNorthEast();
+        var lngSpan = Math.abs(sw.lng - ne.lng);
+        var latSpan = Math.abs(ne.lat - sw.lat);
+        //设置窗口内容
+        var img = '<%=basePath%>source/tianAnMen.jpg';
+        var title = '天安门';
+        var content = '天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...';
+        var sContent =
+            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + title + "</h4>" +
+            "<img style='float:right;margin:4px' id='imgDemo' src='" + img +
+            "' width='139' height='104' />" +
+            "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + content +
+            "</p></div>";
+        var markerMenu = new BMap.ContextMenu();
+        var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+        var marker = new BMap.Marker(point);
+        marker.id = count;
+        //添加右键窗口
+        markerMenu.addItem(new BMap.MenuItem('发送消息', function () {
+            console.log(this.getTitle());
+            $('#updateModel').modal('toggle');
+        }));
+        markerMenu.addItem(new BMap.MenuItem('标记点位', function () {
+            console.log(this.id);
+        }));
+        markerMenu.addItem(new BMap.MenuItem('在地图上删除', function () {
+            map.removeOverlay(this);
+        }));
+        marker.addContextMenu(markerMenu);
+        //添加单击展示窗口
+        marker.addEventListener("click", function () {
+            //初始化地图以及窗口
+            var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+            this.openInfoWindow(infoWindow);
+            /* //图片加载完毕重绘infowindow
+             document.getElementById('imgDemo').onload = function () {
+                 infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+             }*/
+        });
+        //添加双击时显示点位具体信息
+        marker.addEventListener("dblclick", function () {
+            console.log(this.id);
+            //弹出具体点位的信息
+            $('#exampleModal').modal('toggle');
+            $('#exampleModal .modal-body iframe').prop("src", count);
+
+        });
+        count++;
+        map.addOverlay(marker);
+    }
+
+    function getCity(result) {
+        var cityName = result.name;
+        map.setCenter(cityName);
+    }
+
 </script>
 </body>
 

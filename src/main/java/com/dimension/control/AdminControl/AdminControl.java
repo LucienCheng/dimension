@@ -16,11 +16,7 @@ public class AdminControl {
     private static final int count = 1;
 
 
-    //点位点位的类型管理
-    @RequestMapping("/nodeType")
-    public String nodeType() {
-        return "/admin/nodeType";
-    }
+
 
     //点位比较
     @RequestMapping("/nodeCompare")

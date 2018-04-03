@@ -2353,12 +2353,16 @@ pre code {
 .table-responsive.table-bordered {
     border: 0
 }
-
+.form-control-label{
+    padding:.4375rem .75rem;
+    margin-bottom:0;
+}
 .form-control {
+    margin-bottom: 10px;
     display: block;
     width: 100%;
     padding: .5rem .75rem;
-    font-size: 1rem;
+    font-size: 15px;
     line-height: 1.25;
     color: #464a4c;
     background-color: #fff;

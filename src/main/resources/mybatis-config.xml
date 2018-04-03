@@ -4,6 +4,7 @@
 
  <settings>
         <setting name="logImpl" value="STDOUT_LOGGING" />
+     <setting name="safeResultHandlerEnabled" value="true"></setting>
  </settings>
  <typeAliases>
     <typeAlias type="com.dimension.pojo.User" alias="User"/>

@@ -203,7 +203,7 @@
                                                        name="username">
                                             </div>
                                             <div class="col-sm-2"></div>
-                                            <div class="col-sm-10" style="margin-top: 10px;">
+                                            <div class="col-sm-10" >
                                                 <input onclick="sendAjaxPage(1)" class="btn btn-info" value="搜索">
                                             </div>
 
@@ -277,19 +277,28 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">用户名</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class=" col-sm-3 form-control-label">用户名</label>
                                                 <input id="infoUsername" name="username" type="text"
-                                                       class="form-control" placeholder="用户名">
-                                            </div>
+                                                       class="form-control col-sm-8" placeholder="用户名">
                                         </div>
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">密码</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class=" form-control-label col-sm-3">密码</label>
                                                 <input id="infoPassword" name="password" type="text"
-                                                       class="form-control" placeholder="密码">
-                                            </div>
+                                                       class="form-control col-sm-8" placeholder="密码">
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="form-control-label col-sm-3 ">角色选择:</label>
+                                            <select class="c-select col-sm-8 " id="updateRoleid" name="roleid">
+                                                <option value="2" selected>普通用户</option>
+                                                <option value="4">部门管理员</option>
+                                            </select>
+                                        </div>
+                                        <div class="hidden row" id="updateDepartment">
+                                            <label class="form-control-label col-sm-3 ">部门选择:</label>
+                                            <select class="c-select col-sm-8" id="updateDepartmentid" name="departmentid">
+                                            </select>
+
                                         </div>
 
                                     </div>
@@ -347,57 +356,42 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">用户名</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class=" form-control-label col-sm-3">用户名</label>
                                                 <input name="username" type="text"
-                                                       class="form-control" placeholder="用户名">
-                                            </div>
+                                                       class="form-control col-sm-8" placeholder="用户名">
                                         </div>
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">密码</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class=" form-control-label col-sm-3">密码</label>
                                                 <input name="password" type="text"
-                                                       class="form-control" placeholder="密码">
-                                            </div>
+                                                       class="form-control col-sm-8" placeholder="密码">
                                         </div>
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">身份证</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class=" form-control-label col-sm-3">身份证</label>
                                                 <input name="identityid" type="text"
-                                                       class="form-control" placeholder="身份证">
-                                            </div>
+                                                       class="form-control col-sm-8" placeholder="身份证">
                                         </div>
-                                        <div class="form-group ">
-                                            <label class=" form-control-label">电话</label>
-                                            <div>
+                                        <div class="form-group row">
+                                            <label class=" form-control-label col-sm-3">电话</label>
                                                 <input name="telephone" type="text"
-                                                       class="form-control" placeholder="电话">
-                                            </div>
+                                                       class="form-control col-sm-8" placeholder="电话">
                                         </div>
-                                        <div class="form-group">
-                                            <label class="form-control-label">备注信息:</label>
-                                            <div>
-                                                <textarea rows="5" class="form-control form-control-line"
+                                        <div class="form-group row">
+                                            <label class="form-control-label col-sm-3">备注信息:</label>
+                                                <textarea rows="5" class="form-control form-control-line col-sm-8"
                                                           name="description"></textarea>
-                                            </div>
                                         </div>
-                                        <div>
-                                            <label class="form-control-label">角色选择:</label>
-                                            <div>
-                                                <select class="c-select" id="roleid" name="roleid">
+                                        <div class="form-group row">
+                                            <label class="form-control-label col-sm-3 ">角色选择:</label>
+                                                <select class="c-select col-sm-8 " id="roleid" name="roleid">
                                                     <option value="2" selected>普通用户</option>
                                                     <option value="4">部门管理员</option>
                                                 </select>
-                                            </div>
                                         </div>
-                                        <div class="hidden " id="department">
-                                            <label class="form-control-label ">部门选择:</label>
-                                            <div class="row">
-                                                <select class="c-select col-sm-12" id="departmentid" name="departmentid">
-
+                                        <div class="hidden row" id="department">
+                                            <label class="form-control-label col-sm-3 ">部门选择:</label>
+                                                <select class="c-select col-sm-8" id="departmentid" name="departmentid">
                                                 </select>
-                                            </div>
 
                                         </div>
 
@@ -462,13 +456,12 @@
     data.currentPage =${currentPage};
     data.totalPage =${totalPage};
     data.users =${usersJson};
-
+    var role =${user.roleid};
     $(function () {
         $("#add1").bind("click", function () {
             addUser();
         })
         updatePage(data);
-        var role =${user.roleid};
         //超级管理员
         if (role == 3) {
             $("#department").removeClass("hidden");
@@ -507,6 +500,36 @@
             if (item.id == id) {
                 $("#infoUsername").val(item.username);
                 $("#infoPassword").val(item.password);
+                //超级管理员
+                if (role == 3) {
+                    $("#updateDepartment").removeClass("hidden");
+                    $.each(${subDepartmentJson}, function (index, item) {
+                        var option = $("<option>").val(item.id).text(item.departmentname);
+                        $("#updateDepartmentid").append(option);
+                    })
+                }
+
+                //部门管理员，如果是本部门，就只有一个选项
+                else {
+                    $("#updateRoleid").bind("click", function () {
+                        $("#updateDepartment").removeClass("hidden");
+                        var roleid = $(this).val();
+                        //本部门
+                        if (roleid == 2) {
+                            $("#updateDepartmentid").empty();
+                            var option = $("<option>").val(adminDepartment).text("${user.department.departmentname}");
+                            $("#updateDepartmentid").append(option);
+                        } else {
+                            $("#updateDepartmentid").empty();
+                            //需要遍历一下subDepartmentJson
+                            $.each(${subDepartmentJson}, function (index, item) {
+                                var option = $("<option>").val(item.id).text(item.departmentname);
+                                $("#updateDepartmentid").append(option);
+                            })
+
+                        }
+                    })
+                }
                 return false;
             }
         })
@@ -660,6 +683,9 @@
                     if (user.id == d.user.id) {
                         user.password = d.user.password;
                         user.username = d.user.username;
+                        user.roleid = d.user.roleid;
+                        user.departmentid = d.user.departmentid;
+                        user.department.departmentname = d.user.department.departmentname;
                     }
                 });
                 updateTable(data);
