@@ -6,6 +6,7 @@
 %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -29,6 +30,7 @@
     <link href="<%=basePath%>source/css/colors/megna.css" id="theme"
           rel="stylesheet">
 
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
 </head>
 
 <body class="fix-header card-no-border">
@@ -99,8 +101,11 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
-                                    class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+
+                            <c:if test="${user.roleid == 3}">
+                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
+                                        class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            </c:if>
                             <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
                                     class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
@@ -111,8 +116,11 @@
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
-                            class="fa fa-comment m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <c:if test="${user.roleid != 3}">
+
+                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
+                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    </c:if>
 
                     <li><a href="<%=basePath%>admin/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
@@ -190,6 +198,11 @@
                                                 <input type="text" class="form-control" name="casename"
                                                        placeholder="案件名称">
                                             </div>
+                                            <label class="col-sm-2 form-control-label">案件类型</label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" placeholder="案件类型"
+                                                       name="casetype">
+                                            </div>
                                             <div class="col-sm-2"></div>
                                             <div class="col-sm-10">
                                                 <input onclick="addModal()" class="btn btn-info" value="添加">
@@ -200,10 +213,11 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label class="col-sm-2 form-control-label">案件类型</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" placeholder="案件类型"
-                                                       name="casetype">
+
+                                            <label
+                                                    class="col-sm-2 form-control-label">选择时间</label>
+                                            <div class=" col-sm-10">
+                                                <input type="text" class="form-control" id="daterange" placeholder="选择起始时间和终止时间">
                                             </div>
                                             <div class="col-sm-2"></div>
                                             <div class="col-sm-10" style="margin-top: 10px;">
@@ -225,29 +239,29 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">点位</h4>
+                            <h4 class="card-title">案件</h4>
 
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div >
+                                <table class="table table-hover">
                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>案件名称</th>
-                                        <th>案件类型</th>
-                                        <th>案件开始时间</th>
-                                        <th>案件结束时间</th>
-                                        <th>操作</th>
+                                    <tr class="row">
+                                        <th class="col-sm-1">#</th>
+                                        <th class="col-sm-2">案件名称</th>
+                                        <th class="col-sm-1">案件类型</th>
+                                        <th class="col-sm-3">案件开始时间</th>
+                                        <th class="col-sm-3">案件结束时间</th>
+                                        <th class="col-sm-2">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody id="Table">
                                     <c:forEach items="${cases}" var="item" varStatus="status">
-                                        <tr>
-                                            <td>${status.index+1}</td>
-                                            <td>${item.casename}</td>
-                                            <td>${item.casetype}</td>
-                                            <td>${item.begintime}</td>
-                                            <td>${item.endtime}</td>
-                                            <td>
+                                        <tr class="row">
+                                            <td class="col-sm-1">${status.index+1}</td>
+                                            <td class="col-sm-2">${item.casename}</td>
+                                            <td class="col-sm-1">${item.casetype}</td>
+                                            <td class="col-sm-3">${item.begintime}</td>
+                                            <td class="col-sm-3">${item.endtime}</td>
+                                            <td class="col-sm-2">
                                                 <button type="submit" class="btn btn-danger"
                                                         onclick="deleteModel(${item.id})">删除
                                                 </button>
@@ -371,7 +385,7 @@
                                         </div>
                                         <div id="department"  class="form-group row">
                                             <label class="col-sm-3 form-control-label ">组长选择:</label>
-                                                <select class="c-select col-sm-8" id="grouperid" name="grouperid">
+                                                <select class="form-control c-select col-sm-8" id="grouperid" name="grouperid">
                                                     <c:forEach items="${groupUsers}" var="user">
                                                         <<option value="${user.id}">${user.username}</option>>
                                                     </c:forEach>
@@ -443,6 +457,8 @@
 <script src="<%=basePath%>source/js/custom.min.js"></script>
 
 
+<script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
     /*初始化参数*/
     var data = new Object();
@@ -516,13 +532,13 @@
 
         if (data.cases.length != 0) {
             $.each(data.cases, function (index, item) {
-                str += "<tr>";
-                str += "<td>" + (index + 1) + "</td>";
-                str += "<td>" + item.casename + "</td>";
-                str += "<td>" + item.casetype + "</td>";
-                str += "<td>" + item.begintime + "</td>";
-                str += "<td>" + item.endtime + "</td>";
-                str += '<td><button  onclick="deleteModel(' +
+                str += "<tr class='row'>";
+                str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.casename + "</td>";
+                str += "<td class=\"col-sm-1\">" + item.casetype + "</td>";
+                str += "<td class=\"col-sm-3\">" + item.begintime + "</td>";
+                str += "<td class=\"col-sm-3\">" + item.endtime + "</td>";
+                str += '<td class="col-sm-2"><button  onclick="deleteModel(' +
                     item.id +
                     ')" class="btn btn-danger">删除</button>' +
                     ' <button onclick="updateModel(' +
@@ -697,7 +713,13 @@
         });
 
     }
-
+    $('.daterange').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY-DD-MM h:mm:ss '
+        }
+    });
 
 </script>
 </body>

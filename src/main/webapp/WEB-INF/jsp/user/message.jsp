@@ -4,6 +4,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -14,10 +16,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<%=basePath %>source/assets/images/favicon.png">
-    <title>用户消息处理</title>
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="<%=basePath %>source/assets/images/favicon.png">
+    <title>管理员消息处理</title>
     <!-- Bootstrap Core CSS -->
-    <link href="<%=basePath %>source/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link
+            href="<%=basePath %>source/assets/plugins/bootstrap/css/bootstrap.min.css"
+            rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<%=basePath %>source/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
@@ -35,32 +40,27 @@
 </div>
 <!-- Main wrapper - style you can find in pages.scss -->
 <div id="main-wrapper">
-    <!-- Topbar header - style you can find in pages.scss -->
     <header class="topbar">
         <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
+
             <!-- Logo -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/index">
                     <img src="<%=basePath %>source/logo.jpg"
                          alt="homepage" style="width:240px;height:71.8px"/>
                     </b> <span> </span>
                 </a>
             </div>
+
             <!-- End Logo -->
             <div class="navbar-collapse">
+
                 <!-- toggle and nav items -->
-                <ul class="navbar-nav mr-auto mt-md-0 ">
-                    <li class="nav-item"><a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
-                                            href="javascript:void(0)"><i class="ti-menu"></i></a></li>
-                    <li class="nav-item hidden-sm-down">
-                        <form class="app-search p-l-20">
-                            <input type="text" class="form-control" placeholder="Search for..."> <a class="srh-btn"><i
-                                class="ti-search"></i></a>
-                        </form>
-                    </li>
-                </ul>
+
+
                 <!-- User profile and search -->
-                <ul class="navbar-nav my-lg-0">
+
+                <ul class="navbar-nav ml-auto my-lg-0">
                     <li class="nav-item dropdown fa fa-reply"><a
                             class="nav-link dropdown-toggle text-muted waves-effect waves-dark"
                             href="/loginOut">LoginOut</a></li>
@@ -70,8 +70,7 @@
     </header>
     <!-- End Topbar header -->
     <!-- Left Sidebar - style you can find in sidebar.scss  -->
-    <aside class="left-sidebar">
-        <!-- Sidebar scroll-->
+    <aside class="left-sidebar"> <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
@@ -80,56 +79,150 @@
                             class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a></li>
                     <li><a href="<%=basePath%>user/nodeMap" class="wavesEffect"><i
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
-                    <li><a href="<%=basePath%>user/nodeAssist" class="wavesEffect"><i
-                            class="fa fa-globe m-r-10" aria-hidden="true"></i>点位助手</a></li>
+                    <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
+                            class="fa   fa-cog  "></i> <span>点位助手</span><i
+                            class="fa  fa-angle-double-down m-l-10 "></i></a>
+                        <ul id="submenu1" class="collapse">
+                            <li><a href="<%=basePath%>user/nodeCompare" class="wavesEffect"><i
+                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+                            <li><a href="<%=basePath%>user/nodeReplace" class="wavesEffect"><i
+                                    class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
+                        </ul>
+                    </li>
                     <li><a href="<%=basePath%>user/caseAdmin" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
-
                     <li><a href="javascript:void(0);" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
-                    <li><a href="<%=basePath%>user/personInfo"
-                           class="waves-effect"><i class="fa fa-user m-r-10"
-                                                   aria-hidden="true"></i>个人信息</a></li>
+                    <li><a href="<%=basePath%>user/personInfo" class="waves-effect"><i
+                            class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
                 </ul>
 
             </nav>
             <!-- End Sidebar navigation -->
         </div>
-        <!-- End Sidebar scroll-->
-    </aside>
+        <!-- End Sidebar scroll--> </aside>
     <!-- End Left Sidebar - style you can find in sidebar.scss  -->
     <!-- Page wrapper  -->
     <div class="page-wrapper">
+
         <!-- Container fluid  -->
+
         <div class="container-fluid">
 
             <!-- Bread crumb and right sidebar toggle -->
+
             <div class="row page-titles">
                 <div class="col-md-6 col-8 align-self-center">
-                    <h3 class="text-themecolor m-b-0 m-t-0">Dashboard</h3>
+                    <h3 class="text-themecolor m-b-0 m-t-0">消息处理</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Dashboard</li>
+                        <li class="breadcrumb-item active">消息处理</li>
                     </ol>
                 </div>
 
             </div>
+
             <!-- End Bread crumb and right sidebar toggle -->
+
 
             <!-- Start Page Content -->
 
             <div class="row">
-                <div class="col-12">
+                <div class="col-sm-12">
+                    <div class="hidden alert alert-warning alert-dismissible  in modify" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>发送成功!</strong>
+                    </div>
+                </div>
+                <div class="col-sm-12">
                     <div class="card">
                         <div class="card-block">
-                            This is some text within a card block.
+                            <h4 class="card-title">消息</h4>
+
+                            <div >
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>关于案件</th>
+                                        <th>案件编号</th>
+                                        <th>请求人</th>
+                                        <th>请求时间</th>
+                                        <th>请求消息内容</th>
+                                        <th>操作</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="Table">
+                                    <c:forEach items="${messages}" var="item" varStatus="status">
+                                        <tr>
+                                            <td>${status.index+1}</td>
+                                            <td>${item.casename}</td>
+                                            <td>${item.casecode}</td>
+                                            <td>${item.username}</td>
+                                            <td>${item.submittime}</td>
+                                            <td>${item.content}</td>
+                                            <td>
+                                                <button class="btn btn-warning"
+                                                        onclick="updateModel(${item.id});">回复
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12" id="Page">
+                </div>
+                <%--模态框--%>
+                <div class="col-sm-12">
+                    <div class="modal fade" id="updateModel" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">回复信息</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                </div>
+                                <form id="updateForm">
+                                    <div class="modal-body ">
+                                        <label class="form-control-label">消息内容:</label>
+                                        <div>
+                                                <textarea rows="5" class="form-control form-control-line"
+                                                          name="replyconten"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="updateButton"
+                                                onclick="update($(this).val());">发送
+                                        </button>
+                                    </div>
+
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%--end模态框，展示具体点位--%>
             </div>
 
             <!-- End PAge Content -->
+
         </div>
+
+        <!-- End Container fluid  -->
+
 
     </div>
 </div>
@@ -141,6 +234,163 @@
 <script src="<%=basePath%>source/js/sidebarmenu.js"></script>
 <script src="<%=basePath%>source/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
 <script src="<%=basePath%>source/js/custom.min.js"></script>
+<script type="text/javascript">
+    /*初始化参数*/
+  /*  var data = new Object();
+    data.currentPage =${currentPage};
+    data.totalPage =${totalPage};
+    data.messages =${messagesJson};*/
+    $(function () {
+        updatePage(data);
+    })
+
+    /*一下是关于更新的操作
+        触发更新模态框*/
+    function updateModel(id) {
+
+        $('#updateModel').modal('show');
+        $('#updateButton').val(id);
+    }
+
+    /*发送更新某一个对象的ajax的请求*/
+    function update(id) {
+        var form = new FormData($("#updateForm")[0]);
+        form.append("id", id);
+        $.ajax({
+            url: '<%=basePath%>admin/updateMessage',
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                //发送请求重新刷新一下页面
+                searchPage(data.currentPage);
+                //更新模态框隐藏
+                $("#updateModel").modal("hide");
+                $(".modify").removeClass("hidden");
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    /*结束更新ajax请求*/
+    /*异步接收数据之后更新表*/
+    function updateTable(data) {
+        var table = $("#Table");
+        var str = "";
+        if (data.messages.length != 0) {
+            $.each(data.messages, function (index, item) {
+                str += "<tr>";
+                str += "<td>" + (index + 1) + "</td>";
+                str += "<td>" + item.casename + "</td>";
+                str += "<td>" + item.casecode + "</td>";
+                str += "<td>" + item.username + "</td>";
+                str += "<td>" + item.submittime + "</td>";
+                str += "<td>" + item.content + "</td>";
+                str += '<td> <button class="btn btn-warning" onclick="updateModel(' + item.id+ ')"> 回复 </button> </td>';
+                str += ' </tr>';
+            });
+
+
+        }
+        table.html(str);
+    }
+
+    /*结束更新表*/
+
+
+    /*更新页表*/
+    function updatePage(data) {
+        var currentPage = data.currentPage;
+        var totalPage = data.totalPage;
+
+
+        var s = " <ul class=\"pagination\"> ";
+        if (currentPage == 1)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0) '>上一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage - 1) + ">上一页</a></li>";
+        }
+
+        //如果总的页数在6页只能就可以这样
+        if (totalPage <= 6) {
+            for (var i = 1; i <= totalPage; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled' ><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+
+        }
+        //这个是页面大于6的时候
+        else {
+            var base = 0;
+            if ((currentPage - 3 >= 0) && (currentPage + 3 <= totalPage))
+                base = currentPage - 3;
+            else if ((currentPage + 3) > totalPage) {
+
+                base = totalPage - 6;
+
+            }
+
+            for (var i = base + 1; i <= base + 6; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+        }
+
+        if (currentPage >= totalPage)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>下一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage + 1) + ">下一页</a></li>";
+        }
+
+        s += "</ul>";
+        $("#Page").html(s);
+
+        $("#Page ul li a").bind('click', function () {
+            var rel = $(this).attr("rel");
+            window.history.pushState(null, null, "<%=basePath%>admin/message/" + rel);
+            searchPage(rel);
+        });
+    }
+
+    /*结束更新分页*/
+    //按照页面，条件搜索
+    function searchPage(rel) {
+        var form = new FormData($('#searchForm')[0]);
+
+        $.ajax({
+            url: '<%=basePath%>admin/message/' + rel,
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                data = d;
+                updateTable(d);
+                updatePage(d);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+</script>
 </body>
 
 </html>

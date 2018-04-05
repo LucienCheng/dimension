@@ -4,6 +4,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -30,6 +32,7 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
 </head>
 
 <body class="fix-header card-no-border">
@@ -56,31 +59,22 @@
 
             <!-- Logo -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/index">
                     <img src="<%=basePath %>source/logo.jpg"
                          alt="homepage" style="width:240px;height:71.8px"/>
                     </b> <span> </span>
                 </a>
             </div>
 
+            <!-- End Logo -->
             <div class="navbar-collapse">
 
-                <ul class="navbar-nav mr-auto mt-md-0 ">
-                    <li class="nav-item"><a
-                            class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
-                            href="javascript:void(0)"><i class="ti-menu"></i></a></li>
-                    <li class="nav-item hidden-sm-down">
-                        <form class="app-search p-l-20">
-                            <input type="text" class="form-control"
-                                   placeholder="Search for..."> <a class="srh-btn"><i
-                                class="ti-search"></i></a>
-                        </form>
-                    </li>
-                </ul>
+                <!-- toggle and nav items -->
+
 
                 <!-- User profile and search -->
 
-                <ul class="navbar-nav my-lg-0">
+                <ul class="navbar-nav ml-auto my-lg-0">
                     <li class="nav-item dropdown fa fa-reply"><a
                             class="nav-link dropdown-toggle text-muted waves-effect waves-dark"
                             href="/loginOut">LoginOut</a></li>
@@ -89,22 +83,26 @@
         </nav>
     </header>
 
-    <!-- End Topbar header -->
-
-
-    <!-- Left Sidebar - style you can find in sidebar.scss  -->
 
     <aside class="left-sidebar"> <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav">
                 <ul id="sidebarnav">
-                    <li><a href="javascript:void(0);" class="waves-effect"><i class="fa fa-table m-r-10"
-                                                                              aria-hidden="true"></i>文字点位搜索</a></li>
+                    <li><a href="javascript:void(0);" class="waves-effect"><i
+                            class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a></li>
                     <li><a href="<%=basePath%>user/nodeMap" class="wavesEffect"><i
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
-                    <li><a href="<%=basePath%>user/nodeAssist" class="wavesEffect"><i
-                            class="fa fa-globe m-r-10" aria-hidden="true"></i>点位助手</a></li>
+                    <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
+                            class="fa   fa-cog  "></i> <span>点位助手</span><i
+                            class="fa  fa-angle-double-down m-l-10 "></i></a>
+                        <ul id="submenu1" class="collapse">
+                            <li><a href="<%=basePath%>user/nodeCompare" class="wavesEffect"><i
+                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+                            <li><a href="<%=basePath%>user/nodeReplace" class="wavesEffect"><i
+                                    class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
+                        </ul>
+                    </li>
                     <li><a href="<%=basePath%>user/caseAdmin" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>user/message" class="waves-effect"><i
@@ -133,13 +131,13 @@
 
             <div class="row page-titles">
                 <div class="col-md-6 col-8 align-self-center">
-                    <h3 class="text-themecolor m-b-0 m-t-0">Table</h3>
+                    <h3 class="text-themecolor m-b-0 m-t-0">文字点位搜索</h3>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active">Table</li>
+                        <li class="breadcrumb-item active">文字点位搜索</li>
                     </ol>
                 </div>
-                <div class="col-md-6 col-4 align-self-center"></div>
+
             </div>
 
             <!-- End Bread crumb and right sidebar toggle -->
@@ -148,68 +146,96 @@
             <!-- Start Page Content -->
 
             <div class="row">
-                <!-- column -->
+
+                <%--搜索条件--%>
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-block">
-                            <h4 class="card-title">Basic Table</h4>
-                            <h6 class="card-subtitle">
-                                Add class
-                                <code>.table</code>
-                            </h6>
-                            <div class="table-responsive">
-                                <table class="table">
+                            <form>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputEmail3"
+                                                   class="col-sm-2 form-control-label">点位地址</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control" id="inputEmail3"
+                                                       placeholder="湖南大学天马学生公寓">
+                                            </div>
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-10" >
+                                                <select class="form-control c-select">
+                                                    <option selected>点位类型</option>
+                                                    <option value="1">案件点</option>
+                                                    <option value="2">基础点</option>
+                                                    <option value="3">标记点</option>
+                                                </select>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label
+                                                    class="col-sm-2 form-control-label">点位名称</label>
+                                            <div class="col-sm-10">
+                                                <input type="email" class="form-control"
+                                                       placeholder="大学城">
+                                            </div>
+                                            <label
+                                                    class="col-sm-2 form-control-label">选择时间</label>
+                                            <div class=" col-sm-10">
+                                                <input type="text" class="form-control" id="daterange" placeholder="选择起始时间和终止时间">
+                                            </div>
+
+
+                                            <div class="col-sm-2"></div>
+                                            <div class="col-sm-10" style="margin-top: 10px;">
+                                                <button type="submit" class="btn btn-info">搜索</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </form>
+                            <div>
+                                <table class="table table-hover">
                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
+                                    <tr class="row">
+                                        <th class="col-sm-1">#</th>
+                                        <th class="col-sm-2">点位名称</th>
+                                        <th class="col-sm-3">点位地址</th>
+                                        <th class="col-sm-2">点位时间</th>
+                                        <th class="col-sm-3">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Deshmukh</td>
-                                        <td>Prohaska</td>
-                                        <td>@Genelia</td>
+                                    <tr class="row">
+                                        <td class="col-sm-1">1</td>
+                                        <td class="col-sm-2">岳麓区大学城</td>
+                                        <td class="col-sm-3">湖南大学天马学生公寓二区七栋</td>
+                                        <td class="col-sm-2">2018-04-05 14：24</td>
+                                        <td class="col-sm-2">
+                                            <input class="btn btn-info" value="查看"
+                                                   onclick="window.open('node?nodeid=');" type="button">
+
+                                        </td>
+
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Deshmukh</td>
-                                        <td>Gaylord</td>
-                                        <td>@Ritesh</td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Sanghani</td>
-                                        <td>Gusikowski</td>
-                                        <td>@Govinda</td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Roshan</td>
-                                        <td>Rogahn</td>
-                                        <td>@Hritik</td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>Joshi</td>
-                                        <td>Hickle</td>
-                                        <td>@Maruti</td>
-                                    </tr>
-                                    <tr>
-                                        <td>6</td>
-                                        <td>Nigam</td>
-                                        <td>Eichmann</td>
-                                        <td>@Sonu</td>
-                                    </tr>
+
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
                 </div>
+                <%--end搜索条件--%>
+
+
                 <div class="col-sm-12">
 
                     <ul class="pagination">
@@ -221,19 +247,40 @@
                     </ul>
 
                 </div>
+
+                <%--模态框，展示具体点位--%>
+                <div class="col-sm-12">
+                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                         aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog " role="document" style="max-width: 80%">
+                            <div class="modal-content">
+                                <div class="modal-header">
+
+                                    <h4 class="modal-title" id="exampleModalLabel">具体点位信息</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body embed-responsive embed-responsive-16by9">
+                                    <iframe class="embed-responsive-item" allowfullscreen></iframe>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary">Send message</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%--end模态框，展示具体点位--%>
             </div>
 
-            <!-- End PAge Content -->
 
         </div>
 
         <!-- End Container fluid  -->
 
-
-        <!-- footer -->
-
-
-        <!-- End footer -->
 
     </div>
 
@@ -266,8 +313,28 @@
 
 <!-- Style switcher -->
 
-<script
-        src="<%=basePath %>source/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
+<script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
+
+<script type="text/javascript">
+    //改变模态框内容
+    $('#exampleModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var src = button.data('whatever') // Extract info from data-* attributes
+        var modal = $(this);
+        modal.find('.modal-body iframe').prop("src", src);
+    })
+    $('#daterange').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY-DD-MM h:mm:ss '
+        }
+    },function (start, end) {
+        console.log('New date range selected: ' + start.format('YYYY-DD-MM h:mm:ss') + ' to ' + end.format('YYYY-DD-MM h:mm:ss') );
+    });
+</script>
 </body>
 
 </html>

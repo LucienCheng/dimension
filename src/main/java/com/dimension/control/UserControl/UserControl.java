@@ -18,10 +18,15 @@ public class UserControl {
         return "/user/message";
     }
 
-    //点位助手，提供案件点位比较和基础点位替换
-    @RequestMapping("/nodeAssist")
-    public String nodeAssist() {
-        return "/user/nodeAssist";
+    //点位助手，提供案件点位比较
+    @RequestMapping("/nodeCompare")
+    public String nodeCompare() {
+        return "/user/nodeCompare";
+    }
+
+    @RequestMapping("/nodeReplace")
+    public String nodeReplace() {
+        return "/user/nodeReplace";
     }
 
     //地图展示点位信息
@@ -42,5 +47,10 @@ public class UserControl {
         return "/user/personInfo";
     }
 
+    //文本点位信息
+    @RequestMapping("/node")
+    public String node() {
+        return "/node";
+    }
 
 }

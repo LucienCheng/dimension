@@ -34,6 +34,7 @@ public class CaseAdminControl {
     @RequestMapping("/caseAdmin")
     public String caseAdmin(CaseCondition caseCondition, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
+        if (user.getRoleid()!=3)
         caseCondition.setDepartmentid(user.getDepartmentid());
         List<Case> cases = caseMapper.searchCases(caseCondition, 0, count);
         int totalCount = caseMapper.count(caseCondition);
@@ -52,6 +53,7 @@ public class CaseAdminControl {
     public Map<String, Object> caseAdminAjax(CaseCondition caseCondition, HttpSession session, @PathVariable int start) {
         start--;
         User user = (User) session.getAttribute("user");
+        if (user.getRoleid()!=3)
         caseCondition.setDepartmentid(user.getDepartmentid());
         List<Case> cases = caseMapper.searchCases(caseCondition, start * count, count);
         if (cases.size() == 0) {

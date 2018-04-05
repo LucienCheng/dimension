@@ -4,6 +4,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
@@ -30,6 +32,7 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
 </head>
 
 <body class="fix-header card-no-border">
@@ -49,14 +52,13 @@
 <div id="main-wrapper">
 
     <!-- Topbar header - style you can find in pages.scss -->
-
     <header class="topbar">
         <nav
                 class="navbar top-navbar navbar-toggleable-sm navbar-light">
 
             <!-- Logo -->
             <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="/index">
                     <img src="<%=basePath %>source/logo.jpg"
                          alt="homepage" style="width:240px;height:71.8px"/>
                     </b> <span> </span>
@@ -68,23 +70,10 @@
 
                 <!-- toggle and nav items -->
 
-                <ul class="navbar-nav mr-auto mt-md-0 ">
-                    <!-- This is  -->
-                    <li class="nav-item"><a
-                            class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark"
-                            href="javascript:void(0)"><i class="ti-menu"></i></a></li>
-                    <li class="nav-item hidden-sm-down">
-                        <form class="app-search p-l-20">
-                            <input type="text" class="form-control"
-                                   placeholder="Search for..."> <a class="srh-btn"><i
-                                class="ti-search"></i></a>
-                        </form>
-                    </li>
-                </ul>
 
                 <!-- User profile and search -->
 
-                <ul class="navbar-nav my-lg-0">
+                <ul class="navbar-nav ml-auto my-lg-0">
                     <li class="nav-item dropdown fa fa-reply"><a
                             class="nav-link dropdown-toggle text-muted waves-effect waves-dark"
                             href="/loginOut">LoginOut</a></li>
@@ -107,15 +96,22 @@
                             class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a></li>
                     <li><a href="javascript:void(0);" class="wavesEffect"><i
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
-                    <li><a href="<%=basePath%>user/nodeAssist" class="wavesEffect"><i
-                            class="fa fa-globe m-r-10" aria-hidden="true"></i>点位助手</a></li>
+                    <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
+                            class="fa   fa-cog  "></i> <span>点位助手</span><i
+                            class="fa  fa-angle-double-down m-l-10 "></i></a>
+                        <ul id="submenu1" class="collapse">
+                            <li><a href="<%=basePath%>user/nodeCompare" class="wavesEffect"><i
+                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+                            <li><a href="<%=basePath%>user/nodeReplace" class="wavesEffect"><i
+                                    class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
+                        </ul>
+                    </li>
                     <li><a href="<%=basePath%>user/caseAdmin" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>user/message" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
                     <li><a href="<%=basePath%>user/personInfo" class="waves-effect"><i
                             class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
-
                 </ul>
 
             </nav>
@@ -127,6 +123,7 @@
 
 
     <!-- Page wrapper  -->
+
 
     <div class="page-wrapper">
 
@@ -173,41 +170,33 @@
                             <div id="case" class="panel-collapse collapse ">
                                 <div class="panel-body">
                                     <div class="card-block">
-                                        <form>
+                                        <form id="searchForm">
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
-                                                        <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">Email</label>
+                                                        <label class="col-sm-2 form-control-label">案件名称</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputEmail3"
-                                                                   placeholder="Email">
+                                                            <input type="text" class="form-control" name="casename"
+                                                                   placeholder="案件名称">
                                                         </div>
-                                                        <div class="col-sm-2"></div>
-                                                        <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <select class="c-select">
-                                                                <option selected>点位类型</option>
-                                                                <option value="1">案件点</option>
-                                                                <option value="2">基础点</option>
-                                                                <option value="3">标记点</option>
-                                                            </select>
-
+                                                        <label  class="col-sm-2 form-control-label">选择时间</label>
+                                                        <div class=" col-sm-10">
+                                                            <input type="text" class="form-control daterange"  placeholder="选择起始时间和终止时间">
                                                         </div>
-
                                                     </div>
+
 
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
-                                                        <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">Email</label>
+                                                        <label class="col-sm-2 form-control-label">案件类型</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control"
-                                                                   placeholder="Email">
+                                                            <input type="text" class="form-control" placeholder="案件类型"
+                                                                   name="casetype">
                                                         </div>
                                                         <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <button type="submit" class="btn btn-info">搜索</button>
+                                                            <input onclick="searchPage(1);" class="btn btn-info" value="搜索">
                                                         </div>
 
                                                     </div>
@@ -216,39 +205,36 @@
 
 
                                         </form>
-                                        <h4 class="card-title">点位</h4>
-                                        <div class="table-responsive">
-                                            <table class="table">
+                                        <div>
+                                            <table class="table table-hover">
                                                 <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                    <th>操作</th>
+                                                <tr class="row">
+                                                    <th class="col-sm-1">#</th>
+                                                    <th class="col-sm-2">案件名称</th>
+                                                    <th class="col-sm-1">案件类型</th>
+                                                    <th class="col-sm-3">案件开始时间</th>
+                                                    <th class="col-sm-3">案件结束时间</th>
+                                                    <th class="col-sm-2">操作</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Deshmukh</td>
-                                                    <td>Prohaska</td>
-                                                    <td>Prohaska</td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-danger">删除</button>
-                                                        <button type="submit" class="btn btn-warning">查看</button>
+                                                <tbody id="Table">
+                                                <tr class="row">
+                                                    <td class="col-sm-1">1</td>
+                                                    <td class="col-sm-2">岳麓区抢劫案</td>
+                                                    <td class="col-sm-1">抢劫</td>
+                                                    <td class="col-sm-3">2018-4-5 14：28</td>
+                                                    <td class="col-sm-3">2018-4-8 14：28</td>
+                                                    <td class="col-sm-2">
+                                                        <input type="button" class="btn btn-success"
+                                                               value="显示" onclick="addCaseNode()">
                                                     </td>
-
                                                 </tr>
-
                                                 </tbody>
                                             </table>
                                         </div>
                                         <nav class="text-center">
-
                                             <ul class="pagination">
-                                                <li class="page-item disabled"><a class="page-link"
-                                                                                  href="#">Previous</a>
+                                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
                                                 </li>
                                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -284,14 +270,15 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
                                                         <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">Email</label>
+                                                               class="col-sm-2 form-control-label">点位地址</label>
                                                         <div class="col-sm-10">
                                                             <input type="email" class="form-control" id="inputEmail3"
-                                                                   placeholder="Email">
+                                                                   placeholder="湖南大学天马学生公寓">
                                                         </div>
+
                                                         <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <select class="c-select">
+                                                            <select class="form-control c-select">
                                                                 <option selected>点位类型</option>
                                                                 <option value="1">案件点</option>
                                                                 <option value="2">基础点</option>
@@ -306,10 +293,15 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
                                                         <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">Email</label>
+                                                               class="col-sm-2 form-control-label">点位名称</label>
                                                         <div class="col-sm-10">
                                                             <input type="email" class="form-control"
-                                                                   placeholder="Email">
+                                                                   placeholder="大学城">
+                                                        </div>
+                                                        <label
+                                                                class="col-sm-2 form-control-label">选择时间</label>
+                                                        <div class=" col-sm-10">
+                                                            <input type="text" class="form-control daterange" id="" placeholder="选择起始时间和终止时间">
                                                         </div>
                                                         <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
@@ -322,27 +314,26 @@
 
 
                                         </form>
-                                        <h4 class="card-title">点位</h4>
-                                        <div class="table-responsive">
-                                            <table class="table">
+                                        <div >
+                                            <table class="table table-hover">
                                                 <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                    <th>操作</th>
+                                                <tr class="row">
+                                                    <th class="col-sm-1">#</th>
+                                                    <th class="col-sm-2">点位名称</th>
+                                                    <th class="col-sm-3">点位地址</th>
+                                                    <th class="col-sm-2">点位时间</th>
+                                                    <th class="col-sm-3">操作</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Deshmukh</td>
-                                                    <td>Prohaska</td>
-                                                    <td>Prohaska</td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-danger">删除</button>
-                                                        <button type="submit" class="btn btn-warning">查看</button>
+                                                <tr class="row">
+                                                    <td  class="col-sm-1">1</td>
+                                                    <td class="col-sm-2">岳麓区大学城</td>
+                                                    <td class="col-sm-3">湖南大学天马学生公寓二区七栋</td>
+                                                    <td class="col-sm-2">2018-04-05 14：24</td>
+                                                    <td class="col-sm-2">
+                                                        <input class="btn btn-info" value="查看" onclick="window.open('node?nodeid=');" type="button">
+                                                        <input class="btn btn-info" value="地图显示" onclick="addNode()" type="button">
                                                     </td>
 
                                                 </tr>
@@ -367,10 +358,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <input class="btn btn-info" value="添加" onclick="addNode()" type="button">
-
                     </div>
                     <div class="card">
                         <div class="card-block">
@@ -414,33 +401,7 @@
                         </div>
                     </div>
                     <%--end模态框，展示具体点位--%>
-                    <%--模态框具体点位，展示具体点位--%>
-                    <div class="col-sm-12">
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog " role="document" style="max-width: 80%">
-                                <div class="modal-content">
-                                    <div class="modal-header">
 
-                                        <h4 class="modal-title" id="exampleModalLabel">具体点位信息</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            <span class="sr-only">Close</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" allowfullscreen></iframe>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                        </button>
-                                        <button type="button" class="btn btn-primary">Send message</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <%--end模态框，展示具体点位--%>
                 </div>
             </div>
 
@@ -452,7 +413,6 @@
 
 
     </div>
-
     <!-- End Page wrapper  -->
 
 </div>
@@ -483,40 +443,128 @@
 <script type="text/javascript"
         src="http://api.map.baidu.com/getscript?v=2.0&ak=mv0HsmB5GwdGiXw6oRUq3XsjsZbfXibc&services=&t="></script>
 
-<!-- Style switcher -->
-
-<script
-        src="<%=basePath %>/source/assets/plugins/styleswitcher/jQuery.style.switcher.js"></script>
+<script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
-    // 初始化百度地图
-    var map = new BMap.Map("allmap", {minZoom: 16, maxZoom: 20});
-    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
-    var point = new BMap.Point(116.404, 39.915);
-    map.centerAndZoom(point, 15);
-    var bounds = map.getBounds();
-    var sw = bounds.getSouthWest();
-    var ne = bounds.getNorthEast();
-    var lngSpan = Math.abs(sw.lng - ne.lng);
-    var latSpan = Math.abs(ne.lat - sw.lat);
-    var count = 1;
+    Array.prototype.indexOf = function(val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].lng == val.lng && this[i].lat == val.lat)
+                return i;
+        }
+        return -1;
+    };
 
-    //发送消息窗口
-    var sendMessageModal = function (e, ee, marker) {
-        console.log(marker.getTitle());
-        $('#updateModel').modal('toggle');
+    Array.prototype.remove = function(val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+    // 初始化百度地图
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(point, 17);
+    var count = 1;
+    var myCity = new BMap.LocalCity();
+    myCity.get(getCity);
+    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+    map.addControl(top_left_navigation);
+    //存已经在地图里面的点位
+    var bPoints = new Array();
+    //添加一个事件点
+    function addCaseNode() {
+        var bounds = map.getBounds();
+        var sw = bounds.getSouthWest();
+        var ne = bounds.getNorthEast();
+        var lngSpan = Math.abs(sw.lng - ne.lng);
+        var latSpan = Math.abs(ne.lat - sw.lat);
+        //设置窗口内容
+        var img = '<%=basePath%>source/tianAnMen.jpg';
+        var title = '天安门';
+        var content = '天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...';
+        var sContent =
+            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + title + "</h4>" +
+            "<img style='float:right;margin:4px' id='imgDemo' src='" + img +
+            "' width='139' height='104' />" +
+            "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + content +
+            "</p></div>";
+        var points = [];
+        for (var i = 0; i < 3; i++) {
+            var markerMenu = new BMap.ContextMenu();
+            var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+            bPoints.push(point);
+            var marker = new BMap.Marker(point);
+            marker.id = count;
+            //添加右键窗口
+            markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
+            markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+            markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
+            marker.addContextMenu(markerMenu);
+            //添加单击展示窗口
+            marker.addEventListener("click", function () {
+                //初始化地图以及窗口
+                var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+                this.openInfoWindow(infoWindow);
+                //图片加载完毕重绘infowindow
+                document.getElementById('imgDemo').onload = function () {
+                    infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+                }
+            });
+            //添加双击时显示点位具体信息
+            marker.addEventListener("dblclick", function () {
+                console.log(this.id);
+                //弹出具体点位的信息
+                <c:if test="${user.roleid != 2}">
+                window.open("<%=basePath%>admin/node?nodeid="+this.id);
+                </c:if>
+                <c:if test="${user.roleid == 2}">
+                window.open("<%=basePath%>user/node?nodeid="+this.id);
+                </c:if>
+            });
+            points.push(point);
+            count++;
+            map.addOverlay(marker);
+            setZoom()
+        }
+
+
+        var polyline = new BMap.Polyline(points, {strokeColor: "blue", strokeWeight: 10, strokeOpacity: 0.5});   //创建折线
+        polyline.caseId = count;
+        polyline.addEventListener("click", function (e) {
+            console.log(this.caseId)
+        });
+
+        setZoom(bPoints);
+        map.addOverlay(polyline); //添加到地图中
     }
-    //删除点位操作
-    var removeMarker = function (e, ee, marker) {
+
+    var removeMark = function (e, ee, marker) {
         map.removeOverlay(marker);
     }
-    //标记点位
-    var sendMessageModal = function (e, ee, marker) {
-        console.log(marker.getTitle());
+
+    var markNode = function (e, ee, marker) {
+        console.log(marker.id);
+    }
+    var sendMessage = function (e, ee, marker) {
+        console.log(marker.id);
         $('#updateModel').modal('toggle');
     }
 
+    // 根据点的数组自动调整缩放级别
+    function setZoom (bPoints) {
+        var view = map.getViewport(eval(bPoints));
+        var mapZoom = view.zoom;
+        var centerPoint = view.center;
+        map.centerAndZoom(centerPoint,mapZoom);
+    }
     //添加点位操作
     function addNode() {
+
+        var bounds = map.getBounds();
+        var sw = bounds.getSouthWest();
+        var ne = bounds.getNorthEast();
+        var lngSpan = Math.abs(sw.lng - ne.lng);
+        var latSpan = Math.abs(ne.lat - sw.lat);
         //设置窗口内容
         var img = '<%=basePath%>source/tianAnMen.jpg';
         var title = '天安门';
@@ -529,36 +577,48 @@
             "</p></div>";
         var markerMenu = new BMap.ContextMenu();
         var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+        bPoints.push(point);
         var marker = new BMap.Marker(point);
-        marker.setTitle(count);
-
+        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+        marker.id = count;
+        map.addOverlay(marker);
         //添加右键窗口
-        markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessageModal));
-        markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMarker));
+        markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
+        markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+        markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
         marker.addContextMenu(markerMenu);
         //添加单击展示窗口
         marker.addEventListener("click", function () {
             //初始化地图以及窗口
-            var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
             this.openInfoWindow(infoWindow);
-            //图片加载完毕重绘infowindow
-            document.getElementById('imgDemo').onload = function () {
-                infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-            }
+            console.log(this.id);
         });
         //添加双击时显示点位具体信息
         marker.addEventListener("dblclick", function () {
+            console.log(this.id);
             //弹出具体点位的信息
-            $('#exampleModal').modal('toggle');
-            $('#exampleModal .modal-body iframe').prop("src", count);
-
+            <c:if test="${user.roleid != 2}">
+            window.open("<%=basePath%>admin/node?nodeid="+this.id);
+            </c:if>
+            <c:if test="${user.roleid == 2}">
+            window.open("<%=basePath%>user/node?nodeid="+this.id);
+            </c:if>
         });
-
-        map.addOverlay(marker);
         count++;
+        setZoom(bPoints);
     }
 
-
+    function getCity(result) {
+        var cityName = result.name;
+        map.setCenter(cityName);
+    }
+    $('.daterange').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY-DD-MM h:mm:ss '
+        }
+    });
 </script>
 </body>
 

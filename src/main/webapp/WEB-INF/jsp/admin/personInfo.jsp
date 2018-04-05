@@ -4,6 +4,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -98,8 +100,10 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
-                                    class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            <c:if test="${user.roleid == 3}">
+                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
+                                        class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            </c:if>
                             <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
                                     class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
@@ -110,8 +114,11 @@
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
-                            class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <c:if test="${user.roleid != 3}">
+
+                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
+                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    </c:if>
                     <li><a href="javascript:void(0);"
                            class="waves-effect"><i class="fa fa-user m-r-10"
                                                    aria-hidden="true"></i>个人信息</a></li>
@@ -152,6 +159,17 @@
             <!-- Start Page Content -->
 
             <!-- Row -->
+            <div class="row">
+                <div class="col-sm-12" id="alert">
+                    <div class="hidden alert alert-warning alert-dismissible  in modify" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>修改成功!</strong> 用户已经更新。
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <!-- Column -->
                 <div class="col-lg-4 col-xlg-3 col-md-5">
@@ -215,7 +233,15 @@
                                 <div class="form-group">
                                     <label class="col-md-12">密码：</label>
                                     <div class="col-md-12">
-                                        <input type="text" placeholder="张三" name="password" id="password"
+                                        <input type="password" placeholder="123456" name="password" id="password"
+                                               class="form-control form-control-line  form-control-success"
+                                               value="${user.password}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">确认密码：</label>
+                                    <div class="col-md-12">
+                                        <input type="password" placeholder="123456" id="repassword"
                                                class="form-control form-control-line" value="${user.password}">
                                     </div>
                                 </div>
@@ -228,7 +254,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input class="btn btn-success"  onclick="sendModify()" value="更改">
+                                        <input class="btn btn-success" onclick="sendModify()" value="更改">
                                     </div>
                                 </div>
                                 <input type="hidden" value="${user.id}" name="id">
@@ -278,25 +304,64 @@
 
 <script type="text/javascript">
 
-    function sendModify(){
-        var form=new FormData(document.getElementById("personInfo"));
-        $.ajax({
-            url:'/admin/personInfoModify',
-            type:"post",
-            data:form ,
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData:false,
-            contentType:false,
-            /* 指定返回类型为json */
-            dataType:'json',
-            success:function(data){
-                $("username").val(data.username);
-                $("password").val(data.password);
-            },
-            error:function(e){
-                console.log("失败");
-            }
-        });
+
+    $("#repassword").keyup(function () {
+
+        if ($(this).val() != $('#password').val()) {
+            console.log("anxia");
+            $("#repassword").removeProp("style");
+            $("#repassword").prop("style","background-image:linear-gradient(#d02a2a, #d02a2a), linear-gradient(#d02a2a, #d02a2a)");
+        }
+        else {
+            $("#repassword").removeProp("style");
+            $("#repassword").prop("style","background-image:linear-gradient(#009efb, #009efb), linear-gradient(#d9d9d9, #d9d9d9)");
+        }
+
+    });
+    $("#repassword").focus(function () {
+
+        if ($(this).val() != $('#password').val()) {
+            console.log("anxia");
+            $("#repassword").removeProp("style");
+            $("#repassword").prop("style","background-image:linear-gradient(#d02a2a, #d02a2a), linear-gradient(#d02a2a, #d02a2a)");
+        }
+        else {
+            $("#repassword").removeProp("style");
+            $("#repassword").prop("style","background-image:linear-gradient(#009efb, #009efb), linear-gradient(#d9d9d9, #d9d9d9)");
+        }
+
+    });
+    function sendModify() {
+        if ($("#repassword").val() == $("#password").val()) {
+            var form = new FormData(document.getElementById("personInfo"));
+
+            $.ajax({
+                url: '/admin/personInfoModify',
+                type: "post",
+                data: form,
+                /* 执行执行的是dom对象 ，不需要转化信息*/
+                processData: false,
+                contentType: false,
+                /* 指定返回类型为json */
+                dataType: 'json',
+                success: function (data) {
+                    $("#username").val(data.username);
+                    $("#password").val(data.password);
+                    $(".modify").removeClass('hidden');
+                    $("#alert").append(" <div class=\"hidden alert alert-warning alert-dismissible  in modify\" role=\"alert\">\n" +
+                        "                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                        "                            <span aria-hidden=\"true\">&times;</span>\n" +
+                        "                            <span class=\"sr-only\">Close</span>\n" +
+                        "                        </button>\n" +
+                        "                        <strong>修改成功!</strong> 用户已经更新。\n" +
+                        "                    </div>");
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+        }
+
 
     }
 

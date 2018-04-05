@@ -5,6 +5,7 @@
 %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -96,8 +97,10 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
-                                    class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            <c:if test="${user.roleid == 3}">
+                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
+                                        class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            </c:if>
                             <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
                                     class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
@@ -109,9 +112,11 @@
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
-                            class="fa fa-comment m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <c:if test="${user.roleid != 3}">
 
+                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
+                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    </c:if>
                     <li><a href="<%=basePath%>admin/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
 
@@ -168,8 +173,8 @@
                         <div class="card-block">
                             <h4 class="card-title">消息</h4>
 
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div >
+                                <table class="table table-hover">
                                     <thead>
                                     <tr>
                                         <th>#</th>

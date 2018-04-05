@@ -42,6 +42,13 @@ public class AdminControl {
         return "/admin/nodeText";
     }
 
+
+    //文本点位信息
+    @RequestMapping("/node")
+    public String node() {
+        return "/node";
+    }
+
     //个人信息
     @RequestMapping("/personInfo")
     public String personInfo() {

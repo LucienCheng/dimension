@@ -3,7 +3,9 @@
     String path = request.getContextPath();
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -98,8 +100,10 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
-                                    class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            <c:if test="${user.roleid == 3}">
+                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
+                                        class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            </c:if>
                             <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
                                     class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
@@ -110,8 +114,12 @@
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="javascript:void(0);" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
-                            class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <c:if test="${user.roleid != 3}">
+
+                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
+                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    </c:if>
+
                     <li><a href="<%=basePath%>admin/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10"
                                                    aria-hidden="true"></i>个人信息</a></li>
@@ -203,7 +211,7 @@
                                                        name="username">
                                             </div>
                                             <div class="col-sm-2"></div>
-                                            <div class="col-sm-10" >
+                                            <div class="col-sm-10">
                                                 <input onclick="sendAjaxPage(1)" class="btn btn-info" value="搜索">
                                             </div>
 
@@ -224,25 +232,25 @@
                         <div class="card-block">
                             <h4 class="card-title">点位</h4>
 
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div >
+                                <table class="table table-hover">
                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>用户名</th>
-                                        <th>用户身份证</th>
-                                        <th>部门</th>
-                                        <th>操作</th>
+                                    <tr class="row">
+                                        <th class="col-sm-2">#</th>
+                                        <th class="col-sm-2">用户名</th>
+                                        <th class="col-sm-3">用户身份证</th>
+                                        <th class="col-sm-3">部门</th>
+                                        <th class="col-sm-2">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody id="Table">
                                     <c:forEach items="${users}" var="user" varStatus="status">
-                                        <tr>
-                                            <td>${status.index+1}</td>
-                                            <td>${user.username}</td>
-                                            <td>${user.identityid}</td>
-                                            <td>${user.department.departmentname}</td>
-                                            <td>
+                                        <tr class="row">
+                                            <td class="col-sm-2">${status.index+1}</td>
+                                            <td class="col-sm-2">${user.username}</td>
+                                            <td class="col-sm-3">${user.identityid}</td>
+                                            <td class="col-sm-3">${user.department.departmentname}</td>
+                                            <td class="col-sm-2">
                                                 <button type="submit" class="btn btn-danger"
                                                         onclick="deletePerson(${user.id})">删除
                                                 </button>
@@ -279,24 +287,25 @@
                                     <div class="modal-body">
                                         <div class="form-group row">
                                             <label class=" col-sm-3 form-control-label">用户名</label>
-                                                <input id="infoUsername" name="username" type="text"
-                                                       class="form-control col-sm-8" placeholder="用户名">
+                                            <input id="infoUsername" name="username" type="text"
+                                                   class="form-control col-sm-8" placeholder="用户名">
                                         </div>
                                         <div class="form-group row">
                                             <label class=" form-control-label col-sm-3">密码</label>
-                                                <input id="infoPassword" name="password" type="text"
-                                                       class="form-control col-sm-8" placeholder="密码">
+                                            <input id="infoPassword" name="password" type="text"
+                                                   class="form-control col-sm-8" placeholder="密码">
                                         </div>
                                         <div class="form-group row">
                                             <label class="form-control-label col-sm-3 ">角色选择:</label>
-                                            <select class="c-select col-sm-8 " id="updateRoleid" name="roleid">
+                                            <select class=" form-control c-select col-sm-8 " id="updateRoleid" name="roleid">
                                                 <option value="2" selected>普通用户</option>
                                                 <option value="4">部门管理员</option>
                                             </select>
                                         </div>
                                         <div class="hidden row" id="updateDepartment">
                                             <label class="form-control-label col-sm-3 ">部门选择:</label>
-                                            <select class="c-select col-sm-8" id="updateDepartmentid" name="departmentid">
+                                            <select class="form-control c-select col-sm-8" id="updateDepartmentid"
+                                                    name="departmentid">
                                             </select>
 
                                         </div>
@@ -306,7 +315,8 @@
                                         <button type="button" class="btn btn-default"
                                                 data-dismiss="modal">关闭
                                         </button>
-                                        <button type="button" class="btn btn-primary" id="update" onclick=" updateUser($(this).val());">
+                                        <button type="button" class="btn btn-primary" id="update"
+                                                onclick=" updateUser($(this).val());">
                                             提交更改
                                         </button>
                                     </div>
@@ -334,7 +344,8 @@
                                     <button type="button" class="btn btn-default"
                                             data-dismiss="modal">关闭
                                     </button>
-                                    <button type="button" class="btn btn-primary" id="delete" onclick="deleteUser($(this).val())">
+                                    <button type="button" class="btn btn-primary" id="delete"
+                                            onclick="deleteUser($(this).val())">
                                         删除
                                     </button>
                                 </div>
@@ -358,40 +369,40 @@
                                     <div class="modal-body">
                                         <div class="form-group row">
                                             <label class=" form-control-label col-sm-3">用户名</label>
-                                                <input name="username" type="text"
-                                                       class="form-control col-sm-8" placeholder="用户名">
+                                            <input name="username" type="text"
+                                                   class="form-control col-sm-8" placeholder="用户名">
                                         </div>
                                         <div class="form-group row">
                                             <label class=" form-control-label col-sm-3">密码</label>
-                                                <input name="password" type="text"
-                                                       class="form-control col-sm-8" placeholder="密码">
+                                            <input name="password" type="text"
+                                                   class="form-control col-sm-8" placeholder="密码">
                                         </div>
                                         <div class="form-group row">
                                             <label class=" form-control-label col-sm-3">身份证</label>
-                                                <input name="identityid" type="text"
-                                                       class="form-control col-sm-8" placeholder="身份证">
+                                            <input name="identityid" type="text"
+                                                   class="form-control col-sm-8" placeholder="身份证">
                                         </div>
                                         <div class="form-group row">
                                             <label class=" form-control-label col-sm-3">电话</label>
-                                                <input name="telephone" type="text"
-                                                       class="form-control col-sm-8" placeholder="电话">
+                                            <input name="telephone" type="text"
+                                                   class="form-control col-sm-8" placeholder="电话">
                                         </div>
                                         <div class="form-group row">
                                             <label class="form-control-label col-sm-3">备注信息:</label>
-                                                <textarea rows="5" class="form-control form-control-line col-sm-8"
-                                                          name="description"></textarea>
+                                            <textarea rows="5" class="form-control form-control-line col-sm-8"
+                                                      name="description"></textarea>
                                         </div>
                                         <div class="form-group row">
                                             <label class="form-control-label col-sm-3 ">角色选择:</label>
-                                                <select class="c-select col-sm-8 " id="roleid" name="roleid">
-                                                    <option value="2" selected>普通用户</option>
-                                                    <option value="4">部门管理员</option>
-                                                </select>
+                                            <select class=" form-control c-select col-sm-8 " id="roleid" name="roleid">
+                                                <option value="2" selected>普通用户</option>
+                                                <option value="4">部门管理员</option>
+                                            </select>
                                         </div>
                                         <div class="hidden row" id="department">
                                             <label class="form-control-label col-sm-3 ">部门选择:</label>
-                                                <select class="c-select col-sm-8" id="departmentid" name="departmentid">
-                                                </select>
+                                            <select class=" form-control c-select col-sm-8" id="departmentid" name="departmentid">
+                                            </select>
 
                                         </div>
 
@@ -554,12 +565,12 @@
 
         if (data.users.length != 0) {
             $.each(data.users, function (index, item) {
-                str += "<tr>";
-                str += "<td>" + (index + 1) + "</td>";
-                str += "<td>" + item.username + "</td>";
-                str += "<td>" + item.identityid + "</td>";
-                str += "<td>" + item.department.departmentname + "</td>";
-                str += '<td><button  onclick="deletePerson(' +
+                str += "<tr class='row'>";
+                str += "<td class='col-sm-2'>" + (index + 1) + "</td>";
+                str += "<td class='col-sm-2'>" + item.username + "</td>";
+                str += "<td class='col-sm-3'>" + item.identityid + "</td>";
+                str += "<td class='col-sm-3'>" + item.department.departmentname + "</td>";
+                str += '<td class=\'col-sm-2\'><button  onclick="deletePerson(' +
                     item.id +
                     ')" class="btn btn-danger">删除</button>' +
                     ' <button onclick="personInfo(' +

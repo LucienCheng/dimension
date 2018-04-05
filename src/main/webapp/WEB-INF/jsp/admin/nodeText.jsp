@@ -4,6 +4,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 <head>
@@ -27,6 +29,28 @@
     <!-- You can change the theme colors from here -->
     <link href="<%=basePath %>source/css/colors/megna.css" id="theme"
           rel="stylesheet">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <script src="<%=basePath %>source/assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script
+            src="<%=basePath %>source/assets/plugins/bootstrap/js/tether.min.js"></script>
+    <script
+            src="<%=basePath %>source/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="<%=basePath %>source/js/jquery.slimscroll.js"></script>
+    <!--Wave Effects -->
+    <script src="<%=basePath %>source/js/waves.js"></script>
+    <!--Menu sidebar -->
+    <script src="<%=basePath %>source/js/sidebarmenu.js"></script>
+    <!--stickey kit -->
+    <script
+            src="<%=basePath %>source/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+    <!--Custom JavaScript -->
+    <script src="<%=basePath %>source/js/custom.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
+    <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
+    <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -102,8 +126,11 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
-                                    class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+
+                            <c:if test="${user.roleid == 3}">
+                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
+                                        class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            </c:if>
                             <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
                                     class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
@@ -114,9 +141,11 @@
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
-                            class="fa fa-comment m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <c:if test="${user.roleid != 3}">
 
+                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
+                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    </c:if>
                     <li><a href="<%=basePath%>admin/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
 
@@ -167,14 +196,15 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
+                                            <label for="inputEmail3"
+                                                   class="col-sm-2 form-control-label">点位地址</label>
                                             <div class="col-sm-10">
                                                 <input type="email" class="form-control" id="inputEmail3"
-                                                       placeholder="Email">
+                                                       placeholder="湖南大学天马学生公寓">
                                             </div>
                                             <div class="col-sm-2"></div>
-                                            <div class="col-sm-10" style="margin-top: 10px;">
-                                                <select class="c-select">
+                                            <div class="col-sm-10" >
+                                                <select class="form-control c-select">
                                                     <option selected>点位类型</option>
                                                     <option value="1">案件点</option>
                                                     <option value="2">基础点</option>
@@ -188,10 +218,19 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-2 form-control-label">Email</label>
+                                            <label
+                                                   class="col-sm-2 form-control-label">点位名称</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" placeholder="Email">
+                                                <input type="email" class="form-control"
+                                                       placeholder="大学城">
                                             </div>
+                                            <label
+                                                   class="col-sm-2 form-control-label">选择时间</label>
+                                            <div class=" col-sm-10">
+                                                <input type="text" class="form-control" id="daterange" placeholder="选择起始时间和终止时间">
+                                            </div>
+
+
                                             <div class="col-sm-2"></div>
                                             <div class="col-sm-10" style="margin-top: 10px;">
                                                 <button type="submit" class="btn btn-info">搜索</button>
@@ -203,44 +242,27 @@
 
 
                             </form>
-
-
-                        </div>
-                    </div>
-                </div>
-                <%--end搜索条件--%>
-
-                <%--点位表格--%>
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">点位</h4>
-
-                            <div class="table-responsive">
-                                <table class="table">
+                            <div>
+                                <table class="table table-hover">
                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>First Name</th>
-                                        <th>Last Name</th>
-                                        <th>Username</th>
-                                        <th>操作</th>
+                                    <tr class="row">
+                                        <th class="col-sm-1">#</th>
+                                        <th class="col-sm-2">点位名称</th>
+                                        <th class="col-sm-3">点位地址</th>
+                                        <th class="col-sm-2">点位时间</th>
+                                        <th class="col-sm-3">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Deshmukh</td>
-                                        <td>Prohaska</td>
-                                        <td>Prohaska</td>
-                                        <td>
-                                            <button type="submit" class="btn btn-danger">删除</button>
-                                            <button class="btn btn-warning" data-toggle="modal"
-                                                    data-target="#exampleModal" data-whatever="@123">查看123
-                                            </button>
-                                            <button class="btn btn-warning" data-toggle="modal"
-                                                    data-target="#exampleModal" data-whatever="@mdo">查看mdo
-                                            </button>
+                                    <tr class="row">
+                                        <td class="col-sm-1">1</td>
+                                        <td class="col-sm-2">岳麓区大学城</td>
+                                        <td class="col-sm-3">湖南大学天马学生公寓二区七栋</td>
+                                        <td class="col-sm-2">2018-04-05 14：24</td>
+                                        <td class="col-sm-2">
+                                            <input class="btn btn-info" value="查看"
+                                                   onclick="window.open('node?nodeid=');" type="button">
+
                                         </td>
 
                                     </tr>
@@ -248,10 +270,12 @@
                                     </tbody>
                                 </table>
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <%--end点位表格--%>
+                <%--end搜索条件--%>
+
 
                 <div class="col-sm-12">
 
@@ -279,7 +303,7 @@
                                         <span class="sr-only">Close</span>
                                     </button>
                                 </div>
-                                <div class="modal-body embed-responsive embed-responsive-16by9" >
+                                <div class="modal-body embed-responsive embed-responsive-16by9">
                                     <iframe class="embed-responsive-item" allowfullscreen></iframe>
                                 </div>
                                 <div class="modal-footer">
@@ -310,24 +334,6 @@
 
 <!-- All Jquery -->
 
-<script src="<%=basePath %>source/assets/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap tether Core JavaScript -->
-<script
-        src="<%=basePath %>source/assets/plugins/bootstrap/js/tether.min.js"></script>
-<script
-        src="<%=basePath %>source/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<!-- slimscrollbar scrollbar JavaScript -->
-<script src="<%=basePath %>source/js/jquery.slimscroll.js"></script>
-<!--Wave Effects -->
-<script src="<%=basePath %>source/js/waves.js"></script>
-<!--Menu sidebar -->
-<script src="<%=basePath %>source/js/sidebarmenu.js"></script>
-<!--stickey kit -->
-<script
-        src="<%=basePath %>source/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
-<!--Custom JavaScript -->
-<script src="<%=basePath %>source/js/custom.min.js"></script>
-
 <!-- Style switcher -->
 
 <script type="text/javascript">
@@ -338,7 +344,15 @@
         var modal = $(this);
         modal.find('.modal-body iframe').prop("src", src);
     })
-
+    $('#daterange').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY-DD-MM h:mm:ss '
+        }
+    },function (start, end) {
+        console.log('New date range selected: ' + start.format('YYYY-DD-MM h:mm:ss') + ' to ' + end.format('YYYY-DD-MM h:mm:ss') );
+    });
 </script>
 </body>
 

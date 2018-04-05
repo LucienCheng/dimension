@@ -89,42 +89,28 @@
     <aside class="left-sidebar"> <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
-            <nav class="sidebar-nav ">
-                <ul id="nav navbar-nav sidebarnav">
-                    <li><a href="<%=basePath%>admin/nodeText" class="waves-effect"><i
-                            class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a>
-                    </li>
-                    <li><a href="<%=basePath%>admin/nodeMap" class="wavesEffect"><i
+            <nav class="sidebar-nav">
+                <ul id="sidebarnav">
+                    <li><a href="<%=basePath%>user/nodeText" class="waves-effect"><i
+                            class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a></li>
+                    <li><a href="<%=basePath%>user/nodeMap" class="wavesEffect"><i
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
-
-
                     <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <c:if test="${user.roleid == 3}">
-                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
-                                        class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
-                            </c:if>
-                            <li><a href="javascript:;"><i
-                                    class="fa fa-clipboard m-r-10"></i>点位比较服务</a></li>
-                            <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
-                                    class="fa fa-file-text m-r-10"></i>点位替换处理</a></li>
+                            <li><a href="javascript:void(0);" class="wavesEffect"><i
+                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+                            <li><a href="<%=basePath%>user/nodeReplace" class="wavesEffect"><i
+                                    class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
                     </li>
-                    <li><a href="<%=basePath%>admin/caseAdmin" class="waves-effect"><i
+                    <li><a href="<%=basePath%>user/caseAdmin" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
-                    <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
-                            class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <c:if test="${user.roleid != 3}">
-
-                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
-                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
-                    </c:if>
-                    <li><a href="<%=basePath%>admin/personInfo"
-                           class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
-
-
+                    <li><a href="<%=basePath%>user/message" class="waves-effect"><i
+                            class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <li><a href="<%=basePath%>user/personInfo" class="waves-effect"><i
+                            class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
                 </ul>
 
             </nav>

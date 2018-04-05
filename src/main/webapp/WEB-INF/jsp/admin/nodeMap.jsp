@@ -4,6 +4,8 @@
     String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
 %>
 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
 
@@ -27,7 +29,7 @@
     <!-- You can change the theme colors from here -->
     <link href="<%=basePath %>source/css/colors/megna.css" id="theme"
           rel="stylesheet">
-
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
 
 </head>
 
@@ -100,8 +102,11 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
-                                    class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+
+                            <c:if test="${user.roleid == 3}">
+                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
+                                        class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            </c:if>
                             <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
                                     class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
@@ -112,8 +117,11 @@
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
-                            class="fa fa-comment m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <c:if test="${user.roleid != 3}">
+
+                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
+                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    </c:if>
 
                     <li><a href="<%=basePath%>admin/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
@@ -176,41 +184,33 @@
                             <div id="case" class="panel-collapse collapse ">
                                 <div class="panel-body">
                                     <div class="card-block">
-                                        <form>
+                                        <form id="searchForm">
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
-                                                        <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">Email</label>
+                                                        <label class="col-sm-2 form-control-label">案件名称</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputEmail3"
-                                                                   placeholder="Email">
+                                                            <input type="text" class="form-control" name="casename"
+                                                                   placeholder="案件名称">
                                                         </div>
-                                                        <div class="col-sm-2"></div>
-                                                        <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <select class="c-select">
-                                                                <option selected>点位类型</option>
-                                                                <option value="1">案件点</option>
-                                                                <option value="2">基础点</option>
-                                                                <option value="3">标记点</option>
-                                                            </select>
-
+                                                        <label  class="col-sm-2 form-control-label">选择时间</label>
+                                                        <div class=" col-sm-10">
+                                                            <input type="text" class="form-control daterange"  placeholder="选择起始时间和终止时间">
                                                         </div>
-
                                                     </div>
+
 
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
-                                                        <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">Email</label>
+                                                        <label class="col-sm-2 form-control-label">案件类型</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control"
-                                                                   placeholder="Email">
+                                                            <input type="text" class="form-control" placeholder="案件类型"
+                                                                   name="casetype">
                                                         </div>
                                                         <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <button type="submit" class="btn btn-info">搜索</button>
+                                                            <input onclick="searchPage(1);" class="btn btn-info" value="搜索">
                                                         </div>
 
                                                     </div>
@@ -219,39 +219,36 @@
 
 
                                         </form>
-                                        <h4 class="card-title">点位</h4>
-                                        <div class="table-responsive">
-                                            <table class="table">
+                                        <div>
+                                            <table class="table table-hover">
                                                 <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                    <th>操作</th>
+                                                <tr class="row">
+                                                    <th class="col-sm-1">#</th>
+                                                    <th class="col-sm-2">案件名称</th>
+                                                    <th class="col-sm-1">案件类型</th>
+                                                    <th class="col-sm-3">案件开始时间</th>
+                                                    <th class="col-sm-3">案件结束时间</th>
+                                                    <th class="col-sm-2">操作</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Deshmukh</td>
-                                                    <td>Prohaska</td>
-                                                    <td>Prohaska</td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-danger">删除</button>
-                                                        <button type="submit" class="btn btn-warning">查看</button>
-                                                    </td>
-
-                                                </tr>
-
+                                                <tbody id="Table">
+                                                    <tr class="row">
+                                                        <td class="col-sm-1">1</td>
+                                                        <td class="col-sm-2">岳麓区抢劫案</td>
+                                                        <td class="col-sm-1">抢劫</td>
+                                                        <td class="col-sm-3">2018-4-5 14：28</td>
+                                                        <td class="col-sm-3">2018-4-8 14：28</td>
+                                                        <td class="col-sm-2">
+                                                            <input type="button" class="btn btn-success"
+                                                                    value="显示" onclick="addCaseNode()">
+                                                        </td>
+                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <nav class="text-center">
-
                                             <ul class="pagination">
-                                                <li class="page-item disabled"><a class="page-link"
-                                                                                  href="#">Previous</a>
+                                                <li class="page-item disabled"><a class="page-link" href="#">Previous</a>
                                                 </li>
                                                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                                                 <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -287,14 +284,15 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
                                                         <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">Email</label>
+                                                               class="col-sm-2 form-control-label">点位地址</label>
                                                         <div class="col-sm-10">
                                                             <input type="email" class="form-control" id="inputEmail3"
-                                                                   placeholder="Email">
+                                                                   placeholder="湖南大学天马学生公寓">
                                                         </div>
+
                                                         <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <select class="c-select">
+                                                            <select class="form-control c-select">
                                                                 <option selected>点位类型</option>
                                                                 <option value="1">案件点</option>
                                                                 <option value="2">基础点</option>
@@ -309,10 +307,15 @@
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
                                                         <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">Email</label>
+                                                               class="col-sm-2 form-control-label">点位名称</label>
                                                         <div class="col-sm-10">
                                                             <input type="email" class="form-control"
-                                                                   placeholder="Email">
+                                                                   placeholder="大学城">
+                                                        </div>
+                                                        <label
+                                                                class="col-sm-2 form-control-label">选择时间</label>
+                                                        <div class=" col-sm-10">
+                                                            <input type="text" class="form-control daterange" id="" placeholder="选择起始时间和终止时间">
                                                         </div>
                                                         <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
@@ -325,27 +328,26 @@
 
 
                                         </form>
-                                        <h4 class="card-title">点位</h4>
-                                        <div class="table-responsive">
-                                            <table class="table">
+                                        <div >
+                                            <table class="table table-hover">
                                                 <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>First Name</th>
-                                                    <th>Last Name</th>
-                                                    <th>Username</th>
-                                                    <th>操作</th>
+                                                <tr class="row">
+                                                    <th class="col-sm-1">#</th>
+                                                    <th class="col-sm-2">点位名称</th>
+                                                    <th class="col-sm-3">点位地址</th>
+                                                    <th class="col-sm-2">点位时间</th>
+                                                    <th class="col-sm-3">操作</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td>Deshmukh</td>
-                                                    <td>Prohaska</td>
-                                                    <td>Prohaska</td>
-                                                    <td>
-                                                        <button type="submit" class="btn btn-danger">删除</button>
-                                                        <button type="submit" class="btn btn-warning">查看</button>
+                                                <tr class="row">
+                                                    <td  class="col-sm-1">1</td>
+                                                    <td class="col-sm-2">岳麓区大学城</td>
+                                                    <td class="col-sm-3">湖南大学天马学生公寓二区七栋</td>
+                                                    <td class="col-sm-2">2018-04-05 14：24</td>
+                                                    <td class="col-sm-2">
+                                                        <input class="btn btn-info" value="查看" onclick="window.open('node?nodeid=');" type="button">
+                                                        <input class="btn btn-info" value="地图显示" onclick="addNode()" type="button">
                                                     </td>
 
                                                 </tr>
@@ -370,12 +372,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-sm-2">
-                        <input class="btn btn-info" value="添加单个点" onclick="addNode()" type="button">
-                    </div>
-                    <div class="col-sm-2">
-                        <input class="btn btn-info" value="添加事件点" onclick="addCaseNode()" type="button">
                     </div>
                     <div class="card">
                         <div class="card-block">
@@ -419,33 +415,7 @@
                         </div>
                     </div>
                     <%--end模态框，展示具体点位--%>
-                    <%--模态框具体点位，展示具体点位--%>
-                    <div class="col-sm-12">
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                             aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog " role="document" style="max-width: 80%">
-                                <div class="modal-content">
-                                    <div class="modal-header">
 
-                                        <h4 class="modal-title" id="exampleModalLabel">具体点位信息</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            <span class="sr-only">Close</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body embed-responsive embed-responsive-16by9">
-                                        <iframe class="embed-responsive-item" allowfullscreen></iframe>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                        </button>
-                                        <button type="button" class="btn btn-primary">Send message</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <%--end模态框，展示具体点位--%>
                 </div>
             </div>
 
@@ -487,17 +457,36 @@
 <script src="<%=basePath %>/source/js/custom.min.js"></script>
 <script type="text/javascript"
         src="http://api.map.baidu.com/getscript?v=2.0&ak=mv0HsmB5GwdGiXw6oRUq3XsjsZbfXibc&services=&t="></script>
+
+<script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
+<script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
+
+    Array.prototype.indexOf = function(val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].lng == val.lng && this[i].lat == val.lat)
+                return i;
+        }
+        return -1;
+    };
+
+    Array.prototype.remove = function(val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
     // 初始化百度地图
-    var map = new BMap.Map("allmap", {minZoom: 16, maxZoom: 20});
-    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+    var map = new BMap.Map("allmap");
     var point = new BMap.Point(116.404, 39.915);
-    map.centerAndZoom(point, 15);
+    map.centerAndZoom(point, 17);
     var count = 1;
     var myCity = new BMap.LocalCity();
     myCity.get(getCity);
-
-
+    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+    map.addControl(top_left_navigation);
+    //存已经在地图里面的点位
+    var bPoints = new Array();
     //添加一个事件点
     function addCaseNode() {
         var bounds = map.getBounds();
@@ -519,41 +508,39 @@
         for (var i = 0; i < 3; i++) {
             var markerMenu = new BMap.ContextMenu();
             var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+            bPoints.push(point);
             var marker = new BMap.Marker(point);
             marker.id = count;
             //添加右键窗口
-            markerMenu.addItem(new BMap.MenuItem('发送消息', function () {
-                console.log(this.getTitle());
-                $('#updateModel').modal('toggle');
-            }));
-            markerMenu.addItem(new BMap.MenuItem('标记点位', function () {
-                console.log(this.id);
-            }));
-            markerMenu.addItem(new BMap.MenuItem('在地图上删除', function () {
-                map.removeOverlay(this);
-            }));
+            markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
+            markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+            markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
             marker.addContextMenu(markerMenu);
             //添加单击展示窗口
             marker.addEventListener("click", function () {
                 //初始化地图以及窗口
                 var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
                 this.openInfoWindow(infoWindow);
-                /* //图片加载完毕重绘infowindow
-                 document.getElementById('imgDemo').onload = function () {
-                     infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-                 }*/
+                //图片加载完毕重绘infowindow
+                document.getElementById('imgDemo').onload = function () {
+                    infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
+                }
             });
             //添加双击时显示点位具体信息
             marker.addEventListener("dblclick", function () {
                 console.log(this.id);
                 //弹出具体点位的信息
-                $('#exampleModal').modal('toggle');
-                $('#exampleModal .modal-body iframe').prop("src", this.count);
-
+                <c:if test="${user.roleid != 2}">
+                window.open("<%=basePath%>admin/node?nodeid="+this.id);
+                </c:if>
+                <c:if test="${user.roleid == 2}">
+                window.open("<%=basePath%>user/node?nodeid="+this.id);
+                </c:if>
             });
             points.push(point);
             count++;
             map.addOverlay(marker);
+            setZoom()
         }
 
 
@@ -562,9 +549,30 @@
         polyline.addEventListener("click", function (e) {
             console.log(this.caseId)
         });
+
+        setZoom(bPoints);
         map.addOverlay(polyline); //添加到地图中
     }
 
+    var removeMark = function (e, ee, marker) {
+        map.removeOverlay(marker);
+    }
+
+    var markNode = function (e, ee, marker) {
+        console.log(marker.id);
+    }
+    var sendMessage = function (e, ee, marker) {
+        console.log(marker.id);
+        $('#updateModel').modal('toggle');
+    }
+
+    // 根据点的数组自动调整缩放级别
+    function setZoom (bPoints) {
+        var view = map.getViewport(eval(bPoints));
+        var mapZoom = view.zoom;
+        var centerPoint = view.center;
+        map.centerAndZoom(centerPoint,mapZoom);
+    }
     //添加点位操作
     function addNode() {
 
@@ -585,47 +593,48 @@
             "</p></div>";
         var markerMenu = new BMap.ContextMenu();
         var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
+        bPoints.push(point);
         var marker = new BMap.Marker(point);
+        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
         marker.id = count;
+        map.addOverlay(marker);
         //添加右键窗口
-        markerMenu.addItem(new BMap.MenuItem('发送消息', function () {
-            console.log(this.getTitle());
-            $('#updateModel').modal('toggle');
-        }));
-        markerMenu.addItem(new BMap.MenuItem('标记点位', function () {
-            console.log(this.id);
-        }));
-        markerMenu.addItem(new BMap.MenuItem('在地图上删除', function () {
-            map.removeOverlay(this);
-        }));
+        markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
+        markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+        markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
         marker.addContextMenu(markerMenu);
         //添加单击展示窗口
         marker.addEventListener("click", function () {
             //初始化地图以及窗口
-            var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
             this.openInfoWindow(infoWindow);
-            /* //图片加载完毕重绘infowindow
-             document.getElementById('imgDemo').onload = function () {
-                 infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-             }*/
+            console.log(this.id);
         });
         //添加双击时显示点位具体信息
         marker.addEventListener("dblclick", function () {
             console.log(this.id);
             //弹出具体点位的信息
-            $('#exampleModal').modal('toggle');
-            $('#exampleModal .modal-body iframe').prop("src", count);
-
+            <c:if test="${user.roleid != 2}">
+            window.open("<%=basePath%>admin/node?nodeid="+this.id);
+            </c:if>
+            <c:if test="${user.roleid == 2}">
+            window.open("<%=basePath%>user/node?nodeid="+this.id);
+            </c:if>
         });
         count++;
-        map.addOverlay(marker);
+        setZoom(bPoints);
     }
 
     function getCity(result) {
         var cityName = result.name;
         map.setCenter(cityName);
     }
-
+    $('.daterange').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY-DD-MM h:mm:ss '
+        }
+    });
 </script>
 </body>
 

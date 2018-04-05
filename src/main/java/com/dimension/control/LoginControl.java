@@ -35,9 +35,9 @@ public class LoginControl {
         if (judge) {
             user = (User) session.getAttribute("user");
             if (user.getRoleid() == 2) {
-                return "forward:/user/nodeText";
+                return "redirect:/user/nodeText";
             } else {
-                return "forward:/admin/nodeText";
+                return "redirect:/admin/nodeText";
             }
         } else {
             return "forward:/login?error=error";

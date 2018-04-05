@@ -103,8 +103,10 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="javascript:;" class="wavesEffect"><i
-                                    class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            <c:if test="${user.roleid == 3}">
+                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
+                                        class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
+                            </c:if>
                             <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
                                     class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
@@ -115,9 +117,11 @@
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
-                            class="fa fa-comment m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <c:if test="${user.roleid != 3}">
 
+                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
+                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    </c:if>
                     <li><a href="<%=basePath%>admin/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
 
@@ -185,25 +189,25 @@
                                 </div>
                             </div>
                             <h4 class="card-title">点位类型</h4>
-                            <div class="table-responsive">
+                            <div >
                                 <table class="table table-hover ">
                                     <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>名称</th>
-                                        <th>属性个数</th>
-                                        <th>点位个数</th>
-                                        <th>操作</th>
+                                    <tr class="row">
+                                        <th class="col-sm-1">#</th>
+                                        <th class="col-sm-3">名称</th>
+                                        <th class="col-sm-2">属性个数</th>
+                                        <th class="col-sm-2">点位个数</th>
+                                        <th class="col-sm-4">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody id="Table">
                                     <c:forEach items="${tables}" var="item" varStatus="status">
-                                        <tr>
-                                            <td>${status.index+1}</td>
-                                            <td>${item.chinesename}</td>
-                                            <td>${item.count}</td>
-                                            <td>${fn:length(item.fields)}</td>
-                                            <td>
+                                        <tr class="row">
+                                            <td class="col-sm-1">${status.index+1}</td>
+                                            <td class="col-sm-3">${item.chinesename}</td>
+                                            <td class="col-sm-2">${item.count}</td>
+                                            <td class="col-sm-2">${fn:length(item.fields)}</td>
+                                            <td class="col-sm-4">
                                                 <button class="btn btn-warning" onclick="updateModel(${item.id},1)">查看
                                                 </button>
                                                 <c:if test="${item.isvalid == '1'}">
@@ -621,12 +625,12 @@
         var str = "";
         if (data.tables.length != 0) {
             $.each(data.tables, function (index, item) {
-                str += "<tr>";
-                str += "<td>" + (index + 1) + "</td>";
-                str += "<td>" + item.chinesename + "</td>";
-                str += "<td>" + item.count + "</td>";
-                str += "<td>" + item.fields.length + "</td>";
-                str += '<td>';
+                str += "<tr class='row'>";
+                str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
+                str += "<td class=\"col-sm-3\">" + item.chinesename + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.count + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.fields.length + "</td>";
+                str += '<td class="col-sm-4">';
                 str += '<button class="btn btn-warning" onclick="updateModel(' + item.id + ',1)">查看</button>\n';
                 if (item.isvalid == '0') {
                     str += '<input type="button" class="btn btn-info" onclick="validTable($(this),' + item.id + ',1)" value="设置有效">';
@@ -659,7 +663,6 @@
             /* 指定返回类型为json */
             dataType: 'json',
             success: function (d) {
-
                 console.log(d);
                 data = d;
                 updateTable(d);
