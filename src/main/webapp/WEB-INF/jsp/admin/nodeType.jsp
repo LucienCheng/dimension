@@ -205,8 +205,8 @@
                                         <tr class="row">
                                             <td class="col-sm-1">${status.index+1}</td>
                                             <td class="col-sm-3">${item.chinesename}</td>
-                                            <td class="col-sm-2">${item.count}</td>
                                             <td class="col-sm-2">${fn:length(item.fields)}</td>
+                                            <td class="col-sm-2">${item.count}</td>
                                             <td class="col-sm-4">
                                                 <button class="btn btn-warning" onclick="updateModel(${item.id},1)">查看
                                                 </button>
@@ -488,14 +488,16 @@
 
                         {'v': 2, 'n': '认证电话号码'},
 
-                        {'v': 3, 'n': '认证中文字母和数字'},
+                        {'v': 3, 'n': '中文、英文、数字包括下划线'},
 
                     ]
                 },
                 {
                     'v': 'int(11)', 'n': 'int(11)', 's': [
 
-                        {'v': 2, 'n': '认证电话号码'}
+                        {'v': 2, 'n': '认证电话号码'},
+                        {'v': 4, 'n': '只能为数字'}
+
 
                     ]
                 }
@@ -628,8 +630,8 @@
                 str += "<tr class='row'>";
                 str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
                 str += "<td class=\"col-sm-3\">" + item.chinesename + "</td>";
-                str += "<td class=\"col-sm-2\">" + item.count + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.fields.length + "</td>";
+                str += "<td class=\"col-sm-2\">" +  item.count+ "</td>";
                 str += '<td class="col-sm-4">';
                 str += '<button class="btn btn-warning" onclick="updateModel(' + item.id + ',1)">查看</button>\n';
                 if (item.isvalid == '0') {

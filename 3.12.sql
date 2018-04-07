@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-03-29 00:19:12
+Date: 2018-04-07 17:51:30
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -94,7 +94,6 @@ CREATE TABLE `case` (
 `departmentId`  bigint(20) UNSIGNED NULL DEFAULT NULL ,
 PRIMARY KEY (`Id`),
 FOREIGN KEY (`groupId`) REFERENCES `group` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-FOREIGN KEY (`departmentId`) REFERENCES `department` (`Id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 INDEX `case_type_id` (`caseType`) USING BTREE ,
 INDEX `groupId` (`groupId`) USING BTREE ,
 INDEX `departmentId` (`departmentId`) USING BTREE
@@ -202,17 +201,22 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS `field`;
 CREATE TABLE `field` (
-`Id`  int(11) NOT NULL ,
+`Id`  int(11) NOT NULL AUTO_INCREMENT ,
 `englishName`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `chineseName`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `fieldType`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `tableId`  int(11) NULL DEFAULT NULL ,
+`regexid`  int(11) NULL DEFAULT NULL ,
+`isvalid`  char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' ,
 PRIMARY KEY (`Id`),
 FOREIGN KEY (`tableId`) REFERENCES `table_type` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-INDEX `nodeClassfyId` (`tableId`) USING BTREE
+FOREIGN KEY (`regexid`) REFERENCES `regexp` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+INDEX `nodeClassfyId` (`tableId`) USING BTREE ,
+INDEX `regexid` (`regexid`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=5
 
 ;
 
@@ -220,6 +224,7 @@ DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 -- Records of field
 -- ----------------------------
 BEGIN;
+INSERT INTO `field` VALUES ('3', 'nodeId', 'atm的唯一标识', 'bigint', '4', null, '1'), ('4', 'table_4_4', 'atm的个数', 'int(11)', '4', '2', '1');
 COMMIT;
 
 -- ----------------------------
@@ -386,6 +391,29 @@ INSERT INTO `message` VALUES ('1', null, null, '', null, '', null, '', null);
 COMMIT;
 
 -- ----------------------------
+-- Table structure for regexp
+-- ----------------------------
+DROP TABLE IF EXISTS `regexp`;
+CREATE TABLE `regexp` (
+`id`  int(11) NOT NULL AUTO_INCREMENT ,
+`regex`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`description`  varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+PRIMARY KEY (`id`)
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+AUTO_INCREMENT=5
+
+;
+
+-- ----------------------------
+-- Records of regexp
+-- ----------------------------
+BEGIN;
+INSERT INTO `regexp` VALUES ('1', '^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$', '认证是否为邮箱'), ('2', '^(13[0-9]|14[0-9]|15[0-9]|166|17[0-9]|18[0-9]|19[8|9])\\d{8}$', '认证手机号码'), ('3', '^[\\u4E00-\\u9FA5A-Za-z0-9_]+$', '中文、英文、数字包括下划线'), ('4', '^[0-9]*$', '只能为数字');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for replace
 -- ----------------------------
 DROP TABLE IF EXISTS `replace`;
@@ -430,6 +458,26 @@ INSERT INTO `role` VALUES ('2', '普通业务员'), ('3', '超级管理员'), ('
 COMMIT;
 
 -- ----------------------------
+-- Table structure for table_4
+-- ----------------------------
+DROP TABLE IF EXISTS `table_4`;
+CREATE TABLE `table_4` (
+`nodeId`  bigint(20) UNSIGNED NULL DEFAULT NULL ,
+`table_4_4`  int(11) NULL DEFAULT NULL ,
+INDEX `nodeId` (`nodeId`) USING BTREE
+)
+ENGINE=InnoDB
+DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
+
+;
+
+-- ----------------------------
+-- Records of table_4
+-- ----------------------------
+BEGIN;
+COMMIT;
+
+-- ----------------------------
 -- Table structure for table_type
 -- ----------------------------
 DROP TABLE IF EXISTS `table_type`;
@@ -437,12 +485,13 @@ CREATE TABLE `table_type` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `englishName`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
 `chineseName`  varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL ,
+`isvalid`  char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '1' ,
 PRIMARY KEY (`id`),
 INDEX `id` (`id`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-AUTO_INCREMENT=1
+AUTO_INCREMENT=5
 
 ;
 
@@ -450,6 +499,7 @@ AUTO_INCREMENT=1
 -- Records of table_type
 -- ----------------------------
 BEGIN;
+INSERT INTO `table_type` VALUES ('4', 'table_4', 'atm', '0');
 COMMIT;
 
 -- ----------------------------
@@ -484,7 +534,7 @@ AUTO_INCREMENT=35
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', '2', '一级普通', '123456', '1', '', '1', '2018-03-22 16:21:29.1450', null, '1', ''), ('2', '3', '超级管理', '12345', '3', '', '22', '2018-03-22 16:21:29.1450', '2018-03-28 14:57:49.5830', '1', ''), ('3', '4', '一级部门管理', '123456', '4', '', '1', '2018-03-22 16:21:29.1450', '2018-03-29 00:12:41.6440', '1', ''), ('4', '2', '二级普通', '123456', '2', '', '2', '2018-03-22 16:21:29.1450', '2018-03-28 15:17:59.0250', '1', ''), ('6', '4', '二级部门管理员', '123456', '7', '', '2', '2018-03-22 16:21:29.1450', null, '1', ''), ('7', '2', '三级普通', '123456', '6', '', '3', '2018-03-22 16:21:29.1450', null, '1', ''), ('8', '2', '一级部门普通组员2', '123456', '10', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通'), ('10', '4', '三级部门管理', '123456', '5', '', '3', '2018-03-22 16:21:29.1450', null, '1', ''), ('20', '2', '一级部门普通组员1', '123456', '11', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通'), ('30', '2', '一级部门普通组长', '123456', '12', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通');
+INSERT INTO `user` VALUES ('1', '2', '一级普通', '123456', '1', '', '1', '2018-03-22 16:21:29.1450', null, '1', ''), ('2', '3', '超级管理', '12345', '3', '', '22', '2018-03-22 16:21:29.1450', '2018-04-07 17:49:58.2920', '1', ''), ('3', '4', '一级部门管理', '123456', '4', '', '1', '2018-03-22 16:21:29.1450', '2018-03-29 00:12:41.6440', '1', ''), ('4', '2', '二级普通', '123456', '2', '', '2', '2018-03-22 16:21:29.1450', '2018-03-28 15:17:59.0250', '1', ''), ('6', '4', '二级部门管理员', '123456', '7', '', '2', '2018-03-22 16:21:29.1450', null, '1', ''), ('7', '2', '三级普通', '123456', '6', '', '3', '2018-03-22 16:21:29.1450', null, '1', ''), ('8', '2', '一级部门普通组员2', '123456', '10', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通'), ('10', '4', '三级部门管理', '123456', '5', '', '3', '2018-03-22 16:21:29.1450', null, '1', ''), ('20', '2', '一级部门普通组员1', '123456', '11', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通'), ('30', '2', '一级部门普通组长', '123456', '12', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通');
 COMMIT;
 
 -- ----------------------------
@@ -553,6 +603,11 @@ ALTER TABLE `case_node` AUTO_INCREMENT=1;
 ALTER TABLE `department` AUTO_INCREMENT=2744;
 
 -- ----------------------------
+-- Auto increment value for field
+-- ----------------------------
+ALTER TABLE `field` AUTO_INCREMENT=5;
+
+-- ----------------------------
 -- Auto increment value for file
 -- ----------------------------
 ALTER TABLE `file` AUTO_INCREMENT=1;
@@ -573,6 +628,11 @@ ALTER TABLE `group_user` AUTO_INCREMENT=4;
 ALTER TABLE `message` AUTO_INCREMENT=2;
 
 -- ----------------------------
+-- Auto increment value for regexp
+-- ----------------------------
+ALTER TABLE `regexp` AUTO_INCREMENT=5;
+
+-- ----------------------------
 -- Auto increment value for replace
 -- ----------------------------
 ALTER TABLE `replace` AUTO_INCREMENT=1;
@@ -585,7 +645,7 @@ ALTER TABLE `role` AUTO_INCREMENT=5;
 -- ----------------------------
 -- Auto increment value for table_type
 -- ----------------------------
-ALTER TABLE `table_type` AUTO_INCREMENT=1;
+ALTER TABLE `table_type` AUTO_INCREMENT=5;
 
 -- ----------------------------
 -- Auto increment value for user

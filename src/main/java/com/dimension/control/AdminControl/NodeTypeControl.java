@@ -14,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -43,7 +42,13 @@ public class NodeTypeControl {
         System.out.println(map);
 
         for (Table table1:tables) {
-            table1.setCount(map.get(table1.getId()));
+            if(map.get(table1.getId())==null){
+                table1.setCount(0);
+            }
+            else{
+                table1.setCount(table1.getId());
+            }
+
         }
         int totalCount = tableMapper.count(table);
         int totalPage = (totalCount + count - 1) / count;
@@ -164,6 +169,7 @@ public class NodeTypeControl {
         Field field=new Field();
         field.setTableid(table.getId());
         field.setFieldtype("bigint");
+        field.setEnglishname("nodeid");
         field.setChinesename(table.getChinesename()+"的唯一标识");
         fieldMapper.insertSelective(field);
         int fieldCount=field.getId()+1;

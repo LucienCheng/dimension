@@ -6,33 +6,14 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93ada600-cd15-4536-8c98-8ef8eb7b5ede" name="Default" comment="目前对管理员的主要页面">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/node.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeCompare.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/css/daterangepicker.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/css/fileinput.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/explorer-fa/theme.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/explorer-fa/theme.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/explorer-fa/theme.min.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/explorer-fa/theme.min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/fa/theme.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/fa/theme.min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/imageicon.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/img/loading.gif" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/js/daterangepicker.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/js/demo.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/js/fileinput.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/js/moment.min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/js/zh.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/webapp/source/videoicon.png" />
+    <list default="true" id="93ada600-cd15-4536-8c98-8ef8eb7b5ede" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/AdminControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/AdminControl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java" />
+      <change beforePath="$PROJECT_DIR$/3.12.sql" afterPath="$PROJECT_DIR$/3.12.sql" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeTypeControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeTypeControl.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/LoginControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/LoginControl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserControl.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/dao/MessageMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/dao/MessageMapper.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/Message.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/Message.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/User.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/User.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/BaseNodeMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/BaseNodeMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/BasestationMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/BasestationMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/CaseMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/CaseMapper.xml" />
@@ -49,23 +30,7 @@
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/TableMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/TableMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/WifiMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/WifiMapper.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/message.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/message.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/node.jsp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeCompare.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeCompare.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeReplace.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeReplace.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/personInfo.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/personInfo.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/userAdmin.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/userAdmin.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeAssist.jsp" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/source/assets/images/favicon.png" afterPath="$PROJECT_DIR$/src/main/webapp/source/assets/images/favicon.png" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -82,120 +47,49 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="caseAdmin.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp">
+      <file leaf-file-name="NodeTypeControl.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeTypeControl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="10908">
-              <caret line="449" column="0" lean-forward="false" selection-start-line="448" selection-start-column="0" selection-end-line="454" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="171" column="36" lean-forward="false" selection-start-line="171" selection-start-column="36" selection-end-line="171" selection-end-column="36" />
               <folding>
-                <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="imports" expanded="true" />
+                <element signature="docComment;method#addTable#0;class#NodeTypeControl#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="message.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp">
+      <file leaf-file-name="3.12.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/3.12.sql">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
-              <caret line="238" column="4" lean-forward="false" selection-start-line="238" selection-start-column="2" selection-end-line="241" selection-end-column="37" />
+            <state relative-caret-position="290">
+              <caret line="649" column="31" lean-forward="true" selection-start-line="649" selection-start-column="31" selection-end-line="649" selection-end-column="31" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nodeCompare.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeCompare.jsp">
+      <file leaf-file-name="Table.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/Table.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2133">
-              <caret line="107" column="60" lean-forward="false" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="60" />
+            <state relative-caret-position="429">
+              <caret line="18" column="20" lean-forward="false" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
               <folding>
-                <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+                <element signature="e#1020#1021#0" expanded="true" />
+                <element signature="e#1054#1055#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="nodeMap.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp">
+      <file leaf-file-name="nodeType.jsp" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="34" column="96" lean-forward="false" selection-start-line="34" selection-start-column="96" selection-end-line="34" selection-end-column="96" />
+            <state relative-caret-position="421">
+              <caret line="208" column="78" lean-forward="false" selection-start-line="208" selection-start-column="78" selection-end-line="208" selection-end-column="78" />
               <folding>
-                <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#aside#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <marker date="1522937025282" expanded="true" signature="24740:24772" ph="..." />
-                <marker date="1522937025282" expanded="true" signature="24821:24843" ph="..." />
-                <marker date="1522937025282" expanded="true" signature="24942:24997" ph="..." />
-                <marker date="1522937025282" expanded="true" signature="28073:28105" ph="..." />
-                <marker date="1522937025282" expanded="true" signature="28154:28176" ph="..." />
-                <marker date="1522937025282" expanded="true" signature="28275:28330" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nodeMap.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="30" column="27" lean-forward="true" selection-start-line="30" selection-start-column="27" selection-end-line="31" selection-end-column="96" />
-              <folding>
-                <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#aside#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <marker date="1522930124779" expanded="true" signature="25230:25262" ph="..." />
-                <marker date="1522930124779" expanded="true" signature="25311:25333" ph="..." />
-                <marker date="1522930124779" expanded="true" signature="25432:25487" ph="..." />
-                <marker date="1522930124779" expanded="true" signature="28563:28595" ph="..." />
-                <marker date="1522930124779" expanded="true" signature="28644:28666" ph="..." />
-                <marker date="1522930124779" expanded="true" signature="28765:28820" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nodeReplace.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2133">
-              <caret line="107" column="60" lean-forward="true" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="60" />
-              <folding>
-                <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nodeText.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="27">
-              <caret line="301" column="0" lean-forward="false" selection-start-line="301" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="nodeText.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="287">
-              <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="personInfo.jsp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2025">
-              <caret line="103" column="62" lean-forward="false" selection-start-line="103" selection-start-column="61" selection-end-line="103" selection-end-column="62" />
-              <folding>
-                <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <marker date="1522936326593" expanded="true" signature="14518:14525" ph="×" />
+                <marker date="1523094588718" expanded="true" signature="21459:21466" ph="×" />
               </folding>
             </state>
           </provider>
@@ -213,9 +107,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>updateUser</find>
-      <find>&lt;c:if test=&quot;${user.roleid</find>
-      <find>消息处理</find>
       <find>updatetable</find>
       <find>&lt;table class</find>
       <find>updateta</find>
@@ -243,6 +134,9 @@
       <find>select</find>
       <find>submenu1</find>
       <find>daterange</find>
+      <find>int(11)</find>
+      <find>类型信息</find>
+      <find>city_custom</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -271,8 +165,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/webapp/source/assets/plugins/dist/css/sb-admin-2.min.css" />
-        <option value="$PROJECT_DIR$/src/main/webapp/source/js/jquery.cxselect.min.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/source/assets/plugins/bootstrap/css/bootstrap.css" />
         <option value="$PROJECT_DIR$/src/main/webapp/source/assets/plugins/bootstrap/css/bootstrap.min.css" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/pojo/File.java" />
@@ -293,13 +185,10 @@
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/pojo/Field.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/dao/FieldMapper.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/FieldMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeTypeControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/UserAdminControl.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/message.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/userAdmin.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/personInfo.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/source/js/zh.js" />
         <option value="$PROJECT_DIR$/src/main/webapp/source/js/fileinput.js" />
@@ -322,6 +211,11 @@
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/pojo/User.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeTypeControl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp" />
+        <option value="$PROJECT_DIR$/3.12.sql" />
       </list>
     </option>
   </component>
@@ -441,7 +335,119 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="AdminControl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="UserControl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="pojo" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dimension" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="webapp" type="462c0819:PsiDirectoryNode" />
+              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
+              <item name="jsp" type="462c0819:PsiDirectoryNode" />
+              <item name="user" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <option name="show-excluded-files" value="false" />
+      </pane>
       <pane id="Scope">
         <subPane subId="Production">
           <expand>
@@ -502,89 +508,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="UserControl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="jsp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="jsp" type="462c0819:PsiDirectoryNode" />
-              <item name="admin" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="dimension" type="b2602c69:ProjectViewProjectNode" />
-              <item name="dimension" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="webapp" type="462c0819:PsiDirectoryNode" />
-              <item name="WEB-INF" type="462c0819:PsiDirectoryNode" />
-              <item name="jsp" type="462c0819:PsiDirectoryNode" />
-              <item name="user" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <option name="show-excluded-files" value="false" />
-      </pane>
       <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -597,7 +522,7 @@
     <property name="project.structure.side.proportion" value="0.30608538" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="SearchEverywhereHistoryKey" value="nodete&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp&#10;person&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp&#10;nodemap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp&#10;Tether&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/source/assets/plugins/bootstrap/js/tether.min.js&#10;style&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/source/css/style.css&#10;userma&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/UserMapper.xml&#10;user&#9;PSI&#9;JAVA://com.dimension.pojo.User&#10;tablefi&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableFieldMapper.xml&#10;tableMapper&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableMapper.xml&#10;caseadmin&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp&#10;fieldm&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/FieldMapper.java&#10;tablema&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/TableFieldMapper.java&#10;fieldmap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/FieldMapper.xml&#10;field&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/Field.java&#10;tablemap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/TableMapper.java&#10;tablem&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableMapper.xml&#10;tablefieldm&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableFieldMapper.xml&#10;admin&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp&#10;message&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/Message.java&#10;messa&#9;PSI&#9;JAVA://com.dimension.dao.MessageMapper&#10;mess&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/mapper/MessageMapper.xml&#10;casemapp&#9;PSI&#9;JAVA://com.dimension.dao.CaseMapper&#10;nodeTe&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp" />
+    <property name="SearchEverywhereHistoryKey" value="nodety&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp&#10;nodete&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp&#10;person&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp&#10;nodemap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp&#10;Tether&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/source/assets/plugins/bootstrap/js/tether.min.js&#10;style&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/source/css/style.css&#10;userma&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/UserMapper.xml&#10;user&#9;PSI&#9;JAVA://com.dimension.pojo.User&#10;tablefi&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableFieldMapper.xml&#10;tableMapper&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableMapper.xml&#10;caseadmin&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp&#10;fieldm&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/FieldMapper.java&#10;tablema&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/TableFieldMapper.java&#10;fieldmap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/FieldMapper.xml&#10;field&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/Field.java&#10;tablemap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/TableMapper.java&#10;tablem&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableMapper.xml&#10;tablefieldm&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableFieldMapper.xml&#10;admin&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp&#10;message&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/Message.java&#10;messa&#9;PSI&#9;JAVA://com.dimension.dao.MessageMapper&#10;mess&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/mapper/MessageMapper.xml&#10;casemapp&#9;PSI&#9;JAVA://com.dimension.dao.CaseMapper&#10;nodeTe&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp" />
     <property name="ToolWindowDocumentation.ShowToolbar" value="false" />
   </component>
   <component name="RecentsManager">
@@ -1034,7 +959,11 @@
       <workItem from="1522755568129" duration="17621000" />
       <workItem from="1522813371648" duration="15546000" />
       <workItem from="1522840380591" duration="16885000" />
-      <workItem from="1522895171826" duration="29653000" />
+      <workItem from="1522895171826" duration="30389000" />
+      <workItem from="1522940106453" duration="1933000" />
+      <workItem from="1523071353953" duration="9000" />
+      <workItem from="1523088311588" duration="673000" />
+      <workItem from="1523091499917" duration="3243000" />
     </task>
     <task id="LOCAL-00001" summary="3.23日，关于前端大体框架，control和服务层完成">
       <created>1521788504559</created>
@@ -1078,7 +1007,14 @@
       <option name="project" value="LOCAL" />
       <updated>1522774481562</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="基本完成了所有界面的样式，剩下的功能就剩下点位的展示和点位的相似度比较了">
+      <created>1522937362363</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1522937362363</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1114,7 +1050,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="341776000" />
+    <option name="totallyTimeSpent" value="348370000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1140,14 +1076,13 @@
       <window_info id="JSF" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.3299356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22690992" sideWeight="0.49785408" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.29760548" sideWeight="0.49785408" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.13787554" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="0" y="0" width="434" height="848" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.23261118" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -1155,7 +1090,6 @@
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="true" show_stripe_button="true" weight="0.21298283" sideWeight="0.49335864" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.225" sideWeight="0.5066414" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="SciView" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1163,8 +1097,10 @@
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2360515" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" x="0" y="0" width="434" height="848" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Coverage" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3299356" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295325" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1218,7 +1154,8 @@
     <MESSAGE value="3.29数据库备份文件" />
     <MESSAGE value="完成管理员消息处理机制和案件信息管理全部功能" />
     <MESSAGE value="完成了动态建表，和用户修改功能，还有表格对齐和地图的样式以及操作，比如双击点位，右键点位，显示信息窗口，移除点位，标记点位（只是样式的显示，并没有完成功能）" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成了动态建表，和用户修改功能，还有表格对齐和地图的样式以及操作，比如双击点位，右键点位，显示信息窗口，移除点位，标记点位（只是样式的显示，并没有完成功能）" />
+    <MESSAGE value="基本完成了所有界面的样式，剩下的功能就剩下点位的展示和点位的相似度比较了" />
+    <option name="LAST_COMMIT_MESSAGE" value="基本完成了所有界面的样式，剩下的功能就剩下点位的展示和点位的相似度比较了" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1231,64 +1168,10 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/serviceImpl/TableFieldImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="38" column="38" lean-forward="false" selection-start-line="38" selection-start-column="38" selection-end-line="38" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/program file/maven/repository/org/mybatis/mybatis/3.4.5/mybatis-3.4.5-sources.jar!/org/apache/ibatis/builder/xml/mybatis-3-mapper.dtd">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="230" column="0" lean-forward="false" selection-start-line="230" selection-start-column="0" selection-end-line="230" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/TableMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="101" column="68" lean-forward="false" selection-start-line="101" selection-start-column="68" selection-end-line="101" selection-end-column="68" />
-          <folding>
-            <marker date="1522717917576" expanded="true" signature="1341:1791" ph="select field... field" />
-            <marker date="1522717917576" expanded="true" signature="2535:2651" ph="select from table_type" />
-            <marker date="1522717917576" expanded="true" signature="4252:4310" ph="delete from table_type... " />
-            <marker date="1522717917576" expanded="true" signature="4458:4652" ph="insert into table_type... " />
-            <marker date="1522717917576" expanded="true" signature="5770:6218" ph="update table_type... " />
-            <marker date="1522717917576" expanded="true" signature="6313:6505" ph="update table_type... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/dao/FieldMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="567">
-          <caret line="23" column="36" lean-forward="true" selection-start-line="23" selection-start-column="36" selection-end-line="23" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/FieldMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="416">
           <caret line="40" column="102" lean-forward="false" selection-start-line="40" selection-start-column="102" selection-end-line="40" selection-end-column="102" />
-          <folding>
-            <marker date="1522763695134" expanded="true" signature="933:983" ph="select * fro... field" />
-            <marker date="1522763695134" expanded="true" signature="1095:1196" ph="select from field" />
-            <marker date="1522763695134" expanded="true" signature="1282:1337" ph="delete from field... " />
-            <marker date="1522763695134" expanded="true" signature="1421:1481" ph="delete from field... " />
-            <marker date="1522763695134" expanded="true" signature="1562:1806" ph="insert into field... " />
-            <marker date="1522763695134" expanded="true" signature="3246:3898" ph="update field... " />
-            <marker date="1522763695134" expanded="true" signature="3991:4284" ph="update field... " />
-            <marker date="1522763695134" expanded="true" signature="4365:4385" ph="select max(i... field" />
-            <marker date="1522763695134" expanded="true" signature="4365:4395" ph="select max(i... ##{tableid}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/Table.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="10" column="30" lean-forward="false" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -1296,16 +1179,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
           <caret line="12" column="19" lean-forward="false" selection-start-line="12" selection-start-column="14" selection-end-line="12" selection-end-column="19" />
-          <folding>
-            <marker date="1522678619885" expanded="true" signature="511:889" ph="CREATE TABLE... ${tableName}" />
-            <marker date="1522678619885" expanded="true" signature="935:986" ph="delete from ${tableName}... " />
-            <marker date="1522678619885" expanded="true" signature="1743:1776" ph="DROP TABLE I... " />
-            <marker date="1522678619885" expanded="true" signature="2175:2220" ph="ALTER TABLE ${tableName}... " />
-            <marker date="1522678619885" expanded="true" signature="2263:2320" ph="ALTER TABLE ${tableName}... " />
-            <marker date="1522678619885" expanded="true" signature="2362:2401" ph="ALTER TABLE ${tableName}... " />
-            <marker date="1522678619885" expanded="true" signature="2466:2542" ph="SELECT table... base_node" />
-            <marker date="1522678619885" expanded="true" signature="2500:2542" ph="SELECT table... base_node" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1316,24 +1189,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/User.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="19" column="8" lean-forward="false" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeTypeControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3753">
-          <caret line="164" column="13" lean-forward="false" selection-start-line="164" selection-start-column="8" selection-end-line="164" selection-end-column="13" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="docComment;method#addTable#0;class#NodeTypeControl#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/ssm_test/TestUser.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="702">
@@ -1341,26 +1196,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1215">
-          <caret line="111" column="17" lean-forward="true" selection-start-line="111" selection-start-column="17" selection-end-line="111" selection-end-column="17" />
-          <folding>
-            <marker date="1522774126812" expanded="true" signature="1366:1710" ph="select from user" />
-            <marker date="1522774126812" expanded="true" signature="1375:1710" ph="select user.... user" />
-            <marker date="1522774126812" expanded="true" signature="1800:1854" ph="delete from user... " />
-            <marker date="1522774126812" expanded="true" signature="1936:2458" ph="insert into user... " />
-            <marker date="1522774126812" expanded="true" signature="4946:6224" ph="update user... " />
-            <marker date="1522774126812" expanded="true" signature="6320:6863" ph="update user... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/UserAdminControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1674">
           <caret line="78" column="53" lean-forward="false" selection-start-line="78" selection-start-column="7" selection-end-line="78" selection-end-column="53" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1368,7 +1207,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="351">
           <caret line="91" column="76" lean-forward="false" selection-start-line="91" selection-start-column="76" selection-end-line="91" selection-end-column="76" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1390,7 +1228,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="3250" column="91" lean-forward="true" selection-start-line="3250" selection-start-column="4" selection-end-line="3250" selection-end-column="91" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1412,7 +1249,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="19" column="58" lean-forward="true" selection-start-line="19" selection-start-column="58" selection-end-line="19" selection-end-column="58" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1420,17 +1256,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="756">
-          <caret line="28" column="54" lean-forward="false" selection-start-line="28" selection-start-column="54" selection-end-line="28" selection-end-column="54" />
-          <folding>
-            <marker date="1522827701364" expanded="true" signature="21459:21466" ph="×" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1438,13 +1263,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12420">
           <caret line="469" column="67" lean-forward="false" selection-start-line="469" selection-start-column="67" selection-end-line="469" selection-end-column="67" />
-          <folding>
-            <marker date="1522857799903" expanded="true" signature="18938:18945" ph="×" />
-            <marker date="1522857799903" expanded="true" signature="26698:26721" ph="..." />
-            <marker date="1522857799903" expanded="true" signature="29742:29759" ph="..." />
-            <marker date="1522857799903" expanded="true" signature="33990:34002" ph="..." />
-            <marker date="1522857799903" expanded="true" signature="196999:197005" ph="&amp;nbsp;" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1452,7 +1270,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="166">
           <caret line="380" column="0" lean-forward="true" selection-start-line="380" selection-start-column="0" selection-end-line="380" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1460,7 +1277,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="406">
           <caret line="52" column="0" lean-forward="true" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1468,7 +1284,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
           <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="49" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1476,47 +1291,17 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="382">
           <caret line="303" column="46" lean-forward="true" selection-start-line="297" selection-start-column="40" selection-end-line="303" selection-end-column="46" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/source/js/bootstrap-datetimepicker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/source/css/bootstrap-datetimepicker.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/source/css/bootstrap-datetimepicker.min.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/source/js/bootstrap-datetimepicker.min.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/source/js/bootstrap-datetimepicker.js" />
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/source/css/bootstrap-datetimepicker.css" />
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/source/css/bootstrap-datetimepicker.min.css" />
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/source/js/bootstrap-datetimepicker.min.js" />
     <entry file="file://$PROJECT_DIR$/src/main/webapp/source/css/daterangepicker.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="16" column="1" lean-forward="true" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1524,7 +1309,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="81">
           <caret line="6" column="2" lean-forward="false" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1532,12 +1316,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
           <caret line="93" column="42" lean-forward="true" selection-start-line="84" selection-start-column="35" selection-end-line="93" selection-end-column="42" />
-          <folding>
-            <element signature="n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#form#0;n#div#0;n#div#0;n#div#0;n#div#4;n#div#0;n#div#1;n#div#0;n#div#1;n#body#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1545,10 +1323,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="134">
           <caret line="191" column="0" lean-forward="true" selection-start-line="191" selection-start-column="0" selection-end-line="191" selection-end-column="0" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1556,12 +1330,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="109">
           <caret line="184" column="26" lean-forward="true" selection-start-line="166" selection-start-column="18" selection-end-line="184" selection-end-column="26" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#style#0;n#input#0;n#div#1;n#div#0;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#input#1;n#div#6;n#form#0;n#div#0;n#div#0;n#div#0;n#div#2;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1569,11 +1337,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="568">
           <caret line="442" column="0" lean-forward="true" selection-start-line="281" selection-start-column="60" selection-end-line="442" selection-end-column="0" />
-          <folding>
-            <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#aside#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1581,9 +1344,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="293">
           <caret line="348" column="54" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="372" selection-end-column="0" />
-          <folding>
-            <marker date="1522832075202" expanded="true" signature="15155:15162" ph="×" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1591,17 +1351,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="487">
           <caret line="113" column="25" lean-forward="true" selection-start-line="99" selection-start-column="17" selection-end-line="113" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2133">
-          <caret line="107" column="60" lean-forward="true" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="60" />
-          <folding>
-            <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1609,10 +1358,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2025">
           <caret line="103" column="62" lean-forward="false" selection-start-line="103" selection-start-column="61" selection-end-line="103" selection-end-column="62" />
-          <folding>
-            <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1522936326593" expanded="true" signature="14518:14525" ph="×" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1620,9 +1365,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2133">
           <caret line="107" column="60" lean-forward="false" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="60" />
-          <folding>
-            <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1630,7 +1372,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="325">
           <caret line="24" column="5" lean-forward="true" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1638,7 +1379,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
           <caret line="238" column="4" lean-forward="false" selection-start-line="238" selection-start-column="2" selection-end-line="241" selection-end-column="37" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1646,17 +1386,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="243">
           <caret line="30" column="27" lean-forward="true" selection-start-line="30" selection-start-column="27" selection-end-line="31" selection-end-column="96" />
-          <folding>
-            <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#aside#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1522930124779" expanded="true" signature="25230:25262" ph="..." />
-            <marker date="1522930124779" expanded="true" signature="25311:25333" ph="..." />
-            <marker date="1522930124779" expanded="true" signature="25432:25487" ph="..." />
-            <marker date="1522930124779" expanded="true" signature="28563:28595" ph="..." />
-            <marker date="1522930124779" expanded="true" signature="28644:28666" ph="..." />
-            <marker date="1522930124779" expanded="true" signature="28765:28820" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1664,17 +1393,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="34" column="96" lean-forward="false" selection-start-line="34" selection-start-column="96" selection-end-line="34" selection-end-column="96" />
-          <folding>
-            <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#aside#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <marker date="1522937025282" expanded="true" signature="24740:24772" ph="..." />
-            <marker date="1522937025282" expanded="true" signature="24821:24843" ph="..." />
-            <marker date="1522937025282" expanded="true" signature="24942:24997" ph="..." />
-            <marker date="1522937025282" expanded="true" signature="28073:28105" ph="..." />
-            <marker date="1522937025282" expanded="true" signature="28154:28176" ph="..." />
-            <marker date="1522937025282" expanded="true" signature="28275:28330" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1682,9 +1400,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="10908">
           <caret line="449" column="0" lean-forward="false" selection-start-line="448" selection-start-column="0" selection-end-line="454" selection-end-column="0" />
-          <folding>
-            <element signature="n#header#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1692,14 +1407,123 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="287">
           <caret line="49" column="0" lean-forward="true" selection-start-line="49" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-368">
+          <caret line="310" column="25" lean-forward="true" selection-start-line="310" selection-start-column="25" selection-end-line="310" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2133">
+          <caret line="107" column="60" lean-forward="true" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="12" column="54" lean-forward="false" selection-start-line="12" selection-start-column="45" selection-end-line="12" selection-end-column="54" />
+          <folding>
+            <marker date="1522941041094" expanded="true" signature="1366:1710" ph="select from user" />
+            <marker date="1522941041094" expanded="true" signature="1375:1710" ph="select user.... user" />
+            <marker date="1522941041094" expanded="true" signature="1800:1854" ph="delete from user... " />
+            <marker date="1522941041094" expanded="true" signature="1936:2458" ph="insert into user... " />
+            <marker date="1522941041094" expanded="true" signature="4946:6224" ph="update user... " />
+            <marker date="1522941041094" expanded="true" signature="6320:6863" ph="update user... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/Field.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="11" column="29" lean-forward="true" selection-start-line="11" selection-start-column="29" selection-end-line="11" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/Regexp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="81">
+          <caret line="3" column="0" lean-forward="true" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/User.java">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="27">
-          <caret line="301" column="0" lean-forward="false" selection-start-line="301" selection-start-column="0" selection-end-line="302" selection-end-column="0" />
+          <caret line="21" column="0" lean-forward="false" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+          <folding>
+            <element signature="e#1153#1154#0" expanded="false" />
+            <element signature="e#1189#1190#0" expanded="false" />
+            <element signature="e#1240#1241#0" expanded="false" />
+            <element signature="e#1277#1278#0" expanded="false" />
+            <element signature="e#1347#1348#0" expanded="false" />
+            <element signature="e#1399#1400#0" expanded="false" />
+            <element signature="e#1461#1462#0" expanded="false" />
+            <element signature="e#1511#1512#0" expanded="false" />
+            <element signature="e#1541#1542#0" expanded="false" />
+            <element signature="e#1566#1567#0" expanded="false" />
+            <element signature="e#1603#1604#0" expanded="false" />
+            <element signature="e#1631#1632#0" expanded="false" />
+            <element signature="e#2756#2757#0" expanded="false" />
+            <element signature="e#2792#2793#0" expanded="false" />
+            <element signature="e#2848#2849#0" expanded="false" />
+            <element signature="e#2898#2899#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/serviceImpl/SessionMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-34">
+          <caret line="11" column="13" lean-forward="false" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/Table.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="18" column="20" lean-forward="false" selection-start-line="18" selection-start-column="20" selection-end-line="18" selection-end-column="20" />
+          <folding>
+            <element signature="e#1020#1021#0" expanded="true" />
+            <element signature="e#1054#1055#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeTypeControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="171" column="36" lean-forward="false" selection-start-line="171" selection-start-column="36" selection-end-line="171" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;method#addTable#0;class#NodeTypeControl#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="421">
+          <caret line="208" column="78" lean-forward="false" selection-start-line="208" selection-start-column="78" selection-end-line="208" selection-end-column="78" />
+          <folding>
+            <marker date="1523094588718" expanded="true" signature="21459:21466" ph="×" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3.12.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="649" column="31" lean-forward="true" selection-start-line="649" selection-start-column="31" selection-end-line="649" selection-end-column="31" />
           <folding />
         </state>
       </provider>
