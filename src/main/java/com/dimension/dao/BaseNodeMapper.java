@@ -18,11 +18,9 @@ public interface BaseNodeMapper {
 
     int updateByPrimaryKey(BaseNode record);
     
-    //搜索可编辑的点位
-    List<BaseNode> selectEdited(BaseNodeConditon baseNodeConditon);
-    
-    //搜索只能查看的点位
-    List<BaseNode> selectUnEdited(BaseNodeConditon baseNodeConditon);
-    
+    //搜索条件的点位
+    List<BaseNode> selectBaseNode(BaseNodeConditon baseNodeConditon);
+
+    int count(BaseNodeConditon baseNodeConditon);
     
 }

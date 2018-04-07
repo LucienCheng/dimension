@@ -190,73 +190,8 @@
 		where nodeId =
 		#{nodeid,jdbcType=BIGINT}
 	</update>
-	<select id="selectEdited" resultType="com.dimension.pojo.BaseNode">
-		select base_node.* ,`user`.departmentId,groupId ,1 as isEdited from
-		base_node
-		LEFT
-		JOIN case_node on
-		base_node.nodeId=case_node.nodeId
-		LEFT
-		JOIN `case` on
-		`case`.id=case_node.caseId
-		LEFT JOIN `user` ON
-		`user`.Id=base_node.userId
-		LEFT JOIN department on
-		`user`.departmentId=department.Id
-		<trim prefix="where" prefixOverrides="and | or">
-			base_node.isValid='0'
-			<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
-			<if test="nodename != null">
-				and nodename like CONCAT('%',#{nodename},'%')
-			</if>
-			<if test="beginTime != null ">
-				and collecttime <![CDATA[ >= ]]>
-				#{beginTime}
-			</if>
-			<if test="endTime != null">
-				and collecttime <![CDATA[ <= ]]>
-				#{endTime}
-			</if>
-			<if test="address != null">
-				and address like CONCAT('%',#{address},'%')
-			</if>
-			<if test="nodetype != null">
-				and nodetype=#{nodetype}
-			</if>
-			<!-- 这里是根据用户的角色和部门来的， -->
-			<if test="roleId != null">
-			
-				<choose>
-					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
-					<when test="roleId == 2">
-						<if test="grouperIds != null ">
-							and (userId=#{userId} or groupId in
-							<foreach collection="grouperIds" item="groupId" open="("
-								close=")" separator=",">
-								#{groupId}
-							</foreach>
-							 )
-						</if>
-						<if test="userId != null and grouperIds == null">
-						and userId=#{userId} 
-						</if>
-					</when>
-					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
-					<when test="roleId == 4">
-						<if test="DpId != null">
-							and (departmentId=#{DpId} or userId=#{userId})
-						</if>
-					</when>
-					<!-- 超级管理员可以管理全部点位 -->
-					<otherwise>
-					
-					</otherwise>
-				</choose>
-			</if>
-		</trim>
-	</select>
-	<select id="selectUnEdited" resultType="com.dimension.pojo.BaseNode">
-		select base_node.* ,`user`.departmentId,groupId ,0 as isEdited from
+	<select id="selectBaseNode" resultType="com.dimension.pojo.BaseNode">
+		(select base_node.* ,`user`.departmentId,groupId ,1 as isEdited from
 		base_node
 		LEFT
 		JOIN case_node on
@@ -272,53 +207,255 @@
 			base_node.isValid='1'
 			<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
 			<if test="nodename != null">
-				and nodename like CONCAT('%',#{nodename},'%')
+				and base_node.nodename like CONCAT('%',#{nodename},'%')
 			</if>
 			<if test="beginTime != null ">
-				and collecttime <![CDATA[ >= ]]>
+				and base_node.collecttime <![CDATA[ >= ]]>
 				#{beginTime}
 			</if>
 			<if test="endTime != null">
-				and collecttime <![CDATA[ <= ]]>
+				and base_node.collecttime <![CDATA[ <= ]]>
 				#{endTime}
 			</if>
 			<if test="address != null">
-				and address like CONCAT('%',#{address},'%')
+				and base_node.address like CONCAT('%',#{address},'%')
 			</if>
 			<if test="nodetype != null">
-				and nodetype=#{nodetype}
+				and base_node.nodetype=#{nodetype}
 			</if>
 			<!-- 这里是根据用户的角色和部门来的， -->
 			<if test="roleId != null">
 				<choose>
-					<!-- 普通业务员和组长查看不属于自己的基础点或者案件中心点 -->
+					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
 					<when test="roleId == 2">
-						<if test="groupIds != null">
-							and ( userId!=#{userId} and (nodetype='1' or
-							nodetype='3') or groupId in 
-							<foreach collection="groupIds" item="groupId" open="("
-								close=")" separator=",">
+						and (userId=#{userId}
+						<if test="grouperIds != null ">
+							or groupId in
+							<foreach collection="grouperIds" item="groupId" open="("
+									 close=")" separator=",">
 								#{groupId}
 							</foreach>
-							)
+
 						</if>
-						<if test="userId != null and grouperIds == null">
-						and userId!=#{userId} 
-						</if>
+						)
 					</when>
-					<!-- 部门管理员 ，查看自己子部门的所有点位 -->
+					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
 					<when test="roleId == 4">
-						<if test="DpIds != null">
-							departmentId in
-							<foreach collection="DpIds" item="subDp" open="(" close=")"
-								separator=",">
-								#{subDp}
-							</foreach>
+						<if test="DpId != null">
+							and (`user`.departmentId=#{DpId} or userId=#{userId})
 						</if>
 					</when>
 					<!-- 超级管理员可以管理全部点位 -->
+					<otherwise>
+
+					</otherwise>
 				</choose>
 			</if>
 		</trim>
+		)
+		<if test="roleId != 3">
+			union ALL
+			(select base_node.* ,`user`.departmentId,groupId ,0 as isEdited from
+			base_node
+			LEFT
+			JOIN case_node on
+			base_node.nodeId=case_node.nodeId
+			LEFT
+			JOIN `case` on
+			`case`.id=case_node.caseId
+			LEFT JOIN `user` ON
+			`user`.Id=base_node.userId
+			LEFT JOIN department on
+			`user`.departmentId=department.Id
+			<trim prefix="where" prefixOverrides="and | or">
+				base_node.isValid='1'
+				<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
+				<if test="nodename != null">
+					and base_node.nodename like CONCAT('%',#{nodename},'%')
+				</if>
+				<if test="beginTime != null ">
+					and base_node.collecttime <![CDATA[ >= ]]>
+					#{beginTime}
+				</if>
+				<if test="endTime != null">
+					and base_node.collecttime <![CDATA[ <= ]]>
+					#{endTime}
+				</if>
+				<if test="address != null">
+					and base_node.address like CONCAT('%',#{address},'%')
+				</if>
+				<if test="nodetype != null">
+					and base_node.nodetype=#{nodetype}
+				</if>
+				<!-- 这里是根据用户的角色和部门来的， -->
+				<if test="roleId != null">
+					<choose>
+						<!-- 普通业务员和组长查看不属于自己的基础点或者案件中心点 -->
+						<when test="roleId == 2">
+							and ( userId!=#{userId} and (nodetype='1' or nodetype='3')
+							<if test="groupIds != null">
+								or groupId in
+								<foreach collection="groupIds" item="groupId" open="("
+										 close=")" separator=",">
+									#{groupId}
+								</foreach>
+							</if>
+							)
+
+						</when>
+						<!-- 部门管理员 ，查看自己子部门的所有点位 -->
+						<when test="roleId == 4">
+							<if test="DpIds != null">
+								and `user`.departmentId in
+								<foreach collection="DpIds" item="subDp" open="(" close=")"
+										 separator=",">
+									#{subDp}
+								</foreach>
+							</if>
+						</when>
+						<!-- 超级管理员可以管理全部点位 -->
+					</choose>
+				</if>
+			</trim>
+			)
+		</if>
+
+		<if test="start != null and count !=null">
+			limit #{start},#{count}
+		</if>
+
+	</select>
+
+	<select id="count" resultType="int">
+		SELECT count(*) FROM ((select base_node.* ,`user`.departmentId,groupId ,1 as isEdited from
+		base_node
+		LEFT
+		JOIN case_node on
+		base_node.nodeId=case_node.nodeId
+		LEFT
+		JOIN `case` on
+		`case`.id=case_node.caseId
+		LEFT JOIN `user` ON
+		`user`.Id=base_node.userId
+		LEFT JOIN department on
+		`user`.departmentId=department.Id
+		<trim prefix="where" prefixOverrides="and | or">
+			base_node.isValid='1'
+			<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
+			<if test="nodename != null">
+				and base_node.nodename like CONCAT('%',#{nodename},'%')
+			</if>
+			<if test="beginTime != null ">
+				and base_node.collecttime <![CDATA[ >= ]]>
+				#{beginTime}
+			</if>
+			<if test="endTime != null">
+				and base_node.collecttime <![CDATA[ <= ]]>
+				#{endTime}
+			</if>
+			<if test="address != null">
+				and base_node.address like CONCAT('%',#{address},'%')
+			</if>
+			<if test="nodetype != null">
+				and base_node.nodetype=#{nodetype}
+			</if>
+			<!-- 这里是根据用户的角色和部门来的， -->
+			<if test="roleId != null">
+				<choose>
+					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
+					<when test="roleId == 2">
+						and (userId=#{userId}
+						<if test="grouperIds != null ">
+							or groupId in
+							<foreach collection="grouperIds" item="groupId" open="("
+									 close=")" separator=",">
+								#{groupId}
+							</foreach>
+
+						</if>
+						)
+					</when>
+					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
+					<when test="roleId == 4">
+						<if test="DpId != null">
+							and (`user`.departmentId=#{DpId} or userId=#{userId})
+						</if>
+					</when>
+					<!-- 超级管理员可以管理全部点位 -->
+					<otherwise>
+
+					</otherwise>
+				</choose>
+			</if>
+		</trim>
+		)
+		<if test="roleId != 3">
+			union ALL
+			(select base_node.* ,`user`.departmentId,groupId ,0 as isEdited from
+			base_node
+			LEFT
+			JOIN case_node on
+			base_node.nodeId=case_node.nodeId
+			LEFT
+			JOIN `case` on
+			`case`.id=case_node.caseId
+			LEFT JOIN `user` ON
+			`user`.Id=base_node.userId
+			LEFT JOIN department on
+			`user`.departmentId=department.Id
+			<trim prefix="where" prefixOverrides="and | or">
+				base_node.isValid='1'
+				<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
+				<if test="nodename != null">
+					and base_node.nodename like CONCAT('%',#{nodename},'%')
+				</if>
+				<if test="beginTime != null ">
+					and base_node.collecttime <![CDATA[ >= ]]>
+					#{beginTime}
+				</if>
+				<if test="endTime != null">
+					and base_node.collecttime <![CDATA[ <= ]]>
+					#{endTime}
+				</if>
+				<if test="address != null">
+					and base_node.address like CONCAT('%',#{address},'%')
+				</if>
+				<if test="nodetype != null">
+					and base_node.nodetype=#{nodetype}
+				</if>
+				<!-- 这里是根据用户的角色和部门来的， -->
+				<if test="roleId != null">
+					<choose>
+						<!-- 普通业务员和组长查看不属于自己的基础点或者案件中心点 -->
+						<when test="roleId == 2">
+							and ( userId!=#{userId} and (nodetype='1' or nodetype='3')
+							<if test="groupIds != null">
+								or groupId in
+								<foreach collection="groupIds" item="groupId" open="("
+										 close=")" separator=",">
+									#{groupId}
+								</foreach>
+							</if>
+							)
+
+						</when>
+						<!-- 部门管理员 ，查看自己子部门的所有点位 -->
+						<when test="roleId == 4">
+							<if test="DpIds != null">
+								and `user`.departmentId in
+								<foreach collection="DpIds" item="subDp" open="(" close=")"
+										 separator=",">
+									#{subDp}
+								</foreach>
+							</if>
+						</when>
+						<!-- 超级管理员可以管理全部点位 -->
+					</choose>
+				</if>
+			</trim>
+			)
+		</if>
+		) as a
+
 	</select>
 </mapper>

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-public class BaseNode implements Serializable, Comparable<BaseNode> {
+public class BaseNode implements Serializable{
 	private Long nodeid;
 
 	private BigDecimal longitude;
@@ -191,60 +191,6 @@ public class BaseNode implements Serializable, Comparable<BaseNode> {
 		this.isEdited = isEdited;
 	}
 
-	@Override
-	public int compareTo(BaseNode o) {
-		//比较经度，小于就返回-1；
-		if (o.latitude.compareTo(latitude) == -1)
-			return -1;
-		//等于经度继续下去
-		if (o.latitude.equals(this.latitude)) {
-			// 当经纬度相同的时候就相等，
-			if (o.longitude.compareTo(longitude) == 0) {
-				return 0;
-			}
-			if (o.longitude.compareTo(longitude) == 1) {
-				return 1;
-			}
-			if (o.longitude.compareTo(longitude) == -1) {
-				return -1;
-			}
-		}
-		//其他情况为大于
-		return 1;
-
-	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((latitude == null) ? 0 : latitude.hashCode());
-		result = prime * result + ((longitude == null) ? 0 : longitude.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		BaseNode other = (BaseNode) obj;
-		if (latitude == null) {
-			if (other.latitude != null)
-				return false;
-		} else if (!latitude.equals(other.latitude))
-			return false;
-		if (longitude == null) {
-			if (other.longitude != null)
-				return false;
-		} else if (!longitude.equals(other.longitude))
-			return false;
-		return true;
-	}
-
 	public String getText() {
 		return text;
 	}
@@ -253,4 +199,22 @@ public class BaseNode implements Serializable, Comparable<BaseNode> {
 		this.text = text;
 	}
 
+	@Override
+	public String toString() {
+		return "BaseNode{" +
+				"nodeid=" + nodeid +
+				", longitude=" + longitude +
+				", latitude=" + latitude +
+				", location='" + location + '\'' +
+				", collecttime=" + collecttime +
+				", description='" + description + '\'' +
+				", nodename='" + nodename + '\'' +
+				", tableid=" + tableid +
+				", address='" + address + '\'' +
+				", userid=" + userid +
+				", nodetype='" + nodetype + '\'' +
+				", isvalid='" + isvalid + '\'' +
+				", isEdited=" + isEdited +
+				'}';
+	}
 }

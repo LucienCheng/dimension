@@ -201,12 +201,11 @@
                                             <div class="col-sm-10">
                                                 <input type="email" class="form-control" id="inputEmail3"
                                                        placeholder="湖南大学天马学生公寓">
-                                            </div>
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-10" >
+                                            </div><label
+                                                    class="col-sm-2 form-control-label">点位选择</label>
+                                            <div class="col-sm-10">
                                                 <select class="form-control c-select">
-                                                    <option selected>点位类型</option>
-                                                    <option value="1">案件点</option>
+                                                    <option selected value="1">案件点</option>
                                                     <option value="2">基础点</option>
                                                     <option value="3">标记点</option>
                                                 </select>
@@ -249,8 +248,9 @@
                                         <th class="col-sm-1">#</th>
                                         <th class="col-sm-2">点位名称</th>
                                         <th class="col-sm-3">点位地址</th>
+                                        <th class="col-sm-2">点位类型</th>
                                         <th class="col-sm-2">点位时间</th>
-                                        <th class="col-sm-3">操作</th>
+                                        <th class="col-sm-2">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -258,11 +258,11 @@
                                         <td class="col-sm-1">1</td>
                                         <td class="col-sm-2">岳麓区大学城</td>
                                         <td class="col-sm-3">湖南大学天马学生公寓二区七栋</td>
+                                        <td class="col-sm-2">atm</td>
                                         <td class="col-sm-2">2018-04-05 14：24</td>
                                         <td class="col-sm-2">
                                             <input class="btn btn-info" value="查看"
                                                    onclick="window.open('node?nodeid=');" type="button">
-
                                         </td>
 
                                     </tr>
@@ -288,36 +288,7 @@
                     </ul>
 
                 </div>
-
-                <%--模态框，展示具体点位--%>
-                <div class="col-sm-12">
-                    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog " role="document" style="max-width: 80%">
-                            <div class="modal-content">
-                                <div class="modal-header">
-
-                                    <h4 class="modal-title" id="exampleModalLabel">具体点位信息</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        <span class="sr-only">Close</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body embed-responsive embed-responsive-16by9">
-                                    <iframe class="embed-responsive-item" allowfullscreen></iframe>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Send message</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <%--end模态框，展示具体点位--%>
             </div>
-
-
         </div>
 
         <!-- End Container fluid  -->

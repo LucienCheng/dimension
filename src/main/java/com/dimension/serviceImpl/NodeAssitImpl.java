@@ -242,33 +242,11 @@ public class NodeAssitImpl implements NodeAssit {
 	
 	// 获取的是简单点位的信息。这这里需要处理一下相同坐标的点位，会在客户端有个提示，表示这是同一个坐标的点位信息
 	@Override
-	public List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon) {
-		
+	public List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon,Integer start,Integer count) {
 		// 包括案件点，基础点
-		List<BaseNode> baseNodes =baseNodeMapper.selectEdited(baseNodeConditon);
-			if (baseNodeConditon.getRoleId()!=3) {
-				//添加不可编辑的店
-				baseNodes.addAll(baseNodeMapper.selectUnEdited(baseNodeConditon));
-			}
-		
-		if (baseNodes.size()!=0) {
-			Collections.sort(baseNodes);
-			double count=0.00001;
-			BaseNode baseNode=baseNodes.get(0);
-			for (int i = 1; i < baseNodes.size(); i++) {
-				if (baseNode.equals(baseNodes.get(i))) {
-					//改变经纬度
-					baseNodes.get(i).setLongitude(baseNode.getLongitude().add(new BigDecimal(count)));
-					baseNodes.get(i).setText(baseNode.getText());
-					count+=0.00001;
-				}
-				else {
-					baseNode=baseNodes.get(i);
-					count=0.00001;
-					baseNode.setText("同一个经纬度点"+Integer.toString(i));
-				}
-			}	
-		}
+		baseNodeConditon.setStart(start);
+		baseNodeConditon.setCount(count);
+		List<BaseNode> baseNodes =baseNodeMapper.selectBaseNode(baseNodeConditon);
 		return baseNodes;
 	}
 	

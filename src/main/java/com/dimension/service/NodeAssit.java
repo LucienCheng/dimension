@@ -51,7 +51,7 @@ public interface NodeAssit {
 	BigDecimal compareNode(Long nodeIdFirst, Long nodeIdSecond);
 	
 	//提供给检索点位时使用，点的类型包括了案件点，基础点，标记点。
-	List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon);
+	List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon,Integer start,Integer count);
 	
 	//查看自己标记的点位。
 	List<BaseNode> searchMarkNode(Integer userId);

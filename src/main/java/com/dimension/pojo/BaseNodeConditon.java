@@ -26,65 +26,35 @@ public class BaseNodeConditon {
 	//查询用户的角色
 	private Integer roleId;
 	//可查询的子部门id
-	private List<Integer> DpIds;
+	private List<Long> DpIds;
 	//自己所在的部门
-	private Integer DpId;
+	private Long DpId;
 	//所在的小组(只是组员的)
 	private List<Integer> groupIds;
 	//所在的小组（是组长的）
 	private List<Integer> grouperIds;
-	
-	//经纬度
-	private BigDecimal firstlongitude;
+	private Integer start;
+	private Integer count;
 
-	private BigDecimal firstlatitude;
-	private BigDecimal secondlongitude;
-
-	private BigDecimal secondlatitude;
-	
-	public void setLongLati(BigDecimal firstlongitude,BigDecimal firstlatitude,BigDecimal secondlongitude,BigDecimal secondlatitude) {
-		this.firstlongitude = firstlongitude;
-		this.firstlatitude = firstlatitude;
-		this.secondlongitude = secondlongitude;
-		this.secondlatitude = secondlatitude;
-		
-	}
-	
 	public void setTime( Date beginTime, Date endTime) {
 		this.beginTime=beginTime;
 		this.endTime=endTime;
 	}
 
-	public BigDecimal getFirstlongitude() {
-		return firstlongitude;
+	public Integer getStart() {
+		return start;
 	}
 
-	public void setFirstlongitude(BigDecimal firstlongitude) {
-		this.firstlongitude = firstlongitude;
+	public void setStart(Integer start) {
+		this.start = start;
 	}
 
-	public BigDecimal getFirstlatitude() {
-		return firstlatitude;
+	public Integer getCount() {
+		return count;
 	}
 
-	public void setFirstlatitude(BigDecimal firstlatitude) {
-		this.firstlatitude = firstlatitude;
-	}
-
-	public BigDecimal getSecondlongitude() {
-		return secondlongitude;
-	}
-
-	public void setSecondlongitude(BigDecimal secondlongitude) {
-		this.secondlongitude = secondlongitude;
-	}
-
-	public BigDecimal getSecondlatitude() {
-		return secondlatitude;
-	}
-
-	public void setSecondlatitude(BigDecimal secondlatitude) {
-		this.secondlatitude = secondlatitude;
+	public void setCount(Integer count) {
+		this.count = count;
 	}
 
 	public Integer getUserId() {
@@ -148,19 +118,19 @@ public class BaseNodeConditon {
 
 	
 
-	public List<Integer> getDpIds() {
+	public List<Long> getDpIds() {
 		return DpIds;
 	}
 
-	public void setDpIds(List<Integer> dpIds) {
+	public void setDpIds(List<Long> dpIds) {
 		DpIds = dpIds;
 	}
 
-	public Integer getDpId() {
+	public Long getDpId() {
 		return DpId;
 	}
 
-	public void setDpId(Integer dpId) {
+	public void setDpId(Long dpId) {
 		DpId = dpId;
 	}
 

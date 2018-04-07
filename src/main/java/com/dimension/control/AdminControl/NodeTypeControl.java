@@ -177,6 +177,7 @@ public class NodeTypeControl {
         List<Field> add=json.get("add");
         //设置字段名称
         String tableEnglish=table.getEnglishname();
+
         for (Field field1: add) {
             field1.setTableid(table.getId());
             String fieldEnglish=tableEnglish+"_"+Integer.toString(fieldCount);

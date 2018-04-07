@@ -32,7 +32,7 @@
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css"/>
 </head>
 
 <body class="fix-header card-no-border">
@@ -161,11 +161,11 @@
                                                 <input type="email" class="form-control" id="inputEmail3"
                                                        placeholder="湖南大学天马学生公寓">
                                             </div>
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-10" >
+                                            <div class="col-sm-2"><label
+                                                    class="col-sm-2 form-control-label">点位类型</label></div>
+                                            <div class="col-sm-10">
                                                 <select class="form-control c-select">
-                                                    <option selected>点位类型</option>
-                                                    <option value="1">案件点</option>
+                                                    <option selected value="1">案件点</option>
                                                     <option value="2">基础点</option>
                                                     <option value="3">标记点</option>
                                                 </select>
@@ -186,7 +186,8 @@
                                             <label
                                                     class="col-sm-2 form-control-label">选择时间</label>
                                             <div class=" col-sm-10">
-                                                <input type="text" class="form-control" id="daterange" placeholder="选择起始时间和终止时间">
+                                                <input type="text" class="form-control" id="daterange"
+                                                       placeholder="选择起始时间和终止时间">
                                             </div>
 
 
@@ -208,6 +209,8 @@
                                         <th class="col-sm-1">#</th>
                                         <th class="col-sm-2">点位名称</th>
                                         <th class="col-sm-3">点位地址</th>
+                                        <th class="col-sm-3">点位类型</th>
+                                        <th class="col-sm-3">点位属性</th>
                                         <th class="col-sm-2">点位时间</th>
                                         <th class="col-sm-3">操作</th>
                                     </tr>
@@ -313,7 +316,7 @@
 
 <!-- Style switcher -->
 
-<link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
+<link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css"/>
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 
@@ -331,8 +334,8 @@
         locale: {
             format: 'YYYY-DD-MM h:mm:ss '
         }
-    },function (start, end) {
-        console.log('New date range selected: ' + start.format('YYYY-DD-MM h:mm:ss') + ' to ' + end.format('YYYY-DD-MM h:mm:ss') );
+    }, function (start, end) {
+        console.log('New date range selected: ' + start.format('YYYY-DD-MM h:mm:ss') + ' to ' + end.format('YYYY-DD-MM h:mm:ss'));
     });
 </script>
 </body>
