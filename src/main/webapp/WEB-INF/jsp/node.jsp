@@ -19,19 +19,22 @@
 <title>点位详细信息</title>
 <!-- Bootstrap Core CSS -->
 <link
-        href="<%=basePath%>source/assets/plugins/bootstrap/css/bootstrap.min.css"
+        href="<%=basePath%>source/assets/plugins/bootstrap/css/bootstrap.css"
         rel="stylesheet">
 <!-- Custom CSS -->
-<link href="<%=basePath%>source/css/style.css" rel="stylesheet">
 <!-- You can change the theme colors from here -->
 <link href="<%=basePath%>source/css/colors/megna.css" id="theme"
       rel="stylesheet">
 <link rel="stylesheet" href="<%=basePath%>source/css/fileinput.css" type="text/css"/>
 <link href="<%=basePath %>/source/scss/icons/font-awesome/css/font-awesome.min.css" rel="stylesheet"
       type="text/css">
-
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="<%=basePath %>/source/css/bootstrap-select.min.css">
 <link href="<%=basePath %>/source/explorer-fa/theme.css" media="all" rel="stylesheet" type="text/css"/>
 
+<link href="<%=basePath%>source/css/style.css" rel="stylesheet">
+<style>
+</style>
 <head>
     <title>点位具体信息</title>
 </head>
@@ -100,41 +103,41 @@
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">点位编号：</label>
-                                                                <span class=" col-sm-8 form-control-label">1</span>
+                                                                <span class=" col-sm-8 form-control-label">${baseNode.nodeid}</span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">经度：</label>
-                                                                <span class=" col-sm-8 form-control-label">112.000</span>
+                                                                <span class=" col-sm-8 form-control-label">${baseNode.longitude}</span>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">纬度：</label>
-                                                                <span class=" col-sm-8 form-control-label">50.000</span>
+                                                                <span class=" col-sm-8 form-control-label">${baseNode.latitude}</span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">生成时间：</label>
-                                                                <span class=" col-sm-8 form-control-label">2018-4-5 14：21</span>
+                                                                <span class=" col-sm-8 form-control-label">${baseNode.collecttime}</span>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">拥有者：</label>
-                                                                <span class=" col-sm-8 form-control-label">张三</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">点的类型：</label>
-                                                                <span class=" col-sm-8 form-control-label">案件点</span>
+                                                                <span class=" col-sm-8 form-control-label">${baseNode.userName}</span>
                                                             </div>
                                                         </div>
 
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">点的类型：</label>
+                                                                    <span class=" col-sm-8 form-control-label">${baseNode.table.chinesename}</span>
+                                                            </div>
+                                                        </div>
                                                     </form>
                                                 </div>
 
@@ -146,28 +149,30 @@
                                                 <div class="card-block">
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 form-control-label">点位名称：</label>
-                                                        <input type="text" class="form-control col-sm-9">
+                                                        <input type="text" class="form-control col-sm-9" value="${baseNode.nodename}">
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 form-control-label">地址位置：</label>
-                                                        <input type="text" class="form-control col-sm-9">
+                                                        <input type="text" class="form-control col-sm-9" value="${baseNode.address}">
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="col-sm-3 form-control-label">点位的方向：</label>
-                                                        <input type="text" class="form-control col-sm-9">
+                                                        <input type="text" class="form-control col-sm-9" value="${baseNode.location}">
                                                     </div>
                                                     <div class="form-group row">
                                                         <label class="form-control-label col-sm-3 ">点位类型选择:</label>
                                                         <select class="c-select col-sm-9 form-control" name="tableid">
-                                                            <option value="2" selected>atm</option>
-                                                            <option value="4">加油站</option>
+                                                            <c:forEach items="${baseNode.tables}" var="table">
+                                                                <option value="${table.id}" selected>${table.chinesename}</option>
+                                                            </c:forEach>
+
                                                         </select>
                                                     </div>
 
                                                     <div class="form-group row">
                                                         <label class="col-md-12">备注信息：</label>
 											                <textarea rows="5" class="form-control form-control-line "
-                                                             name="description" style="margin-left: 15px;"></textarea>
+                                                             name="description" style="margin-left: 15px;">${table.description}</textarea>
                                                     </div>
                                                     <div class="form-group row">
                                                         <div class="col-sm-12">
@@ -325,9 +330,12 @@
                                                     <form class="form-horizontal form-material">
                                                         <div class="form-group row">
                                                             <label class="form-control-label col-sm-4 ">案件选择:</label>
-                                                            <select class="form-control c-select col-sm-8 " name="tableid">
-                                                                <option value="2" selected>岳麓区抢劫案</option>
-                                                                <option value="4">岳麓区盗窃案</option>
+                                                            <select  class="selectpicker col-sm-8" data-live-search="true" title="Please select a lunch ...">
+                                                                <option>Hot Dog, Fries and a Soda</option>
+                                                                <option>Burger, Shake and a Smile</option>
+                                                                <option>Sugar, Spice and all things nice</option>
+                                                                <option>Baby Back Ribs</option>
+                                                                <option>A really really long option made to illustrate an issue with the live search in an inline form</option>
                                                             </select>
                                                         </div>
                                                         <div class="form-group">
@@ -423,19 +431,25 @@
 <script src="<%=basePath %>source/assets/plugins/bootstrap/js/tether.min.js"></script>
 <!--配置中文，但是没有汉化成功，只能在配置里重写-->
 <script src="<%=basePath %>source/js/zh.js"></script>
+<!-- Latest compiled and minified JavaScript -->
+<script src="<%=basePath %>source/js/bootstrap-select.min.js"></script>
+
+
 <script type="text/javascript">
     $("#file-1").fileinput({
         theme: 'fa',
         uploadUrl: '#', // you must set a valid URL here else you will get an error
-        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        allowedFileExtensions: ['jpg', 'png', 'gif','mp4','avi'],
         overwriteInitial: false,
-        maxFileSize: 1000,
+        maxFileSize: 10*1000,
         maxFilesNum: 10,
-        //allowedFileTypes: ['image', 'video', 'flash'],
+        allowedFileTypes: ['image', 'video', 'flash'],
         slugCallback: function (filename) {
             return filename.replace('(', '_').replace(']', '_');
         }
     });
+
+
 </script>
 </body>
 </html>

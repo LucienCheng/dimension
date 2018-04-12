@@ -30,6 +30,7 @@
     <link href="<%=basePath%>source/css/colors/megna.css" id="theme"
           rel="stylesheet">
 
+    <link rel="stylesheet" href="<%=basePath %>/source/css/bootstrap-select.min.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
 </head>
 
@@ -90,7 +91,7 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav ">
                 <ul id="nav navbar-nav sidebarnav">
-                    <li><a href="javascript:void(0);" class="waves-effect"><i
+                    <li><a href="<%=basePath%>admin/nodeText" class="waves-effect"><i
                             class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a>
                     </li>
                     <li><a href="<%=basePath%>admin/nodeMap" class="wavesEffect"><i
@@ -106,13 +107,12 @@
                                 <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
                                         class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
                             </c:if>
-                            <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
                     </li>
-                    <li><a href="<%=basePath%>admin/caseAdmin" class="waves-effect"><i
+                    <li><a href="javascript:void(0);" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
@@ -217,7 +217,7 @@
                                             <label
                                                     class="col-sm-2 form-control-label">选择时间</label>
                                             <div class=" col-sm-10">
-                                                <input type="text" class="form-control" id="daterange" placeholder="选择起始时间和终止时间">
+                                                <input type="text" class="form-control daterange"  placeholder="选择起始时间和终止时间">
                                             </div>
                                             <div class="col-sm-2"></div>
                                             <div class="col-sm-10" style="margin-top: 10px;">
@@ -254,31 +254,18 @@
                                     </tr>
                                     </thead>
                                     <tbody id="Table">
-                                    <c:forEach items="${cases}" var="item" varStatus="status">
-                                        <tr class="row">
-                                            <td class="col-sm-1">${status.index+1}</td>
-                                            <td class="col-sm-2">${item.casename}</td>
-                                            <td class="col-sm-1">${item.casetype}</td>
-                                            <td class="col-sm-3">${item.begintime}</td>
-                                            <td class="col-sm-3">${item.endtime}</td>
-                                            <td class="col-sm-2">
-                                                <button type="submit" class="btn btn-danger"
-                                                        onclick="deleteModel(${item.id})">删除
-                                                </button>
-                                                <button type="submit" class="btn btn-warning"
-                                                        onclick="updateModel(${item.id});">查看
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-12" id="Page">
                 </div>
+
+
 
                 <%--下面都是模态框--%>
                 <div class="col-sm-12">
@@ -385,12 +372,11 @@
                                         </div>
                                         <div id="department"  class="form-group row">
                                             <label class="col-sm-3 form-control-label ">组长选择:</label>
-                                                <select class="form-control c-select col-sm-8" id="grouperid" name="grouperid">
-                                                    <c:forEach items="${groupUsers}" var="user">
-                                                        <<option value="${user.id}">${user.username}</option>>
-                                                    </c:forEach>
-                                                </select>
-
+                                            <select class="selectpicker form-control c-select col-sm-8" id="grouperid" name="grouperid" data-live-search="true" title="选择组长">
+                                                <c:forEach items="${groupUsers}" var="user">
+                                                    <<option value="${user.id}">${user.username}</option>>
+                                                </c:forEach>
+                                            </select>
                                         </div>
                                         <div class="form-group row">
 
@@ -457,6 +443,8 @@
 <script src="<%=basePath%>source/js/custom.min.js"></script>
 
 
+<script src="<%=basePath %>source/js/bootstrap-select.min.js"></script>
+
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
@@ -465,7 +453,7 @@
     data.currentPage =${currentPage};
     data.totalPage =${totalPage};
     data.cases =${casesJson};
-
+updateTable(data);
     /*绑定添加操作的button*/
     $(function () {
         $("#addButton").bind("click", function () {
@@ -717,7 +705,7 @@
         timePicker: true,
         timePickerIncrement: 30,
         locale: {
-            format: 'YYYY-DD-MM h:mm:ss '
+            format: 'YYYY-MM-DD h:mm:ss'
         }
     });
 

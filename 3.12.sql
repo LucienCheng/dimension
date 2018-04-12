@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50719
 File Encoding         : 65001
 
-Date: 2018-04-07 17:51:30
+Date: 2018-04-12 18:16:24
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -40,7 +40,7 @@ INDEX `nodeClassfyId` (`tableId`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-AUTO_INCREMENT=3
+AUTO_INCREMENT=5
 
 ;
 
@@ -48,7 +48,7 @@ AUTO_INCREMENT=3
 -- Records of base_node
 -- ----------------------------
 BEGIN;
-INSERT INTO `base_node` VALUES ('1', '113.0846840000', '11.0000000000', null, null, null, null, null, null, null, null, '1'), ('2', '113.0846840000', '11.0000000000', null, null, null, null, null, null, null, null, '1');
+INSERT INTO `base_node` VALUES ('1', '113.0846840000', '11.0000000000', '东', '2018-04-07 22:10:13', '测试信息', '岳麓区中国银行', '4', '湖南省长沙市岳麓区麓山南78号', '8', '1', '1'), ('2', '113.0846840000', '11.0000000000', '南', '2018-04-14 22:10:17', null, '岳麓区工商银行', '4', '湖南省长沙市岳麓区橘子洲78号', '20', '1', '1'), ('3', '113.0846840000', '11.0000000000', '西', '2018-04-28 19:10:13', null, '岳麓区中国银行', '4', '湖南省长沙市岳麓区麓山南78号', '4', '1', '1'), ('4', '113.0846840000', '11.0000000000', '北', '2018-04-07 22:10:13', null, '岳麓区中国银行', '4', '湖南省长沙市岳麓区麓山南78号', '4', '2', '1');
 COMMIT;
 
 -- ----------------------------
@@ -58,7 +58,7 @@ DROP TABLE IF EXISTS `basestation`;
 CREATE TABLE `basestation` (
 `id`  int(11) NOT NULL AUTO_INCREMENT ,
 `nodeId`  bigint(20) UNSIGNED NULL DEFAULT NULL ,
-`carrier`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT 'telecom' COMMENT '运营商' ,
+`carrier`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '电信' COMMENT '运营商' ,
 `mode`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '2G' COMMENT '上网的模式' ,
 `ch`  int(1) NULL DEFAULT NULL COMMENT '频率' ,
 `rssi`  int(1) NULL DEFAULT NULL COMMENT '信号强弱' ,
@@ -68,7 +68,7 @@ INDEX `nodeId` (`nodeId`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-AUTO_INCREMENT=1
+AUTO_INCREMENT=3
 
 ;
 
@@ -76,6 +76,7 @@ AUTO_INCREMENT=1
 -- Records of basestation
 -- ----------------------------
 BEGIN;
+INSERT INTO `basestation` VALUES ('1', '1', '电信', '3G', '28', '-93'), ('2', '1', '联通', '4G', '31', '-93');
 COMMIT;
 
 -- ----------------------------
@@ -132,7 +133,7 @@ INDEX `baseNodeId` (`baseNodeId`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-AUTO_INCREMENT=1
+AUTO_INCREMENT=2
 
 ;
 
@@ -140,6 +141,7 @@ AUTO_INCREMENT=1
 -- Records of case_node
 -- ----------------------------
 BEGIN;
+INSERT INTO `case_node` VALUES ('1', '4', '发生了抢劫案', '1', '465855245', '3');
 COMMIT;
 
 -- ----------------------------
@@ -224,7 +226,7 @@ AUTO_INCREMENT=5
 -- Records of field
 -- ----------------------------
 BEGIN;
-INSERT INTO `field` VALUES ('3', 'nodeId', 'atm的唯一标识', 'bigint', '4', null, '1'), ('4', 'table_4_4', 'atm的个数', 'int(11)', '4', '2', '1');
+INSERT INTO `field` VALUES ('3', 'nodeId', 'atm的唯一标识', 'bigint', '4', null, '1'), ('4', 'table_4_4', 'atm的个数', 'int(11)', '4', '2', '0');
 COMMIT;
 
 -- ----------------------------
@@ -387,7 +389,7 @@ AUTO_INCREMENT=2
 -- Records of message
 -- ----------------------------
 BEGIN;
-INSERT INTO `message` VALUES ('1', null, null, '', null, '', null, '', null);
+INSERT INTO `message` VALUES ('1', '30', '1', '请求查看长沙市公安局的案件点位信息', null, '', null, '0', '1');
 COMMIT;
 
 -- ----------------------------
@@ -475,6 +477,7 @@ DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
 -- Records of table_4
 -- ----------------------------
 BEGIN;
+INSERT INTO `table_4` VALUES ('1', '8');
 COMMIT;
 
 -- ----------------------------
@@ -499,7 +502,7 @@ AUTO_INCREMENT=5
 -- Records of table_type
 -- ----------------------------
 BEGIN;
-INSERT INTO `table_type` VALUES ('4', 'table_4', 'atm', '0');
+INSERT INTO `table_type` VALUES ('4', 'table_4', 'atm', '1');
 COMMIT;
 
 -- ----------------------------
@@ -526,7 +529,7 @@ INDEX `departmentId` (`departmentId`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-AUTO_INCREMENT=35
+AUTO_INCREMENT=31
 
 ;
 
@@ -534,7 +537,7 @@ AUTO_INCREMENT=35
 -- Records of user
 -- ----------------------------
 BEGIN;
-INSERT INTO `user` VALUES ('1', '2', '一级普通', '123456', '1', '', '1', '2018-03-22 16:21:29.1450', null, '1', ''), ('2', '3', '超级管理', '12345', '3', '', '22', '2018-03-22 16:21:29.1450', '2018-04-07 17:49:58.2920', '1', ''), ('3', '4', '一级部门管理', '123456', '4', '', '1', '2018-03-22 16:21:29.1450', '2018-03-29 00:12:41.6440', '1', ''), ('4', '2', '二级普通', '123456', '2', '', '2', '2018-03-22 16:21:29.1450', '2018-03-28 15:17:59.0250', '1', ''), ('6', '4', '二级部门管理员', '123456', '7', '', '2', '2018-03-22 16:21:29.1450', null, '1', ''), ('7', '2', '三级普通', '123456', '6', '', '3', '2018-03-22 16:21:29.1450', null, '1', ''), ('8', '2', '一级部门普通组员2', '123456', '10', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通'), ('10', '4', '三级部门管理', '123456', '5', '', '3', '2018-03-22 16:21:29.1450', null, '1', ''), ('20', '2', '一级部门普通组员1', '123456', '11', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通'), ('30', '2', '一级部门普通组长', '123456', '12', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通');
+INSERT INTO `user` VALUES ('1', '2', '一级普通', '123456', '1', '', '1', '2018-03-22 16:21:29.1450', null, '1', ''), ('2', '3', '超级管理', '12345', '3', '', '22', '2018-03-22 16:21:29.1450', '2018-04-12 17:12:30.9780', '1', ''), ('3', '4', '一级部门管理', '123456', '4', '', '1', '2018-03-22 16:21:29.1450', '2018-04-11 09:47:19.3690', '1', ''), ('4', '2', '二级普通', '123456', '2', '', '2', '2018-03-22 16:21:29.1450', '2018-03-28 15:17:59.0250', '1', ''), ('6', '4', '二级部门管理员', '123456', '7', '', '2', '2018-03-22 16:21:29.1450', null, '1', ''), ('7', '2', '三级普通', '123456', '6', '', '3', '2018-03-22 16:21:29.1450', null, '1', ''), ('8', '2', '一级部门普通组员2', '123456', '10', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通'), ('10', '4', '三级部门管理', '123456', '5', '', '3', '2018-03-22 16:21:29.1450', null, '1', ''), ('20', '2', '一级部门普通组员1', '123456', '11', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通'), ('30', '2', '一级部门普通组长', '123456', '12', '1235454', '1', '2018-03-28 16:29:09.8540', null, '1', '一级部门普通');
 COMMIT;
 
 -- ----------------------------
@@ -547,13 +550,15 @@ CREATE TABLE `wifi` (
 `wifiId`  int(11) NULL DEFAULT NULL COMMENT 'wifi的标识' ,
 `ch`  int(1) NULL DEFAULT NULL COMMENT '频率' ,
 `rssi`  int(1) NULL DEFAULT NULL COMMENT '强度' ,
+`carrier`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '电信' COMMENT '运营商' ,
+`mode`  varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL DEFAULT '2G' COMMENT '上网的模式' ,
 PRIMARY KEY (`id`),
 FOREIGN KEY (`nodeId`) REFERENCES `base_node` (`nodeId`) ON DELETE RESTRICT ON UPDATE RESTRICT,
 INDEX `nodeId` (`nodeId`) USING BTREE
 )
 ENGINE=InnoDB
 DEFAULT CHARACTER SET=utf8 COLLATE=utf8_general_ci
-AUTO_INCREMENT=1
+AUTO_INCREMENT=3
 
 ;
 
@@ -561,6 +566,7 @@ AUTO_INCREMENT=1
 -- Records of wifi
 -- ----------------------------
 BEGIN;
+INSERT INTO `wifi` VALUES ('1', '1', null, '25', '-93', '电信', '2G'), ('2', '1', null, '23', '-93', '电信', '4G');
 COMMIT;
 
 -- ----------------------------
@@ -580,12 +586,12 @@ DELIMITER ;
 -- ----------------------------
 -- Auto increment value for base_node
 -- ----------------------------
-ALTER TABLE `base_node` AUTO_INCREMENT=3;
+ALTER TABLE `base_node` AUTO_INCREMENT=5;
 
 -- ----------------------------
 -- Auto increment value for basestation
 -- ----------------------------
-ALTER TABLE `basestation` AUTO_INCREMENT=1;
+ALTER TABLE `basestation` AUTO_INCREMENT=3;
 
 -- ----------------------------
 -- Auto increment value for case
@@ -595,7 +601,7 @@ ALTER TABLE `case` AUTO_INCREMENT=4;
 -- ----------------------------
 -- Auto increment value for case_node
 -- ----------------------------
-ALTER TABLE `case_node` AUTO_INCREMENT=1;
+ALTER TABLE `case_node` AUTO_INCREMENT=2;
 
 -- ----------------------------
 -- Auto increment value for department
@@ -650,9 +656,9 @@ ALTER TABLE `table_type` AUTO_INCREMENT=5;
 -- ----------------------------
 -- Auto increment value for user
 -- ----------------------------
-ALTER TABLE `user` AUTO_INCREMENT=35;
+ALTER TABLE `user` AUTO_INCREMENT=31;
 
 -- ----------------------------
 -- Auto increment value for wifi
 -- ----------------------------
-ALTER TABLE `wifi` AUTO_INCREMENT=1;
+ALTER TABLE `wifi` AUTO_INCREMENT=3;

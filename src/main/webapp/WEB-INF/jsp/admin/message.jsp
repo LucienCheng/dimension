@@ -101,8 +101,7 @@
                                 <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
                                         class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
                             </c:if>
-                            <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>

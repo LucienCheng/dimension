@@ -12,22 +12,7 @@
   <sql id="Base_Column_List">
     id, nodeId, carrier, mode, ch, rssi
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from basestation
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from basestation
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.dimension.pojo.Basestation">
-    insert into basestation (id, nodeId, carrier, 
-      mode, ch, rssi)
-    values (#{id,jdbcType=INTEGER}, #{nodeid,jdbcType=BIGINT}, #{carrier,jdbcType=VARCHAR}, 
-      #{mode,jdbcType=VARCHAR}, #{ch,jdbcType=INTEGER}, #{rssi,jdbcType=INTEGER})
-  </insert>
+
   <insert id="insertSelective" parameterType="com.dimension.pojo.Basestation">
     insert into basestation
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -71,37 +56,8 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Basestation">
-    update basestation
-    <set>
-      <if test="nodeid != null">
-        nodeId = #{nodeid,jdbcType=BIGINT},
-      </if>
-      <if test="carrier != null">
-        carrier = #{carrier,jdbcType=VARCHAR},
-      </if>
-      <if test="mode != null">
-        mode = #{mode,jdbcType=VARCHAR},
-      </if>
-      <if test="ch != null">
-        ch = #{ch,jdbcType=INTEGER},
-      </if>
-      <if test="rssi != null">
-        rssi = #{rssi,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Basestation">
-    update basestation
-    set nodeId = #{nodeid,jdbcType=BIGINT},
-      carrier = #{carrier,jdbcType=VARCHAR},
-      mode = #{mode,jdbcType=VARCHAR},
-      ch = #{ch,jdbcType=INTEGER},
-      rssi = #{rssi,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
+
     <select id="getBasestationByNodeId" resultMap="BaseResultMap">
-  select * from basestation nodeId = #{nodeId,jdbcType=BIGINT}
+  select * from basestation where nodeId = #{nodeId,jdbcType=BIGINT}
   </select>
 </mapper>

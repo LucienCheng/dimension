@@ -67,7 +67,9 @@ private TableFieldMapper tableFieldMapper;
 	public List<Field> getFieldValue(Table table, Long nodeId) {
 		List<Field> fields=fieldMapper.getFieldByTableId(table.getId());
 		for (Field field : fields) {
-			field.setValue(tableFieldMapper.getFieldVariable(nodeId, table.getEnglishname(), field.getEnglishname()));
+			if (!field.getEnglishname().equals("nodeId")){
+				field.setValue(tableFieldMapper.getFieldVariable(nodeId, table.getEnglishname(), field.getEnglishname()));
+			}
 		}
 		return fields;
 	}

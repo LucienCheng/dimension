@@ -18,12 +18,6 @@ public class AdminControl {
 
 
 
-    //点位比较
-    @RequestMapping("/nodeCompare")
-    public String nodeCompare() {
-        return "/admin/nodeCompare";
-    }
-
     //点位替换
     @RequestMapping("/nodeReplace")
     public String nodeReplace() {
@@ -37,11 +31,7 @@ public class AdminControl {
     }
 
 
-    //文本点位信息
-    @RequestMapping("/node")
-    public String node() {
-        return "/node";
-    }
+
 
     //个人信息
     @RequestMapping("/personInfo")

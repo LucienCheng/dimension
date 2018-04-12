@@ -12,9 +12,6 @@ import com.dimension.dao.BasestationMapper;
 import com.dimension.dao.FileMapper;
 import com.dimension.dao.WifiMapper;
 import com.dimension.pojo.BaseNode;
-import com.dimension.pojo.Basestation;
-import com.dimension.pojo.File;
-import com.dimension.pojo.Wifi;
 @Service
 public class BaseNodeBuilderImpl implements com.dimension.service.BaseNodeBuilder {
 	@Resource

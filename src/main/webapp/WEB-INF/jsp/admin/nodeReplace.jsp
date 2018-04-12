@@ -106,8 +106,7 @@
                                 <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
                                         class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
                             </c:if>
-                            <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+
                             <li><a href="javascript:;" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
@@ -164,113 +163,80 @@
 
             <div class="card">
                 <div class="card-block">
-                    <div class="row" style="margin-bottom: 15px;">
+                    <h4 class="card-title">需要更新的基础点</h4>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="row">
+                            <th class="col-sm-1">#</th>
+                            <th class="col-sm-2">点位名称</th>
+                            <th class="col-sm-3">点位地址</th>
+                            <th class="col-sm-1">点位类型</th>
+                            <th class="col-sm-2">点位时间</th>
+                            <th class="col-sm-2">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="Table">
+                        <tr class="row">
+                        <th class="col-sm-1">1</th>
+                        <th class="col-sm-2">大学城地点</th>
+                        <th class="col-sm-3">岳麓区学生天马公寓</th>
+                        <th class="col-sm-1">atm</th>
+                        <th class="col-sm-2">2018-04-02 04：02：05</th>
+                        <th class="col-sm-3">
+                            <button type="button" class="btn btn-info"
+                                    onclick="">查看
+                            </button>
+                            <button type="button" class="btn btn-warning"
+                                    onclick="">处理
+                            </button>
+                            <button type="button" class="btn btn-danger"
+                                    onclick="">忽略
+                            </button>
+                        </th>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                        <div class="form-group  col-sm-2">
-                        <select class="form-control c-select">
-                            <option selected>基本点选择</option>
-                            <option value="1">基本点1</option>
-                            <option value="2">基本点2</option>
-                            <option value="3">基本点3</option>
-                        </select>
-                        </div>
-                        <div class="col-sm-8">
-                            <input class=" btn btn-success " type="button" value="计算相似度"
-                                   style="margin-left: 15px;">
-
-                            <label class="form-control-label col-sm-2">计算结果：</label>
-                            <span class=" form-control-label col-sm-2">80%</span>
-                        </div>
-
-                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="container col-sm-6">
-                    <div class="card">
-                        <div class="card-block">
-                            <form class="form-horizontal ">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">经度：</label>
-                                    <span class=" col-sm-8 form-control-label">110.000</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">纬度：</label>
-                                    <span class=" col-sm-8 form-control-label">110.000</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位名称：</label>
-                                    <span class=" col-sm-8 form-control-label">岳麓区大学城</span>
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">来自案件的点位信息</h4>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="row">
+                            <th class="col-sm-1">#</th>
+                            <th class="col-sm-2">点位名称</th>
+                            <th class="col-sm-3">点位地址</th>
+                            <th class="col-sm-1">点位类型</th>
+                            <th class="col-sm-2">点位时间</th>
+                            <th class="col-sm-1">相似度</th>
+                            <th class="col-sm-2">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="Table1">
+                        <tr class="row">
+                            <th class="col-sm-1">1</th>
+                            <th class="col-sm-2">大学城地点</th>
+                            <th class="col-sm-3">岳麓区学生天马公寓</th>
+                            <th class="col-sm-1">atm</th>
+                            <th class="col-sm-2">2018-04-02 04：02：05</th>
+                            <th class="col-sm-1"> <span class="form-control-label ">80%</span></th>
+                            <th class="col-sm-2">
+                                <button type="button" class="btn btn-info"
+                                        onclick="">查看
+                                </button>
+                                <button type="button" class="btn btn-danger"
+                                        onclick="">替换
+                                </button>
+                            </th>
+                        </tr>
+                        </tbody>
+                    </table>
 
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位地址：</label>
-                                    <span class=" col-sm-8 form-control-label">天马公寓</span>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位类型：</label>
-                                    <span class=" col-sm-8 form-control-label">atm</span>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点描述：</label>
-                                    <span class=" col-sm-8 form-control-label">发生于。。。。</span>
-                                </div>
-
-                                <div class="form-group">
-                                    <input class=" btn btn-info" type="button" value="查看详细信息">
-                                        <input class=" btn btn-warning " type="button" value="提交更改"
-                                               style="margin-left: 15px;">
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="container col-sm-6">
-                    <div class="card">
-                        <div class="card-block">
-                            <form class="form-horizontal ">
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">经度：</label>
-                                    <span class=" col-sm-8 form-control-label">110.000</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">纬度：</label>
-                                    <span class=" col-sm-8 form-control-label">110.000</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位名称：</label>
-                                    <span class=" col-sm-8 form-control-label">岳麓区大学城</span>
-
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位地址：</label>
-                                    <span class=" col-sm-8 form-control-label">天马公寓</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位类型：</label>
-                                    <span class=" col-sm-8 form-control-label">atm</span>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点描述：</label>
-                                    <span class=" col-sm-8 form-control-label">发生于。。。。</span>
-                                </div>
-
-                                <div class="form-group">
-                                    <input class=" btn btn-info" type="button" value="查看详细信息">
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 

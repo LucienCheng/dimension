@@ -25,12 +25,11 @@
             rel="stylesheet">
     <!-- Custom CSS -->
     <link href="<%=basePath %>source/css/style.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="<%=basePath %>/source/css/bootstrap-select.min.css">
     <!-- You can change the theme colors from here -->
     <link href="<%=basePath %>source/css/colors/megna.css" id="theme"
           rel="stylesheet">
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
 </head>
 
 <body class="fix-header card-no-border">
@@ -104,8 +103,6 @@
                                 <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
                                         class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
                             </c:if>
-                            <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
@@ -232,7 +229,7 @@
                         <div class="card-block">
                             <h4 class="card-title">点位</h4>
 
-                            <div >
+                            <div>
                                 <table class="table table-hover">
                                     <thead>
                                     <tr class="row">
@@ -297,17 +294,24 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="form-control-label col-sm-3 ">角色选择:</label>
-                                            <select class=" form-control c-select col-sm-8 " id="updateRoleid" name="roleid">
+                                            <select class=" form-control c-select col-sm-8 " id="updateRoleid"
+                                                    name="roleid">
                                                 <option value="2" selected>普通用户</option>
                                                 <option value="4">部门管理员</option>
                                             </select>
                                         </div>
-                                        <div class="hidden row" id="updateDepartment">
+                                        <%--本部门--%>
+                                        <div class="hidden row" id="updateDepart">
                                             <label class="form-control-label col-sm-3 ">部门选择:</label>
-                                            <select class="form-control c-select col-sm-8" id="updateDepartmentid"
-                                                    name="departmentid">
+                                            <select class="selectpicker form-control c-select col-sm-8" id="updateDepartSelect"  data-live-search="true" title="部门选择">
                                             </select>
 
+                                        </div>
+                                        <%--下级部门--%>
+                                        <div class="hidden row" id="updateSubDepart">
+                                            <label class="form-control-label col-sm-3 ">部门选择:</label>
+                                            <select class="selectpicker form-control c-select col-sm-8" id="updateSubDepartSelect" data-live-search="true" title="部门选择">
+                                            </select>
                                         </div>
 
                                     </div>
@@ -399,11 +403,18 @@
                                                 <option value="4">部门管理员</option>
                                             </select>
                                         </div>
-                                        <div class="hidden row" id="department">
+                                        <%--本部门--%>
+                                        <div class="hidden row" id="depart">
                                             <label class="form-control-label col-sm-3 ">部门选择:</label>
-                                            <select class=" form-control c-select col-sm-8" id="departmentid" name="departmentid">
+                                            <select class="selectpicker form-control c-select col-sm-8" id="departSelect" data-live-search="true" title="部门选择">
                                             </select>
 
+                                        </div>
+                                        <%--下级部门--%>
+                                        <div class="hidden row" id="subDepart">
+                                            <label class=" form-control-label col-sm-3 ">部门选择:</label>
+                                            <select class="selectpicker form-control c-select col-sm-8" id="subDepartSelect"  data-live-search="true" title="部门选择">
+                                            </select>
                                         </div>
 
 
@@ -457,6 +468,8 @@
 <!--stickey kit -->
 <script
         src="<%=basePath %>source/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+
+<script src="<%=basePath %>source/js/bootstrap-select.min.js"></script>
 <!--Custom JavaScript -->
 <script src="<%=basePath %>source/js/custom.min.js"></script>
 
@@ -469,37 +482,55 @@
     data.users =${usersJson};
     var role =${user.roleid};
     $(function () {
+        //初始化下级部门
+        $.each(${subDepartmentJson}, function (index, item) {
+            var option = $("<option>").val(item.id).text(item.departmentname);
+            $("#subDepartSelect").append(option);
+
+        });
+        $.each(${subDepartmentJson}, function (index, item) {
+            var option = $("<option>").val(item.id).text(item.departmentname);
+            $("#updateSubDepartSelect").append(option);
+
+        });
+
+        //初始化本部门
+        var option = $("<option>").val(adminDepartment).text("${user.department.departmentname}");
+        var option1 = $("<option>").val(adminDepartment).text("${user.department.departmentname}");
+        $("#departSelect").append(option);
+        $("#updateDepartSelect").append(option1);
         $("#add1").bind("click", function () {
             addUser();
-        })
+        });
         updatePage(data);
         //超级管理员
         if (role == 3) {
-            $("#department").removeClass("hidden");
-            $.each(${subDepartmentJson}, function (index, item) {
-                var option = $("<option>").val(item.id).text(item.departmentname);
-                $("#departmentid").append(option);
-            })
+            $("#subDepart").removeClass("hidden");
+            $("#updateSubDepart").removeClass("hidden");
         }
 
         //部门管理员，如果是本部门，就只有一个选项
         else {
             $("#roleid").bind("click", function () {
-                $("#department").removeClass("hidden");
                 var roleid = $(this).val();
-                //本部门
+                //如果选择的角色时本部门
                 if (roleid == 2) {
-                    $("#departmentid").empty();
-                    var option = $("<option>").val(adminDepartment).text("${user.department.departmentname}");
-                    $("#departmentid").append(option);
+                    $("#subDepart").addClass("hidden");
+                    $("#depart").removeClass("hidden");
                 } else {
-                    $("#departmentid").empty();
-                    //需要遍历一下subDepartmentJson
-                    $.each(${subDepartmentJson}, function (index, item) {
-                        var option = $("<option>").val(item.id).text(item.departmentname);
-                        $("#departmentid").append(option);
-                    })
-
+                    $("#depart").addClass("hidden");
+                    $("#subDepart").removeClass("hidden");
+                }
+            });
+            $("#updateRoleid").bind("click", function () {
+                var roleid = $(this).val();
+                //如果选择的角色时本部门
+                if (roleid == 2) {
+                    $("#updateSubDepart").addClass("hidden");
+                    $("#updateDepart").removeClass("hidden");
+                } else {
+                    $("#updateDepart").addClass("hidden");
+                    $("#updateSubDepart").removeClass("hidden");
                 }
             })
         }
@@ -511,39 +542,9 @@
             if (item.id == id) {
                 $("#infoUsername").val(item.username);
                 $("#infoPassword").val(item.password);
-                //超级管理员
-                if (role == 3) {
-                    $("#updateDepartment").removeClass("hidden");
-                    $.each(${subDepartmentJson}, function (index, item) {
-                        var option = $("<option>").val(item.id).text(item.departmentname);
-                        $("#updateDepartmentid").append(option);
-                    })
-                }
-
-                //部门管理员，如果是本部门，就只有一个选项
-                else {
-                    $("#updateRoleid").bind("click", function () {
-                        $("#updateDepartment").removeClass("hidden");
-                        var roleid = $(this).val();
-                        //本部门
-                        if (roleid == 2) {
-                            $("#updateDepartmentid").empty();
-                            var option = $("<option>").val(adminDepartment).text("${user.department.departmentname}");
-                            $("#updateDepartmentid").append(option);
-                        } else {
-                            $("#updateDepartmentid").empty();
-                            //需要遍历一下subDepartmentJson
-                            $.each(${subDepartmentJson}, function (index, item) {
-                                var option = $("<option>").val(item.id).text(item.departmentname);
-                                $("#updateDepartmentid").append(option);
-                            })
-
-                        }
-                    })
-                }
                 return false;
             }
-        })
+        });
         $('#personInfo').modal('show');
         $('#update').val(id);
     }
@@ -678,6 +679,13 @@
 
     function updateUser(id) {
         var form = new FormData($("#updateUserForm")[0]);
+        //本部门
+        if ($('#updateRoleid').val()==2){
+            form.append("departmentid",$('#updateDepartSelect').val());
+        }
+        else {
+            form.append("departmentid",$('#updateSubDepartSelect').val());
+        }
         form.append("id", id);
         $.ajax({
             url: '<%=basePath%>admin/updateUser',
@@ -733,6 +741,14 @@
 
     function addUser() {
         var form = new FormData($("#addUserForm")[0]);
+        //本部门
+        if ($('#roleid').val()==2){
+            form.append("departmentid",$('#departSelect').val());
+        }
+        else {
+            form.append("departmentid",$('#subDepartSelect').val());
+        }
+
         $.ajax({
             url: '<%=basePath%>admin/addUser',
             type: "post",

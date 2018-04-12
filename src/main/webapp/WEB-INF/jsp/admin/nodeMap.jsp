@@ -107,8 +107,7 @@
                                 <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
                                         class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
                             </c:if>
-                            <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
@@ -241,6 +240,9 @@
                                                         <td class="col-sm-2">
                                                             <input type="button" class="btn btn-success"
                                                                     value="显示" onclick="addCaseNode()">
+                                                            <button type="submit" class="btn btn-warning"
+                                                                    onclick="updateModel(${item.id});">添加比较
+                                                            </button>
                                                         </td>
                                                     </tr>
                                                 </tbody>
@@ -373,9 +375,150 @@
                             </div>
                         </div>
                     </div>
+                        <div class="col-sm-12">
+                            <div class="panel panel-info">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        比较案件
+                                        <a data-toggle="collapse" data-parent="#accordion"
+                                           href="#compare" style="color:#0f1111;">
+                                            <i class="fa  fa-angle-double-down m-l-10 pull-right"></i>
+                                        </a>
+
+                                    </h4>
+                                </div>
+                                <div id="compare" class="panel-collapse collapse ">
+                                    <div class="panel-body">
+                                        <div class="card-block">
+                                                <div class="row">
+                                                    <div class="container col-sm-6">
+                                                        <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
+                                                            <div class="card-block">
+                                                                <form class="form-horizontal ">
+
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">案件编号：</label>
+                                                                            <span class=" col-sm-4 form-control-label">1</span>
+                                                                            <div class="col-sm-4 ">
+                                                                                <button type="submit" class="btn btn-warning pull-right"
+                                                                                        onclick="">清除
+                                                                                </button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">案件名称：</label>
+                                                                            <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">案件类型：</label>
+                                                                            <span class=" col-sm-8 form-control-label">抢劫</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">案件描述：</label>
+                                                                            <span class=" col-sm-8 form-control-label">发生于。。。。</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">组长：</label>
+                                                                            <span class=" col-sm-8 form-control-label">李四</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <input class=" btn btn-info" type="button" value="查看详细信息" >
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+
+                                                        </div  >
+                                                    </div>
+                                                    <div class="container col-sm-6">
+                                                        <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
+                                                            <div class="card-block">
+                                                                <form class="form-horizontal ">
+
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件编号：</label>
+                                                                        <span class=" col-sm-4 form-control-label">1</span>
+                                                                        <div class="col-sm-4 ">
+                                                                            <button type="submit" class="btn btn-warning pull-right"
+                                                                                    onclick="">清除
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">案件名称：</label>
+                                                                            <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">案件类型：</label>
+                                                                            <span class=" col-sm-8 form-control-label">抢劫</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">案件描述：</label>
+                                                                            <span class=" col-sm-8 form-control-label">发生于。。。。</span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <div class="form-group row">
+                                                                            <label class="col-sm-4 form-control-label">组长：</label>
+                                                                            <span class=" col-sm-8 form-control-label">李四</span>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-4">
+
+                                                                            <input class=" btn btn-info" type="button" value="查看详细信息" >
+                                                                        </div>
+                                                                        <div class="col-sm-3">
+                                                                            <input class=" btn btn-success " type="button" value="计算相似度">
+                                                                        </div>
+                                                                        <label class="form-control-label col-sm-3">计算结果：</label>
+                                                                        <span class=" form-control-label col-sm-2">80%</span>
+
+                                                                    </div>
+
+                                                                </form>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <div class="card">
                         <div class="card-block">
-
+                            <label class="c-input c-radio">
+                                <input id="radio1" name="radio" type="radio">
+                                <span class="c-indicator"></span>
+                                标记点
+                            </label>
+                            <label class="c-input c-radio">
+                                <input id="radio2" name="radio" type="radio">
+                                <span class="c-indicator"></span>
+                                基础点和案件点
+                            </label>
                             <div id="allmap" class="maps"></div>
                         </div>
                     </div>
@@ -386,7 +529,7 @@
                             <div class="modal-dialog " role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <h4 class="modal-title">回复信息</h4>
+                                        <h4 class="modal-title">编写信息</h4>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
                                             <span class="sr-only">Close</span>
@@ -632,7 +775,7 @@
         timePicker: true,
         timePickerIncrement: 30,
         locale: {
-            format: 'YYYY-DD-MM h:mm:ss '
+            format: 'YYYY-MM-DD h:mm:ss'
         }
     });
 </script>

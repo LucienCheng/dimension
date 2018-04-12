@@ -104,6 +104,6 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
    <select id="getFileByNodeId" resultMap="BaseResultMap">
-  select * from file nodeId=#{nodeId,jdbcType=BIGINT}
+  select * from file where  nodeId=#{nodeId,jdbcType=BIGINT}
   </select>
 </mapper>

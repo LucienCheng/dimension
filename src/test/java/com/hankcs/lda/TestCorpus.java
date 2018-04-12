@@ -42,18 +42,20 @@ public class TestCorpus extends TestCase
         Corpus corpus = Corpus.load("data/mini");
         // 2. Create a LDA sampler（Gibbs）
         LdaGibbsSampler ldaGibbsSampler = new LdaGibbsSampler(corpus.getDocument(), corpus.getVocabularySize());
-        // 3. Train it
+        // 3. 训练为10个主题
         ldaGibbsSampler.gibbs(10);
         // 4. The phi matrix is a LDA model, you can use LdaUtil to explain it.
         double[][] phi = ldaGibbsSampler.getPhi();
+        //对于每个主题展示的个数，并且主题下的前10个频率的单词。
         Map<String, Double>[] topicMap = LdaUtil.translate(phi, corpus.getVocabulary(), 10);
         LdaUtil.explain(topicMap);
-        // 5. TODO:Predict. I'm not sure whether it works, it is not stable.
         int[] document = Corpus.loadDocument("data/mini/招聘_1950.txt", corpus.getVocabulary());
         double[] tp = LdaGibbsSampler.inference(phi, document);
+        //需要预测的文章，的主题分布
         for (int i=0;i<tp.length;i++){
             System.out.println(tp[i]);
         }
+        //需要展示，概率最高的那个主题的单词分布。
         Map<String, Double> topic = LdaUtil.translate(tp, phi, corpus.getVocabulary(), 30);
         LdaUtil.explain(topic);
     }

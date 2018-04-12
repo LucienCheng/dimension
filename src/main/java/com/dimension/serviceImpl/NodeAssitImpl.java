@@ -74,7 +74,7 @@ public class NodeAssitImpl implements NodeAssit {
 	@Override
 	public boolean markNode(MarkNode markNode, boolean judge) {
 		if (judge) {
-			markNodeMapper.insert(markNode);
+			markNodeMapper.insertSelective(markNode);
 		} else {
 			markNodeMapper.deleteByPrimaryKey(markNode.getMarkid());
 		}
@@ -90,19 +90,19 @@ public class NodeAssitImpl implements NodeAssit {
 	@Override
 	public boolean upgradeNode(CaseNode caseNode) {
 		// 插入案件信息
-		caseNodeMapper.insert(caseNode);
+		caseNodeMapper.insertSelective(caseNode);
 		// 复制基础点位信息，并且添加案件的信息
 		BaseNode baseNode = nodeComplex.constructBaseNode(caseNode.getBaseNode().getNodeid());
-		baseNodeMapper.insert(baseNode);
+		baseNodeMapper.insertSelective(baseNode);
 		// 插入wifi
 		for (Wifi wifi : baseNode.getWifis()) {
 			wifi.setNodeid(baseNode.getNodeid());
-			wifiMapper.insert(wifi);
+			wifiMapper.insertSelective(wifi);
 		}
 		// 插入basestation
 		for (Basestation basestation : baseNode.getBasestations()) {
 			basestation.setNodeid(baseNode.getNodeid());
-			basestationMapper.insert(basestation);
+			basestationMapper.insertSelective(basestation);
 		}
 		// 插入具体表的值
 		List<Field> fields = baseNode.getOther();
@@ -133,16 +133,16 @@ public class NodeAssitImpl implements NodeAssit {
 			baseNodeMapper.updateByPrimaryKeySelective(baseNode);
 			baseNode.setIsvalid("1");
 			baseNode.setNodetype("2");//案件点
-			baseNodeMapper.insert(baseNode);
+			baseNodeMapper.insertSelective(baseNode);
 			// 插入wifi
 			for (Wifi wifi : baseNode.getWifis()) {
 				wifi.setNodeid(baseNode.getNodeid());
-				wifiMapper.insert(wifi);
+				wifiMapper.insertSelective(wifi);
 			}
 			// 插入basestation
 			for (Basestation basestation : baseNode.getBasestations()) {
 				basestation.setNodeid(baseNode.getNodeid());
-				basestationMapper.insert(basestation);
+				basestationMapper.insertSelective(basestation);
 			}
 			// 插入具体表的值
 			List<Field> fields = baseNode.getOther();

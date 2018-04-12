@@ -19,9 +19,11 @@
           href="<%=basePath%>source/assets/images/favicon.png">
     <title>管理员案件管理</title>
     <!-- Bootstrap Core CSS -->
+
     <link
-            href="<%=basePath%>source/assets/plugins/bootstrap/css/bootstrap.min.css"
+            href="<%=basePath%>source/assets/plugins/bootstrap/css/bootstrap.css"
             rel="stylesheet">
+    <link rel="stylesheet" href="<%=basePath %>/source/css/bootstrap-select.min.css">
     <!-- Custom CSS -->
     <link href="<%=basePath%>source/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
@@ -370,7 +372,7 @@
                                         </div>
                                         <div id="department"  class="form-group row">
                                             <label class="col-sm-3 form-control-label ">组长选择:</label>
-                                            <select class="form-control c-select col-sm-8" id="grouperid" name="grouperid">
+                                            <select class="selectpicker form-control c-select col-sm-8" id="grouperid" name="grouperid" data-live-search="true" title="选择部门">
                                                 <c:forEach items="${groupUsers}" var="user">
                                                     <<option value="${user.id}">${user.username}</option>>
                                                 </c:forEach>
@@ -441,6 +443,7 @@
 <!--Custom JavaScript -->
 <script src="<%=basePath%>source/js/custom.min.js"></script>
 
+<script src="<%=basePath %>source/js/bootstrap-select.min.js"></script>
 
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>

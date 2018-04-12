@@ -12,6 +12,25 @@ public class Wifi implements Serializable {
     private Integer ch;
 
     private Integer rssi;
+    private String carrier;
+
+    private String mode;
+
+    public String getCarrier() {
+        return carrier;
+    }
+
+    public void setCarrier(String carrier) {
+        this.carrier = carrier;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
+    }
 
     private static final long serialVersionUID = 1L;
 

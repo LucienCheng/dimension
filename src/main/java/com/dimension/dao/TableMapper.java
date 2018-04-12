@@ -29,5 +29,4 @@ public interface TableMapper {
 
     List<Field> getField(Integer id);
 
-
 }

@@ -6,7 +6,7 @@
 		<result column="longitude" jdbcType="DECIMAL" property="longitude" />
 		<result column="latitude" jdbcType="DECIMAL" property="latitude" />
 		<result column="location" jdbcType="CHAR" property="location" />
-		<result column="collectTime" jdbcType="TIMESTAMP" property="collecttime" />
+		<result column="collectTime"  property="collecttime" />
 		<result column="description" jdbcType="VARCHAR" property="description" />
 		<result column="nodeName" jdbcType="VARCHAR" property="nodename" />
 		<result column="tableId" jdbcType="INTEGER" property="tableid" />
@@ -22,10 +22,10 @@
 		address, userId, nodeType, isValid
 	</sql>
 	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
-		resultMap="BaseResultMap">
+		resultType="com.dimension.pojo.BaseNode">
 		select
-		<include refid="Base_Column_List" />
-		from base_node
+		base_node.*,username
+		from base_node LEFT  JOIN `user` on `user`.id=userid
 		where nodeId = #{nodeid,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
@@ -191,7 +191,7 @@
 		#{nodeid,jdbcType=BIGINT}
 	</update>
 	<select id="selectBaseNode" resultType="com.dimension.pojo.BaseNode">
-		(select base_node.* ,`user`.departmentId,groupId ,1 as isEdited from
+		(select base_node.* ,`user`.departmentId,groupId ,1 as isEdited ,table_type.chinesename as "table.chinesename" from
 		base_node
 		LEFT
 		JOIN case_node on
@@ -203,6 +203,8 @@
 		`user`.Id=base_node.userId
 		LEFT JOIN department on
 		`user`.departmentId=department.Id
+		LEFT JOIN table_type on
+		base_node.tableid=table_type.Id
 		<trim prefix="where" prefixOverrides="and | or">
 			base_node.isValid='1'
 			<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
@@ -255,7 +257,7 @@
 		)
 		<if test="roleId != 3">
 			union ALL
-			(select base_node.* ,`user`.departmentId,groupId ,0 as isEdited from
+			(select base_node.* ,`user`.departmentId,groupId ,0 as isEdited ,table_type.chinesename as "table.chinesename" from
 			base_node
 			LEFT
 			JOIN case_node on
@@ -267,6 +269,8 @@
 			`user`.Id=base_node.userId
 			LEFT JOIN department on
 			`user`.departmentId=department.Id
+			LEFT JOIN table_type on
+			base_node.tableid=table_type.Id
 			<trim prefix="where" prefixOverrides="and | or">
 				base_node.isValid='1'
 				<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->

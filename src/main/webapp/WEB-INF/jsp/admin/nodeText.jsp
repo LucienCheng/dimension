@@ -131,8 +131,7 @@
                                 <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
                                         class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
                             </c:if>
-                            <li><a href="<%=basePath%>admin/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
+
                             <li><a href="<%=basePath%>admin/nodeReplace" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
@@ -192,19 +191,19 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-block">
-                            <form>
+                            <form id="searchForm">
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group row">
                                             <label for="inputEmail3"
                                                    class="col-sm-2 form-control-label">点位地址</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control" id="inputEmail3"
-                                                       placeholder="湖南大学天马学生公寓">
+                                                <input type="text" class="form-control" id="inputEmail3"
+                                                       placeholder="湖南大学天马学生公寓" name="address">
                                             </div><label
                                                     class="col-sm-2 form-control-label">点位选择</label>
                                             <div class="col-sm-10">
-                                                <select class="form-control c-select">
+                                                <select class="form-control c-select" name="nodetype">
                                                     <option selected value="1">案件点</option>
                                                     <option value="2">基础点</option>
                                                     <option value="3">标记点</option>
@@ -220,8 +219,8 @@
                                             <label
                                                    class="col-sm-2 form-control-label">点位名称</label>
                                             <div class="col-sm-10">
-                                                <input type="email" class="form-control"
-                                                       placeholder="大学城">
+                                                <input type="text" class="form-control"
+                                                       placeholder="大学城" name="nodename">
                                             </div>
                                             <label
                                                    class="col-sm-2 form-control-label">选择时间</label>
@@ -229,10 +228,11 @@
                                                 <input type="text" class="form-control" id="daterange" placeholder="选择起始时间和终止时间">
                                             </div>
 
-
+                                            <input type="hidden" value="" id="beginTime">
+                                            <input type="hidden" value="" id="endTime">
                                             <div class="col-sm-2"></div>
                                             <div class="col-sm-10" style="margin-top: 10px;">
-                                                <button type="submit" class="btn btn-info">搜索</button>
+                                                <button class="btn btn-info" type="button" onclick="searchPage('1')">搜索</button>
                                             </div>
 
                                         </div>
@@ -252,20 +252,11 @@
                                         <th class="col-sm-2">点位时间</th>
                                         <th class="col-sm-2">操作</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="row">
-                                        <td class="col-sm-1">1</td>
-                                        <td class="col-sm-2">岳麓区大学城</td>
-                                        <td class="col-sm-3">湖南大学天马学生公寓二区七栋</td>
-                                        <td class="col-sm-2">atm</td>
-                                        <td class="col-sm-2">2018-04-05 14：24</td>
-                                        <td class="col-sm-2">
-                                            <input class="btn btn-info" value="查看"
-                                                   onclick="window.open('node?nodeid=');" type="button">
-                                        </td>
 
-                                    </tr>
+
+                                    </thead>
+                                    <tbody id="Table">
+
 
                                     </tbody>
                                 </table>
@@ -277,17 +268,8 @@
                 <%--end搜索条件--%>
 
 
-                <div class="col-sm-12">
-
-                    <ul class="pagination">
-                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                        <li class="page-item"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                    </ul>
-
-                </div>
+                    <div class="col-sm-12" id="Page">
+                    </div>
             </div>
         </div>
 
@@ -300,15 +282,129 @@
 
 </div>
 
-<!-- End Wrapper -->
-
-
-<!-- All Jquery -->
-
-<!-- Style switcher -->
 
 <script type="text/javascript">
     //改变模态框内容
+    var data = new Object();
+    data.currentPage =${currentPage};
+    data.totalPage =${totalPage};
+    data.baseNodes =${baseNodesJson};
+    updatePage(data);
+    updateTable(data);
+    /*结束更新ajax请求*/
+    /*异步接收数据之后更新表*/
+    function updateTable(data) {
+        var table = $("#Table");
+        var str = "";
+        console.log(data.baseNodes.length);
+        if (data.baseNodes.length != 0) {
+            $.each(data.baseNodes, function (index, item) {
+                str += "<tr class='row'>";
+                str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.nodename + "</td>";
+                str += "<td class=\"col-sm-3\">" + item.address + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.table.chinesename + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.collecttime + "</td>";
+                str += '<td class="col-sm-2"><button class="btn btn-info"  onclick="window.open(\'/admin/node/' +item.nodeid+
+                    '?nodetype='+item.nodetype+'\')">查看</button><td>';
+                str += ' </tr>';
+            });
+        }
+        table.html(str);
+    }
+
+    /*结束更新表*/
+
+
+    /*更新页表*/
+    function updatePage(data) {
+        var currentPage = data.currentPage;
+        var totalPage = data.totalPage;
+
+
+        var s = " <ul class=\"pagination\"> ";
+        if (currentPage == 1)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0) '>上一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage - 1) + ">上一页</a></li>";
+        }
+
+        //如果总的页数在6页只能就可以这样
+        if (totalPage <= 6) {
+            for (var i = 1; i <= totalPage; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled' ><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+
+        }
+        //这个是页面大于6的时候
+        else {
+            var base = 0;
+            if ((currentPage - 3 >= 0) && (currentPage + 3 <= totalPage))
+                base = currentPage - 3;
+            else if ((currentPage + 3) > totalPage) {
+
+                base = totalPage - 6;
+
+            }
+
+            for (var i = base + 1; i <= base + 6; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+        }
+
+        if (currentPage >= totalPage)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>下一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage + 1) + ">下一页</a></li>";
+        }
+
+        s += "</ul>";
+        $("#Page").html(s);
+
+        $("#Page ul li a").bind('click', function () {
+            var rel = $(this).attr("rel");
+            window.history.pushState(null, null, "<%=basePath%>admin/nodeText/" + rel);
+            searchPage(rel);
+        });
+    }
+    //按照页面，条件搜索
+    function searchPage(rel) {
+        var form = new FormData($('#searchForm')[0]);
+        if ($('#beginTime').val()!=''){
+            form.append('beginTime',$('#beginTime').val());
+            form.append('endTime',$('#endTime').val());
+        }
+        $.ajax({
+            url: '<%=basePath%>admin/nodeText/' + rel,
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                data = d;
+                console.log(d.baseNodes);
+                updateTable(d);
+                updatePage(d);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    /*结束更新分页*/
     $('#exampleModal').on('show.bs.modal', function (event) {
         var button = $(event.relatedTarget) // Button that triggered the modal
         var src = button.data('whatever') // Extract info from data-* attributes
@@ -319,10 +415,12 @@
         timePicker: true,
         timePickerIncrement: 30,
         locale: {
-            format: 'YYYY-DD-MM h:mm:ss '
+            format: 'YYYY-MM-DD h:mm:ss'
         }
     },function (start, end) {
-        console.log('New date range selected: ' + start.format('YYYY-DD-MM h:mm:ss') + ' to ' + end.format('YYYY-DD-MM h:mm:ss') );
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss') );
+        $('#beginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
+        $('#endTime').val(end.format('YYYY-MM-DD h:mm:ss'));
     });
 </script>
 </body>

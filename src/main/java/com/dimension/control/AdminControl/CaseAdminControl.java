@@ -4,6 +4,8 @@ import com.dimension.dao.CaseMapper;
 import com.dimension.dao.GroupMapper;
 import com.dimension.dao.GroupUserMapper;
 import com.dimension.pojo.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,14 +34,15 @@ public class CaseAdminControl {
 
 
     @RequestMapping("/caseAdmin")
-    public String caseAdmin(CaseCondition caseCondition, HttpSession session, Model model) {
+    public String caseAdmin(CaseCondition caseCondition, HttpSession session, Model model) throws JsonProcessingException {
         User user = (User) session.getAttribute("user");
         if (user.getRoleid()!=3)
         caseCondition.setDepartmentid(user.getDepartmentid());
         List<Case> cases = caseMapper.searchCases(caseCondition, 0, count);
         int totalCount = caseMapper.count(caseCondition);
         int totalPage = (totalCount + count - 1) / count;
-        JSONArray casesJson = new JSONArray(cases);
+        ObjectMapper mapper=new ObjectMapper();
+        String casesJson=mapper.writeValueAsString(cases);
         model.addAttribute("cases", cases);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("casesJson", casesJson);

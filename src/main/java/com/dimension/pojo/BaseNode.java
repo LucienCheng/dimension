@@ -1,11 +1,14 @@
 package com.dimension.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 public class BaseNode implements Serializable{
+	private String userName;
 	private Long nodeid;
 
 	private BigDecimal longitude;
@@ -13,7 +16,7 @@ public class BaseNode implements Serializable{
 	private BigDecimal latitude;
 
 	private String location;
-
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
 	private Date collecttime;
 
 	private String description;
@@ -38,6 +41,8 @@ public class BaseNode implements Serializable{
 
 	private List<Field> other;
 
+	private List<Table> tables;
+
 	private Table table;
 	//添加是否为同一个点信息
 	private String text;
@@ -46,6 +51,22 @@ public class BaseNode implements Serializable{
 	private int isEdited;
 
 	private static final long serialVersionUID = 1L;
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public List<Table> getTables() {
+		return tables;
+	}
+
+	public void setTables(List<Table> tables) {
+		this.tables = tables;
+	}
 
 	public Long getNodeid() {
 		return nodeid;

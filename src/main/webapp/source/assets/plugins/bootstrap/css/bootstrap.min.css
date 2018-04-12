@@ -10,7 +10,9 @@ html {
     -ms-text-size-adjust: 100%;
     -webkit-text-size-adjust: 100%
 }
-
+.open>.dropdown-menu{
+    display:block;
+}
 body {
     margin: 0
 }

@@ -1,5 +1,7 @@
 package com.dimension.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -16,9 +18,9 @@ public class Case implements Serializable {
     private String description;
 
     private Integer groupid;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date begintime;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date endtime;
     
     private Long departmentId;
