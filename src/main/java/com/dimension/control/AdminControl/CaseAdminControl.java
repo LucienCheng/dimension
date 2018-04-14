@@ -38,6 +38,8 @@ public class CaseAdminControl {
         User user = (User) session.getAttribute("user");
         if (user.getRoleid()!=3)
         caseCondition.setDepartmentid(user.getDepartmentid());
+        caseCondition.setRoleId(user.getRoleid());
+        caseCondition.setUserId(user.getId());
         List<Case> cases = caseMapper.searchCases(caseCondition, 0, count);
         int totalCount = caseMapper.count(caseCondition);
         int totalPage = (totalCount + count - 1) / count;
@@ -55,14 +57,16 @@ public class CaseAdminControl {
     @ResponseBody
     public Map<String, Object> caseAdminAjax(CaseCondition caseCondition, HttpSession session, @PathVariable int start) {
         start--;
+        System.out.println(caseCondition);
         User user = (User) session.getAttribute("user");
         if (user.getRoleid()!=3)
         caseCondition.setDepartmentid(user.getDepartmentid());
         List<Case> cases = caseMapper.searchCases(caseCondition, start * count, count);
-        if (cases.size() == 0) {
+        if (cases.size() == 0 && start!=0){
             start--;
+            cases = caseMapper.searchCases(caseCondition, start * count, count);
         }
-        cases = caseMapper.searchCases(caseCondition, start * count, count);
+
         int totalCount = caseMapper.count(caseCondition);
         int totalPage = (totalCount + count - 1) / count;
         Map<String, Object> map = new HashMap<>();

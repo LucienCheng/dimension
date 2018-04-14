@@ -90,8 +90,8 @@
       <if test="alarmid != null">
         alarmId = #{alarmid,jdbcType=INTEGER},
       </if>
-      <if test="alarmid != null">
-        #{baseNodeId,jdbcType=BIGINT},
+      <if test="baseNodeId != null">
+        baseNodeId=#{baseNodeId,jdbcType=BIGINT},
       </if>
     </set>
     where Id = #{id,jdbcType=INTEGER}

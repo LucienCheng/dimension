@@ -26,6 +26,8 @@ public class Case implements Serializable {
     private Long departmentId;
     //是否可以编辑这个案件
     private int isEdited;
+
+    private Integer grouperid;
     private static final long serialVersionUID = 1L;
 
     public Integer getId() {
@@ -34,6 +36,14 @@ public class Case implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public Integer getGrouperid() {
+        return grouperid;
+    }
+
+    public void setGrouperid(Integer grouperid) {
+        this.grouperid = grouperid;
     }
 
     public String getCasecode() {

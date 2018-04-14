@@ -51,26 +51,26 @@
                             <span aria-hidden="true">&times;</span>
                             <span class="sr-only">Close</span>
                         </button>
-                        <strong>Error!</strong> You should check in on some of those fields below.
+                        <strong>登录失败!</strong>检查一下你的密码以及用户级别
                     </div>
                     <form role="form" method="post" action="verifyLogin">
                         <fieldset>
 
                             <div class="form-group" id="identityid-group">
-                                <input class="form-control" placeholder="Identify" name="identityid" type="text"
+                                <input class="form-control" placeholder="身份证" name="identityid" type="text"
                                        autofocus>
                             </div>
                             <div class="form-group" id="password-group">
-                                <input class="form-control" placeholder="Password" name="password" type="password"
+                                <input class="form-control" placeholder="密码" name="password" type="password"
                                        value="">
                             </div>
                             <div class="checkbox">
                                 <label>
-                                    <input name="remember" type="checkbox" value="Remember Me">Remember Me
+                                    <input name="remember" type="checkbox" value="Remember Me">记住我
                                 </label>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <input class="btn btn-lg btn-success btn-block" value="Login" type="submit">
+                            <input class="btn btn-lg btn-success btn-block" value="登陆" type="submit">
                         </fieldset>
                     </form>
                 </div>

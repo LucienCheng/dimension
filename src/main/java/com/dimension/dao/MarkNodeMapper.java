@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.MarkNode;
+import org.apache.ibatis.annotations.Param;
 
 public interface MarkNodeMapper {
     int deleteByPrimaryKey(Long markid);
@@ -18,5 +19,7 @@ public interface MarkNodeMapper {
 
     int updateByPrimaryKey(MarkNode record);
     
-    public List<BaseNode> searchMarkNode(Integer userId) ;
+    public List<BaseNode> searchMarkNode(@Param("userId") Integer userId,@Param("start") Integer start,@Param("count") Integer count) ;
+
+    int isExist(@Param("nodeId") Long nodeId,@Param("userId") Integer userId);
 }

@@ -59,10 +59,11 @@ public class UserAdminControl {
         userCondition.setRoleId(user.getRoleid());
         userCondition.setSubDepartmentId(user.getSubDepartment());
         List<User> users = userMapper.selectUsers(userCondition, start * count, count);
-        if (users.size() == 0) {
+        if (users.size() == 0&& start!=0) {
             start--;
+            users = userMapper.selectUsers(userCondition, start * count, count);
         }
-        users = userMapper.selectUsers(userCondition, start * count, count);
+
         int totalCount = userMapper.count(userCondition);
         int totalPage = (totalCount + count - 1) / count;
         Map<String, Object> map = new HashMap<>();

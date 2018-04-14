@@ -1,5 +1,6 @@
 	package com.dimension.service;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -26,11 +27,10 @@ public interface NodeAssit {
 	//通过id获取一个完整的案件点位信息
 	CaseNode getCaseNode(Long nodeId);
 	//将文件添加
-	boolean addFile(File file,HttpServletRequest request,MultipartFile multipartFile);
+	boolean addFile(File file,HttpServletRequest request,MultipartFile multipartFile) throws IOException;
 	//删除文件
 	boolean deleteFile(File file,HttpServletRequest request);
-	//设置特殊点位的值
-	boolean setFields(BaseNode baseNode);
+
 	//删除某条记录
 	boolean dropRecord(BaseNode baseNode);
 	
@@ -54,7 +54,7 @@ public interface NodeAssit {
 	List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon,Integer start,Integer count);
 	
 	//查看自己标记的点位。
-	List<BaseNode> searchMarkNode(Integer userId);
+	List<BaseNode> searchMarkNode(Integer userId,Integer start,Integer count);
 	
 	//提供搜索案件点位的检索。通过搜索案件，可以获得案件点位信息。
 	List<Case> searchCase(CaseCondition caseCondition);

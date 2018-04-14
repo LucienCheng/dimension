@@ -28,7 +28,7 @@ public class UserImpl implements UserService {
 	public boolean vertifyLogin(User user, HttpSession session) {
 		User user1 = userMapper.vertifyUser(user);
 
-		System.out.println(user1);
+
 		if (user1 != null) {
 			List<Long> list=new ArrayList<>();
 			List<Department> departments=null;
@@ -55,6 +55,7 @@ public class UserImpl implements UserService {
 			userCondition.setDepartmentid(user1.getDepartmentid());
 
 			List<User> users=userMapper.selectUsers(userCondition,null,null);
+			System.out.println(user1);
 			session.setAttribute("user", user1);
 			session.setAttribute("groupUsers",users);
 			user1.setLogintime(new Date());

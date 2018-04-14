@@ -12,9 +12,9 @@ import java.util.List;
  */
 public class BaseNodeConditon {
 	// 开始时间
-	private Date beginTime;
+	private String beginTime;
 	// 结束时间
-	private Date endTime;
+	private String endTime;
 	// 点位的名字
 	private String nodename;
 	// 点位的类型
@@ -36,7 +36,7 @@ public class BaseNodeConditon {
 	private Integer start;
 	private Integer count;
 
-	public void setTime( Date beginTime, Date endTime) {
+	public void setTime( String beginTime, String endTime) {
 		this.beginTime=beginTime;
 		this.endTime=endTime;
 	}
@@ -76,19 +76,19 @@ public class BaseNodeConditon {
 	
 
 	
-	public Date getBeginTime() {
+	public String getBeginTime() {
 		return beginTime;
 	}
 
-	public void setBeginTime(Date beginTime) {
+	public void setBeginTime(String beginTime) {
 		this.beginTime = beginTime;
 	}
 
-	public Date getEndTime() {
+	public String getEndTime() {
 		return endTime;
 	}
 
-	public void setEndTime(Date endTime) {
+	public void setEndTime(String endTime) {
 		this.endTime = endTime;
 	}
 

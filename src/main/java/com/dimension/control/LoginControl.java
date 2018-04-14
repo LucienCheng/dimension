@@ -30,7 +30,7 @@ public class LoginControl {
     //认证一下用户
     @RequestMapping(value = "/verifyLogin", method = {RequestMethod.POST})
     public String verifyLogin(User user, HttpSession session) {
-        System.out.println(user);
+
         boolean judge = userService.vertifyLogin(user, session);
         if (judge) {
             user = (User) session.getAttribute("user");

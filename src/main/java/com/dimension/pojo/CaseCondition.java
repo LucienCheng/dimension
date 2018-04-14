@@ -16,14 +16,17 @@ public class CaseCondition {
 
 
 	// 案子开始时间
-	private Date begintime;
+	private String beginTime;
 
 	// 案子结束时间
-	private Date endtime;
+	private String endTime;
 
 	
 	// 查询用户的角色
 	private Integer roleId;
+
+	//查询用户的用户id
+	private Integer userId;
 	
 	// 可查询的子部门id
 	private List<Integer> DpIds;
@@ -36,6 +39,14 @@ public class CaseCondition {
 	
 	// 所在的小组（是组长的）
 	private List<Integer> grouperIds;
+
+	public Integer getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Integer userId) {
+		this.userId = userId;
+	}
 
 	public List<Integer> getGroupIds() {
 		return groupIds;
@@ -77,24 +88,21 @@ public class CaseCondition {
 		this.casetype = casetype;
 	}
 
-
-	public Date getBegintime() {
-		return begintime;
+	public String getBeginTime() {
+		return beginTime;
 	}
 
-	public void setBegintime(Date begintime) {
-		this.begintime = begintime;
+	public void setBeginTime(String beginTime) {
+		this.beginTime = beginTime;
 	}
 
-	public Date getEndtime() {
-		return endtime;
+	public String getEndTime() {
+		return endTime;
 	}
 
-	public void setEndtime(Date endtime) {
-		this.endtime = endtime;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
-
-	
 
 	public Integer getRoleId() {
 		return roleId;
@@ -118,5 +126,22 @@ public class CaseCondition {
 
 	public void setDepartmentid(Long departmentid) {
 		this.departmentid = departmentid;
+	}
+
+	@Override
+	public String toString() {
+		return "CaseCondition{" +
+				"casecode='" + casecode + '\'' +
+				", casename='" + casename + '\'' +
+				", casetype='" + casetype + '\'' +
+				", beginTime=" + beginTime +
+				", endTime=" + endTime +
+				", roleId=" + roleId +
+				", userId=" + userId +
+				", DpIds=" + DpIds +
+				", departmentid=" + departmentid +
+				", groupIds=" + groupIds +
+				", grouperIds=" + grouperIds +
+				'}';
 	}
 }

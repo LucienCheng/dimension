@@ -123,6 +123,6 @@ LEFT JOIN `regexp` on `regexp`.id=regexid
     where Id = #{id,jdbcType=INTEGER}
   </update>
     <select id="maxFieldId" parameterType="int" resultType="int">
-    select max(id) from #{tableid};
+    select max(id) from field where tableid=#{tableid};
   </select>
 </mapper>

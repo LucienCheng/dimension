@@ -68,10 +68,11 @@ public class NodeTypeControl {
         MapResultHandler mapResultHandler=new MapResultHandler();
         start--;
         List<Table> tables = tableMapper.selectByCondition(table,start*count,count);
-        if (tables.size() == 0) {
+        if (tables.size() == 0 && start!=0) {
             start--;
+            tables = tableMapper.selectByCondition(table,start*count,count);
         }
-        tables = tableMapper.selectByCondition(table,start*count,count);
+
         Map<Integer,Integer> map1=sessionMapper.count();
         for (Table table1:tables) {
             table1.setCount(map1.get(table1.getId()));

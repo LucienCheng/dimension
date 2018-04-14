@@ -204,8 +204,8 @@
                                                     class="col-sm-2 form-control-label">点位选择</label>
                                             <div class="col-sm-10">
                                                 <select class="form-control c-select" name="nodetype">
-                                                    <option selected value="1">案件点</option>
-                                                    <option value="2">基础点</option>
+                                                    <option selected  value="1">基础点</option>
+                                                    <option  value="2">案件点</option>
                                                     <option value="3">标记点</option>
                                                 </select>
 

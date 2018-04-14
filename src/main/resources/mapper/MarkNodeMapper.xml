@@ -89,5 +89,14 @@
 				userId=#{userId}
 			</if>
 		</where>
+		<if test="start != null and count!= null ">
+			limit start,count
+		</if>
+	</select>
+	<select id="isExist" resultType="int" >
+		SELECT count(*) from mark_node
+		where
+				nodeId=#{nodeId} and userId=${userId}
+
 	</select>
 </mapper>

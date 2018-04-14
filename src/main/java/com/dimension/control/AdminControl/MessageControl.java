@@ -58,11 +58,12 @@ public class MessageControl {
         messageConditon.setStart(start);
         messageConditon.setState("0");
         List<Message> messages = messageMapper.selectMessage(messageConditon);
-        if (messages.size() == 0) {
+        if (messages.size() == 0&& start!=0) {
             start--;
+            messageConditon.setStart(start);
+            messages = messageMapper.selectMessage(messageConditon);
         }
-        messageConditon.setStart(start);
-        messages = messageMapper.selectMessage(messageConditon);
+
         int totalCount = messageMapper.count(messageConditon);
         int totalPage = (totalCount + count - 1) / count;
         map.put("messages", messages);

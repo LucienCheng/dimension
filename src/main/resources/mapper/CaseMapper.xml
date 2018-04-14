@@ -19,11 +19,13 @@
 		endTime,departmentId
 	</sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
-            resultMap="BaseResultMap">
+            resultType="Case">
         select
-        <include refid="Base_Column_List"/>
-        from `case`
-        where Id = #{id,jdbcType=INTEGER}
+        `case`.Id, caseCode, caseName, caseType, `case`.description, groupId,
+		beginTime,
+		endTime,departmentId,grouperid
+        from `case` LEFT JOIN `group` on `group`.id=`case`.groupid
+        where `case`.Id = #{id,jdbcType=INTEGER}
     </select>
     <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
 		delete from `case`
@@ -252,9 +254,24 @@
     <!--搜索本部门的案件信息-->
     <select id="searchCases" resultType="Case">
         select * from `case`
+        left join `group` on `group`.id=`case`.groupId
         <trim prefix="where" prefixOverrides="and | or">
-            <if test="caseCondition.departmentid != null">
-                and departmentid=#{caseCondition.departmentid}
+
+            <if test="caseCondition.roleId == 4 ">
+                <if test="caseCondition.departmentid != null">
+                    and departmentid=#{caseCondition.departmentid}
+                </if>
+            </if>
+            <if test="caseCondition.beginTime != null ">
+                and begintime <![CDATA[ >= ]]>
+                #{caseCondition.beginTime}
+            </if>
+            <if test="caseCondition.endTime != null">
+                and endTime <![CDATA[ <= ]]>
+                #{caseCondition.endTime}
+            </if>
+            <if test="caseCondition.roleId == 2">
+                and grouperid == #{caseCondition.userId}
             </if>
             <if test="caseCondition.casename != null">
                 and casename like concat("%",#{caseCondition.casename},"%")
@@ -263,7 +280,9 @@
                 and casetype like concat("%",#{caseCondition.casetype},"%")
             </if>
         </trim>
-        limit #{start},#{count}
+        <if test="start != null and count != null">
+            limit #{start},#{count}
+        </if>
 
     </select>
     <select id="count" resultType="int">

@@ -37,7 +37,8 @@ import com.dimension.service.NodeComplex;
 import com.dimension.service.TableFieldService;
 @Service
 public class NodeAssitImpl implements NodeAssit {
-	private final static String filePathPrefix = "/file/";
+	private final static String imagePathPrefix = "/file/image/";
+	private final static String videoPathPrefix = "/file/video/";
 	private CompareNodeService compareNodeService = new CompareNodeImpl();
 	@Resource
 	private BaseNodeMapper baseNodeMapper;
@@ -176,7 +177,7 @@ public class NodeAssitImpl implements NodeAssit {
 	}
 
 	@Override
-	public boolean addFile(File file,HttpServletRequest request,MultipartFile multipartFile) {
+	public boolean addFile(File file,HttpServletRequest request,MultipartFile multipartFile) throws IOException {
 		//设置文件名
 		Date date=new Date();
 		String fileName=multipartFile.getOriginalFilename();
@@ -185,22 +186,25 @@ public class NodeAssitImpl implements NodeAssit {
 		
 		//将传送到指定的位置
 		String contentPathString=request.getServletContext().getRealPath("/");
-		java.io.File dir=new java.io.File(contentPathString);
+		java.io.File dir=null;
+		if(file.getFiletype().equals("视频")){
+			dir=new java.io.File(contentPathString+videoPathPrefix);
+			fileName=videoPathPrefix+fileName;
+		}
+
+		else{
+			dir=new java.io.File(contentPathString+imagePathPrefix);
+			fileName=imagePathPrefix+fileName;
+		}
+
 		//如果文件夹不存在，创建
 		if (!dir.exists()) {
 			dir.mkdirs();
 		}
-		try {
-			multipartFile.transferTo(new java.io.File(contentPathString,filePathPrefix+fileName));
-		} catch (IllegalStateException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+		multipartFile.transferTo(new java.io.File(contentPathString,fileName));
+
 		//首先添加到本地目录下,客户端需要对文件进行一次判断，确认文件的类型
-		file.setFileaddress(request.getContextPath()+filePathPrefix+fileName);
-		
+		file.setFileaddress(request.getContextPath()+fileName);
 		//这里添加文件记录到数据库
 		fileMapper.insertSelective(file);
 		return true;
@@ -212,7 +216,7 @@ public class NodeAssitImpl implements NodeAssit {
 		//删除数据库的记录
 		fileMapper.deleteByPrimaryKey(file.getId());
 		String fileAddress = file.getFileaddress();
-		int index=fileAddress.indexOf(filePathPrefix);
+		int index=fileAddress.indexOf("/file");
 		fileAddress = fileAddress.substring(index);
 		String contentPathString = request.getServletContext().getRealPath("/");
 		java.io.File file2 = new java.io.File(contentPathString, fileAddress);
@@ -221,16 +225,7 @@ public class NodeAssitImpl implements NodeAssit {
 		return true;
 	}
 
-	@Override
-	public boolean setFields(BaseNode baseNode) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		for (Field field : baseNode.getOther()) {
-			map.put(field.getEnglishname(), field.getValue());
-		}
-		map.put("nodeId", baseNode.getNodeid());
-		tableFieldService.setField(baseNode.getTable().getEnglishname(), map);
-		return true;
-	}
+
 
 	@Override
 	public boolean dropRecord(BaseNode baseNode) {
@@ -252,9 +247,9 @@ public class NodeAssitImpl implements NodeAssit {
 	
 	//搜索标记点
 	@Override
-	public List<BaseNode> searchMarkNode(Integer userId) {
+	public List<BaseNode> searchMarkNode(Integer userId,Integer start,Integer count) {
 		// TODO Auto-generated method stub
-		return markNodeMapper.searchMarkNode(userId);
+		return markNodeMapper.searchMarkNode(userId,start,count);
 	}
 	
 	// 搜索案件，并且展示案件点。

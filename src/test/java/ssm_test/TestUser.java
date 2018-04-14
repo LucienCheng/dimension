@@ -51,8 +51,9 @@ public class TestUser {
     }
     @Test
     public void tableSearch() {
-        Table table=new Table();
-        table.setChinesename("测试");
-        List<Table> tables = tableMapper.selectByCondition(table,0,1);
+        Map<String,Object> map=new HashMap<>();
+        map.put("table_4_4",7);
+        map.put("nodeid",1);
+        tableFieldService.setField("table_4",map);
     }
 }

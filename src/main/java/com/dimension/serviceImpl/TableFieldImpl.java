@@ -65,10 +65,12 @@ private TableFieldMapper tableFieldMapper;
 
 	@Override
 	public List<Field> getFieldValue(Table table, Long nodeId) {
+		System.out.println("设置值");
 		List<Field> fields=fieldMapper.getFieldByTableId(table.getId());
 		for (Field field : fields) {
 			if (!field.getEnglishname().equals("nodeId")){
 				field.setValue(tableFieldMapper.getFieldVariable(nodeId, table.getEnglishname(), field.getEnglishname()));
+				System.out.println(field);
 			}
 		}
 		return fields;

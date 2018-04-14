@@ -37,7 +37,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         User user= (User) session.getAttribute("user");
         System.out.println(url);
 
-        if (url.indexOf("login")>=0||url.indexOf("/source")>=0||url.indexOf("verifyLogin")>=0){
+        if (url.indexOf("login")>=0||url.indexOf("/source")>=0||url.indexOf("verifyLogin")>=0||url.indexOf("/file")>=0){
             return true;
         }
         //可能会是空的user，这时候需要拦截

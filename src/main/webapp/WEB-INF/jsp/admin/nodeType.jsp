@@ -92,7 +92,7 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav ">
                 <ul id="nav navbar-nav sidebarnav">
-                    <li><a href="javascript:void(0);" class="waves-effect"><i
+                    <li><a href="<%=basePath%>admin/nodeText" class="waves-effect"><i
                             class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位的搜索</a>
                     </li>
                     <li><a href="<%=basePath%>admin/nodeMap" class="wavesEffect"><i
@@ -104,7 +104,7 @@
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
                             <c:if test="${user.roleid == 3}">
-                                <li><a href="<%=basePath%>admin/nodeType" class="wavesEffect"><i
+                                <li><a href="javascript:void(0);" class="wavesEffect"><i
                                         class="fa fa-folder m-r-10" aria-hidden="true"></i>点位类型管理</a></li>
                             </c:if>
 

@@ -33,13 +33,13 @@
         update ${tableName}
         SET
         <foreach item="value" index="key" collection="var" separator=",">
-            <if test="key != 'nodeId'">
+            <if test="key != 'nodeid'">
                 ${key} = #{value}
             </if>
         </foreach>
         WHERE
         <foreach item="value" index="key" collection="var" separator=",">
-            <if test="key == 'nodeId'">
+            <if test="key == 'nodeid'">
                 nodeId = #{value}
             </if>
         </foreach>

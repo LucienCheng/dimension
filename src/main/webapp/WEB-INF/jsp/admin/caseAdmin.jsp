@@ -217,8 +217,10 @@
                                             <label
                                                     class="col-sm-2 form-control-label">选择时间</label>
                                             <div class=" col-sm-10">
-                                                <input type="text" class="form-control daterange"  placeholder="选择起始时间和终止时间">
+                                                <input id="daterange"type="text" class="form-control "  placeholder="选择起始时间和终止时间">
                                             </div>
+                                            <input type="hidden" value="" id="beginTime">
+                                            <input type="hidden" value="" id="endTime">
                                             <div class="col-sm-2"></div>
                                             <div class="col-sm-10" style="margin-top: 10px;">
                                                 <input onclick="searchPage(1);" class="btn btn-info" value="搜索">
@@ -650,7 +652,10 @@ updateTable(data);
     //按照页面，条件搜索
     function searchPage(rel) {
         var form = new FormData($('#searchForm')[0]);
-
+        if ($('#beginTime').val()!=''){
+            form.append('beginTime',$('#beginTime').val());
+            form.append('endTime',$('#endTime').val());
+        }
         $.ajax({
             url: '<%=basePath%>admin/caseAdmin/' + rel,
             type: "post",
@@ -701,12 +706,16 @@ updateTable(data);
         });
 
     }
-    $('.daterange').daterangepicker({
+    $('#daterange').daterangepicker({
         timePicker: true,
         timePickerIncrement: 30,
         locale: {
             format: 'YYYY-MM-DD h:mm:ss'
         }
+    },function (start, end) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss') );
+        $('#beginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
+        $('#endTime').val(end.format('YYYY-MM-DD h:mm:ss'));
     });
 
 </script>

@@ -1,6 +1,7 @@
 package com.dimension.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class CaseNode implements Serializable {
     private Integer id;
@@ -12,14 +13,16 @@ public class CaseNode implements Serializable {
     private Integer caseid;
 
     private Integer alarmid;
-    
+
     //这个是一定有的基础点位信息
     private BaseNode baseNode;
-    
+
     //这个是不一定有的，如果是来自与某个点位，就会有这个信息
     private Long baseNodeId;
-    
+
     private Case case1;
+    //自己能够看到的案件
+    private List<Case> cases;
 
     private static final long serialVersionUID = 1L;
 
@@ -63,27 +66,35 @@ public class CaseNode implements Serializable {
         this.alarmid = alarmid;
     }
 
-	public BaseNode getBaseNode() {
-		return baseNode;
-	}
+    public BaseNode getBaseNode() {
+        return baseNode;
+    }
 
-	public void setBaseNode(BaseNode baseNode) {
-		this.baseNode = baseNode;
-	}
+    public void setBaseNode(BaseNode baseNode) {
+        this.baseNode = baseNode;
+    }
 
-	public Case getCase1() {
-		return case1;
-	}
+    public Case getCase1() {
+        return case1;
+    }
 
-	public void setCase1(Case case1) {
-		this.case1 = case1;
-	}
+    public void setCase1(Case case1) {
+        this.case1 = case1;
+    }
 
-	public Long getBaseNodeId() {
-		return baseNodeId;
-	}
+    public Long getBaseNodeId() {
+        return baseNodeId;
+    }
 
-	public void setBaseNodeId(Long baseNodeId) {
-		this.baseNodeId = baseNodeId;
-	}
+    public void setBaseNodeId(Long baseNodeId) {
+        this.baseNodeId = baseNodeId;
+    }
+
+    public List<Case> getCases() {
+        return cases;
+    }
+
+    public void setCases(List<Case> cases) {
+        this.cases = cases;
+    }
 }

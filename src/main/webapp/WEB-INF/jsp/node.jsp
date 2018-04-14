@@ -58,9 +58,12 @@
                     <li class="nav-item">
                         <a href="#wifi" class="nav-link" data-toggle="tab">wifi信息</a>
                     </li>
-                    <li class="nav-item">
-                        <a href="#caseInfo" class="nav-link" data-toggle="tab">案件信息</a>
-                    </li>
+                    <c:if test="${nodetype==2}">
+                        <li class="nav-item">
+                            <a href="#caseInfo" class="nav-link" data-toggle="tab">案件信息</a>
+                        </li>
+                    </c:if>
+
 
                 </ul>
 
@@ -80,18 +83,36 @@
 
             <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade in active show" id="info">
-
+                    <div class="col-sm-12">
+                    <div class="hidden alert alert-warning alert-dismissible  in modifyInfo" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                            <span class="sr-only">Close</span>
+                        </button>
+                        <strong>修改成功!</strong> 点位基础信息更新
+                    </div>
+                    </div>
                     <div class="col-sm-12">
                         <div class="card">
                             <div class="card-block">
                                 <form>
                                     <div class="row" style="margin-bottom: 15px;">
-                                        <input class=" btn btn-info" type="button" value="升级为案件点"
-                                               style="margin-left: 15px;">
-                                        <input class=" btn btn-info" type="button" value="降级为基础点"
-                                               style="margin-left: 15px;">
-                                        <input class=" btn btn-success" type="button" value="标记"
-                                               style="margin-left: 15px;">
+                                        <c:if test="${nodetype==1}">
+                                            <input class=" btn btn-info" type="button" value="升级为案件点"
+                                                   style="margin-left: 15px;">
+                                        </c:if>
+                                        <c:if test="${nodetype==2}">
+                                            <input class=" btn btn-info" type="button" value="降级为基础点"
+                                                   style="margin-left: 15px;">
+                                        </c:if>
+                                        <c:if test="isMark == 0">
+                                            <input class=" btn btn-success" type="button" value="标记"
+                                                   style="margin-left: 15px;">
+                                        </c:if>
+                                        <c:if test="isMark == 1">
+                                            <input class=" btn btn-success" type="button" value="取消标记"
+                                                   style="margin-left: 15px;">
+                                        </c:if>
 
 
                                     </div>
@@ -106,6 +127,13 @@
                                                                 <span class=" col-sm-8 form-control-label">${baseNode.nodeid}</span>
                                                             </div>
                                                         </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">点位类型:</label>
+                                                                <span class=" col-sm-8 form-control-label"> ${baseNode.table.chinesename}</span>
+                                                            </div>
+                                                        </div>
+
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">经度：</label>
@@ -135,7 +163,7 @@
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">点的类型：</label>
-                                                                    <span class=" col-sm-8 form-control-label">${baseNode.table.chinesename}</span>
+                                                                <span class=" col-sm-8 form-control-label">${baseNode.table.chinesename}</span>
                                                             </div>
                                                         </div>
                                                     </form>
@@ -146,40 +174,100 @@
                                         <div class="container col-sm-8">
 
                                             <div class="card">
-                                                <div class="card-block">
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 form-control-label">点位名称：</label>
-                                                        <input type="text" class="form-control col-sm-9" value="${baseNode.nodename}">
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 form-control-label">地址位置：</label>
-                                                        <input type="text" class="form-control col-sm-9" value="${baseNode.address}">
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-3 form-control-label">点位的方向：</label>
-                                                        <input type="text" class="form-control col-sm-9" value="${baseNode.location}">
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="form-control-label col-sm-3 ">点位类型选择:</label>
-                                                        <select class="c-select col-sm-9 form-control" name="tableid">
-                                                            <c:forEach items="${baseNode.tables}" var="table">
-                                                                <option value="${table.id}" selected>${table.chinesename}</option>
+                                                <c:if test="${isEdited==1}">
+                                                    <div class="card-block">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-3 form-control-label">点位名称：</label>
+
+                                                            <input type="text" class="form-control col-sm-9"
+                                                                   id="nodename"
+                                                                   value="${baseNode.nodename}">
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-3 form-control-label">地址位置：</label>
+
+                                                            <input type="text" class="form-control col-sm-9"
+                                                                   id="address"
+                                                                   value="${baseNode.address}">
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-3 form-control-label">点位的方向：</label>
+
+                                                            <input type="text" class="form-control col-sm-9"
+                                                                   id="location"
+                                                                   value="${baseNode.location}">
+                                                        </div>
+
+                                                        <input id="nodeid"type="hidden" value="${baseNode.nodeid}"
+                                                               name="nodeid">
+                                                        <div id="field">
+                                                            <c:forEach items="${baseNode.other}" var="item">
+                                                                <c:if test="${item.englishname != 'nodeId'}">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-3 form-control-label">${item.chinesename}：</label>
+                                                                        <input type="text"
+                                                                               class="form-control col-sm-9 value"
+                                                                               value="${item.value}">
+                                                                        <input type="hidden" value="${item.englishname}"
+                                                                               class="englishname">
+                                                                        <input type="hidden"
+                                                                               value="${baseNode.table.englishname}"
+                                                                               class="tablename">
+                                                                        <input type="hidden" value="${baseNode.nodeid}"
+                                                                               class="nodeid">
+                                                                    </div>
+
+                                                                </c:if>
+
                                                             </c:forEach>
+                                                        </div>
 
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="form-group row">
-                                                        <label class="col-md-12">备注信息：</label>
-											                <textarea rows="5" class="form-control form-control-line "
-                                                             name="description" style="margin-left: 15px;">${table.description}</textarea>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="col-sm-12">
-                                                            <button class="btn btn-success">更改</button>
+                                                        <div class="form-group row">
+                                                            <label class="col-md-12">备注信息：</label>
+                                                            <textarea rows="5" class="form-control form-control-line "
+                                                                      name="description"
+                                                                      style="margin-left: 15px;">${table.description}</textarea>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-12">
+                                                                <button type="button" class="btn btn-success"
+                                                                        onclick="modifyField();">更改
+                                                                </button>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </c:if>
+                                                <c:if test="${isEdited==0}">
+                                                    <div class="card-block">
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-3 form-control-label">点位名称：</label>
+
+                                                            <input type="text" class="form-control col-sm-9"
+                                                                   value="${baseNode.nodename}" disabled>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-3 form-control-label">地址位置：</label>
+
+                                                            <input type="text" class="form-control col-sm-9"
+                                                                   value="${baseNode.address}" disabled>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-3 form-control-label">点位的方向：</label>
+
+                                                            <input type="text" class="form-control col-sm-9"
+                                                                   value="${baseNode.location}" disabled>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <label class="col-md-12">备注信息：</label>
+                                                            <textarea rows="5" class="form-control form-control-line "
+                                                                      name="description" style="margin-left: 15px;"
+                                                                      disabled>${table.description}</textarea>
+                                                        </div>
+
+                                                    </div>
+                                                </c:if>
+
                                             </div>
 
                                         </div>
@@ -188,65 +276,63 @@
 
 
                                 </form>
-
-
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="file">
                     <div class="col-sm-12">
+                        <div class="hidden alert alert-warning alert-dismissible  in uoloadFile" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>文件上传成功!</strong>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
                         <div class="card">
                             <div class="card-block">
-                                <form enctype="multipart/form-data">
-                                    <div class="form-group">
-                                        <div class="file-loading">
-                                            <input id="file-1" type="file" multiple class="file"
-                                                   data-overwrite-initial="false" data-min-file-count="2">
-                                        </div>
-                                    </div>
-                                </form>
-                                <div class="row">
-                                    <div class="col-sm-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="<%=basePath%>source/imageicon.png"
-                                                 alt="Card image cap"
-                                                 style="height: 300px; width: 100%; display: block;">
-                                            <div class="card-block">
-                                                <h4 class="card-title">文件名1</h4>
-                                                <p class="card-text">图片</p>
-                                                <a href="#" class="btn btn-primary">下载</a>
-                                                <a href="#" class="btn btn-danger">删除</a>
+                                <c:if test="${isEdited==1}">
+                                    <form enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <div class="file-loading">
+                                                <input id="file-1" type="file" multiple class="file-loading" name="files"
+                                                       data-overwrite-initial="false" data-min-file-count="1">
                                             </div>
+                                        </div>
+                                    </form>
+                                </c:if>
+                                <div class="row">
+                                    <c:forEach items="${baseNode.files}" var="file">
+                                        <div class="col-sm-4" id="${file.id}">
+                                            <div class="card">
+                                                <c:if test='${file.filetype=="照片"}'>
+                                                    <img class="card-img-top" src="<%=basePath%>${file.fileaddress}"
+                                                         alt="Card image cap"
+                                                         style="height: 300px; width: 100%; display: block;">
+                                                </c:if>
+                                                <c:if test='${file.filetype=="视频"}'>
+                                                    <video class="card-video-top" controls
+                                                         style="height: 300px; width: 100%; display: block;">
+                                                        <source src="<%=basePath%>${file.fileaddress}" >
+                                                    </video>
+                                                </c:if>
+                                                <div class="card-block">
+                                                    <h4 class="card-title">${file.filename}</h4>
+                                                    <p class="card-text">${file.filetype}</p>
+                                                    <a href="/admin/node/download?filename=${file.fileaddress}" class="btn btn-primary">下载</a>
+                                                    <c:if test="${isEdited==1}">
+                                                        <button type="button" onclick="deleteFile(${file.id},'${file.fileaddress}');" class="btn btn-danger">删除</button>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+
                                         </div>
 
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="<%=basePath%>source/imageicon.png"
-                                                 alt="Card image cap"
-                                                 style="height: 300px; width: 100%; display: block;">
-                                            <div class="card-block">
-                                                <h4 class="card-title">文件名2</h4>
-                                                <p class="card-text">图片</p>
-                                                <a href="#" class="btn btn-primary">下载</a>
-                                                <a href="#" class="btn btn-danger">删除</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <div class="card">
-                                            <img class="card-img-top" src="<%=basePath%>source/videoicon.png"
-                                                 alt="Card image cap"
-                                                 style="height: 300px; width: 100%; display: block;">
-                                            <div class="card-block">
-                                                <h4 class="card-title">文件名3</h4>
-                                                <p class="card-text">视频</p>
-                                                <a href="#" class="btn btn-primary">下载</a>
-                                                <a href="#" class="btn btn-danger">删除</a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    </c:forEach>
+
+
                                 </div>
 
                             </div>
@@ -271,13 +357,17 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="row">
-                                            <td class="col-sm-1">1</td>
-                                            <td class="col-sm-2">电信</td>
-                                            <td class="col-sm-2">2G</td>
-                                            <td class="col-sm-3">28</td>
-                                            <td class="col-sm-3">-93</td>
-                                        </tr>
+                                        <c:forEach items="${baseNode.basestations}" var="basestation"
+                                                   varStatus="status">
+                                            <tr class="row">
+                                                <td class="col-sm-1">${status.index+1}</td>
+                                                <td class="col-sm-2">${basestation.carrier}</td>
+                                                <td class="col-sm-2">${basestation.mode}</td>
+                                                <td class="col-sm-3">${basestation.ch}</td>
+                                                <td class="col-sm-3">${basestation.rssi}</td>
+                                            </tr>
+                                        </c:forEach>
+
 
                                         </tbody>
                                     </table>
@@ -303,13 +393,16 @@
                                         </tr>
                                         </thead>
                                         <tbody>
-                                        <tr class="row">
-                                            <td class="col-sm-1">1</td>
-                                            <td class="col-sm-2">电信</td>
-                                            <td class="col-sm-2">2G</td>
-                                            <td class="col-sm-3">28</td>
-                                            <td class="col-sm-3">-93</td>
-                                        </tr>
+                                        <c:forEach items="${baseNode.wifis}" var="wifi" varStatus="status">
+                                            <tr class="row">
+                                                <td class="col-sm-1">${status.index+1}</td>
+                                                <td class="col-sm-2">${wifi.carrier}</td>
+                                                <td class="col-sm-2">${wifi.mode}</td>
+                                                <td class="col-sm-3">${wifi.ch}</td>
+                                                <td class="col-sm-3">${wifi.rssi}</td>
+                                            </tr>
+                                        </c:forEach>
+
 
                                         </tbody>
                                     </table>
@@ -318,101 +411,178 @@
                         </div>
                     </div>
                 </div>
-                <div class="tab-pane fade" id="caseInfo">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-block">
-                                <form>
-                                    <div class="row">
-                                        <div class="container col-sm-4">
-                                            <div class="card">
-                                                <div class="card-block">
-                                                    <form class="form-horizontal form-material">
-                                                        <div class="form-group row">
-                                                            <label class="form-control-label col-sm-4 ">案件选择:</label>
-                                                            <select  class="selectpicker col-sm-8" data-live-search="true" title="Please select a lunch ...">
-                                                                <option>Hot Dog, Fries and a Soda</option>
-                                                                <option>Burger, Shake and a Smile</option>
-                                                                <option>Sugar, Spice and all things nice</option>
-                                                                <option>Baby Back Ribs</option>
-                                                                <option>A really really long option made to illustrate an issue with the live search in an inline form</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">案件编号：</label>
-                                                                <span class=" col-sm-8 form-control-label">1</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">案件名称：</label>
-                                                                <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
-                                                            </div>
+                <c:if test="${nodetype==2}">
+                    <div class="tab-pane fade" id="caseInfo">
+                        <div class="col-sm-12">
+                            <div class="hidden alert alert-warning alert-dismissible  in modifyCaseNode" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    <span class="sr-only">Close</span>
+                                </button>
+                                <strong>案件点位信息修改成功!</strong> 案件点位信息已经更新。
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-block">
+                                    <c:if test="${isEdited==1}">
+                                        <form id="caseNodeForm">
+                                            <div class="row">
+                                                <div class="container col-sm-4">
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <form class="form-horizontal form-material">
+                                                                <div class="form-group row">
+                                                                    <label class="form-control-label col-sm-4 ">案件选择:</label>
+                                                                    <select id="caseselect" name="caseid"
+                                                                            class="selectpicker col-sm-8"
+                                                                            data-live-search="true">
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件编号：</label>
+                                                                        <span id="casecode"
+                                                                              class=" col-sm-8 form-control-label"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件名称：</label>
+                                                                        <span id="casename"
+                                                                              class=" col-sm-8 form-control-label"></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件类型：</label>
+                                                                        <span id="casetype"
+                                                                              class=" col-sm-8 form-control-label"></span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件描述：</label>
+                                                                        <span id="casedescript"
+                                                                              class=" col-sm-8 form-control-label"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
                                                         </div>
 
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">案件类型：</label>
-                                                                <span class=" col-sm-8 form-control-label">抢劫</span>
-                                                            </div>
-                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="container col-sm-8">
 
-                                                        <div class="form-group">
+                                                    <div class="card">
+                                                        <div class="card-block">
                                                             <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">案件描述：</label>
-                                                                <span class=" col-sm-8 form-control-label">发生于。。。。</span>
+                                                                <label class="col-sm-2 form-control-label">接处警编号：</label>
+                                                                <input name="alarmid" type="text"
+                                                                       class="form-control col-sm-10"
+                                                                       value="${caseNode.alarmid}">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-md-12">研判信息：</label>
+                                                                <textarea rows="5"
+                                                                          class="form-control form-control-line "
+                                                                          name="record"
+                                                                          style="margin-left: 15px;">${caseNode.record}</textarea>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <div class="col-sm-12">
+                                                                    <button class="btn btn-success" type="button" onclick="modifyCaseNode(${caseNode.id})">更改</button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">组长：</label>
-                                                                <span class=" col-sm-8 form-control-label">李四</span>
-                                                            </div>
-                                                        </div>
-                                                    </form>
+                                                    </div>
+
                                                 </div>
 
                                             </div>
-                                        </div>
-                                        <div class="container col-sm-8">
 
-                                            <div class="card">
-                                                <div class="card-block">
-                                                    <div class="form-group row">
-                                                        <label class="col-sm-2 form-control-label">接处警编号：</label>
-                                                        <input type="text" class="form-control col-sm-10">
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label class="col-md-12">研判信息：</label>
-                                                        <textarea rows="5" class="form-control form-control-line "
-                                                                  name="description" style="margin-left: 15px;"></textarea>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <div class="col-sm-12">
-                                                            <button class="btn btn-success">更改</button>
+
+                                        </form>
+                                    </c:if>
+                                    <c:if test="${isEdited==0}">
+                                        <form>
+                                            <div class="row">
+                                                <div class="container col-sm-4">
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <form class="form-horizontal form-material">
+
+                                                                <div class="form-group">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件编号：</label>
+                                                                        <span class=" col-sm-8 form-control-label">${caseNode.case1.casecode}</span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件名称：</label>
+                                                                        <span class=" col-sm-8 form-control-label">${caseNode.case1.casename}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件类型：</label>
+                                                                        <span class=" col-sm-8 form-control-label">${caseNode.case1.casetype}</span>
+                                                                    </div>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <div class="form-group row">
+                                                                        <label class="col-sm-4 form-control-label">案件描述：</label>
+                                                                        <span class=" col-sm-8 form-control-label">${caseNode.case1.description}</span>
+                                                                    </div>
+                                                                </div>
+                                                            </form>
                                                         </div>
+
                                                     </div>
                                                 </div>
+                                                <div class="container col-sm-8">
+
+                                                    <div class="card">
+                                                        <div class="card-block">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-2 form-control-label">接处警编号：</label>
+                                                                <input name="alarmid" type="text"
+                                                                       class="form-control col-sm-10"
+                                                                       value="${caseNode.alarmid}" disabled>
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-md-12">研判信息：</label>
+                                                                <textarea rows="5"
+                                                                          class="form-control form-control-line "
+                                                                          name="record" style="margin-left: 15px;"
+                                                                          disabled>${caseNode.record}</textarea>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
                                             </div>
 
-                                        </div>
 
-                                    </div>
-
-
-                                </form>
+                                        </form>
+                                    </c:if>
 
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </c:if>
             </div>
         </div>
 
-        <div class="col-sm-1">
-        </div>
     </div>
 
 
@@ -436,20 +606,136 @@
 
 
 <script type="text/javascript">
+
+    var fields = [];
+    function modifyCaseNode(id){
+        var form=new FormData($("#caseNodeForm")[0]);
+        form.append("id", id);
+        $.ajax({
+            url: '<%=basePath%>admin/node/modifyCaseNode',
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                console.log("成功");
+                $(".modifyCaseNode").removeClass("hidden");
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    function deleteFile(fileId,fileAddress){
+        $.ajax({
+            url: '<%=basePath%>admin/node/deleteFile/'+fileId+"?fileAddress="+fileAddress,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                console.log("删除成功");
+                $("#"+fileId).remove();
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    function modifyField() {
+
+        $.each($("#field").children('.row'), function (index, item) {
+            var data = new Object();
+            data.englishname = $(item).find('.englishname').val();
+            data.value = $(item).find('.value').val();
+            data.tablename = $(item).find('.tablename').val();
+            data.nodeid = $(item).find('.nodeid').val();
+            fields.push(data);
+        });
+        var baseNodeData = new Object();
+        baseNodeData.nodename = $('#nodename').val();
+        baseNodeData.address = $('#address').val();
+        baseNodeData.description = $('#description').val();
+        baseNodeData.tableid = $('#tableid').val();
+        baseNodeData.location = $('#location').val();
+        baseNodeData.nodeid = $('#nodeid').val();
+
+        $.ajax({
+            url: '<%=basePath%>admin/node/modifyField/',
+            type: "post",
+            data: {"baseNodeData": JSON.stringify(baseNodeData), "fields": JSON.stringify(fields)},
+
+            dataType: 'json',
+            success: function (d) {
+                console.log("修改成功");
+                $(".modifyInfo").removeClass("hidden");
+                fields = [];
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    <c:if test="${nodetype==2}">
+    var casesJson =${casesJson};
+    var str = "";
+    <c:if test="${user.id==caseNode.case1.grouperid or user.roleid!=2}">
+    //组长或管理员可以设置案件信息
+    $.each(casesJson, function (index, item) {
+        str += "<option value='" + item.id + "'>" + item.casename + "</option>";
+    });
+    </c:if>
+    <c:if test="${user.id!=caseNode.case1.grouperid and user.roleid==2}">
+    str += "<option value='${caseNode.case1.id}'>${caseNode.case1.casename}</option>";
+    </c:if>
+    $("#caseselect").append(str);
+    $("#caseselect").val(${caseNode.case1.id});
+    $("#casecode").text('${caseNode.case1.casecode}');
+    $("#casedescript").text('${caseNode.case1.description}');
+    $("#casename").text('${caseNode.case1.casename}');
+    $("#casetype").text('${caseNode.case1.casetype}');
+    $("#caseselect").bind('change', function () {
+        var value = $(this).val();
+        console.log(value);
+        $.each(casesJson, function (index, item) {
+            if (item.id == value) {
+                $("#casecode").text(item.casecode);
+                $("#casedescript").text(item.description);
+                $("#casename").text(item.casename);
+                $("#casetype").text(item.casetype);
+            }
+        });
+    })
+    </c:if>
     $("#file-1").fileinput({
+        language: 'zh', //设置语言
         theme: 'fa',
-        uploadUrl: '#', // you must set a valid URL here else you will get an error
-        allowedFileExtensions: ['jpg', 'png', 'gif','mp4','avi'],
+        uploadUrl: '<%=basePath%>/admin/node/uploadMultipleFile/${baseNode.nodeid}',
+        allowedFileExtensions: ['jpg', 'png', 'gif', 'mp4', 'avi'],
         overwriteInitial: false,
-        maxFileSize: 10*1000,
+        maxFileSize: 10 * 1000,
+        uploadAsync: true,
         maxFilesNum: 10,
-        allowedFileTypes: ['image', 'video', 'flash'],
+        allowedFileTypes: ['image', 'video'],
         slugCallback: function (filename) {
             return filename.replace('(', '_').replace(']', '_');
         }
     });
-
-
+//上传发生异常
+    $('#file-1').on('fileuploaderror', function(event, data) {
+        console.log(data);
+        console.log('File upload error');
+    });
+//上传成功
+    $('#file-1').on('fileuploaded', function(event, data, previewId, index) {
+        $(".uoloadFile").removeClass("hidden");
+        console.log('File uploaded triggered');
+    });
 </script>
+
+
 </body>
 </html>
