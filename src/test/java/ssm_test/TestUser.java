@@ -21,39 +21,22 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.dimension.dao.UserMapper;
 
+import java.math.BigDecimal;
 import java.util.*;
 
-@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/springmvc-servlet.xml",
-        "classpath:spring-mybatis.xml"})
-@RunWith(SpringJUnit4ClassRunner.class)
+/*@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/springmvc-servlet.xml",
+        "classpath:spring-mybatis.xml"})*/
+/*@RunWith(SpringJUnit4ClassRunner.class)*/
 public class TestUser {
-    @Resource
-    TableFieldService tableFieldService;
-@Resource
-    TableMapper tableMapper;
+
     @Test
     public void user() throws JsonProcessingException {
+        double d=0.0001;
+
+        BigDecimal decimal=new BigDecimal(3.11111);
+        System.out.println(decimal.add(new BigDecimal(Double.valueOf(d*4))));
 
     }
 
-    @Test
-    public void table() {
-        Table table=new Table();
-        table.setChinesename("测试");
-        table.setEnglishname("test");
-        List<Field> fields=new ArrayList<>();
-        Field field=new Field();
-        field.setEnglishname("telephone");
-        field.setChinesename("电话");
-        field.setFieldtype("varchar(64)");
-        fields.add(field);
-        tableFieldService.createTable(table,fields);
-    }
-    @Test
-    public void tableSearch() {
-        Map<String,Object> map=new HashMap<>();
-        map.put("table_4_4",7);
-        map.put("nodeid",1);
-        tableFieldService.setField("table_4",map);
-    }
+
 }

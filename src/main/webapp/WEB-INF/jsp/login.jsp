@@ -43,7 +43,7 @@
 
             <div class="login-panel panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Please Sign In</h3>
+                    <h3 class="panel-title">多维查询登录</h3>
                 </div>
                 <div class="panel-body">
                     <div class="hidden alert alert-danger alert-dismissible fade in" role="alert">

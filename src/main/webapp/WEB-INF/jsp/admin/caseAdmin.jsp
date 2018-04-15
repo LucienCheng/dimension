@@ -294,7 +294,15 @@
                                                 <input id="casetype" name="casetype" type="text"
                                                        class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
+                                        <div class="form-group row">
 
+                                            <label class="col-sm-12">备注信息:</label>
+                                            <div class="col-sm-12">
+                                                <textarea id="description"rows="5" class="form-control form-control-line"
+                                                          name="description"></textarea>
+                                            </div>
+
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default"
@@ -474,6 +482,7 @@ updateTable(data);
             if (item.id == id) {
                 $("#casename").val(item.casename);
                 $("#casetype").val(item.casetype);
+                $("#description").val(item.description);
                 return false;
             }
         })
@@ -500,6 +509,7 @@ updateTable(data);
                     if (case1.id == d.case1.id) {
                         case1.casename = d.case1.casename;
                         case1.casetype = d.case1.casetype;
+                        case1.description = d.case1.description;
                     }
                 });
                 updateTable(data);

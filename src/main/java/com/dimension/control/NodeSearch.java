@@ -1,6 +1,7 @@
 package com.dimension.control;
 
 import com.dimension.dao.BaseNodeMapper;
+import com.dimension.dao.MarkNodeMapper;
 import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.BaseNodeConditon;
 import com.dimension.pojo.CaseCondition;
@@ -27,6 +28,8 @@ public class NodeSearch {
     private NodeAssit nodeAssit;
     @Resource
     private BaseNodeMapper baseNodeMapper;
+    @Resource
+    MarkNodeMapper markNodeMapper;
     private static int count = 1;
 
     @RequestMapping("/nodeText")
@@ -53,28 +56,46 @@ public class NodeSearch {
 
     @RequestMapping("/nodeText/{start}")
     @ResponseBody
-    public Map<String, Object> caseAdminAjax(BaseNodeConditon baseNodeConditon, HttpSession session, @PathVariable int start) {
-        start--;
-        User user = (User) session.getAttribute("user");
-
-        //设置用户的角色
-        baseNodeConditon.setRoleId(user.getRoleid());
-        //设置部门的id
-        baseNodeConditon.setDpId(user.getDepartmentid());
-        baseNodeConditon.setUserId(user.getId());
-        baseNodeConditon.setDpIds(user.getSubDepartment());
-        List<BaseNode> baseNodes = nodeAssit.searchSimpleNode(baseNodeConditon, start*count, count);
-        if (baseNodes.size() == 0&&start!=0) {
-            start--;
-            baseNodes = nodeAssit.searchSimpleNode(baseNodeConditon, start*count, count);
-        }
-
-        int totalCount = baseNodeMapper.count(baseNodeConditon);
-        int totalPage = (totalCount + count - 1) / count;
+    public Map<String, Object> nodeTextAjax(BaseNodeConditon baseNodeConditon, HttpSession session, @PathVariable int start) {
         Map<String, Object> map = new HashMap<>();
-        map.put("baseNodes", baseNodes);
-        map.put("totalPage", totalPage);
-        map.put("currentPage", start + 1);
+        User user = (User) session.getAttribute("user");
+        //标记点
+        if (3==baseNodeConditon.getNodetype()){
+            start--;
+            List<BaseNode> baseNodes =markNodeMapper.searchMarkNode(baseNodeConditon,user.getId(),start*count, count);
+            if (baseNodes.size() == 0&&start!=0) {
+                start--;
+                baseNodes = markNodeMapper.searchMarkNode(baseNodeConditon,user.getId(),start*count, count);
+            }
+
+            int totalCount = markNodeMapper.count(baseNodeConditon,user.getId());
+            int totalPage = (totalCount + count - 1) / count;
+            map.put("baseNodes", baseNodes);
+            map.put("totalPage", totalPage);
+            map.put("currentPage", start + 1);
+        }
+        else {
+            start--;
+            //设置用户的角色
+            baseNodeConditon.setRoleId(user.getRoleid());
+            //设置部门的id
+            baseNodeConditon.setDpId(user.getDepartmentid());
+            baseNodeConditon.setUserId(user.getId());
+            baseNodeConditon.setDpIds(user.getSubDepartment());
+            List<BaseNode> baseNodes = nodeAssit.searchSimpleNode(baseNodeConditon, start*count, count);
+            if (baseNodes.size() == 0&&start!=0) {
+                start--;
+                baseNodes = nodeAssit.searchSimpleNode(baseNodeConditon, start*count, count);
+            }
+
+            int totalCount = baseNodeMapper.count(baseNodeConditon);
+            int totalPage = (totalCount + count - 1) / count;
+
+            map.put("baseNodes", baseNodes);
+            map.put("totalPage", totalPage);
+            map.put("currentPage", start + 1);
+
+        }
         return map;
     }
 

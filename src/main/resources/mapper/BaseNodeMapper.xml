@@ -52,7 +52,7 @@
 		#{nodetype,jdbcType=CHAR}, #{isvalid,jdbcType=CHAR}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.dimension.pojo.BaseNode">
+	<insert id="insertSelective" parameterType="com.dimension.pojo.BaseNode" useGeneratedKeys="true" keyProperty="nodeid" keyColumn="nodeid">
 		insert into base_node
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="nodeid != null">
@@ -191,7 +191,7 @@
 		#{nodeid,jdbcType=BIGINT}
 	</update>
 	<select id="selectBaseNode" resultType="com.dimension.pojo.BaseNode">
-		(select base_node.* ,`user`.departmentId,groupId ,1 as isEdited ,table_type.chinesename as "table.chinesename" from
+		(select base_node.* ,`user`.departmentId,`user`.username , groupId ,1 as isEdited ,table_type.chinesename as "table.chinesename" from
 		base_node
 		LEFT
 		JOIN case_node on
@@ -257,7 +257,7 @@
 		)
 		<if test="roleId != 3">
 			union ALL
-			(select base_node.* ,`user`.departmentId,groupId ,0 as isEdited ,table_type.chinesename as "table.chinesename" from
+			(select base_node.* ,`user`.departmentId,`user`.username,groupId ,0 as isEdited ,table_type.chinesename as "table.chinesename" from
 			base_node
 			LEFT
 			JOIN case_node on

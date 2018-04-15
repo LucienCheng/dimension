@@ -150,5 +150,22 @@ public class BaseNodeConditon {
 		this.grouperIds = grouperIds;
 	}
 
-	
+	@Override
+	public String toString() {
+		return "BaseNodeConditon{" +
+				"beginTime='" + beginTime + '\'' +
+				", endTime='" + endTime + '\'' +
+				", nodename='" + nodename + '\'' +
+				", nodetype=" + nodetype +
+				", address='" + address + '\'' +
+				", userId=" + userId +
+				", roleId=" + roleId +
+				", DpIds=" + DpIds +
+				", DpId=" + DpId +
+				", groupIds=" + groupIds +
+				", grouperIds=" + grouperIds +
+				", start=" + start +
+				", count=" + count +
+				'}';
+	}
 }

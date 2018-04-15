@@ -99,19 +99,19 @@
                                     <div class="row" style="margin-bottom: 15px;">
                                         <c:if test="${nodetype==1}">
                                             <input class=" btn btn-info" type="button" value="升级为案件点"
-                                                   style="margin-left: 15px;">
+                                                   style="margin-left: 15px;" data-toggle="modal" data-target="#addModel">
                                         </c:if>
                                         <c:if test="${nodetype==2}">
                                             <input class=" btn btn-info" type="button" value="降级为基础点"
-                                                   style="margin-left: 15px;">
+                                                   style="margin-left: 15px;" onclick="degradeNode();">
                                         </c:if>
-                                        <c:if test="isMark == 0">
+                                        <c:if test="${empty markId}">
                                             <input class=" btn btn-success" type="button" value="标记"
-                                                   style="margin-left: 15px;">
+                                                   style="margin-left: 15px;" onclick="mark($(this));">
                                         </c:if>
-                                        <c:if test="isMark == 1">
+                                        <c:if test="${not empty markId}">
                                             <input class=" btn btn-success" type="button" value="取消标记"
-                                                   style="margin-left: 15px;">
+                                                   style="margin-left: 15px;" onclick="mark($(this));">
                                         </c:if>
 
 
@@ -156,7 +156,7 @@
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">拥有者：</label>
-                                                                <span class=" col-sm-8 form-control-label">${baseNode.userName}</span>
+                                                                <span class=" col-sm-8 form-control-label">${baseNode.username}</span>
                                                             </div>
                                                         </div>
 
@@ -580,6 +580,58 @@
                         </div>
                     </div>
                 </c:if>
+                <%--模态框--%>
+                <div class="col-sm-12">
+                    <div id="addModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form id="addForm">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">添加案件信息</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">接处警编号：</label>
+                                            <input name="alarmid" type="text"
+                                                   class="col-sm-8 form-control" placeholder="465855245">
+                                        </div>
+                                        <div id="department"  class="form-group row">
+                                            <label class="col-sm-3 form-control-label ">案件选择:</label>
+                                            <select class="selectpicker form-control c-select col-sm-8"  name="caseid" data-live-search="true" >
+                                                <c:forEach items="${cases}" var="case1">
+                                                    <option value="${case1.id}">${case1.casename}</option>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-12">研判信息:</label>
+                                            <div class="col-sm-12">
+                                                <textarea rows="5" class="form-control form-control-line"
+                                                          name="record"></textarea>
+                                            </div>
+
+                                        </div>
+
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="addButton" onclick="upgradeNode();">
+                                            添加
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </form>
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
             </div>
         </div>
 
@@ -606,8 +658,95 @@
 
 
 <script type="text/javascript">
+    <c:if test="${nodetype==1}">
+    function upgradeNode() {
+        var form = new FormData($('#addForm')[0]);
+        form.append('baseNodeId',${baseNode.nodeid})
+        $.ajax({
+            url: '<%=basePath%>admin/node/upgradeNode',
+            type: "post",
+            dataType: 'json',
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            data: form,
+            success: function (d) {
+                console.log("升级成功");
+                window.open("<%=basePath%>admin/node/"+d.nodeid+"?nodetype=2","_self");
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    </c:if>
+    <c:if test="${nodetype==2}">
+    function degradeNode() {
+        $.ajax({
+            url: '<%=basePath%>admin/node/degradeNode/${baseNode.nodeid}',
+            type: "post",
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            dataType: 'json',
+            success: function (d) {
+                console.log("降级成功");
+                window.open("<%=basePath%>admin/node/"+d.nodeid+"?nodetype=1","_self");
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    </c:if>
 
+    var markId=null;
+    <c:if test="${not empty markId}">
+    markId=${markId};
+    </c:if>
     var fields = [];
+    function change(object) {
+        if (object.val() == '标记') {
+            object.val('取消标记');
+        }
+        else {
+            object.val('标记');
+        }
+
+
+    }
+    function mark(object) {
+        //标记
+        if(markId==null){
+            $.ajax({
+                url: '<%=basePath%>admin/node/mark/'+'${baseNode.nodeid}'+'/1',
+                type: "post",
+                dataType: 'json',
+                success: function (d) {
+                    markId=d.markId;
+                change(object);
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+        }
+        else {
+            $.ajax({
+                url: '<%=basePath%>admin/node/mark/'+'${baseNode.nodeid}'+'/0',
+                type: "post",
+                dataType: 'json',
+                data:{"markId":markId},
+                success: function (d) {
+                    markId=null;
+                    change(object);
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+        }
+
+
+    }
     function modifyCaseNode(id){
         var form=new FormData($("#caseNodeForm")[0]);
         form.append("id", id);

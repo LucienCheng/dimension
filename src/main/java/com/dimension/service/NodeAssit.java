@@ -6,16 +6,10 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.dimension.pojo.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dimension.pojo.BaseNode;
-import com.dimension.pojo.BaseNodeConditon;
-import com.dimension.pojo.Case;
-import com.dimension.pojo.CaseCondition;
-import com.dimension.pojo.CaseNode;
-import com.dimension.pojo.File;
-import com.dimension.pojo.MarkNode;
-/**
+	/**
  * 
  * @author chengliao
  * @date 2018年3月8日
@@ -40,7 +34,7 @@ public interface NodeAssit {
 	
 	boolean setCaseNode(CaseNode caseNode);
 
-	boolean upgradeNode(CaseNode caseNode);
+	boolean upgradeNode(CaseNode caseNode, User user);
 
 	boolean degradeNode(BaseNode baseNode);
 	
@@ -53,8 +47,7 @@ public interface NodeAssit {
 	//提供给检索点位时使用，点的类型包括了案件点，基础点，标记点。
 	List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon,Integer start,Integer count);
 	
-	//查看自己标记的点位。
-	List<BaseNode> searchMarkNode(Integer userId,Integer start,Integer count);
+
 	
 	//提供搜索案件点位的检索。通过搜索案件，可以获得案件点位信息。
 	List<Case> searchCase(CaseCondition caseCondition);

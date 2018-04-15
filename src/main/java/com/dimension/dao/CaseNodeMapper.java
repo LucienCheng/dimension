@@ -16,4 +16,6 @@ public interface CaseNodeMapper {
     int updateByPrimaryKey(CaseNode record);
     
     CaseNode getCaseNodeByNodeId(Long nodeId);
+    //统计升级点的个数,用于解决重复点问题
+    int countByBaseNodeId(Long nodeId);
 }

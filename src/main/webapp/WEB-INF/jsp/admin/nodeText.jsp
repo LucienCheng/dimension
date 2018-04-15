@@ -248,9 +248,10 @@
                                         <th class="col-sm-1">#</th>
                                         <th class="col-sm-2">点位名称</th>
                                         <th class="col-sm-3">点位地址</th>
-                                        <th class="col-sm-2">点位类型</th>
-                                        <th class="col-sm-2">点位时间</th>
-                                        <th class="col-sm-2">操作</th>
+                                        <th class="col-sm-1">点位类型</th>
+                                        <th class="col-sm-2">拥有者</th>
+                                        <th class="col-sm-2">时间</th>
+                                        <th class="col-sm-1">操作</th>
                                     </tr>
 
 
@@ -284,6 +285,7 @@
 
 
 <script type="text/javascript">
+
     //改变模态框内容
     var data = new Object();
     data.currentPage =${currentPage};
@@ -303,9 +305,10 @@
                 str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.nodename + "</td>";
                 str += "<td class=\"col-sm-3\">" + item.address + "</td>";
-                str += "<td class=\"col-sm-2\">" + item.table.chinesename + "</td>";
+                str += "<td class=\"col-sm-1\">" + item.table.chinesename + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.username + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.collecttime + "</td>";
-                str += '<td class="col-sm-2"><button class="btn btn-info"  onclick="window.open(\'/admin/node/' +item.nodeid+
+                str += '<td class="col-sm-1"><button class="btn btn-info"  onclick="window.open(\'/admin/node/' +item.nodeid+
                     '?nodetype='+item.nodetype+'\')">查看</button><td>';
                 str += ' </tr>';
             });
@@ -392,6 +395,7 @@
             /* 指定返回类型为json */
             dataType: 'json',
             success: function (d) {
+
                 data = d;
                 console.log(d.baseNodes);
                 updateTable(d);

@@ -49,27 +49,28 @@ public class NodeControl {
         User user = (User) session.getAttribute("user");
         Table table = new Table();
         List<Table> tables = tableMapper.selectByCondition(table, null, null);
-        Long nodeId = null;
+        CaseCondition caseCondition = new CaseCondition();
+        caseCondition.setRoleId(user.getRoleid());
+        caseCondition.setUserId(user.getId());
         BaseNode baseNode = null;
         if ("1".equals(nodetype)) {
             baseNode = nodeAssit.getBaseNode(nodeid);
             baseNode.setTables(tables);
             model.addAttribute("baseNode", baseNode);
-            nodeId = baseNode.getNodeid();
-        } else {
+        } else if("2".equals(nodetype)){
             CaseNode caseNode = nodeAssit.getCaseNode(nodeid);
-            CaseCondition caseCondition = new CaseCondition();
-            caseCondition.setRoleId(user.getRoleid());
-            caseCondition.setUserId(user.getId());
+
             ObjectMapper objectMapper = new ObjectMapper();
             caseNode.getBaseNode().setTables(tables);
             model.addAttribute("casesJson", objectMapper.writeValueAsString(caseMapper.searchCases(caseCondition, null, null)));
             model.addAttribute("caseNode", caseNode);
             baseNode = caseNode.getBaseNode();
             model.addAttribute("baseNode", baseNode);
-            nodeId = caseNode.getBaseNode().getNodeid();
         }
-        int isMark = markNodeMapper.isExist(nodeId, user.getId());
+        MarkNode markNode=new MarkNode();
+        markNode.setUserid(user.getId());
+        markNode.setNodeid(baseNode.getNodeid());
+        Integer markId = markNodeMapper.selectByNodeIdUser(markNode);
         int roleid = user.getRoleid();
         int isEdited = 0;
         if (roleid == 2) {
@@ -89,14 +90,36 @@ public class NodeControl {
             isEdited = 1;
             System.out.println("超级");
         }
+        model.addAttribute("cases", caseMapper.searchCases(caseCondition, null, null));
         model.addAttribute("nodetype", nodetype);
-        model.addAttribute("isMark", isMark);
         model.addAttribute("isEdited", isEdited);
-
+        model.addAttribute("markId", markId);
         return "/node";
     }
 
+    @RequestMapping("/node/upgradeNode")
+    @ResponseBody
+    public Map<String, Object> upgradeNode(CaseNode caseNode,HttpSession session)  {
+        User user=(User) session.getAttribute("user");
+        Map<String, Object> map = new HashMap<>();
+        nodeAssit.upgradeNode(caseNode,user);
+        map.put("nodeid",caseNode.getNodeid());
+        return map;
+    }
+    @RequestMapping("/node/degradeNode/{nodeid}")
+    @ResponseBody
+    public Map<String, Object> degradeNode( @PathVariable Long nodeid,HttpSession session)  {
+        User user=(User) session.getAttribute("user");
+        BaseNode baseNode=new BaseNode();
+        baseNode.setNodeid(nodeid);
+        baseNode.setUserid(user.getId());
+        Map<String, Object> map = new HashMap<>();
+        nodeAssit.degradeNode(baseNode);
+        map.put("nodeid",baseNode.getNodeid());
+        return map;
+    }
     @RequestMapping("/node/modifyField")
+
     @ResponseBody
     public Map<String, Object> modifyField(String fields, String baseNodeData) throws IOException {
         Map<String, Object> map = new HashMap<>();
@@ -123,6 +146,24 @@ public class NodeControl {
     public Map<String, Object> modifyCaseNode(CaseNode caseNode)  {
         Map<String, Object> map = new HashMap<>();
         caseNodeMapper.updateByPrimaryKeySelective(caseNode);
+        return map;
+    }
+    @RequestMapping("/node/mark/{nodeid}/{isMark}")
+    @ResponseBody
+    public Map<String, Object> mark(@PathVariable Long nodeid,@PathVariable int isMark,Long markId,HttpSession session)  {
+        Map<String, Object> map = new HashMap<>();
+        User user=(User)session.getAttribute("user");
+        MarkNode markNode=new MarkNode();
+        markNode.setNodeid(nodeid);
+        markNode.setUserid(user.getId());
+        //进行标记
+        if(isMark==1){
+        markNodeMapper.insertSelective(markNode);
+        map.put("markId",markNode.getMarkid());
+        }else {
+        markNodeMapper.deleteByPrimaryKey(markId);
+        map.put("markId",-1);
+        }
         return map;
     }
     @RequestMapping("/node/uploadMultipleFile/{nodeid}")
