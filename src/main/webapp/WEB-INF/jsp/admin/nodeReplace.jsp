@@ -91,7 +91,7 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav ">
                 <ul id="nav navbar-nav sidebarnav">
-                    <li><a href="javascript:void(0);" class="waves-effect"><i
+                    <li><a href="<%=basePath%>admin/nodeText" class="waves-effect"><i
                             class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a>
                     </li>
                     <li><a href="<%=basePath%>admin/nodeMap" class="wavesEffect"><i
@@ -176,24 +176,27 @@
                         </tr>
                         </thead>
                         <tbody id="Table">
-                        <tr class="row">
-                        <th class="col-sm-1">1</th>
-                        <th class="col-sm-2">大学城地点</th>
-                        <th class="col-sm-3">岳麓区学生天马公寓</th>
-                        <th class="col-sm-1">atm</th>
-                        <th class="col-sm-2">2018-04-02 04：02：05</th>
-                        <th class="col-sm-3">
-                            <button type="button" class="btn btn-info"
-                                    onclick="">查看
-                            </button>
-                            <button type="button" class="btn btn-warning"
-                                    onclick="">处理
-                            </button>
-                            <button type="button" class="btn btn-danger"
-                                    onclick="">忽略
-                            </button>
-                        </th>
-                        </tr>
+                        <c:forEach items="${baseNodes}" var="baseNode" varStatus="status">
+                            <tr class="row">
+                                <th class="col-sm-1">${status.index+1}</th>
+                                <th class="col-sm-2">${baseNode.nodename}</th>
+                                <th class="col-sm-3">${baseNode.address}</th>
+                                <th class="col-sm-1">${baseNode.table.chinesename}</th>
+                                <th class="col-sm-2">${baseNode.collecttime}</th>
+                                <th class="col-sm-3">
+                                    <button type="button" class="btn btn-info"
+                                            onclick="window.open('<%=basePath%>admin/node/${baseNode.nodeid}?nodetype=${baseNode.nodetype}')">查看
+                                    </button>
+                                    <button id="solveButton" type="button" class="btn btn-warning"
+                                            onclick="solve(${baseNode.nodeid});">处理
+                                    </button>
+                                    <button type="button" class="btn btn-danger"
+                                            onclick="ignore(${baseNode.nodeid});">忽略
+                                    </button>
+                                </th>
+                            </tr>
+                        </c:forEach>
+
                         </tbody>
                     </table>
 
@@ -208,29 +211,13 @@
                             <th class="col-sm-1">#</th>
                             <th class="col-sm-2">点位名称</th>
                             <th class="col-sm-3">点位地址</th>
-                            <th class="col-sm-1">点位类型</th>
+                            <th class="col-sm-2">拥有者</th>
                             <th class="col-sm-2">点位时间</th>
-                            <th class="col-sm-1">相似度</th>
                             <th class="col-sm-2">操作</th>
                         </tr>
                         </thead>
                         <tbody id="Table1">
-                        <tr class="row">
-                            <th class="col-sm-1">1</th>
-                            <th class="col-sm-2">大学城地点</th>
-                            <th class="col-sm-3">岳麓区学生天马公寓</th>
-                            <th class="col-sm-1">atm</th>
-                            <th class="col-sm-2">2018-04-02 04：02：05</th>
-                            <th class="col-sm-1"> <span class="form-control-label ">80%</span></th>
-                            <th class="col-sm-2">
-                                <button type="button" class="btn btn-info"
-                                        onclick="">查看
-                                </button>
-                                <button type="button" class="btn btn-danger"
-                                        onclick="">替换
-                                </button>
-                            </th>
-                        </tr>
+
                         </tbody>
                     </table>
 
@@ -266,11 +253,79 @@
         src="<%=basePath %>source/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
 <!--Custom JavaScript -->
 <script src="<%=basePath %>source/js/custom.min.js"></script>
+<script type="text/javascript">
 
-<!-- Style switcher -->
+    function updateNode(data,originNodeId){
 
-<script
-        src="<%=basePath %>source/assets/plugins/style/switcher/jQuery.style.switcher.js"></script>
+        var table = $("#Table1");
+        var str = "";
+        console.log(data.needReplacedNode.length);
+        if (data.needReplacedNode.length != 0) {
+            $.each(data.needReplacedNode, function (index, item) {
+                str += "<tr class='row'>";
+                str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.nodename + "</td>";
+                str += "<td class=\"col-sm-3\">" + item.address + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.username + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.collecttime + "</td>";
+                str += '<td class="col-sm-2">' +
+                    '<button type="button" class="btn btn-info"  onclick="window.open(\'/admin/node/' +item.nodeid+
+                    '?nodetype='+item.nodetype+'\')">查看</button>\n' +
+                    '<button type="button" class="btn btn-danger"  onclick="replace('+originNodeId+','+item.nodeid+');">替换</button>'+
+                    '<td>';
+                str += ' </tr>';
+            });
+        }
+        table.html(str);
+    }
+    function solve(nodeid) {
+        $.ajax({
+            url: '<%=basePath%>admin/nodeReplace/solve/'+nodeid,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                $('#Table1').children().remove();
+                var baseNodes=d.needReplacedNode;
+                console.log(baseNodes);
+                updateNode(d,nodeid);
+                console.log("处理成功");
+                //这里需要更新
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    function ignore(nodeid) {
+        $.ajax({
+            url: '<%=basePath%>admin/nodeReplace/ignore/'+nodeid,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                console.log("忽略成功");
+                location.reload();
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    function replace(originNodeid,desNodeid) {
+        $.ajax({
+            url: '<%=basePath%>admin/nodeReplace/replace/'+originNodeid+'/'+desNodeid,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                console.log("替换成功");
+                location.reload();
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+
+</script>
 </body>
 
 </html>

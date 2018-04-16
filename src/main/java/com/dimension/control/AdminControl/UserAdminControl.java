@@ -24,7 +24,7 @@ public class UserAdminControl {
 
     @Resource
     private UserMapper userMapper;
-    private static final int count = 1;
+    private static final int count = 10;
 
     //管理用户
     @RequestMapping("/userAdmin")

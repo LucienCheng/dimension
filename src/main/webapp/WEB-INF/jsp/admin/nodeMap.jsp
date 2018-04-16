@@ -165,7 +165,10 @@
             <div class="row">
 
                 <div class="col-12">
-
+                    <input type="button" class="btn btn-success"
+                           value="案件点位显示" onclick="addCaseNode()">
+                    <input type="button" class="btn btn-success"
+                           value="基础点显示" onclick="addNode()">
                     <%--这是案件点位的搜索--%>
                     <div class="col-sm-12">
                         <div class="panel panel-info">
@@ -183,7 +186,7 @@
                             <div id="case" class="panel-collapse collapse ">
                                 <div class="panel-body">
                                     <div class="card-block">
-                                        <form id="searchForm">
+                                        <form id="caseSearchForm">
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
@@ -421,23 +424,22 @@
                             <div id="common" class="panel-collapse collapse ">
                                 <div class="panel-body">
                                     <div class="card-block">
-                                        <form>
+                                        <form id="nodeSearchForm">
                                             <div class="row">
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
                                                         <label for="inputEmail3"
                                                                class="col-sm-2 form-control-label">点位地址</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control" id="inputEmail3"
-                                                                   placeholder="湖南大学天马学生公寓">
+                                                            <input type="text" class="form-control" id="inputEmail3"
+                                                                   placeholder="湖南大学天马学生公寓" name="address">
                                                         </div>
-
-                                                        <div class="col-sm-2"></div>
-                                                        <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <select class="form-control c-select">
-                                                                <option selected>点位类型</option>
-                                                                <option value="1">案件点</option>
-                                                                <option value="2">基础点</option>
+                                                        <label
+                                                                class="col-sm-2 form-control-label">点位选择</label>
+                                                        <div class="col-sm-10">
+                                                            <select class="form-control c-select" name="nodetype">
+                                                                <option selected value="1">基础点</option>
+                                                                <option value="2">案件点</option>
                                                                 <option value="3">标记点</option>
                                                             </select>
 
@@ -448,21 +450,26 @@
                                                 </div>
                                                 <div class="col-sm-6">
                                                     <div class="form-group row">
-                                                        <label for="inputEmail3"
-                                                               class="col-sm-2 form-control-label">点位名称</label>
+                                                        <label
+                                                                class="col-sm-2 form-control-label">点位名称</label>
                                                         <div class="col-sm-10">
-                                                            <input type="email" class="form-control"
-                                                                   placeholder="大学城">
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="大学城" name="nodename">
                                                         </div>
                                                         <label
                                                                 class="col-sm-2 form-control-label">选择时间</label>
                                                         <div class=" col-sm-10">
-                                                            <input type="text" class="form-control daterange" id=""
+                                                            <input type="text" class="form-control" id="nodeDaterange"
                                                                    placeholder="选择起始时间和终止时间">
                                                         </div>
+
+                                                        <input type="hidden" value="" id="nodeBeginTime">
+                                                        <input type="hidden" value="" id="nodeEndTime">
                                                         <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <button type="submit" class="btn btn-info">搜索</button>
+                                                            <button class="btn btn-info" type="button"
+                                                                    onclick="searchPage('1')">搜索
+                                                            </button>
                                                         </div>
 
                                                     </div>
@@ -478,39 +485,23 @@
                                                     <th class="col-sm-1">#</th>
                                                     <th class="col-sm-2">点位名称</th>
                                                     <th class="col-sm-3">点位地址</th>
-                                                    <th class="col-sm-2">点位时间</th>
-                                                    <th class="col-sm-3">操作</th>
+                                                    <th class="col-sm-1">点位类型</th>
+                                                    <th class="col-sm-2">拥有者</th>
+                                                    <th class="col-sm-2">时间</th>
+                                                    <th class="col-sm-1">操作</th>
                                                 </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr class="row">
-                                                    <td class="col-sm-1">1</td>
-                                                    <td class="col-sm-2">岳麓区大学城</td>
-                                                    <td class="col-sm-3">湖南大学天马学生公寓二区七栋</td>
-                                                    <td class="col-sm-2">2018-04-05 14：24</td>
-                                                    <td class="col-sm-2">
-                                                        <input class="btn btn-info" value="查看"
-                                                               onclick="window.open('node?nodeid=');" type="button">
-                                                        <input class="btn btn-info" value="地图显示" onclick="addNode()"
-                                                               type="button">
-                                                    </td>
 
-                                                </tr>
+
+                                                </thead>
+                                                <tbody id="nodeTable">
+
 
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <nav class="text-center">
+                                        <nav class="text-center" id="Page">
 
-                                            <ul class="pagination">
-                                                <li class="page-item disabled"><a class="page-link"
-                                                                                  href="#">Previous</a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                            </ul>
+
                                         </nav>
 
                                     </div>
@@ -616,7 +607,145 @@
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
+    //改变模态框内容
 
+    function updateNodeTable(data) {
+        var table = $("#nodeTable");
+        var str = "";
+        console.log(data.baseNodes.length);
+        if (data.baseNodes.length != 0) {
+            $.each(data.baseNodes, function (index, item) {
+                str += "<tr class='row'>";
+                str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.nodename + "</td>";
+                str += "<td class=\"col-sm-3\">" + item.address + "</td>";
+                str += "<td class=\"col-sm-1\">" + item.table.chinesename + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.username + "</td>";
+                str += "<td class=\"col-sm-1\">" + item.collecttime + "</td>";
+                str += '<td class="col-sm-2">' +
+                    '<button class="btn btn-info"  onclick="window.open(\'/admin/node/' + item.nodeid +
+                    '?nodetype=' + item.nodetype + '\')">查看</button>\n' +
+                    '<button class="btn btn-success"  onclick="showNode(' + item.longitude + ',' + item.latitude + ','
+                var imgUrl = null;
+                if (item.files != null) {
+                    $.each(item.files, function (index, item2) {
+                        if (item2.filetype == "图片") {
+                            imgUrl = '<%=basePath%>admin/' + item2.fileaddress;
+                        }
+                    });
+                }
+                if (imgUrl == null) {
+                    str += imgUrl;
+                } else {
+                    str += '\'' + imgUrl + '\'';
+                }
+
+                str += ',\'' + item.nodename + '\',\'' + item.address + '\',\'';
+                var url = '<%=basePath%>';
+                <c:if test="${user.roleid != 2}">
+                url += 'admin/node/' + item.nodeid + '?nodetype=' + item.nodetype
+                </c:if>
+                <c:if test="${user.roleid == 2}">
+                url += 'user/node/' + item.nodeid + '?nodetype=' + item.nodetype
+                </c:if>
+                str += url + '\')">在地图显示</button><td></tr>';
+            });
+        }
+        table.html(str);
+    }
+
+    /*结束更新表*/
+
+
+    /*更新页表*/
+    function updateNodePage(data) {
+        var currentPage = data.currentPage;
+        var totalPage = data.totalPage;
+
+
+        var s = " <ul class=\"pagination\"> ";
+        if (currentPage == 1)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0) '>上一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage - 1) + ">上一页</a></li>";
+        }
+
+        //如果总的页数在6页只能就可以这样
+        if (totalPage <= 6) {
+            for (var i = 1; i <= totalPage; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled' ><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+
+        }
+        //这个是页面大于6的时候
+        else {
+            var base = 0;
+            if ((currentPage - 3 >= 0) && (currentPage + 3 <= totalPage))
+                base = currentPage - 3;
+            else if ((currentPage + 3) > totalPage) {
+
+                base = totalPage - 6;
+
+            }
+
+            for (var i = base + 1; i <= base + 6; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+        }
+
+        if (currentPage >= totalPage)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>下一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage + 1) + ">下一页</a></li>";
+        }
+
+        s += "</ul>";
+        $("#Page").html(s);
+
+        $("#Page ul li a").bind('click', function () {
+            var rel = $(this).attr("rel");
+            searchPage(rel);
+        });
+    }
+
+    //按照页面，条件搜索
+    function searchPage(rel) {
+        var form = new FormData($('#nodeSearchForm')[0]);
+        if ($('#nodeBeginTime').val() != '') {
+            form.append('beginTime', $('#nodeBeginTime').val());
+            form.append('endTime', $('#nodeEndTime').val());
+        }
+        $.ajax({
+            url: '<%=basePath%>admin/nodeText/' + rel,
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                data = d;
+                console.log(d.baseNodes);
+                updateNodePage(d);
+                updateNodeTable(d);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    /*一下是关于地图的操作*/
     Array.prototype.indexOf = function (val) {
         for (var i = 0; i < this.length; i++) {
             if (this[i].lng == val.lng && this[i].lat == val.lat)
@@ -675,6 +804,7 @@
             //添加单击展示窗口
             marker.addEventListener("click", function () {
                 //初始化地图以及窗口
+                console.log(this.getPosition().lng + "," + this.getPosition().lat);
                 var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
                 this.openInfoWindow(infoWindow);
                 //图片加载完毕重绘infowindow
@@ -730,6 +860,56 @@
         map.centerAndZoom(centerPoint, mapZoom);
     }
 
+
+    //url为点位具体信息。
+    function showNode(lng, lat, img, nodename, address, url) {
+        var sContent =
+            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + nodename + "</h4>" ;
+        if (img != null) {
+            sContent += "<img style='float:right;margin:4px' id='imgDemo' src='" + img+"' width='139' height='104' />";
+        }
+        sContent += "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + address + "</p></div>";
+        var markerMenu = new BMap.ContextMenu();
+        var point = new BMap.Point(lng, lat);
+        bPoints.push(point);
+        var marker = new BMap.Marker(point);
+        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+        //添加单个点位
+        map.addOverlay(marker);
+        //添加右键窗口
+        markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
+        markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+        markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
+        marker.addContextMenu(markerMenu);
+        //添加单击展示窗口
+        marker.addEventListener("click", function () {
+            console.log(this.getPosition().lng + "," + this.getPosition().lat);
+            this.openInfoWindow(infoWindow);
+        });
+        //添加双击时显示点位具体信息
+        marker.addEventListener("dblclick", function () {
+            window.open(url);
+        });
+        setZoom(bPoints);
+    }
+
+    function getCity(result) {
+        var cityName = result.name;
+        map.setCenter(cityName);
+    }
+
+    $('#nodeDaterange').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY-MM-DD h:mm:ss'
+        }
+    }, function (start, end) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
+        $('#nodeBeginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
+        $('#nodeEndTime').val(end.format('YYYY-MM-DD h:mm:ss'));
+    });
+
     //添加点位操作
     function addNode() {
 
@@ -762,6 +942,7 @@
         marker.addContextMenu(markerMenu);
         //添加单击展示窗口
         marker.addEventListener("click", function () {
+            console.log(this.getPosition().lng + "," + this.getPosition().lat);
             //初始化地图以及窗口
             this.openInfoWindow(infoWindow);
             console.log(this.id);
@@ -780,19 +961,6 @@
         count++;
         setZoom(bPoints);
     }
-
-    function getCity(result) {
-        var cityName = result.name;
-        map.setCenter(cityName);
-    }
-
-    $('.daterange').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-            format: 'YYYY-MM-DD h:mm:ss'
-        }
-    });
 </script>
 </body>
 

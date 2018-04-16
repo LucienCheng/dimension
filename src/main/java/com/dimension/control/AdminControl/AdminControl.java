@@ -13,16 +13,12 @@ import javax.servlet.http.HttpSession;
 public class AdminControl {
     @Resource
     private UserService userService;
-    private static final int count = 1;
+    private static final int count = 10;
 
 
 
 
-    //点位替换
-    @RequestMapping("/nodeReplace")
-    public String nodeReplace() {
-        return "/admin/nodeReplace";
-    }
+
 
     //地图点位
     @RequestMapping("/nodeMap")

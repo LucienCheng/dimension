@@ -32,7 +32,7 @@ public class NodeTypeControl {
     @Resource
     FieldMapper fieldMapper;
 
-    private static final int count = 1;
+    private static final int count = 10;
 
     @RequestMapping("/nodeType")
     public String nodeType(Table table, Model model) throws JsonProcessingException {

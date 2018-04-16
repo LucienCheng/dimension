@@ -23,7 +23,7 @@ import java.util.Map;
 public class MessageControl {
     @Resource
     private MessageMapper messageMapper;
-    private static final int count = 1;
+    private static final int count = 10;
     //查看信息，并且回复信息，并设置信息为无效
     @RequestMapping("/message")
     public String message(Model model, HttpSession session) {

@@ -30,7 +30,7 @@ public class NodeSearch {
     private BaseNodeMapper baseNodeMapper;
     @Resource
     MarkNodeMapper markNodeMapper;
-    private static int count = 1;
+    private static final int count = 10;
 
     @RequestMapping("/nodeText")
     public String nodeText(HttpSession session, Model model, BaseNodeConditon baseNodeConditon) throws JsonProcessingException {

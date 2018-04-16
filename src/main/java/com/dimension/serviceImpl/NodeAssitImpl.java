@@ -86,9 +86,13 @@ public class NodeAssitImpl implements NodeAssit {
         baseNode.setCollecttime(new Date());
         baseNode.setUserid(user.getId());
         baseNode.setNodetype("2");
-        int count = caseNodeMapper.countByBaseNodeId(baseNode.getNodeid()) + 1;
-        BigDecimal lat = baseNode.getLatitude().add(new BigDecimal(Double.valueOf(count * 0.0001)));
-        baseNode.setLatitude(lat);
+        BigDecimal lat = caseNodeMapper.countByBaseNodeId(baseNode.getNodeid()) ;
+        if (lat==null){
+            baseNode.getLatitude().add(new BigDecimal(Double.valueOf(0.0001)));
+        }
+        else {
+            baseNode.setLatitude(lat.add(new BigDecimal(Double.valueOf(0.0001))));
+        }
         baseNode.setNodeid(null);
         baseNode.setIsvalid("1");
         baseNodeMapper.insertSelective(baseNode);
@@ -135,6 +139,7 @@ public class NodeAssitImpl implements NodeAssit {
             baseNode.setIsvalid("0");
             baseNode.setNodetype("1");
             baseNodeMapper.updateByPrimaryKeySelective(baseNode);
+            baseNode.setNodeid(caseNode.getBaseNodeId());
             Replace replace = new Replace();
             replace.setBasenodeid(caseNode.getBaseNodeId());
             replace.setNeedreplace(caseNode.getNodeid());
@@ -225,6 +230,38 @@ public class NodeAssitImpl implements NodeAssit {
         baseNodeConditon.setCount(count);
         List<BaseNode> baseNodes = baseNodeMapper.selectBaseNode(baseNodeConditon);
         return baseNodes;
+    }
+
+    @Override
+    public List<BaseNode> getRepalceNode(User user) {
+        return replaceMapper.getRepalceNode(user.getId());
+    }
+
+    @Override
+    public List<BaseNode> getNeedReplacedNode(Long nodeid) {
+        return replaceMapper.getNeedRepalcedNode(nodeid);
+    }
+
+    @Override
+    public boolean ignoreNode(Long nodeid) {
+        replaceMapper.deleteByNoid(nodeid);
+        return false;
+    }
+
+    @Override
+    public boolean replaceNode(Long originNodeId, Long desNodeId) {
+        //获取源，获取目标，选择替换
+        BaseNode originNode=baseNodeMapper.selectByPrimaryKey(originNodeId);
+        BaseNode desNode=baseNodeMapper.selectByPrimaryKey(desNodeId);
+        originNode.setLocation(desNode.getLocation());
+        originNode.setCollecttime(desNode.getCollecttime());
+        originNode.setDescription(desNode.getDescription());
+        originNode.setNodename(desNode.getNodename());
+        originNode.setAddress(desNode.getAddress());
+        baseNodeMapper.updateByPrimaryKeySelective(originNode);
+        //然后删除replace里的记录
+        ignoreNode(originNodeId);
+        return false;
     }
 
 

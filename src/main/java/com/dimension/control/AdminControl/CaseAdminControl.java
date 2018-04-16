@@ -29,7 +29,7 @@ public class CaseAdminControl {
     private GroupMapper groupMapper;
     @Resource
     private GroupUserMapper groupUserMapper;
-    private static final int count = 1;
+    private static final int count = 10;
 
 
 

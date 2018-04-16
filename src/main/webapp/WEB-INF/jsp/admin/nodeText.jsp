@@ -409,12 +409,6 @@
     }
 
     /*结束更新分页*/
-    $('#exampleModal').on('show.bs.modal', function (event) {
-        var button = $(event.relatedTarget) // Button that triggered the modal
-        var src = button.data('whatever') // Extract info from data-* attributes
-        var modal = $(this);
-        modal.find('.modal-body iframe').prop("src", src);
-    })
     $('#daterange').daterangepicker({
         timePicker: true,
         timePickerIncrement: 30,
