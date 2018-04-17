@@ -6,6 +6,7 @@ import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.BaseNodeConditon;
 import com.dimension.pojo.CaseCondition;
 import com.dimension.pojo.User;
+import com.dimension.service.BaseNodeBuilder;
 import com.dimension.service.NodeAssit;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.faces.flow.builder.NodeBuilder;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,6 +33,8 @@ public class NodeSearch {
     private BaseNodeMapper baseNodeMapper;
     @Resource
     MarkNodeMapper markNodeMapper;
+    @Resource
+    BaseNodeBuilder baseNodeBuilder;
     private static final int count = 10;
 
     @RequestMapping("/nodeText")
@@ -63,6 +68,7 @@ public class NodeSearch {
         if (3==baseNodeConditon.getNodetype()){
             start--;
             List<BaseNode> baseNodes =markNodeMapper.searchMarkNode(baseNodeConditon,user.getId(),start*count, count);
+
             if (baseNodes.size() == 0&&start!=0) {
                 start--;
                 baseNodes = markNodeMapper.searchMarkNode(baseNodeConditon,user.getId(),start*count, count);

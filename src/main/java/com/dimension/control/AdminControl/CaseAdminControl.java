@@ -4,6 +4,8 @@ import com.dimension.dao.CaseMapper;
 import com.dimension.dao.GroupMapper;
 import com.dimension.dao.GroupUserMapper;
 import com.dimension.pojo.*;
+import com.dimension.service.BaseNodeBuilder;
+import com.dimension.service.NodeComplex;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -29,22 +32,24 @@ public class CaseAdminControl {
     private GroupMapper groupMapper;
     @Resource
     private GroupUserMapper groupUserMapper;
+    @Resource
+    private BaseNodeBuilder baseNodeBuilder;
     private static final int count = 10;
-
 
 
     @RequestMapping("/caseAdmin")
     public String caseAdmin(CaseCondition caseCondition, HttpSession session, Model model) throws JsonProcessingException {
         User user = (User) session.getAttribute("user");
-        if (user.getRoleid()!=3)
-        caseCondition.setDepartmentid(user.getDepartmentid());
+        caseCondition.setRoleId(user.getRoleid());
+        if (user.getRoleid() != 3)
+            caseCondition.setDepartmentid(user.getDepartmentid());
         caseCondition.setRoleId(user.getRoleid());
         caseCondition.setUserId(user.getId());
         List<Case> cases = caseMapper.searchCases(caseCondition, 0, count);
         int totalCount = caseMapper.count(caseCondition);
         int totalPage = (totalCount + count - 1) / count;
-        ObjectMapper mapper=new ObjectMapper();
-        String casesJson=mapper.writeValueAsString(cases);
+        ObjectMapper mapper = new ObjectMapper();
+        String casesJson = mapper.writeValueAsString(cases);
         model.addAttribute("cases", cases);
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("casesJson", casesJson);
@@ -57,12 +62,12 @@ public class CaseAdminControl {
     @ResponseBody
     public Map<String, Object> caseAdminAjax(CaseCondition caseCondition, HttpSession session, @PathVariable int start) {
         start--;
-        System.out.println(caseCondition);
         User user = (User) session.getAttribute("user");
-        if (user.getRoleid()!=3)
-        caseCondition.setDepartmentid(user.getDepartmentid());
+        caseCondition.setRoleId(user.getRoleid());
+        if (user.getRoleid() != 3)
+            caseCondition.setDepartmentid(user.getDepartmentid());
         List<Case> cases = caseMapper.searchCases(caseCondition, start * count, count);
-        if (cases.size() == 0 && start!=0){
+        if (cases.size() == 0 && start != 0) {
             start--;
             cases = caseMapper.searchCases(caseCondition, start * count, count);
         }
@@ -111,6 +116,4 @@ public class CaseAdminControl {
         caseMapper.insertSelective(case1);
         return map;
     }
-
-
 }

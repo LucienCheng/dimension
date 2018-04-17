@@ -2,8 +2,10 @@ package com.dimension.dao;
 
 import java.util.List;
 
+import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.Case;
 import com.dimension.pojo.CaseCondition;
+import com.dimension.pojo.CaseNode;
 import org.apache.ibatis.annotations.Param;
 
 public interface CaseMapper {
@@ -19,16 +21,26 @@ public interface CaseMapper {
 
     int updateByPrimaryKey(Case record);
 
-    List<Case> searchCasesEdited(CaseCondition caseCondition);
 
-    List<Case> searchCasesUnEdited(CaseCondition caseCondition);
+
     //本部门的案件信息
     List<Case> searchCases(
             @Param("caseCondition") CaseCondition caseCondition,
             @Param("start") Integer start,
             @Param("count") Integer count);
+
+
     //总数量
     Integer count( @Param("caseCondition") CaseCondition caseCondition);
+    //地图查询案件信息的总数
+    Integer mapCount( @Param("caseCondition") CaseCondition caseCondition);
+    //地图查询案件信息
+    List<Case> searchMapCases(
+            @Param("caseCondition") CaseCondition caseCondition,
+            @Param("start") Integer start,
+            @Param("count") Integer count);
+
+    List<Long> searchCaseNodeBycaseId(Integer caseid);
     
     
 }

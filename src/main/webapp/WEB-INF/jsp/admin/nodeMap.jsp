@@ -195,33 +195,34 @@
                                                             <input type="text" class="form-control" name="casename"
                                                                    placeholder="案件名称">
                                                         </div>
-                                                        <label class="col-sm-2 form-control-label">选择时间</label>
-                                                        <div class=" col-sm-10">
-                                                            <input type="text" class="form-control daterange"
-                                                                   placeholder="选择起始时间和终止时间">
-                                                        </div>
-                                                    </div>
-
-
-                                                </div>
-                                                <div class="col-sm-6">
-                                                    <div class="form-group row">
                                                         <label class="col-sm-2 form-control-label">案件类型</label>
                                                         <div class="col-sm-10">
                                                             <input type="text" class="form-control" placeholder="案件类型"
                                                                    name="casetype">
                                                         </div>
                                                         <div class="col-sm-2"></div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <div class="form-group row">
+                                                        <label class="col-sm-2 form-control-label">选择时间</label>
+                                                        <div class=" col-sm-10">
+                                                            <input id="caseDaterange" type="text" class="form-control "
+                                                                   placeholder="选择起始时间和终止时间">
+                                                        </div>
+                                                        <input type="hidden" value="" id="caseBeginTime">
+                                                        <input type="hidden" value="" id="caseEndTime">
+                                                        <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
-                                                            <input onclick="searchPage(1);" class="btn btn-info"
+                                                            <input onclick="caseSearchPage(1);" class="btn btn-info"
                                                                    value="搜索">
                                                         </div>
 
                                                     </div>
                                                 </div>
                                             </div>
-
-
                                         </form>
                                         <div>
                                             <table class="table table-hover">
@@ -230,39 +231,18 @@
                                                     <th class="col-sm-1">#</th>
                                                     <th class="col-sm-2">案件名称</th>
                                                     <th class="col-sm-1">案件类型</th>
-                                                    <th class="col-sm-3">案件开始时间</th>
-                                                    <th class="col-sm-3">案件结束时间</th>
+                                                    <th class="col-sm-2">案件开始时间</th>
+                                                    <th class="col-sm-2">案件结束时间</th>
                                                     <th class="col-sm-2">操作</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody id="Table">
-                                                <tr class="row">
-                                                    <td class="col-sm-1">1</td>
-                                                    <td class="col-sm-2">岳麓区抢劫案</td>
-                                                    <td class="col-sm-1">抢劫</td>
-                                                    <td class="col-sm-3">2018-4-5 14：28</td>
-                                                    <td class="col-sm-3">2018-4-8 14：28</td>
-                                                    <td class="col-sm-2">
-                                                        <input type="button" class="btn btn-success"
-                                                               value="显示" onclick="addCaseNode()">
-                                                        <button type="submit" class="btn btn-warning"
-                                                                onclick="updateModel(${item.id});">添加比较
-                                                        </button>
-                                                    </td>
-                                                </tr>
+                                                <tbody id="caseTable">
+
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <nav class="text-center">
-                                            <ul class="pagination">
-                                                <li class="page-item disabled"><a class="page-link"
-                                                                                  href="#">Previous</a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                            </ul>
+                                        <nav class="text-center" id="casePage">
+
                                         </nav>
 
                                     </div>
@@ -439,7 +419,6 @@
                                                         <div class="col-sm-10">
                                                             <select class="form-control c-select" name="nodetype">
                                                                 <option selected value="1">基础点</option>
-                                                                <option value="2">案件点</option>
                                                                 <option value="3">标记点</option>
                                                             </select>
 
@@ -468,7 +447,7 @@
                                                         <div class="col-sm-2"></div>
                                                         <div class="col-sm-10" style="margin-top: 10px;">
                                                             <button class="btn btn-info" type="button"
-                                                                    onclick="searchPage('1')">搜索
+                                                                    onclick="nodeSearchPage('1')">搜索
                                                             </button>
                                                         </div>
 
@@ -486,9 +465,9 @@
                                                     <th class="col-sm-2">点位名称</th>
                                                     <th class="col-sm-3">点位地址</th>
                                                     <th class="col-sm-1">点位类型</th>
-                                                    <th class="col-sm-2">拥有者</th>
+                                                    <th class="col-sm-1">拥有者</th>
                                                     <th class="col-sm-2">时间</th>
-                                                    <th class="col-sm-1">操作</th>
+                                                    <th class="col-sm-2">操作</th>
                                                 </tr>
 
 
@@ -499,7 +478,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <nav class="text-center" id="Page">
+                                        <nav class="text-center" id="nodePage">
 
 
                                         </nav>
@@ -527,7 +506,7 @@
                     </div>
                     <%--模态框--%>
                     <div class="col-sm-12">
-                        <div class="modal fade" id="updateModel" tabindex="-1" role="dialog"
+                        <div class="modal fade" id="messageModel" tabindex="-1" role="dialog"
                              aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog " role="document">
                                 <div class="modal-content">
@@ -560,6 +539,49 @@
                             </div>
                         </div>
                     </div>
+                    <div id="updateModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <form>
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="exampleModalLabel">具体信息</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">案件名称</label>
+                                            <input id="casename" disabled type="text"
+                                                   class="col-sm-8 form-control" placeholder="案件名称">
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">案件类型</label>
+                                            <input id="casetype" disabled type="text"
+                                                   class="col-sm-8 form-control" placeholder="案件类型">
+                                        </div>
+                                        <div class="form-group row">
+
+                                            <label class="col-sm-12">备注信息:</label>
+                                            <div class="col-sm-12">
+                                                <textarea id="description" rows="5"
+                                                          class="form-control form-control-line" disabled
+                                                ></textarea>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </form>
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
                     <%--end模态框，展示具体点位--%>
 
                 </div>
@@ -607,8 +629,229 @@
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
-    //改变模态框内容
+    var caseData;
+    var nodeData;
 
+    //展示案件的信息
+    function updateModel(id) {
+        $.each(caseData.cases, function (index, item) {
+            if (item.id == id) {
+                $("#casename").val(item.casename);
+                $("#casetype").val(item.casetype);
+                if (item.isEdited == 1) {
+                    $("#description").val(item.description);
+                }
+
+                return false;
+            }
+        });
+        $('#updateModel').modal('show');
+    }
+
+    /*异步接收数据之后更新表*/
+    function updateCaseTable(data) {
+        var table = $("#caseTable");
+        var str = "";
+        if (caseData.cases.length != 0) {
+            $.each(data.cases, function (index, item) {
+                str += "<tr class='row'>";
+                str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.casename + "</td>";
+                str += "<td class=\"col-sm-1\">" + item.casetype + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.begintime + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.endtime + "</td>";
+                str += '<td class="col-sm-2">' +
+                    ' <button onclick="updateModel(' +
+                    item.id +
+                    ');" class="btn btn-info" >查看</button>\n' +
+                    '<button  onclick="showCaseNode(' +
+                    item.id + ',' + item.isEdited + ')" class="btn btn-success">地图展示</button>' +
+
+                    '</td>';
+                str += ' </tr>';
+            });
+
+
+        }
+        table.html(str);
+    }
+
+    /*结束更新表*/
+    /*更新页表*/
+    function updateCasePage(data) {
+        var currentPage = data.currentPage;
+        var totalPage = data.totalPage;
+        var s = " <ul class=\"pagination\"> ";
+        if (currentPage == 1)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0) '>上一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage - 1) + ">上一页</a></li>";
+        }
+
+        //如果总的页数在6页只能就可以这样
+        if (totalPage <= 6) {
+            for (var i = 1; i <= totalPage; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled' ><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+
+        }
+        //这个是页面大于6的时候
+        else {
+            var base = 0;
+            if ((currentPage - 3 >= 0) && (currentPage + 3 <= totalPage))
+                base = currentPage - 3;
+            else if ((currentPage + 3) > totalPage) {
+
+                base = totalPage - 6;
+
+            }
+
+            for (var i = base + 1; i <= base + 6; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+        }
+
+        if (currentPage >= totalPage)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>下一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage + 1) + ">下一页</a></li>";
+        }
+        s += "</ul>";
+        $("#casePage").html(s);
+
+        $("#casePage ul li a").bind('click', function () {
+            var rel = $(this).attr("rel");
+            caseSearchPage(rel);
+        });
+    }
+
+    //展示某个案件的具体点位
+    function showCaseNode(caseid, isedited) {
+        $.ajax({
+            url: '<%=basePath%>admin/nodeMap/case/caseid/' + caseid,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                console.log(d);
+                showCaseNodes(d, isedited);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+
+    //添加一个事件点
+    function showCaseNodes(data, isedited) {
+        //设置窗口内容
+console.log(data);
+        console.log(isedited);
+        var points = [];
+        if (isedited == 1) {
+
+            $.each(data.baseNodes, function (index, item) {
+                if (item.files != null) {
+                    var img = null;
+                    $.each(item.files, function (index, itemt) {
+                        if (itemt.filetype == "照片") {
+                            img = '<%=basePath%>' + itemt.fileaddress;
+                            return;
+                        }
+                    });
+
+                }
+
+                var title = item.nodename;
+                var content = item.address;
+                var sContent =
+                    "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + title + "</h4>";
+                if (img != null) {
+                    sContent += "<img style='float:right;margin:4px' id='imgDemo' src='" + img +
+                        "' width='139' height='104' />";
+                }
+
+                sContent += "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + content + "</p></div>";
+                var markerMenu = new BMap.ContextMenu();
+                var point = new BMap.Point(item.longitude,item.latitude);
+                bPoints.push(point);
+                var marker = new BMap.Marker(point);
+                marker.nodeid = item.nodeid;
+                marker.nodetype = item.nodetype;
+                //添加右键窗口
+                markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+                markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
+                marker.addContextMenu(markerMenu);
+                //添加单击展示窗口
+                marker.addEventListener("click", function () {
+                    //初始化地图以及窗口
+                    console.log(this.getPosition().lng + "," + this.getPosition().lat);
+                    var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
+                    this.openInfoWindow(infoWindow);
+
+                });
+                //添加双击时显示点位具体信息
+                marker.addEventListener("dblclick", function () {
+                    //弹出具体点位的信息
+                    window.open("<%=basePath%>admin/node/" + this.nodeid+"?nodetype="+this.nodetype);
+
+                });
+                points.push(point);
+                count++;
+                map.addOverlay(marker);
+            });
+
+
+            var polyline = new BMap.Polyline(points, {strokeColor: "blue", strokeWeight: 10, strokeOpacity: 0.5});   //创建折线
+            polyline.caseid = data.caseid;
+            polyline.addEventListener("click", function (e) {
+                console.log(this.caseId);
+            });
+            setZoom(bPoints);
+            map.addOverlay(polyline); //添加到地图中
+        }
+
+    }
+
+    //按照页面，条件搜索
+    function caseSearchPage(rel) {
+        var form = new FormData($('#caseSearchForm')[0]);
+        if ($('#caseBeginTime').val() != '') {
+            form.append('beginTime', $('#caseBeginTime').val());
+            form.append('endTime', $('#caseEndTime').val());
+        }
+        $.ajax({
+            url: '<%=basePath%>admin/nodeMap/case/' + rel,
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                console.log(d);
+                caseData = d;
+                updateCasePage(d);
+                updateCaseTable(d);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    /*结束更新分页*/
+
+    //更新点位查询表的内容
     function updateNodeTable(data) {
         var table = $("#nodeTable");
         var str = "";
@@ -620,17 +863,18 @@
                 str += "<td class=\"col-sm-2\">" + item.nodename + "</td>";
                 str += "<td class=\"col-sm-3\">" + item.address + "</td>";
                 str += "<td class=\"col-sm-1\">" + item.table.chinesename + "</td>";
-                str += "<td class=\"col-sm-2\">" + item.username + "</td>";
-                str += "<td class=\"col-sm-1\">" + item.collecttime + "</td>";
+                str += "<td class=\"col-sm-1\">" + item.username + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.collecttime + "</td>";
                 str += '<td class="col-sm-2">' +
                     '<button class="btn btn-info"  onclick="window.open(\'/admin/node/' + item.nodeid +
                     '?nodetype=' + item.nodetype + '\')">查看</button>\n' +
-                    '<button class="btn btn-success"  onclick="showNode(' + item.longitude + ',' + item.latitude + ','
+                    '<button class="btn btn-success"  onclick="showNode(' + item.nodeid + ',' + item.longitude + ',' + item.latitude + ','
                 var imgUrl = null;
                 if (item.files != null) {
                     $.each(item.files, function (index, item2) {
-                        if (item2.filetype == "图片") {
-                            imgUrl = '<%=basePath%>admin/' + item2.fileaddress;
+                        if (item2.filetype == "照片") {
+                            imgUrl = '<%=basePath%>' + item2.fileaddress;
+                            return;
                         }
                     });
                 }
@@ -642,22 +886,14 @@
 
                 str += ',\'' + item.nodename + '\',\'' + item.address + '\',\'';
                 var url = '<%=basePath%>';
-                <c:if test="${user.roleid != 2}">
                 url += 'admin/node/' + item.nodeid + '?nodetype=' + item.nodetype
-                </c:if>
-                <c:if test="${user.roleid == 2}">
-                url += 'user/node/' + item.nodeid + '?nodetype=' + item.nodetype
-                </c:if>
                 str += url + '\')">在地图显示</button><td></tr>';
             });
         }
         table.html(str);
     }
 
-    /*结束更新表*/
-
-
-    /*更新页表*/
+    //更新点位查询的页表内容
     function updateNodePage(data) {
         var currentPage = data.currentPage;
         var totalPage = data.totalPage;
@@ -708,23 +944,23 @@
         }
 
         s += "</ul>";
-        $("#Page").html(s);
+        $("#nodePage").html(s);
 
-        $("#Page ul li a").bind('click', function () {
+        $("#nodePage ul li a").bind('click', function () {
             var rel = $(this).attr("rel");
-            searchPage(rel);
+            nodeSearchPage(rel);
         });
     }
 
-    //按照页面，条件搜索
-    function searchPage(rel) {
+    //查找点位，所有点位信息，有些是不可编辑的点位，返回需要图片
+    function nodeSearchPage(rel) {
         var form = new FormData($('#nodeSearchForm')[0]);
         if ($('#nodeBeginTime').val() != '') {
             form.append('beginTime', $('#nodeBeginTime').val());
             form.append('endTime', $('#nodeEndTime').val());
         }
         $.ajax({
-            url: '<%=basePath%>admin/nodeText/' + rel,
+            url: '<%=basePath%>admin/nodeMap/node/' + rel,
             type: "post",
             data: form,
             /* 执行执行的是dom对象 ，不需要转化信息*/
@@ -733,7 +969,7 @@
             /* 指定返回类型为json */
             dataType: 'json',
             success: function (d) {
-                data = d;
+                nodeData = d;
                 console.log(d.baseNodes);
                 updateNodePage(d);
                 updateNodeTable(d);
@@ -745,7 +981,7 @@
 
     }
 
-    /*一下是关于地图的操作*/
+    //点的定位相同表示的是相同的坐标，
     Array.prototype.indexOf = function (val) {
         for (var i = 0; i < this.length; i++) {
             if (this[i].lng == val.lng && this[i].lat == val.lat)
@@ -772,73 +1008,6 @@
     //存已经在地图里面的点位
     var bPoints = new Array();
 
-    //添加一个事件点
-    function addCaseNode() {
-        var bounds = map.getBounds();
-        var sw = bounds.getSouthWest();
-        var ne = bounds.getNorthEast();
-        var lngSpan = Math.abs(sw.lng - ne.lng);
-        var latSpan = Math.abs(ne.lat - sw.lat);
-        //设置窗口内容
-        var img = '<%=basePath%>source/tianAnMen.jpg';
-        var title = '天安门';
-        var content = '天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...';
-        var sContent =
-            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + title + "</h4>" +
-            "<img style='float:right;margin:4px' id='imgDemo' src='" + img +
-            "' width='139' height='104' />" +
-            "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + content +
-            "</p></div>";
-        var points = [];
-        for (var i = 0; i < 3; i++) {
-            var markerMenu = new BMap.ContextMenu();
-            var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
-            bPoints.push(point);
-            var marker = new BMap.Marker(point);
-            marker.id = count;
-            //添加右键窗口
-            markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
-            markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
-            markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
-            marker.addContextMenu(markerMenu);
-            //添加单击展示窗口
-            marker.addEventListener("click", function () {
-                //初始化地图以及窗口
-                console.log(this.getPosition().lng + "," + this.getPosition().lat);
-                var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-                this.openInfoWindow(infoWindow);
-                //图片加载完毕重绘infowindow
-                document.getElementById('imgDemo').onload = function () {
-                    infoWindow.redraw();   //防止在网速较慢，图片未加载时，生成的信息框高度比图片的总高度小，导致图片部分被隐藏
-                }
-            });
-            //添加双击时显示点位具体信息
-            marker.addEventListener("dblclick", function () {
-                console.log(this.id);
-                //弹出具体点位的信息
-                <c:if test="${user.roleid != 2}">
-                window.open("<%=basePath%>admin/node?nodeid=" + this.id);
-                </c:if>
-                <c:if test="${user.roleid == 2}">
-                window.open("<%=basePath%>user/node?nodeid=" + this.id);
-                </c:if>
-            });
-            points.push(point);
-            count++;
-            map.addOverlay(marker);
-            setZoom()
-        }
-
-
-        var polyline = new BMap.Polyline(points, {strokeColor: "blue", strokeWeight: 10, strokeOpacity: 0.5});   //创建折线
-        polyline.caseId = count;
-        polyline.addEventListener("click", function (e) {
-            console.log(this.caseId)
-        });
-
-        setZoom(bPoints);
-        map.addOverlay(polyline); //添加到地图中
-    }
 
     var removeMark = function (e, ee, marker) {
         map.removeOverlay(marker);
@@ -862,17 +1031,18 @@
 
 
     //url为点位具体信息。
-    function showNode(lng, lat, img, nodename, address, url) {
+    function showNode(nodeid, lng, lat, img, nodename, address, url) {
         var sContent =
-            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + nodename + "</h4>" ;
+            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + nodename + "</h4>";
         if (img != null) {
-            sContent += "<img style='float:right;margin:4px' id='imgDemo' src='" + img+"' width='139' height='104' />";
+            sContent += "<img style='float:right;margin:4px' id='imgDemo' src='" + img + "' width='139' height='104' />";
         }
         sContent += "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + address + "</p></div>";
         var markerMenu = new BMap.ContextMenu();
         var point = new BMap.Point(lng, lat);
         bPoints.push(point);
         var marker = new BMap.Marker(point);
+        marker.nodeid = nodeid;
         var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
         //添加单个点位
         map.addOverlay(marker);
@@ -908,6 +1078,17 @@
         console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
         $('#nodeBeginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#nodeEndTime').val(end.format('YYYY-MM-DD h:mm:ss'));
+    });
+    $('#caseDaterange').daterangepicker({
+        timePicker: true,
+        timePickerIncrement: 30,
+        locale: {
+            format: 'YYYY-MM-DD h:mm:ss'
+        }
+    }, function (start, end) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
+        $('#caseBeginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
+        $('#caseEndTime').val(end.format('YYYY-MM-DD h:mm:ss'));
     });
 
     //添加点位操作
@@ -961,6 +1142,8 @@
         count++;
         setZoom(bPoints);
     }
+
+
 </script>
 </body>
 
