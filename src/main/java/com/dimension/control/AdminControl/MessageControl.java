@@ -84,5 +84,20 @@ public class MessageControl {
         messageMapper.updateByPrimaryKeySelective(message);
         return map;
     }
-
+    @RequestMapping("message/addMessage")
+    @ResponseBody
+    public Map<String, Object> addMessage(Message message,HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        User user= (User) session.getAttribute("user");
+        if(user.getRoleid()==2){
+            message.setDepartionid(user.getDepartmentid());
+        }
+        else  if(user.getRoleid()==3){
+            message.setDepartionid(new Long(22));
+        }
+        message.setSubmittime(new Date());
+        message.setUserid(user.getId());
+        messageMapper.insertSelective(message);
+        return map;
+    }
 }

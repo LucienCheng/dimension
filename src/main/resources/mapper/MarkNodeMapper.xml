@@ -107,4 +107,8 @@
 				nodeId=#{nodeId} and userId=${userId}
 
 	</select>
+	<select id="getMarkByUser" resultType="int">
+select mark_node.nodeId from mark_node WHERE mark_node.userId=#{userid}
+
+	</select>
 </mapper>

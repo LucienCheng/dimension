@@ -31,7 +31,7 @@
           rel="stylesheet">
 
     <link rel="stylesheet" href="<%=basePath %>/source/css/bootstrap-select.min.css">
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css"/>
 </head>
 
 <body class="fix-header card-no-border">
@@ -217,7 +217,8 @@
                                             <label
                                                     class="col-sm-2 form-control-label">选择时间</label>
                                             <div class=" col-sm-10">
-                                                <input id="daterange"type="text" class="form-control "  placeholder="选择起始时间和终止时间">
+                                                <input id="daterange" type="text" class="form-control "
+                                                       placeholder="选择起始时间和终止时间">
                                             </div>
                                             <input type="hidden" value="" id="beginTime">
                                             <input type="hidden" value="" id="endTime">
@@ -243,7 +244,7 @@
                         <div class="card-block">
                             <h4 class="card-title">案件</h4>
 
-                            <div >
+                            <div>
                                 <table class="table table-hover">
                                     <thead>
                                     <tr class="row">
@@ -265,10 +266,147 @@
                 </div>
 
                 <div class="col-sm-12" id="Page">
+                    <%--比较点位--%>
+
                 </div>
 
+                <div class="col-sm-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                比较案件
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#compare" style="color:#0f1111;">
+                                    <i class="fa  fa-angle-double-down m-l-10 pull-right"></i>
+                                </a>
 
+                            </h4>
+                        </div>
+                        <div id="compare" class="panel-collapse collapse ">
+                            <div class="panel-body">
+                                <div class="card-block">
+                                    <div class="row">
+                                        <div class="container col-sm-6">
+                                            <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
+                                                <div class="card-block">
+                                                    <form class="form-horizontal ">
 
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件编号：</label>
+                                                                <span class=" col-sm-4 form-control-label">1</span>
+                                                                <div class="col-sm-4 ">
+                                                                    <button type="submit"
+                                                                            class="btn btn-warning pull-right"
+                                                                            onclick="">清除
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件名称：</label>
+                                                                <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件类型：</label>
+                                                                <span class=" col-sm-8 form-control-label">抢劫</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件描述：</label>
+                                                                <span class=" col-sm-8 form-control-label">发生于。。。。</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">组长：</label>
+                                                                <span class=" col-sm-8 form-control-label">李四</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <input class=" btn btn-info" type="button"
+                                                                   value="查看详细信息">
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="container col-sm-6">
+                                            <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
+                                                <div class="card-block">
+                                                    <form class="form-horizontal ">
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 form-control-label">案件编号：</label>
+                                                            <span class=" col-sm-4 form-control-label">1</span>
+                                                            <div class="col-sm-4 ">
+                                                                <button type="submit"
+                                                                        class="btn btn-warning pull-right"
+                                                                        onclick="">清除
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件名称：</label>
+                                                                <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件类型：</label>
+                                                                <span class=" col-sm-8 form-control-label">抢劫</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件描述：</label>
+                                                                <span class=" col-sm-8 form-control-label">发生于。。。。</span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">组长：</label>
+                                                                <span class=" col-sm-8 form-control-label">李四</span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group row">
+                                                            <div class="col-sm-4">
+
+                                                                <input class=" btn btn-info" type="button"
+                                                                       value="查看详细信息">
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <input class=" btn btn-success " type="button"
+                                                                       value="计算相似度">
+                                                            </div>
+                                                            <label class="form-control-label col-sm-3">计算结果：</label>
+                                                            <span class=" form-control-label col-sm-2">80%</span>
+
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <%--下面都是模态框--%>
                 <div class="col-sm-12">
                     <div id="updateModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -286,19 +424,20 @@
                                     <div class="modal-body">
                                         <div class="form-group row">
                                             <label class="col-sm-3 form-control-label">案件名称</label>
-                                                <input id="casename" name="casename" type="text"
-                                                       class="col-sm-8 form-control" placeholder="案件名称">
+                                            <input id="casename" name="casename" type="text"
+                                                   class="col-sm-8 form-control" placeholder="案件名称">
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3 form-control-label">案件类型</label>
-                                                <input id="casetype" name="casetype" type="text"
-                                                       class="col-sm-8 form-control" placeholder="案件类型">
+                                            <input id="casetype" name="casetype" type="text"
+                                                   class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
                                         <div class="form-group row">
 
                                             <label class="col-sm-12">备注信息:</label>
                                             <div class="col-sm-12">
-                                                <textarea id="description"rows="5" class="form-control form-control-line"
+                                                <textarea id="description" rows="5"
+                                                          class="form-control form-control-line"
                                                           name="description"></textarea>
                                             </div>
 
@@ -367,22 +506,23 @@
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3 form-control-label">案件类型</label>
-                                                <input name="casetype" type="text"
-                                                       class="col-sm-8 form-control" placeholder="案件类型">
+                                            <input name="casetype" type="text"
+                                                   class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3 form-control-label">案件编号</label>
-                                                <input name="casecode" type="text"
-                                                       class="col-sm-8 form-control" placeholder="案件编号">
+                                            <input name="casecode" type="text"
+                                                   class="col-sm-8 form-control" placeholder="案件编号">
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3 form-control-label">小组名称</label>
-                                                <input name="groupname" type="text"
-                                                       class="col-sm-8 form-control" placeholder="小组名称">
+                                            <input name="groupname" type="text"
+                                                   class="col-sm-8 form-control" placeholder="小组名称">
                                         </div>
-                                        <div id="department"  class="form-group row">
+                                        <div id="department" class="form-group row">
                                             <label class="col-sm-3 form-control-label ">组长选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8" id="grouperid" name="grouperid" data-live-search="true" title="选择组长">
+                                            <select class="selectpicker form-control c-select col-sm-8" id="grouperid"
+                                                    name="grouperid" data-live-search="true" title="选择组长">
                                                 <c:forEach items="${groupUsers}" var="user">
                                                     <<option value="${user.id}">${user.username}</option>>
                                                 </c:forEach>
@@ -463,7 +603,7 @@
     data.currentPage =${currentPage};
     data.totalPage =${totalPage};
     data.cases =${casesJson};
-updateTable(data);
+    updateTable(data);
     /*绑定添加操作的button*/
     $(function () {
         $("#addButton").bind("click", function () {
@@ -662,9 +802,9 @@ updateTable(data);
     //按照页面，条件搜索
     function searchPage(rel) {
         var form = new FormData($('#searchForm')[0]);
-        if ($('#beginTime').val()!=''){
-            form.append('beginTime',$('#beginTime').val());
-            form.append('endTime',$('#endTime').val());
+        if ($('#beginTime').val() != '') {
+            form.append('beginTime', $('#beginTime').val());
+            form.append('endTime', $('#endTime').val());
         }
         $.ajax({
             url: '<%=basePath%>admin/caseAdmin/' + rel,
@@ -716,14 +856,15 @@ updateTable(data);
         });
 
     }
+
     $('#daterange').daterangepicker({
         timePicker: true,
         timePickerIncrement: 30,
         locale: {
             format: 'YYYY-MM-DD h:mm:ss'
         }
-    },function (start, end) {
-        console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss') );
+    }, function (start, end) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
         $('#beginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#endTime').val(end.format('YYYY-MM-DD h:mm:ss'));
     });

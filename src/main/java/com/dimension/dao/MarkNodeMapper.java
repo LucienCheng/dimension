@@ -21,4 +21,6 @@ public interface MarkNodeMapper {
     int count( @Param("baseNodeConditon") BaseNodeConditon baseNodeConditon,
            @Param("userId") Integer userId);
     int isExist(@Param("nodeId") Long nodeId,@Param("userId") Integer userId);
+
+    List<Integer> getMarkByUser(int userid);
 }

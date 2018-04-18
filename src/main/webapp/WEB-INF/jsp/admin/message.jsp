@@ -86,13 +86,11 @@
             <!-- Sidebar navigation-->
             <nav class="sidebar-nav ">
                 <ul id="nav navbar-nav sidebarnav">
-                    <li><a href="javascript:void(0);" class="waves-effect"><i
+                    <li><a href="<%=basePath%>admin/nodeText" class="waves-effect"><i
                             class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a>
                     </li>
                     <li><a href="<%=basePath%>admin/nodeMap" class="wavesEffect"><i
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
-
-
                     <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
@@ -113,7 +111,7 @@
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
                     <c:if test="${user.roleid != 3}">
 
-                        <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
+                        <li><a href="javascript:void(0);" class="waves-effect"><i
                                 class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
                     </c:if>
                     <li><a href="<%=basePath%>admin/personInfo"
@@ -172,7 +170,7 @@
                         <div class="card-block">
                             <h4 class="card-title">消息</h4>
 
-                            <div >
+                            <div>
                                 <table class="table table-hover">
                                     <thead>
                                     <tr>
@@ -302,7 +300,7 @@
         var form = new FormData($("#updateForm")[0]);
         form.append("id", id);
         $.ajax({
-            url: '<%=basePath%>admin/updateMessage',
+            url: '<%=basePath%>admin/message/addMessage',
             type: "post",
             data: form,
             /* 执行执行的是dom对象 ，不需要转化信息*/
@@ -311,11 +309,7 @@
             /* 指定返回类型为json */
             dataType: 'json',
             success: function (d) {
-                //发送请求重新刷新一下页面
-                searchPage(data.currentPage);
-                //更新模态框隐藏
-                $("#updateModel").modal("hide");
-                $(".modify").removeClass("hidden");
+                console.log(d);
             },
             error: function (e) {
                 console.log("失败");
@@ -338,7 +332,7 @@
                 str += "<td>" + item.username + "</td>";
                 str += "<td>" + item.submittime + "</td>";
                 str += "<td>" + item.content + "</td>";
-                str += '<td> <button class="btn btn-warning" onclick="updateModel(' + item.id+ ')"> 回复 </button> </td>';
+                str += '<td> <button class="btn btn-warning" onclick="updateModel(' + item.id + ')"> 回复 </button> </td>';
                 str += ' </tr>';
             });
 

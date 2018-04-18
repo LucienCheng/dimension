@@ -50,6 +50,7 @@ public class BaseNode implements Serializable{
 	// 是否可以编辑这个点
 	private int isEdited;
 
+
 	private static final long serialVersionUID = 1L;
 
 	public String getUsername() {

@@ -165,10 +165,6 @@
             <div class="row">
 
                 <div class="col-12">
-                    <input type="button" class="btn btn-success"
-                           value="案件点位显示" onclick="addCaseNode()">
-                    <input type="button" class="btn btn-success"
-                           value="基础点显示" onclick="addNode()">
                     <%--这是案件点位的搜索--%>
                     <div class="col-sm-12">
                         <div class="panel panel-info">
@@ -229,8 +225,8 @@
                                                 <thead>
                                                 <tr class="row">
                                                     <th class="col-sm-1">#</th>
-                                                    <th class="col-sm-2">案件名称</th>
-                                                    <th class="col-sm-1">案件类型</th>
+                                                    <th class="col-sm-3">案件名称</th>
+                                                    <th class="col-sm-2">案件类型</th>
                                                     <th class="col-sm-2">案件开始时间</th>
                                                     <th class="col-sm-2">案件结束时间</th>
                                                     <th class="col-sm-2">操作</th>
@@ -250,144 +246,7 @@
                             </div>
                         </div>
                     </div>
-                    <%--比较点位--%>
-                    <div class="col-sm-12">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    比较案件
-                                    <a data-toggle="collapse" data-parent="#accordion"
-                                       href="#compare" style="color:#0f1111;">
-                                        <i class="fa  fa-angle-double-down m-l-10 pull-right"></i>
-                                    </a>
 
-                                </h4>
-                            </div>
-                            <div id="compare" class="panel-collapse collapse ">
-                                <div class="panel-body">
-                                    <div class="card-block">
-                                        <div class="row">
-                                            <div class="container col-sm-6">
-                                                <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
-                                                    <div class="card-block">
-                                                        <form class="form-horizontal ">
-
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">案件编号：</label>
-                                                                    <span class=" col-sm-4 form-control-label">1</span>
-                                                                    <div class="col-sm-4 ">
-                                                                        <button type="submit"
-                                                                                class="btn btn-warning pull-right"
-                                                                                onclick="">清除
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">案件名称：</label>
-                                                                    <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">案件类型：</label>
-                                                                    <span class=" col-sm-8 form-control-label">抢劫</span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">案件描述：</label>
-                                                                    <span class=" col-sm-8 form-control-label">发生于。。。。</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">组长：</label>
-                                                                    <span class=" col-sm-8 form-control-label">李四</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <input class=" btn btn-info" type="button"
-                                                                       value="查看详细信息">
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                            <div class="container col-sm-6">
-                                                <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
-                                                    <div class="card-block">
-                                                        <form class="form-horizontal ">
-
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">案件编号：</label>
-                                                                <span class=" col-sm-4 form-control-label">1</span>
-                                                                <div class="col-sm-4 ">
-                                                                    <button type="submit"
-                                                                            class="btn btn-warning pull-right"
-                                                                            onclick="">清除
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">案件名称：</label>
-                                                                    <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">案件类型：</label>
-                                                                    <span class=" col-sm-8 form-control-label">抢劫</span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">案件描述：</label>
-                                                                    <span class=" col-sm-8 form-control-label">发生于。。。。</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group">
-                                                                <div class="form-group row">
-                                                                    <label class="col-sm-4 form-control-label">组长：</label>
-                                                                    <span class=" col-sm-8 form-control-label">李四</span>
-                                                                </div>
-                                                            </div>
-
-                                                            <div class="form-group row">
-                                                                <div class="col-sm-4">
-
-                                                                    <input class=" btn btn-info" type="button"
-                                                                           value="查看详细信息">
-                                                                </div>
-                                                                <div class="col-sm-3">
-                                                                    <input class=" btn btn-success " type="button"
-                                                                           value="计算相似度">
-                                                                </div>
-                                                                <label class="form-control-label col-sm-3">计算结果：</label>
-                                                                <span class=" form-control-label col-sm-2">80%</span>
-
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                     <%--这是普通点位的搜索--%>
                     <div class="col-sm-12">
                         <div class="panel panel-info">
@@ -491,17 +350,26 @@
 
                     <div class="card">
                         <div class="card-block">
-                            <label class="c-input c-radio">
-                                <input id="radio1" name="radio" type="radio">
-                                <span class="c-indicator"></span>
-                                标记点
-                            </label>
-                            <label class="c-input c-radio">
-                                <input id="radio2" name="radio" type="radio">
-                                <span class="c-indicator"></span>
-                                基础点和案件点
-                            </label>
+                            <div class="row" id="radio">
+                                <label class="col-sm-1" style="padding-top: 5px;">
+                                    <input  name="radio" type="radio" value="标记点" onclick="getValue(this);">
+                                    <span class="c-indicator"> 标记点</span>
+
+                                </label>
+                                <label class="col-sm-1" style="padding-top: 5px;">
+                                    <input  name="radio" type="radio" value="基础点" onclick="getValue(this);">
+                                    <span class="c-indicator">基础点</span>
+
+                                </label>
+                                <label class="col-sm-1" style="padding-top: 5px;">
+                                    <input  name="radio" type="radio" value="案件" onclick="getValue(this);">
+                                    <span class="c-indicator"> 案件</span>
+
+                                </label>
+
+                            </div>
                             <div id="allmap" class="maps"></div>
+
                         </div>
                     </div>
                     <%--模态框--%>
@@ -522,7 +390,7 @@
                                             <label class="form-control-label">消息内容:</label>
                                             <div>
                                                 <textarea rows="5" class="form-control form-control-line"
-                                                          name="replyconten"></textarea>
+                                                          name="content"></textarea>
                                             </div>
                                         </div>
                                         <div class="modal-footer">
@@ -629,11 +497,104 @@
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
+    function update(caseid) {
+        var form = new FormData($("#updateForm")[0]);
+        form.append("caseid", caseid);
+        $.ajax({
+            url: '<%=basePath%>admin/message/addMessage',
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                $('#messageModel').modal("toggle");
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    var markNodids=${markNodids};
+    //地图相关的操作
+    //数组的自定义方法
+    Array.prototype.indexOf = function (val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id == val.id)
+                return i;
+        }
+        return -1;
+    };
+    Array.prototype.remove = function (val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+    // 初始化百度地图
+    var map = new BMap.Map("allmap");
+    var point = new BMap.Point(116.404, 39.915);
+    map.centerAndZoom(point, 17);
+    var count = 1;
+    var myCity = new BMap.LocalCity();
+    myCity.get(getCity);
+    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
+    map.addControl(top_left_navigation);
+    //存已经在地图里面的点位
+    var bPoints = new Array();
+    //在地图上移除点
+    var removeMark = function (e, ee, marker) {
+        map.removeOverlay(marker);
+        if(marker.nodetype==1){
+            baseNodeMapArray.remove(marker);
+        }else {
+            markNodeMapArray.remove(marker);
+        }
+    };
+    var showCaseInfo=function (e,ee,polyline) {
+        updateModel(polyline.id);
+    }
+    //在地图上标记点位
+    var markNode = function (e, ee, marker) {
+        console.log(marker.id);
+    }
+    //发送信息，会发给部门管理员，关于查看这个案件的请求
+    var sendMessage = function (e, ee, polyline) {
+        $('#updateButton').val(polyline.id);
+        $('#messageModel').modal('toggle');
+    };
+    removePolyline = function (e, ee, polyline) {
+        $.each(polyline.marker, function (index, item) {
+            map.removeOverlay(item);
+        })
+        map.removeOverlay(polyline);
+        caseMapArray.remove(polyline);
+    };
+
+    // 根据点的数组自动调整缩放级别
+    function setZoom(bPoints) {
+        var view = map.getViewport(eval(bPoints));
+        var mapZoom = view.zoom;
+        var centerPoint = view.center;
+        map.centerAndZoom(centerPoint, mapZoom);
+    }
+
+    function getCity(result) {
+        var cityName = result.name;
+        map.setCenter(cityName);
+    }
+
+    //展示点位信息的操作
+
+    //存异步获取的已经获取的案件的数据
     var caseData;
-    var nodeData;
+    var caseMapArray=new Array();
 
     //展示案件的信息
     function updateModel(id) {
+        console.log(id);
         $.each(caseData.cases, function (index, item) {
             if (item.id == id) {
                 $("#casename").val(item.casename);
@@ -656,8 +617,8 @@
             $.each(data.cases, function (index, item) {
                 str += "<tr class='row'>";
                 str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
-                str += "<td class=\"col-sm-2\">" + item.casename + "</td>";
-                str += "<td class=\"col-sm-1\">" + item.casetype + "</td>";
+                str += "<td class=\"col-sm-3\">" + item.casename + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.casetype + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.begintime + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.endtime + "</td>";
                 str += '<td class="col-sm-2">' +
@@ -676,8 +637,7 @@
         table.html(str);
     }
 
-    /*结束更新表*/
-    /*更新页表*/
+
     function updateCasePage(data) {
         var currentPage = data.currentPage;
         var totalPage = data.totalPage;
@@ -749,14 +709,11 @@
         });
     }
 
-    //添加一个事件点
+    //在地图上展示所有这个案件的点位信息
     function showCaseNodes(data, isedited) {
         //设置窗口内容
-console.log(data);
-        console.log(isedited);
+        var markArray = new Array();
         var points = [];
-        if (isedited == 1) {
-
             $.each(data.baseNodes, function (index, item) {
                 if (item.files != null) {
                     var img = null;
@@ -780,14 +737,23 @@ console.log(data);
 
                 sContent += "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + content + "</p></div>";
                 var markerMenu = new BMap.ContextMenu();
-                var point = new BMap.Point(item.longitude,item.latitude);
+                var point = new BMap.Point(item.longitude, item.latitude);
                 bPoints.push(point);
                 var marker = new BMap.Marker(point);
-                marker.nodeid = item.nodeid;
+                var flag=1;
+                marker.id = item.nodeid;
                 marker.nodetype = item.nodetype;
+                $.each(markNodids,function (index,item) {
+                    if(item==marker.id){
+                        flag=0;
+                        return;
+                    }
+                });
                 //添加右键窗口
-                markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
-                markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
+                if(flag==1){
+                    markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+                }
+
                 marker.addContextMenu(markerMenu);
                 //添加单击展示窗口
                 marker.addEventListener("click", function () {
@@ -800,25 +766,32 @@ console.log(data);
                 //添加双击时显示点位具体信息
                 marker.addEventListener("dblclick", function () {
                     //弹出具体点位的信息
-                    window.open("<%=basePath%>admin/node/" + this.nodeid+"?nodetype="+this.nodetype);
+                    window.open("<%=basePath%>admin/node/" + this.id + "?nodetype=" + this.nodetype);
 
                 });
                 points.push(point);
                 count++;
                 map.addOverlay(marker);
+                markArray.push(marker);
             });
-
-
             var polyline = new BMap.Polyline(points, {strokeColor: "blue", strokeWeight: 10, strokeOpacity: 0.5});   //创建折线
-            polyline.caseid = data.caseid;
-            polyline.addEventListener("click", function (e) {
-                console.log(this.caseId);
-            });
+            polyline.id = data.caseid
+            polyline.marker = markArray;
+            var polylineMenu = new BMap.ContextMenu();
+            polylineMenu.addItem(new BMap.MenuItem('在地图上删除', removePolyline));
+        polylineMenu.addItem(new BMap.MenuItem('案件详情', showCaseInfo));
+            if(isedited==0){
+                polylineMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
+            }
+            polyline.addContextMenu(polylineMenu);
             setZoom(bPoints);
             map.addOverlay(polyline); //添加到地图中
-        }
+            caseMapArray.push(polyline);
+
 
     }
+
+
 
     //按照页面，条件搜索
     function caseSearchPage(rel) {
@@ -849,7 +822,10 @@ console.log(data);
 
     }
 
-    /*结束更新分页*/
+
+    //下面是关于点位操作
+    var baseNodeMapArray = new Array();
+    var markNodeMapArray = new Array();
 
     //更新点位查询表的内容
     function updateNodeTable(data) {
@@ -868,7 +844,7 @@ console.log(data);
                 str += '<td class="col-sm-2">' +
                     '<button class="btn btn-info"  onclick="window.open(\'/admin/node/' + item.nodeid +
                     '?nodetype=' + item.nodetype + '\')">查看</button>\n' +
-                    '<button class="btn btn-success"  onclick="showNode(' + item.nodeid + ',' + item.longitude + ',' + item.latitude + ','
+                    '<button class="btn btn-success"  onclick="showNode(' + item.nodetype + ',' + item.nodeid + ',' + item.longitude + ',' + item.latitude + ','
                 var imgUrl = null;
                 if (item.files != null) {
                     $.each(item.files, function (index, item2) {
@@ -969,7 +945,6 @@ console.log(data);
             /* 指定返回类型为json */
             dataType: 'json',
             success: function (d) {
-                nodeData = d;
                 console.log(d.baseNodes);
                 updateNodePage(d);
                 updateNodeTable(d);
@@ -981,57 +956,9 @@ console.log(data);
 
     }
 
-    //点的定位相同表示的是相同的坐标，
-    Array.prototype.indexOf = function (val) {
-        for (var i = 0; i < this.length; i++) {
-            if (this[i].lng == val.lng && this[i].lat == val.lat)
-                return i;
-        }
-        return -1;
-    };
-
-    Array.prototype.remove = function (val) {
-        var index = this.indexOf(val);
-        if (index > -1) {
-            this.splice(index, 1);
-        }
-    };
-    // 初始化百度地图
-    var map = new BMap.Map("allmap");
-    var point = new BMap.Point(116.404, 39.915);
-    map.centerAndZoom(point, 17);
-    var count = 1;
-    var myCity = new BMap.LocalCity();
-    myCity.get(getCity);
-    var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
-    map.addControl(top_left_navigation);
-    //存已经在地图里面的点位
-    var bPoints = new Array();
-
-
-    var removeMark = function (e, ee, marker) {
-        map.removeOverlay(marker);
-    }
-
-    var markNode = function (e, ee, marker) {
-        console.log(marker.id);
-    }
-    var sendMessage = function (e, ee, marker) {
-        console.log(marker.id);
-        $('#updateModel').modal('toggle');
-    }
-
-    // 根据点的数组自动调整缩放级别
-    function setZoom(bPoints) {
-        var view = map.getViewport(eval(bPoints));
-        var mapZoom = view.zoom;
-        var centerPoint = view.center;
-        map.centerAndZoom(centerPoint, mapZoom);
-    }
-
-
     //url为点位具体信息。
-    function showNode(nodeid, lng, lat, img, nodename, address, url) {
+    function showNode(nodetype, nodeid, lng, lat, img, nodename, address, url) {
+
         var sContent =
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + nodename + "</h4>";
         if (img != null) {
@@ -1042,15 +969,26 @@ console.log(data);
         var point = new BMap.Point(lng, lat);
         bPoints.push(point);
         var marker = new BMap.Marker(point);
-        marker.nodeid = nodeid;
+        marker.id = nodeid;
+        marker.nodetype=nodetype;
         var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-        //添加单个点位
-        map.addOverlay(marker);
+
         //添加右键窗口
-        markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
-        markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+
+        $.each(markNodids,function (index,item) {
+            if(item==marker.id){
+                flag=0;
+                return;
+            }
+        });
+        //添加右键窗口
+        if(flag==1){
+            markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+        }
+
         markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
         marker.addContextMenu(markerMenu);
+
         //添加单击展示窗口
         marker.addEventListener("click", function () {
             console.log(this.getPosition().lng + "," + this.getPosition().lat);
@@ -1060,13 +998,19 @@ console.log(data);
         marker.addEventListener("dblclick", function () {
             window.open(url);
         });
+        //添加单个点位
+        map.addOverlay(marker);
+        //存入基础点
+        if (nodetype == 1) {
+            baseNodeMapArray.push(marker);
+        }
+        //存入标记点
+        else {
+            markNodeMapArray.push(marker);
+        }
         setZoom(bPoints);
     }
 
-    function getCity(result) {
-        var cityName = result.name;
-        map.setCenter(cityName);
-    }
 
     $('#nodeDaterange').daterangepicker({
         timePicker: true,
@@ -1090,59 +1034,30 @@ console.log(data);
         $('#caseBeginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#caseEndTime').val(end.format('YYYY-MM-DD h:mm:ss'));
     });
+    function getValue(obj) {
+        map.clearOverlays();
+        var radio=$(obj).val();
+        console.log(radio);
+        console.log(caseMapArray);
 
-    //添加点位操作
-    function addNode() {
-
-        var bounds = map.getBounds();
-        var sw = bounds.getSouthWest();
-        var ne = bounds.getNorthEast();
-        var lngSpan = Math.abs(sw.lng - ne.lng);
-        var latSpan = Math.abs(ne.lat - sw.lat);
-        //设置窗口内容
-        var img = '<%=basePath%>source/tianAnMen.jpg';
-        var title = '天安门';
-        var content = '天安门坐落在中国北京市中心,故宫的南侧,与天安门广场隔长安街相望,是清朝皇城的大门...';
-        var sContent =
-            "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + title + "</h4>" +
-            "<img style='float:right;margin:4px' id='imgDemo' src='" + img +
-            "' width='139' height='104' />" +
-            "<p style='margin:0;line-height:1.5;font-size:13px;text-indent:2em'>" + content +
-            "</p></div>";
-        var markerMenu = new BMap.ContextMenu();
-        var point = new BMap.Point(sw.lng + lngSpan * (Math.random() * 0.7), ne.lat - latSpan * (Math.random() * 0.7));
-        bPoints.push(point);
-        var marker = new BMap.Marker(point);
-        var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
-        marker.id = count;
-        map.addOverlay(marker);
-        //添加右键窗口
-        markerMenu.addItem(new BMap.MenuItem('发送消息', sendMessage));
-        markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
-        markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
-        marker.addContextMenu(markerMenu);
-        //添加单击展示窗口
-        marker.addEventListener("click", function () {
-            console.log(this.getPosition().lng + "," + this.getPosition().lat);
-            //初始化地图以及窗口
-            this.openInfoWindow(infoWindow);
-            console.log(this.id);
-        });
-        //添加双击时显示点位具体信息
-        marker.addEventListener("dblclick", function () {
-            console.log(this.id);
-            //弹出具体点位的信息
-            <c:if test="${user.roleid != 2}">
-            window.open("<%=basePath%>admin/node?nodeid=" + this.id);
-            </c:if>
-            <c:if test="${user.roleid == 2}">
-            window.open("<%=basePath%>user/node?nodeid=" + this.id);
-            </c:if>
-        });
-        count++;
-        setZoom(bPoints);
+        if(radio=="基础点"){
+            $.each(baseNodeMapArray,function (index,marker) {
+                map.addOverlay(marker);
+            });
+        }
+        else if(radio=="标记点"){
+            $.each(markNodeMapArray,function (index,marker) {
+                map.addOverlay(marker);
+            });
+        }else{
+            $.each(caseMapArray,function (index,polyline) {
+                $.each(polyline.marker,function (index,mark) {
+                    map.addOverlay(mark);
+                });
+                map.addOverlay(polyline);
+            });
+        }
     }
-
 
 </script>
 </body>
