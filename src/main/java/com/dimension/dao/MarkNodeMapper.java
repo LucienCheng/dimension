@@ -22,5 +22,5 @@ public interface MarkNodeMapper {
            @Param("userId") Integer userId);
     int isExist(@Param("nodeId") Long nodeId,@Param("userId") Integer userId);
 
-    List<Integer> getMarkByUser(int userid);
+    List<MarkNode> getMarkByUser(int userid);
 }

@@ -48,7 +48,7 @@
         select markid from mark_node where userid=#{userid} and nodeid=#{nodeid}
     </select>
 	<select id="searchMarkNode" resultType="com.dimension.pojo.BaseNode" >
-		SELECT base_node.*,mark_node.isEdited,table_type.chinesename as "table.chinesename",`user`.username
+		SELECT base_node.*,mark_node.isEdited,table_type.chinesename as "table.chinesename",`user`.username,mark_node.markid
 		FROM base_node
 		LEFT JOIN mark_node on base_node.nodeId=mark_node.nodeId
 		LEFT JOIN table_type on table_type.id=base_node.tableid
@@ -107,7 +107,7 @@
 				nodeId=#{nodeId} and userId=${userId}
 
 	</select>
-	<select id="getMarkByUser" resultType="int">
+	<select id="getMarkByUser" resultType="MarkNode">
 select mark_node.nodeId from mark_node WHERE mark_node.userId=#{userid}
 
 	</select>
