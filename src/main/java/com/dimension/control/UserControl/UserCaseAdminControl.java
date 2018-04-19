@@ -1,16 +1,12 @@
-package com.dimension.control.AdminControl;
+package com.dimension.control.UserControl;
 
 import com.dimension.dao.CaseMapper;
 import com.dimension.dao.GroupMapper;
 import com.dimension.dao.GroupUserMapper;
 import com.dimension.pojo.*;
-import com.dimension.service.BaseNodeBuilder;
 import com.dimension.service.CaseAssist;
-import com.dimension.service.NodeAssit;
-import com.dimension.service.NodeComplex;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,21 +16,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Controller
-@RequestMapping("/admin")
-public class CaseAdminControl {
+@RequestMapping("/user")
+public class UserCaseAdminControl {
 
     @Resource
     private CaseMapper caseMapper;
-    @Resource
-    private GroupMapper groupMapper;
-    @Resource
-    private GroupUserMapper groupUserMapper;
     @Resource
     private CaseAssist caseAssist;
     private static final int count = 10;
@@ -56,9 +47,8 @@ public class CaseAdminControl {
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("casesJson", casesJson);
         model.addAttribute("currentPage", 1);
-        return "/admin/caseAdmin";
+        return "/user/caseAdmin";
     }
-
 
     @RequestMapping("/caseAdmin/{start}")
     @ResponseBody
@@ -66,6 +56,7 @@ public class CaseAdminControl {
         start--;
         User user = (User) session.getAttribute("user");
         caseCondition.setRoleId(user.getRoleid());
+        caseCondition.setUserId(user.getId());
         if (user.getRoleid() != 3)
             caseCondition.setDepartmentid(user.getDepartmentid());
         List<Case> cases = caseMapper.searchCases(caseCondition, start * count, count);
@@ -82,7 +73,6 @@ public class CaseAdminControl {
         map.put("currentPage", start + 1);
         return map;
     }
-
     @RequestMapping("/deleteCase/{id}")
     @ResponseBody
     public Map<String, Object> deleteCase(@PathVariable int id) {
@@ -90,32 +80,12 @@ public class CaseAdminControl {
         caseMapper.deleteByPrimaryKey(id);
         return map;
     }
-
-
     @RequestMapping("/updateCase")
     @ResponseBody
     public Map<String, Object> updateCase(Case case1) {
         Map<String, Object> map = new HashMap<>();
         caseMapper.updateByPrimaryKeySelective(case1);
         map.put("case1", case1);
-        return map;
-    }
-
-    @RequestMapping("/addCase")
-    @ResponseBody
-    public Map<String, Object> addUser(Case case1, Group group, GroupUser groupUser, HttpSession session) {
-        group.setDescription(null);
-        Map<String, Object> map = new HashMap<>();
-        //先创建组
-        groupMapper.insertSelective(group);
-        groupUser.setGroupid(group.getId());
-        groupUser.setUserid(group.getGrouperid());
-        case1.setGroupid(group.getId());
-        User user = (User) session.getAttribute("user");
-        case1.setDepartmentId(user.getDepartmentid());
-        //插入案件和插入用户案件
-        groupUserMapper.insertSelective(groupUser);
-        caseMapper.insertSelective(case1);
         return map;
     }
 

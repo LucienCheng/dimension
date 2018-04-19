@@ -159,6 +159,9 @@
             <if test="departmentid != null">
                 and message.departionId=#{departmentid}
             </if>
+            <if test="userId != null">
+                and message.userid=#{userId}
+            </if>
             <if test="state != null">
                 and state=#{state}
             </if>
@@ -174,6 +177,9 @@
         <trim prefix="where" prefixOverrides="and | or">
             <if test="departmentid != null">
                 and message.departionid=#{departmentid}
+            </if>
+            <if test="userId != null">
+                and message.userid=#{userId}
             </if>
             <if test="state != null">
                 and state=#{state}

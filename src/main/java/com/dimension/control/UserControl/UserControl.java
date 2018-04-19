@@ -1,22 +1,30 @@
 package com.dimension.control.UserControl;
 
+import com.dimension.dao.MarkNodeMapper;
+import com.dimension.pojo.User;
+import com.dimension.service.UserService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/user")
 public class UserControl {
-    //普通用户的案件管理，只有是组长的时候才能管理案件信息，案件分配是由管理员创建的，这里只能修改案件信息
-    @RequestMapping("/caseAdmin")
-    public String caseAdmin() {
-        return "/user/caseAdmin";
-    }
+    @Resource
+    private UserService userService;
+    @Resource
+    MarkNodeMapper markNodeMapper;
+    private static final int count = 10;
 
-    //消息处理，只能查看由管理员发来的消息
-    @RequestMapping("/message")
-    public String message() {
-        return "/user/message";
-    }
+
+
+
 
     //点位助手，提供案件点位比较
     @RequestMapping("/nodeCompare")
@@ -24,16 +32,18 @@ public class UserControl {
         return "/user/nodeCompare";
     }
 
-    @RequestMapping("/nodeReplace")
-    public String nodeReplace() {
-        return "/user/nodeReplace";
-    }
 
-    //地图展示点位信息
+
+    //地图点位
     @RequestMapping("/nodeMap")
-    public String nodeMap() {
+    public String nodeMap(Model model, HttpSession session) throws JsonProcessingException {
+        ObjectMapper objectMapper=new ObjectMapper();
+        User user=(User)session.getAttribute("user");
+
+        model.addAttribute("markNodids",objectMapper.writeValueAsString(markNodeMapper.getMarkByUser(user.getId())));
         return "/user/nodeMap";
     }
+
 
     //文字展示点位的基本信息
     @RequestMapping("/nodeText")
@@ -41,16 +51,24 @@ public class UserControl {
         return "/user/nodeText";
     }
 
-    //个人信息管理
+
+    //个人信息
     @RequestMapping("/personInfo")
     public String personInfo() {
         return "/user/personInfo";
     }
 
+    @RequestMapping("/personInfoModify")
+    @ResponseBody
+    public User personInfoModify(User user, HttpSession session) {
+        userService.setUser(user, session);
+        return user;
+    }
+
     //文本点位信息
     @RequestMapping("/node")
     public String node() {
-        return "admin/node";
+        return "user/node";
     }
 
 }

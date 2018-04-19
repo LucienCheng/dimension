@@ -137,6 +137,15 @@
                         <strong>发送成功!</strong>
                     </div>
                 </div>
+              <div class="col-sm-12">
+                  <div class="hidden alert alert-warning alert-dismissible  in delete" role="alert">
+                      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                          <span class="sr-only">Close</span>
+                      </button>
+                      <strong>删除成功!</strong>
+                  </div>
+              </div>
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-block">
@@ -149,9 +158,8 @@
                                         <th>#</th>
                                         <th>关于案件</th>
                                         <th>案件编号</th>
-                                        <th>请求人</th>
-                                        <th>请求时间</th>
-                                        <th>请求消息内容</th>
+                                        <th>回复时间</th>
+                                        <th>回复消息内容</th>
                                         <th>操作</th>
                                     </tr>
                                     </thead>
@@ -161,12 +169,11 @@
                                             <td>${status.index+1}</td>
                                             <td>${item.casename}</td>
                                             <td>${item.casecode}</td>
-                                            <td>${item.username}</td>
-                                            <td>${item.submittime}</td>
-                                            <td>${item.content}</td>
+                                            <td>${item.replytime}</td>
+                                            <td>${item.replyconten}</td>
                                             <td>
                                                 <button class="btn btn-warning"
-                                                        onclick="updateModel(${item.id});">回复
+                                                        onclick="deleteModel(${item.id});">删除
                                                 </button>
                                             </td>
                                         </tr>
@@ -178,43 +185,36 @@
                     </div>
                 </div>
                 <div class="col-sm-12" id="Page">
+
                 </div>
-                <%--模态框--%>
                 <div class="col-sm-12">
-                    <div class="modal fade" id="updateModel" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog " role="document">
+                    <div id="deleteModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
-                                    <h4 class="modal-title">回复信息</h4>
+                                    <h4 class="modal-title">提示</h4>
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                         <span class="sr-only">Close</span>
                                     </button>
                                 </div>
-                                <form id="updateForm">
-                                    <div class="modal-body ">
-                                        <label class="form-control-label">消息内容:</label>
-                                        <div>
-                                                <textarea rows="5" class="form-control form-control-line"
-                                                          name="replyconten"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                        </button>
-                                        <button type="button" class="btn btn-primary" id="updateButton"
-                                                onclick="update($(this).val());">发送
-                                        </button>
-                                    </div>
-
-                                </form>
-
-                            </div>
-                        </div>
-                    </div>
+                                <div class="modal-body">
+                                    确定删除？
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary" id="deleteButton"
+                                            onclick="delete1($(this).val())">
+                                        删除
+                                    </button>
+                                </div>
+                            </div><!-- /.modal-content -->
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
                 </div>
-                <%--end模态框，展示具体点位--%>
             </div>
 
             <!-- End PAge Content -->
@@ -236,41 +236,26 @@
 <script src="<%=basePath%>source/js/custom.min.js"></script>
 <script type="text/javascript">
     /*初始化参数*/
-  /*  var data = new Object();
-    data.currentPage =${currentPage};
-    data.totalPage =${totalPage};
-    data.messages =${messagesJson};*/
-    $(function () {
-        updatePage(data);
-    })
+var start=1;
 
-    /*一下是关于更新的操作
-        触发更新模态框*/
-    function updateModel(id) {
+    //触发删除模态框
+    function deleteModel(id) {
+        $('#deleteModel').modal('toggle');
+        $('#deleteButton').val(id);
 
-        $('#updateModel').modal('show');
-        $('#updateButton').val(id);
     }
 
-    /*发送更新某一个对象的ajax的请求*/
-    function update(id) {
-        var form = new FormData($("#updateForm")[0]);
-        form.append("id", id);
+    //发送删除某一个对象请求
+    function delete1(id) {
         $.ajax({
-            url: '<%=basePath%>user/updateMessage',
+            url: '<%=basePath%>user/message/deleteMessage' ,
             type: "post",
-            data: form,
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            /* 指定返回类型为json */
             dataType: 'json',
+            data:{'Id':id},
             success: function (d) {
-                //发送请求重新刷新一下页面
-                searchPage(data.currentPage);
-                //更新模态框隐藏
-                $("#updateModel").modal("hide");
-                $(".modify").removeClass("hidden");
+                $("#deleteModel").modal("toggle");
+                $(".delete").removeClass("hidden");
+                searchPage(start);
             },
             error: function (e) {
                 console.log("失败");
@@ -278,7 +263,6 @@
         });
 
     }
-
     /*结束更新ajax请求*/
     /*异步接收数据之后更新表*/
     function updateTable(data) {
@@ -290,10 +274,9 @@
                 str += "<td>" + (index + 1) + "</td>";
                 str += "<td>" + item.casename + "</td>";
                 str += "<td>" + item.casecode + "</td>";
-                str += "<td>" + item.username + "</td>";
-                str += "<td>" + item.submittime + "</td>";
-                str += "<td>" + item.content + "</td>";
-                str += '<td> <button class="btn btn-warning" onclick="updateModel(' + item.id+ ')"> 回复 </button> </td>';
+                str += "<td>" + item.replytime + "</td>";
+                str += "<td>" + item.replyconten + "</td>";
+                str += '<td> <button class="btn btn-warning" onclick="deleteModel(' + item.id+ ')"> 删除 </button> </td>';
                 str += ' </tr>';
             });
 
@@ -381,6 +364,7 @@
             dataType: 'json',
             success: function (d) {
                 data = d;
+                start=d.currentPage;
                 updateTable(d);
                 updatePage(d);
             },

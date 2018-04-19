@@ -306,7 +306,7 @@
                 #{caseCondition.endTime}
             </if>
             <if test="caseCondition.roleId == 2">
-                and grouperid == #{caseCondition.userId}
+                and grouperid = #{caseCondition.userId}
             </if>
             <if test="caseCondition.casename != null">
                 and casename like concat("%",#{caseCondition.casename},"%")
@@ -339,7 +339,7 @@
                 #{caseCondition.endTime}
             </if>
             <if test="caseCondition.roleId == 2">
-                and grouperid == #{caseCondition.userId}
+                and grouperid = #{caseCondition.userId}
             </if>
             <if test="caseCondition.casename != null">
                 and casename like concat("%",#{caseCondition.casename},"%")

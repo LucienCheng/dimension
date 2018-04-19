@@ -250,10 +250,10 @@
                                     <tr class="row">
                                         <th class="col-sm-1">#</th>
                                         <th class="col-sm-2">案件名称</th>
-                                        <th class="col-sm-1">案件类型</th>
-                                        <th class="col-sm-3">案件开始时间</th>
-                                        <th class="col-sm-3">案件结束时间</th>
-                                        <th class="col-sm-2">操作</th>
+                                        <th class="col-sm-2">案件类型</th>
+                                        <th class="col-sm-2">案件开始时间</th>
+                                        <th class="col-sm-2">案件结束时间</th>
+                                        <th class="col-sm-3">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody id="Table">

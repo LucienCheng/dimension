@@ -167,13 +167,7 @@
                         </button>
                         <strong>删除成功!</strong>
                     </div>
-                    <div class="hidden alert alert-warning alert-dismissible  in add" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <strong>添加成功!</strong>
-                    </div>
+
                 </div>
                 <div class="col-sm-12">
                     <div class="card">
@@ -192,10 +186,7 @@
                                                 <input type="text" class="form-control" placeholder="案件类型"
                                                        name="casetype">
                                             </div>
-                                            <div class="col-sm-2"></div>
-                                            <div class="col-sm-10">
-                                                <input onclick="addModal()" class="btn btn-info" value="添加">
-                                            </div>
+
                                         </div>
 
 
@@ -239,10 +230,10 @@
                                     <tr class="row">
                                         <th class="col-sm-1">#</th>
                                         <th class="col-sm-2">案件名称</th>
-                                        <th class="col-sm-1">案件类型</th>
-                                        <th class="col-sm-3">案件开始时间</th>
-                                        <th class="col-sm-3">案件结束时间</th>
-                                        <th class="col-sm-2">操作</th>
+                                        <th class="col-sm-2">案件类型</th>
+                                        <th class="col-sm-2">案件开始时间</th>
+                                        <th class="col-sm-2">案件结束时间</th>
+                                        <th class="col-sm-3">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody id="Table">
@@ -276,7 +267,7 @@
                                 <div class="card-block">
                                     <div class="form-group row">
 
-                                        <div class="col-sm-3">
+                                        <div class="col-sm-5">
                                             <button id="compute"class=" btn btn-success " type="button" onclick="compareCase();"
                                             >计算相似度</button>
                                             <label class="form-control-label ">计算结果：</label>
@@ -463,74 +454,7 @@
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
                 </div>
-                <div class="col-sm-12">
-                    <div id="addModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                         aria-hidden="true">
-                        <div class="modal-dialog">
-                            <form id="addForm">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">添加案件信息</h4>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                            <span class="sr-only">Close</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row form-group ">
-                                            <label class="col-sm-3 form-control-label ">案件名称</label>
-                                            <input name="casename" type="text"
-                                                   class="col-sm-8 form-control" placeholder="案件名称">
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 form-control-label">案件类型</label>
-                                            <input name="casetype" type="text"
-                                                   class="col-sm-8 form-control" placeholder="案件类型">
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 form-control-label">案件编号</label>
-                                            <input name="casecode" type="text"
-                                                   class="col-sm-8 form-control" placeholder="案件编号">
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-sm-3 form-control-label">小组名称</label>
-                                            <input name="groupname" type="text"
-                                                   class="col-sm-8 form-control" placeholder="小组名称">
-                                        </div>
-                                        <div id="department" class="form-group row">
-                                            <label class="col-sm-3 form-control-label ">组长选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8" id="grouperid"
-                                                    name="grouperid" data-live-search="true" title="选择组长">
-                                                <c:forEach items="${groupUsers}" var="user">
-                                                    <<option value="${user.id}">${user.username}</option>>
-                                                </c:forEach>
-                                            </select>
-                                        </div>
-                                        <div class="form-group row">
 
-                                            <label class="col-sm-12">备注信息:</label>
-                                            <div class="col-sm-12">
-                                                <textarea rows="5" class="form-control form-control-line"
-                                                          name="description"></textarea>
-                                            </div>
-
-                                        </div>
-
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default"
-                                                data-dismiss="modal">关闭
-                                        </button>
-                                        <button type="button" class="btn btn-primary" id="addButton">
-                                            添加
-                                        </button>
-                                    </div>
-                                </div><!-- /.modal-content -->
-                            </form>
-                        </div><!-- /.modal-dialog -->
-                    </div><!-- /.modal -->
-                </div>
                 <%--结束模态框--%>
             </div>
 
@@ -583,15 +507,7 @@
     data.totalPage =${totalPage};
     data.cases =${casesJson};
     updateTable(data);
-    /*绑定添加操作的button*/
-    $(function () {
-        $("#addButton").bind("click", function () {
-            add();
-        })
-        updatePage(data);
 
-
-    });
     var firstCase=null;
     var secondCase=null;
     //发送案件的id号过去，实现两个案件的信息具体的比较
@@ -821,36 +737,7 @@
 
 
 
-    //显示添加用户的模态框
-    function addModal() {
-        $('#addModel').modal('show');
-    }
 
-    //添加用户的ajax
-    function add() {
-        var form = new FormData($("#addForm")[0]);
-        $.ajax({
-            url: '<%=basePath%>user/addCase',
-            type: "post",
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            data: form,
-            /* 指定返回类型为json */
-            dataType: 'json',
-            success: function (d) {
-                $("#addModel").modal("hide");
-                $(".add").removeClass("hidden");
-                searchPage(data.currentPage);
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
-
-    }
-
-    //结束添加
 
     //地址栏变化
     window.addEventListener("popstate",
