@@ -1,14 +1,16 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8" %>
 <%
     String path = request.getContextPath();
-    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort() + path + "/";
+    String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+            + path + "/";
 %>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
-<head>   <meta charset="utf-8">
+<head>
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,21 +21,17 @@
           href="<%=basePath%>source/assets/images/favicon.png">
     <title>管理员案件管理</title>
     <!-- Bootstrap Core CSS -->
-
     <link
-            href="<%=basePath%>source/assets/plugins/bootstrap/css/bootstrap.css"
+            href="<%=basePath%>source/assets/plugins/bootstrap/css/bootstrap.min.css"
             rel="stylesheet">
-    <link rel="stylesheet" href="<%=basePath %>/source/css/bootstrap-select.min.css">
     <!-- Custom CSS -->
     <link href="<%=basePath%>source/css/style.css" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="<%=basePath%>source/css/colors/megna.css" id="theme"
           rel="stylesheet">
 
-    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css" />
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-
+    <link rel="stylesheet" href="<%=basePath %>/source/css/bootstrap-select.min.css">
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css"/>
 </head>
 
 <body class="fix-header card-no-border">
@@ -91,28 +89,32 @@
     <aside class="left-sidebar"> <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
-            <nav class="sidebar-nav">
-                <ul id="sidebarnav">
+            <nav class="sidebar-nav ">
+                <ul id="nav navbar-nav sidebarnav">
                     <li><a href="<%=basePath%>user/nodeText" class="waves-effect"><i
-                            class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a></li>
+                            class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a>
+                    </li>
                     <li><a href="<%=basePath%>user/nodeMap" class="wavesEffect"><i
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
+
+
                     <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>user/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>user/nodeReplace" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
                     </li>
                     <li><a href="javascript:void(0);" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
-                    <li><a href="<%=basePath%>user/message" class="waves-effect"><i
-                            class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
-                    <li><a href="<%=basePath%>user/personInfo" class="waves-effect"><i
-                            class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
+                        <li><a href="<%=basePath%>user/message" class="waves-effect"><i
+                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+
+                    <li><a href="<%=basePath%>user/personInfo"
+                           class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
+
+
                 </ul>
 
             </nav>
@@ -204,8 +206,11 @@
                                             <label
                                                     class="col-sm-2 form-control-label">选择时间</label>
                                             <div class=" col-sm-10">
-                                                <input type="text" class="form-control" id="daterange" placeholder="选择起始时间和终止时间">
+                                                <input id="daterange" type="text" class="form-control "
+                                                       placeholder="选择起始时间和终止时间">
                                             </div>
+                                            <input type="hidden" value="" id="beginTime">
+                                            <input type="hidden" value="" id="endTime">
                                             <div class="col-sm-2"></div>
                                             <div class="col-sm-10" style="margin-top: 10px;">
                                                 <input onclick="searchPage(1);" class="btn btn-info" value="搜索">
@@ -228,7 +233,7 @@
                         <div class="card-block">
                             <h4 class="card-title">案件</h4>
 
-                            <div >
+                            <div>
                                 <table class="table table-hover">
                                     <thead>
                                     <tr class="row">
@@ -241,32 +246,146 @@
                                     </tr>
                                     </thead>
                                     <tbody id="Table">
-                                    <c:forEach items="${cases}" var="item" varStatus="status">
-                                        <tr class="row">
-                                            <td class="col-sm-1">${status.index+1}</td>
-                                            <td class="col-sm-2">${item.casename}</td>
-                                            <td class="col-sm-1">${item.casetype}</td>
-                                            <td class="col-sm-3">${item.begintime}</td>
-                                            <td class="col-sm-3">${item.endtime}</td>
-                                            <td class="col-sm-2">
-                                                <button type="submit" class="btn btn-danger"
-                                                        onclick="deleteModel(${item.id})">删除
-                                                </button>
-                                                <button type="submit" class="btn btn-warning"
-                                                        onclick="updateModel(${item.id});">查看
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
+
                 <div class="col-sm-12" id="Page">
+                    <%--比较点位--%>
+
                 </div>
 
+                <div class="col-sm-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                比较案件
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#compare" style="color:#0f1111;">
+                                    <i class="fa  fa-angle-double-down m-l-10 pull-right"></i>
+                                </a>
+
+                            </h4>
+                        </div>
+                        <div id="compare" class="panel-collapse collapse ">
+                            <div class="panel-body">
+                                <div class="card-block">
+                                    <div class="form-group row">
+
+                                        <div class="col-sm-3">
+                                            <button id="compute"class=" btn btn-success " type="button" onclick="compareCase();"
+                                            >计算相似度</button>
+                                            <label class="form-control-label ">计算结果：</label>
+                                            <span class=" form-control-label" id="result">0%</span>
+                                        </div>
+
+
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="container col-sm-6">
+                                            <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
+                                                <div class="card-block">
+                                                    <form id="firstForm">
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件编号：</label>
+                                                                <span class=" col-sm-4 form-control-label"
+                                                                      id="firstCaseid"></span>
+                                                                <div class="col-sm-4 ">
+                                                                    <button type="button"
+                                                                            class="btn btn-warning pull-right"
+                                                                            onclick="removeCompare(1)">清除
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件名称：</label>
+                                                                <span class=" col-sm-8 form-control-label"
+                                                                      id="firstCasename"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件类型：</label>
+                                                                <span class=" col-sm-8 form-control-label"
+                                                                      id="firstCasetype"></span>
+                                                            </div>
+                                                        </div>
+
+
+                                                        <div class="form-group row">
+
+                                                            <label class="col-sm-12">案件信息:</label>
+                                                            <div class="col-sm-12">
+                                                                    <textarea rows="5"
+                                                                              class="form-control form-control-line"
+                                                                              id="firstDescription"></textarea>
+                                                            </div>
+                                                        </div>
+
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="container col-sm-6">
+                                            <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
+                                                <div class="card-block">
+                                                    <form id="secondForm">
+
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-4 form-control-label">案件编号：</label>
+                                                            <span class=" col-sm-4 form-control-label"
+                                                                  id="secondCaseid"></span>
+                                                            <div class="col-sm-4 ">
+                                                                <button type="button"
+                                                                        class="btn btn-warning pull-right"
+                                                                        onclick="removeCompare(2)">清除
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件名称：</label>
+                                                                <span class=" col-sm-8 form-control-label"
+                                                                      id="secondCasename"></span>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-4 form-control-label">案件类型：</label>
+                                                                <span class=" col-sm-8 form-control-label"
+                                                                      id="secondCasetype"></span>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group row">
+                                                            <label class="col-sm-12">案件信息:</label>
+                                                            <div class="col-sm-12">
+                                                                    <textarea rows="5"
+                                                                              class="form-control form-control-line"
+                                                                              id="secondDescription"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <%--下面都是模态框--%>
                 <div class="col-sm-12">
                     <div id="updateModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -292,7 +411,15 @@
                                             <input id="casetype" name="casetype" type="text"
                                                    class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-12">备注信息:</label>
+                                            <div class="col-sm-12">
+                                                <textarea id="description" rows="5"
+                                                          class="form-control form-control-line"
+                                                          name="description"></textarea>
+                                            </div>
 
+                                        </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default"
@@ -370,14 +497,14 @@
                                             <input name="groupname" type="text"
                                                    class="col-sm-8 form-control" placeholder="小组名称">
                                         </div>
-                                        <div id="department"  class="form-group row">
+                                        <div id="department" class="form-group row">
                                             <label class="col-sm-3 form-control-label ">组长选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8" id="grouperid" name="grouperid" data-live-search="true" title="选择部门">
+                                            <select class="selectpicker form-control c-select col-sm-8" id="grouperid"
+                                                    name="grouperid" data-live-search="true" title="选择组长">
                                                 <c:forEach items="${groupUsers}" var="user">
                                                     <<option value="${user.id}">${user.username}</option>>
                                                 </c:forEach>
                                             </select>
-
                                         </div>
                                         <div class="form-group row">
 
@@ -443,19 +570,19 @@
 <!--Custom JavaScript -->
 <script src="<%=basePath%>source/js/custom.min.js"></script>
 
+
 <script src="<%=basePath %>source/js/bootstrap-select.min.js"></script>
 
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
+
     /*初始化参数*/
-/*
     var data = new Object();
     data.currentPage =${currentPage};
     data.totalPage =${totalPage};
     data.cases =${casesJson};
-*/
-
+    updateTable(data);
     /*绑定添加操作的button*/
     $(function () {
         $("#addButton").bind("click", function () {
@@ -465,8 +592,87 @@
 
 
     });
+    var firstCase=null;
+    var secondCase=null;
+    //发送案件的id号过去，实现两个案件的信息具体的比较
+    function compareCase(){
+        if (firstCase!=null&&secondCase!=null){
+            $.ajax({
+                url: '<%=basePath%>user/caseAdmin/compute',
+                type: "post",
+                dataType: 'json',
+                data:{'firstCase':firstCase,'secondCase':secondCase},
+                success: function (d) {
+                    console.log("成功");
+                    $('#result').text(d.result);
+                    console.log(d);
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+        }
+    }
+    //表示下面的案件框，如果存在了案件，就为1，初始为0；
+    var first = 0;
+    var second = 0;
 
+    function removeCompare(flag) {
+        if(flag==1){
+            $('#firstCaseid').text("");
+            $('#firstCasename').text("");
+            $('#firstCasetype').text("");
+            $('#firstDescription').text("");
+            first=0;
+            firstCaseId=null;
+        }
+        else {
+            $('#secondCaseid').text("");
+            $('#secondCasename').text("");
+            $('#secondCasetype').text("");
+            $('#secondDescription').text("");
+            second=0;
+            secondCaseId=null;
+        }
+        check();
+    }
 
+    function addCaseCompare(caseid) {
+        $.each(data.cases, function (index, item) {
+            if (item.id == caseid) {
+                if (first == 0) {
+                    $('#firstCaseid').text(item.id);
+                    $('#firstCasename').text(item.casename);
+                    $('#firstCasetype').text(item.casetype);
+                    $('#firstDescription').text(item.description);
+                    firstCase=""+item.description;
+                    first = 1;
+                }
+                else if (second == 0) {
+                    $('#secondCaseid').text(item.id);
+                    $('#secondCasename').text(item.casename);
+                    $('#secondCasetype').text(item.casetype);
+                    $('#secondDescription').text(item.description);
+                    secondCase=""+item.description;
+                    second = 1;
+                }
+            }
+        });
+
+        check();
+    }
+    function check() {
+        console.log(first+","+second);
+        //检查一下是否满了，满了就设置按钮为不可使用
+        if(first==1&&second==1){
+            $('#Table').find('.compare').attr('disabled','true');
+            $('#compute').removeAttr('disabled');
+
+        }else {
+            $('#Table').find('.compare').removeAttr('disabled');
+            $('#compute').attr('disabled','true');
+        }
+    }
     /*一下是关于更新的操作
         触发更新模态框*/
     function updateModel(id) {
@@ -474,6 +680,7 @@
             if (item.id == id) {
                 $("#casename").val(item.casename);
                 $("#casetype").val(item.casetype);
+                $("#description").val(item.description);
                 return false;
             }
         })
@@ -486,7 +693,7 @@
         var form = new FormData($("#updateForm")[0]);
         form.append("id", id);
         $.ajax({
-            url: '<%=basePath%>admin/updateCase',
+            url: '<%=basePath%>user/updateCase',
             type: "post",
             data: form,
             /* 执行执行的是dom对象 ，不需要转化信息*/
@@ -500,6 +707,7 @@
                     if (case1.id == d.case1.id) {
                         case1.casename = d.case1.casename;
                         case1.casetype = d.case1.casetype;
+                        case1.description = d.case1.description;
                     }
                 });
                 updateTable(data);
@@ -525,10 +733,14 @@
                 str += "<tr class='row'>";
                 str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.casename + "</td>";
-                str += "<td class=\"col-sm-1\">" + item.casetype + "</td>";
-                str += "<td class=\"col-sm-3\">" + item.begintime + "</td>";
-                str += "<td class=\"col-sm-3\">" + item.endtime + "</td>";
-                str += '<td class="col-sm-2"><button  onclick="deleteModel(' +
+                str += "<td class=\"col-sm-2\">" + item.casetype + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.begintime + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.endtime + "</td>";
+                str += '<td class="col-sm-3">' +
+                    '<button  onclick="addCaseCompare(' +
+                    item.id +
+                    ')" class="btn btn-success compare">添加比较</button>\n' +
+                    '<button  onclick="deleteModel(' +
                     item.id +
                     ')" class="btn btn-danger">删除</button>' +
                     ' <button onclick="updateModel(' +
@@ -600,7 +812,7 @@
 
         $("#Page ul li a").bind('click', function () {
             var rel = $(this).attr("rel");
-            window.history.pushState(null, null, "<%=basePath%>admin/caseAdmin/" + rel);
+            window.history.pushState(null, null, "<%=basePath%>user/caseAdmin/" + rel);
             searchPage(rel);
         });
     }
@@ -618,7 +830,7 @@
     function add() {
         var form = new FormData($("#addForm")[0]);
         $.ajax({
-            url: '<%=basePath%>admin/addCase',
+            url: '<%=basePath%>user/addCase',
             type: "post",
             /* 执行执行的是dom对象 ，不需要转化信息*/
             processData: false,
@@ -652,9 +864,12 @@
     //按照页面，条件搜索
     function searchPage(rel) {
         var form = new FormData($('#searchForm')[0]);
-
+        if ($('#beginTime').val() != '') {
+            form.append('beginTime', $('#beginTime').val());
+            form.append('endTime', $('#endTime').val());
+        }
         $.ajax({
-            url: '<%=basePath%>admin/caseAdmin/' + rel,
+            url: '<%=basePath%>user/caseAdmin/' + rel,
             type: "post",
             data: form,
             /* 执行执行的是dom对象 ，不需要转化信息*/
@@ -685,7 +900,7 @@
     //发送删除某一个对象请求
     function delete1(id) {
         $.ajax({
-            url: '<%=basePath%>admin/deleteCase/' + id,
+            url: '<%=basePath%>user/deleteCase/' + id,
             type: "post",
             /* 执行执行的是dom对象 ，不需要转化信息*/
             processData: false,
@@ -703,12 +918,17 @@
         });
 
     }
-    $('.daterange').daterangepicker({
+
+    $('#daterange').daterangepicker({
         timePicker: true,
         timePickerIncrement: 30,
         locale: {
-            format: 'YYYY-DD-MM h:mm:ss '
+            format: 'YYYY-MM-DD h:mm:ss'
         }
+    }, function (start, end) {
+        console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
+        $('#beginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
+        $('#endTime').val(end.format('YYYY-MM-DD h:mm:ss'));
     });
 
 </script>

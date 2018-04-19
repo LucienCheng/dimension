@@ -89,34 +89,40 @@
     <aside class="left-sidebar"> <!-- Sidebar scroll-->
         <div class="scroll-sidebar">
             <!-- Sidebar navigation-->
-            <nav class="sidebar-nav">
-                <ul id="sidebarnav">
+            <nav class="sidebar-nav ">
+                <ul id="nav navbar-nav sidebarnav">
                     <li><a href="<%=basePath%>user/nodeText" class="waves-effect"><i
-                            class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a></li>
+                            class="fa fa-table m-r-10" aria-hidden="true"></i>文字点位搜索</a>
+                    </li>
                     <li><a href="<%=basePath%>user/nodeMap" class="wavesEffect"><i
                             class="fa fa-globe m-r-10" aria-hidden="true"></i>地图搜索点位信息</a></li>
+
+
                     <li><a href="#" data-toggle="collapse" data-target="#submenu1"><i
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>user/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
-                            <li><a href="javascript:void(0);" class="wavesEffect"><i
+
+
+                            <li><a href="javascript:;" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
                     </li>
                     <li><a href="<%=basePath%>user/caseAdmin" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
-                    <li><a href="<%=basePath%>user/message" class="waves-effect"><i
-                            class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
-                    <li><a href="<%=basePath%>user/personInfo" class="waves-effect"><i
-                            class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
+
+
+                    <li><a href="<%=basePath%>user/personInfo"
+                           class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
+
+
                 </ul>
 
             </nav>
             <!-- End Sidebar navigation -->
         </div>
         <!-- End Sidebar scroll--> </aside>
+
     <!-- End Left Sidebar - style you can find in sidebar.scss  -->
 
 
@@ -149,113 +155,67 @@
 
             <div class="card">
                 <div class="card-block">
-                    <div class="row" style="margin-bottom: 15px;">
+                    <h4 class="card-title">需要更新的基础点</h4>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="row">
+                            <th class="col-sm-1">#</th>
+                            <th class="col-sm-2">点位名称</th>
+                            <th class="col-sm-3">点位地址</th>
+                            <th class="col-sm-1">点位类型</th>
+                            <th class="col-sm-2">点位时间</th>
+                            <th class="col-sm-2">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="Table">
+                        <c:forEach items="${baseNodes}" var="baseNode" varStatus="status">
+                            <tr class="row">
+                                <th class="col-sm-1">${status.index+1}</th>
+                                <th class="col-sm-2">${baseNode.nodename}</th>
+                                <th class="col-sm-3">${baseNode.address}</th>
+                                <th class="col-sm-1">${baseNode.table.chinesename}</th>
+                                <th class="col-sm-2">${baseNode.collecttime}</th>
+                                <th class="col-sm-3">
+                                    <button type="button" class="btn btn-info"
+                                            onclick="window.open('<%=basePath%>user/node/${baseNode.nodeid}?nodetype=${baseNode.nodetype}')">查看
+                                    </button>
+                                    <button id="solveButton" type="button" class="btn btn-warning"
+                                            onclick="solve(${baseNode.nodeid});">处理
+                                    </button>
+                                    <button type="button" class="btn btn-danger"
+                                            onclick="ignore(${baseNode.nodeid});">忽略
+                                    </button>
+                                </th>
+                            </tr>
+                        </c:forEach>
 
-                        <div class="form-group  col-sm-2">
-                        <select class="form-control c-select">
-                            <option selected>基本点选择</option>
-                            <option value="1">基本点1</option>
-                            <option value="2">基本点2</option>
-                            <option value="3">基本点3</option>
-                        </select>
-                        </div>
-                        <div class="col-sm-8">
-                            <input class=" btn btn-success " type="button" value="计算相似度"
-                                   style="margin-left: 15px;">
+                        </tbody>
+                    </table>
 
-                            <label class="form-control-label col-sm-2">计算结果：</label>
-                            <span class=" form-control-label col-sm-2">80%</span>
-                        </div>
-
-                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="container col-sm-6">
-                    <div class="card">
-                        <div class="card-block">
-                            <form class="form-horizontal ">
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">经度：</label>
-                                    <span class=" col-sm-8 form-control-label">110.000</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">纬度：</label>
-                                    <span class=" col-sm-8 form-control-label">110.000</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位名称：</label>
-                                    <span class=" col-sm-8 form-control-label">岳麓区大学城</span>
+            <div class="card">
+                <div class="card-block">
+                    <h4 class="card-title">来自案件的点位信息</h4>
+                    <table class="table table-hover">
+                        <thead>
+                        <tr class="row">
+                            <th class="col-sm-1">#</th>
+                            <th class="col-sm-2">点位名称</th>
+                            <th class="col-sm-3">点位地址</th>
+                            <th class="col-sm-2">拥有者</th>
+                            <th class="col-sm-2">点位时间</th>
+                            <th class="col-sm-2">操作</th>
+                        </tr>
+                        </thead>
+                        <tbody id="Table1">
 
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位地址：</label>
-                                    <span class=" col-sm-8 form-control-label">天马公寓</span>
-                                </div>
+                        </tbody>
+                    </table>
 
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位类型：</label>
-                                    <span class=" col-sm-8 form-control-label">atm</span>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点描述：</label>
-                                    <span class=" col-sm-8 form-control-label">发生于。。。。</span>
-                                </div>
-
-                                <div class="form-group">
-                                    <input class=" btn btn-info" type="button" value="查看详细信息">
-                                        <input class=" btn btn-warning " type="button" value="提交更改"
-                                               style="margin-left: 15px;">
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-                <div class="container col-sm-6">
-                    <div class="card">
-                        <div class="card-block">
-                            <form class="form-horizontal ">
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">经度：</label>
-                                    <span class=" col-sm-8 form-control-label">110.000</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">纬度：</label>
-                                    <span class=" col-sm-8 form-control-label">110.000</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位名称：</label>
-                                    <span class=" col-sm-8 form-control-label">岳麓区大学城</span>
-
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位地址：</label>
-                                    <span class=" col-sm-8 form-control-label">天马公寓</span>
-                                </div>
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点位类型：</label>
-                                    <span class=" col-sm-8 form-control-label">atm</span>
-                                </div>
-
-                                <div class="form-group row">
-                                    <label class="col-sm-4 form-control-label">基本点描述：</label>
-                                    <span class=" col-sm-8 form-control-label">发生于。。。。</span>
-                                </div>
-
-                                <div class="form-group">
-                                    <input class=" btn btn-info" type="button" value="查看详细信息">
-                                </div>
-
-                            </form>
-                        </div>
-
-                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -285,11 +245,79 @@
         src="<%=basePath %>source/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
 <!--Custom JavaScript -->
 <script src="<%=basePath %>source/js/custom.min.js"></script>
+<script type="text/javascript">
 
-<!-- Style switcher -->
+    function updateNode(data,originNodeId){
 
-<script
-        src="<%=basePath %>source/assets/plugins/style/switcher/jQuery.style.switcher.js"></script>
+        var table = $("#Table1");
+        var str = "";
+        console.log(data.needReplacedNode.length);
+        if (data.needReplacedNode.length != 0) {
+            $.each(data.needReplacedNode, function (index, item) {
+                str += "<tr class='row'>";
+                str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.nodename + "</td>";
+                str += "<td class=\"col-sm-3\">" + item.address + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.username + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.collecttime + "</td>";
+                str += '<td class="col-sm-2">' +
+                    '<button type="button" class="btn btn-info"  onclick="window.open(\'/user/node/' +item.nodeid+
+                    '?nodetype='+item.nodetype+'\')">查看</button>\n' +
+                    '<button type="button" class="btn btn-danger"  onclick="replace('+originNodeId+','+item.nodeid+');">替换</button>'+
+                    '<td>';
+                str += ' </tr>';
+            });
+        }
+        table.html(str);
+    }
+    function solve(nodeid) {
+        $.ajax({
+            url: '<%=basePath%>user/nodeReplace/solve/'+nodeid,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                $('#Table1').children().remove();
+                var baseNodes=d.needReplacedNode;
+                console.log(baseNodes);
+                updateNode(d,nodeid);
+                console.log("处理成功");
+                //这里需要更新
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    function ignore(nodeid) {
+        $.ajax({
+            url: '<%=basePath%>user/nodeReplace/ignore/'+nodeid,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                console.log("忽略成功");
+                location.reload();
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    function replace(originNodeid,desNodeid) {
+        $.ajax({
+            url: '<%=basePath%>user/nodeReplace/replace/'+originNodeid+'/'+desNodeid,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                console.log("替换成功");
+                location.reload();
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+
+</script>
 </body>
 
 </html>

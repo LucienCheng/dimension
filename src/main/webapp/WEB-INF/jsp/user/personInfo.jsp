@@ -99,8 +99,6 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>user/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>user/nodeReplace" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
@@ -324,7 +322,7 @@
             var form = new FormData(document.getElementById("personInfo"));
 
             $.ajax({
-                url: '/admin/personInfoModify',
+                url: '/user/personInfoModify',
                 type: "post",
                 data: form,
                 /* 执行执行的是dom对象 ，不需要转化信息*/

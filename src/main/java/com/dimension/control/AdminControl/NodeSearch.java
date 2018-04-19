@@ -1,4 +1,4 @@
-package com.dimension.control;
+package com.dimension.control.AdminControl;
 
 import com.dimension.dao.BaseNodeMapper;
 import com.dimension.dao.MarkNodeMapper;
@@ -33,8 +33,6 @@ public class NodeSearch {
     private BaseNodeMapper baseNodeMapper;
     @Resource
     MarkNodeMapper markNodeMapper;
-    @Resource
-    BaseNodeBuilder baseNodeBuilder;
     private static final int count = 10;
 
     @RequestMapping("/nodeText")

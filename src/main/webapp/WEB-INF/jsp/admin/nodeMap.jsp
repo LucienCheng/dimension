@@ -539,7 +539,6 @@
     var map = new BMap.Map("allmap");
     var point = new BMap.Point(116.404, 39.915);
     map.centerAndZoom(point, 17);
-    var count = 1;
     var myCity = new BMap.LocalCity();
     myCity.get(getCity);
     var top_left_navigation = new BMap.NavigationControl();  //左上角，添加默认缩放平移控件
@@ -559,15 +558,15 @@
         updateModel(polyline.id);
     }
     //在地图上标记点位
-    var markNode = function (e, ee, marker) {
-        console.log(marker.markid);
-        mark(marker.markid, 1);
-    };
-    var unMarkNode = function (e, ee, marker) {
+    /* var markNode = function (e, ee, marker) {
+         console.log(marker.markid);
+         mark(marker.markid, 1);
+     };
+     var unMarkNode = function (e, ee, marker) {
 
-        mark(marker.markid, 0);
-        map.removeOverlay(marker);
-    };
+         mark(marker.markid, 0);
+         map.removeOverlay(marker);
+     };*/
 
     function mark(nodeid, flag) {
 
@@ -575,7 +574,7 @@
             url: '<%=basePath%>admin/node/mark/' + nodeid + '/' + flag,
             type: "post",
             dataType: 'json',
-            data:{"markId":nodeid},
+            data: {"markId": nodeid},
             success: function (d) {
                 nodeSearchPage('1');
             },
@@ -625,8 +624,12 @@
             if (item.id == id) {
                 $("#casename").val(item.casename);
                 $("#casetype").val(item.casetype);
+                console.log(item.isEdited);
                 if (item.isEdited == 1) {
                     $("#description").val(item.description);
+                }
+                else {
+                    $("#description").val("");
                 }
 
                 return false;
@@ -721,18 +724,27 @@
 
     //展示某个案件的具体点位
     function showCaseNode(caseid, isedited) {
-        $.ajax({
-            url: '<%=basePath%>admin/nodeMap/case/caseid/' + caseid,
-            type: "post",
-            dataType: 'json',
-            success: function (d) {
-                console.log(d);
-                showCaseNodes(d, isedited);
-            },
-            error: function (e) {
-                console.log("失败");
+        var flag = 1;
+        $.each(caseMapArray, function (index, item) {
+            if (item.id == caseid) {
+                flag = 0;
             }
         });
+        if (flag == 1) {
+            $.ajax({
+                url: '<%=basePath%>admin/nodeMap/case/caseid/' + caseid,
+                type: "post",
+                dataType: 'json',
+                success: function (d) {
+                    console.log(d);
+                    showCaseNodes(d, isedited);
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+        }
+
     }
 
     //在地图上展示所有这个案件的点位信息
@@ -768,19 +780,20 @@
             var marker = new BMap.Marker(point);
 
             marker.id = item.nodeid;
+            marker.markid = item.nodeid;
             marker.nodetype = item.nodetype;
-            var flag = 1;
-            $.each(markNodids, function (index, item) {
-                if (item.nodeid == marker.id) {
-                    flag = 0;
-                    marker.markid = item.markid;
-                    return;
-                }
-            });
-            //添加右键窗口
-            if (flag == 1) {
-                markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
-            }
+            /* var flag = 1;
+             $.each(markNodids, function (index, item) {
+                 if (item.nodeid == marker.id) {
+                     flag = 0;
+                     marker.markid = item.markid;
+                     return;
+                 }
+             });
+             //添加右键窗口
+             if (flag == 1) {
+                 markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+             }*/
 
             marker.addContextMenu(markerMenu);
             //添加单击展示窗口
@@ -792,13 +805,15 @@
 
             });
             //添加双击时显示点位具体信息
-            marker.addEventListener("dblclick", function () {
-                //弹出具体点位的信息
-                window.open("<%=basePath%>admin/node/" + this.id + "?nodetype=" + this.nodetype);
+            if(isedited==1){
+                marker.addEventListener("dblclick", function () {
+                    //弹出具体点位的信息
+                    window.open("<%=basePath%>admin/node/" + this.id + "?nodetype=" + this.nodetype);
 
-            });
+                });
+            }
+
             points.push(point);
-            count++;
             map.addOverlay(marker);
             markArray.push(marker);
         });
@@ -861,11 +876,11 @@
         console.log(data.baseNodes.length);
         if (data.baseNodes.length != 0) {
             $.each(data.baseNodes, function (index, item) {
-                var markid=0;
+                var markid = 0;
                 type = 1;
                 if ($('#nodetype').val() == 3) {
                     type = 3;
-                    markid=item.markid;
+                    markid = item.markid;
                 }
 
                 str += "<tr class='row'>";
@@ -878,7 +893,7 @@
                 str += '<td class="col-sm-2">' +
                     '<button class="btn btn-info"  onclick="window.open(\'/admin/node/' + item.nodeid +
                     '?nodetype=' + item.nodetype + '\')">查看</button>\n' +
-                    '<button class="btn btn-success"  onclick="showNode('+markid+',' + type + ',' + item.nodeid + ',' + item.longitude + ',' + item.latitude + ','
+                    '<button class="btn btn-success"  onclick="showNode(' + markid + ',' + type + ',' + item.nodeid + ',' + item.longitude + ',' + item.latitude + ','
                 var imgUrl = null;
                 if (item.files != null) {
                     $.each(item.files, function (index, item2) {
@@ -991,7 +1006,7 @@
     }
 
     //url为点位具体信息。
-    function showNode(markid,nodetype, nodeid, lng, lat, img, nodename, address, url) {
+    function showNode(markid, nodetype, nodeid, lng, lat, img, nodename, address, url) {
 
         var sContent =
             "<h4 style='margin:0 0 5px 0;padding:0.2em 0'>" + nodename + "</h4>";
@@ -1004,26 +1019,29 @@
         bPoints.push(point);
         var marker = new BMap.Marker(point);
         marker.id = nodeid;
+        if(nodetype==3){
+            marker.id=markid;
+        }
         marker.nodetype = nodetype;
         var infoWindow = new BMap.InfoWindow(sContent);  // 创建信息窗口对象
 
-        //添加右键窗口
-        var flag = 1;
-        $.each(markNodids, function (index, item) {
-            if (item.nodeid == marker.id) {
-                marker.markid = item.markid;
-                flag = 0;
-                return;
-            }
-        });
-        //添加右键窗口
-        if (flag == 1) {
-            markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
-        }
-        if (nodetype == 3) {
-            marker.markid=markid;
-            markerMenu.addItem(new BMap.MenuItem('取消标记', unMarkNode));
-        }
+        /*  //添加右键窗口
+          var flag = 1;
+          $.each(markNodids, function (index, item) {
+              if (item.nodeid == marker.id) {
+                  marker.markid = item.markid;
+                  flag = 0;
+                  return;
+              }
+          });
+          //添加右键窗口
+          if (flag == 1) {
+              markerMenu.addItem(new BMap.MenuItem('标记点位', markNode));
+          }*/
+        /* if (nodetype == 3) {
+             marker.markid=markid;
+             markerMenu.addItem(new BMap.MenuItem('取消标记', unMarkNode));
+         }*/
 
         markerMenu.addItem(new BMap.MenuItem('在地图上删除', removeMark));
         marker.addContextMenu(markerMenu);

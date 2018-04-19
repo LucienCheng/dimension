@@ -257,7 +257,7 @@
         var form = new FormData($("#updateForm")[0]);
         form.append("id", id);
         $.ajax({
-            url: '<%=basePath%>admin/updateMessage',
+            url: '<%=basePath%>user/updateMessage',
             type: "post",
             data: form,
             /* 执行执行的是dom对象 ，不需要转化信息*/
@@ -360,7 +360,7 @@
 
         $("#Page ul li a").bind('click', function () {
             var rel = $(this).attr("rel");
-            window.history.pushState(null, null, "<%=basePath%>admin/message/" + rel);
+            window.history.pushState(null, null, "<%=basePath%>user/message/" + rel);
             searchPage(rel);
         });
     }
@@ -371,7 +371,7 @@
         var form = new FormData($('#searchForm')[0]);
 
         $.ajax({
-            url: '<%=basePath%>admin/message/' + rel,
+            url: '<%=basePath%>user/message/' + rel,
             type: "post",
             data: form,
             /* 执行执行的是dom对象 ，不需要转化信息*/

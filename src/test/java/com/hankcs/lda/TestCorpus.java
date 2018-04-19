@@ -11,20 +11,36 @@
  */
 package com.hankcs.lda;
 
+import com.dimension.pojo.BaseNode;
+import com.dimension.serviceImpl.CaseAssitImpl;
 import junit.framework.TestCase;
+import org.ansj.domain.Result;
+import org.ansj.domain.Term;
+import org.ansj.splitWord.analysis.NlpAnalysis;
+import org.ansj.splitWord.analysis.ToAnalysis;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.web.multipart.MultipartFile;
 
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * @author hankcs
  */
-public class TestCorpus extends TestCase
-{
-    public void testAddDocument() throws Exception
-    {
+public class TestCorpus extends TestCase {
+    public void testAddDocument() throws Exception {
         List<String> doc1 = new ArrayList<String>();
         doc1.add("hello");
         doc1.add("word");
@@ -36,8 +52,7 @@ public class TestCorpus extends TestCase
         System.out.println(corpus);
     }
 
-    public void testAll() throws Exception
-    {
+    public void testAll() throws Exception {
         // 1. Load corpus from disk
         Corpus corpus = Corpus.load("data/mini");
         // 2. Create a LDA sampler（Gibbs）
@@ -52,11 +67,26 @@ public class TestCorpus extends TestCase
         int[] document = Corpus.loadDocument("data/mini/招聘_1950.txt", corpus.getVocabulary());
         double[] tp = LdaGibbsSampler.inference(phi, document);
         //需要预测的文章，的主题分布
-        for (int i=0;i<tp.length;i++){
+        for (int i = 0; i < tp.length; i++) {
             System.out.println(tp[i]);
         }
         //需要展示，概率最高的那个主题的单词分布。
         Map<String, Double> topic = LdaUtil.translate(tp, phi, corpus.getVocabulary(), 30);
         LdaUtil.explain(topic);
     }
+
+    public void testAnsj() throws IOException {
+        String str = "老板 一定会 积极 乐观 心态 老板 老板 心态 影响 企业 风格 老板 中庸 企业 经营 必定 不瘟不火 有功 但求无过 老板 激进 企业 员工 缺乏 足够 安全感 \n" +
+                " 以前 老板 事情 嘴边 遇到 事情 必定 反面 论证 得出 结论 原因 可能会 成功 员工 保持 冷静 不免 员工 嘀咕 看来 可能 \n" +
+                " 积极 乐观 心态 传递 心态 老板 员工 安全感 觉得 没什么 大不了 放开 手脚 一页       一页";
+        String str1 = "老板 一定会 积极 乐观 心态 老板 老板 心态 影响 企业 风格 老板 中庸 企业 经营 必定 不瘟不火 有功 但求无过 老板 激进 企业 员工 缺乏 足够 安全感 \n" +
+                " 以前 老板 事情 嘴边 遇到 事情 必定 反面 论证 得出 结论 原因 可能会 成功 员工 保持 冷静 不免 员工 嘀咕 看来 可能 \n" +
+                " 积极 乐观 心态 传递 心态 老板 员工 安全感 觉得 没什么 大不了 放开 手脚 一页       一页";
+
+        CaseAssitImpl caseAssit = new CaseAssitImpl();
+        caseAssit.computeUseLDA();
+        System.out.println(caseAssit.computeCompareCase(str, str1));
+
+    }
+
 }

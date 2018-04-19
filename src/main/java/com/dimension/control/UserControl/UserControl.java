@@ -50,7 +50,7 @@ public class UserControl {
     //文本点位信息
     @RequestMapping("/node")
     public String node() {
-        return "/node";
+        return "admin/node";
     }
 
 }

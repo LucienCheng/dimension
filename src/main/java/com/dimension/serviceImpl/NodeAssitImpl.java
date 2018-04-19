@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.dimension.service.CompareNodeService;
 import com.dimension.service.NodeAssit;
 import com.dimension.service.NodeComplex;
 import com.dimension.service.TableFieldService;
@@ -27,7 +26,6 @@ import com.dimension.service.TableFieldService;
 public class NodeAssitImpl implements NodeAssit {
     private final static String imagePathPrefix = "/file/image/";
     private final static String videoPathPrefix = "/file/video/";
-    private CompareNodeService compareNodeService = new CompareNodeImpl();
     @Resource
     private BaseNodeMapper baseNodeMapper;
     @Resource
@@ -72,10 +70,6 @@ public class NodeAssitImpl implements NodeAssit {
         return true;
     }
 
-    @Override
-    public BigDecimal compareNode(Long nodeIdFirst, Long nodeIdSecond) {
-        return compareNodeService.compareNode(nodeIdFirst, nodeIdSecond);
-    }
 
     //这个是需要在casenode中设置一下从哪升级过来的，设置一下baseNodeid,默认来说，是不复制文件的
     @Override

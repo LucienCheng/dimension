@@ -1,4 +1,4 @@
-package com.dimension.control;
+package com.dimension.control.AdminControl;
 
 import com.dimension.dao.*;
 import com.dimension.pojo.*;
@@ -26,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+
 @RequestMapping("/admin")
 public class NodeControl {
     @Resource
@@ -94,7 +95,7 @@ public class NodeControl {
         model.addAttribute("nodetype", nodetype);
         model.addAttribute("isEdited", isEdited);
         model.addAttribute("markId", markId);
-        return "/node";
+        return "admin/node";
     }
 
     @RequestMapping("/node/upgradeNode")

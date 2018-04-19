@@ -5,6 +5,8 @@ import com.dimension.dao.GroupMapper;
 import com.dimension.dao.GroupUserMapper;
 import com.dimension.pojo.*;
 import com.dimension.service.BaseNodeBuilder;
+import com.dimension.service.CaseAssist;
+import com.dimension.service.NodeAssit;
 import com.dimension.service.NodeComplex;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +36,7 @@ public class CaseAdminControl {
     @Resource
     private GroupUserMapper groupUserMapper;
     @Resource
-    private BaseNodeBuilder baseNodeBuilder;
+    private CaseAssist caseAssist;
     private static final int count = 10;
 
 
@@ -114,6 +117,14 @@ public class CaseAdminControl {
         //插入案件和插入用户案件
         groupUserMapper.insertSelective(groupUser);
         caseMapper.insertSelective(case1);
+        return map;
+    }
+
+    @RequestMapping("/caseAdmin/compute")
+    @ResponseBody
+    public Map<String, Object> compute(String firstCase,String secondCase) throws IOException {
+        Map<String, Object> map = new HashMap<>();
+        map.put("result",caseAssist.computeCompareCase(firstCase,secondCase));
         return map;
     }
 }

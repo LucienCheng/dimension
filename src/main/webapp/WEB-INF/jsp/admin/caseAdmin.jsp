@@ -285,20 +285,32 @@
                         <div id="compare" class="panel-collapse collapse ">
                             <div class="panel-body">
                                 <div class="card-block">
+                                    <div class="form-group row">
+
+                                        <div class="col-sm-5">
+                                            <button id="compute"class=" btn btn-success " type="button" onclick="compareCase();"
+                                            >计算相似度</button>
+                                            <label class="form-control-label ">计算结果：</label>
+                                            <span class=" form-control-label" id="result">0%</span>
+                                        </div>
+
+
+                                    </div>
+
                                     <div class="row">
                                         <div class="container col-sm-6">
                                             <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
                                                 <div class="card-block">
-                                                    <form class="form-horizontal ">
-
+                                                    <form id="firstForm">
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">案件编号：</label>
-                                                                <span class=" col-sm-4 form-control-label">1</span>
+                                                                <span class=" col-sm-4 form-control-label"
+                                                                      id="firstCaseid"></span>
                                                                 <div class="col-sm-4 ">
-                                                                    <button type="submit"
+                                                                    <button type="button"
                                                                             class="btn btn-warning pull-right"
-                                                                            onclick="">清除
+                                                                            onclick="removeCompare(1)">清除
                                                                     </button>
                                                                 </div>
                                                             </div>
@@ -306,32 +318,28 @@
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">案件名称：</label>
-                                                                <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
+                                                                <span class=" col-sm-8 form-control-label"
+                                                                      id="firstCasename"></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">案件类型：</label>
-                                                                <span class=" col-sm-8 form-control-label">抢劫</span>
+                                                                <span class=" col-sm-8 form-control-label"
+                                                                      id="firstCasetype"></span>
                                                             </div>
                                                         </div>
 
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">案件描述：</label>
-                                                                <span class=" col-sm-8 form-control-label">发生于。。。。</span>
+
+                                                        <div class="form-group row">
+
+                                                            <label class="col-sm-12">案件信息:</label>
+                                                            <div class="col-sm-12">
+                                                                    <textarea rows="5"
+                                                                              class="form-control form-control-line"
+                                                                              id="firstDescription"></textarea>
                                                             </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">组长：</label>
-                                                                <span class=" col-sm-8 form-control-label">李四</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <input class=" btn btn-info" type="button"
-                                                                   value="查看详细信息">
                                                         </div>
 
                                                     </form>
@@ -342,60 +350,42 @@
                                         <div class="container col-sm-6">
                                             <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125)">
                                                 <div class="card-block">
-                                                    <form class="form-horizontal ">
+                                                    <form id="secondForm">
 
                                                         <div class="form-group row">
                                                             <label class="col-sm-4 form-control-label">案件编号：</label>
-                                                            <span class=" col-sm-4 form-control-label">1</span>
+                                                            <span class=" col-sm-4 form-control-label"
+                                                                  id="secondCaseid"></span>
                                                             <div class="col-sm-4 ">
-                                                                <button type="submit"
+                                                                <button type="button"
                                                                         class="btn btn-warning pull-right"
-                                                                        onclick="">清除
+                                                                        onclick="removeCompare(2)">清除
                                                                 </button>
                                                             </div>
                                                         </div>
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">案件名称：</label>
-                                                                <span class=" col-sm-8 form-control-label">岳麓区抢劫案</span>
+                                                                <span class=" col-sm-8 form-control-label"
+                                                                      id="secondCasename"></span>
                                                             </div>
                                                         </div>
 
                                                         <div class="form-group">
                                                             <div class="form-group row">
                                                                 <label class="col-sm-4 form-control-label">案件类型：</label>
-                                                                <span class=" col-sm-8 form-control-label">抢劫</span>
+                                                                <span class=" col-sm-8 form-control-label"
+                                                                      id="secondCasetype"></span>
                                                             </div>
                                                         </div>
-
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">案件描述：</label>
-                                                                <span class=" col-sm-8 form-control-label">发生于。。。。</span>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <div class="form-group row">
-                                                                <label class="col-sm-4 form-control-label">组长：</label>
-                                                                <span class=" col-sm-8 form-control-label">李四</span>
-                                                            </div>
-                                                        </div>
-
                                                         <div class="form-group row">
-                                                            <div class="col-sm-4">
-
-                                                                <input class=" btn btn-info" type="button"
-                                                                       value="查看详细信息">
+                                                            <label class="col-sm-12">案件信息:</label>
+                                                            <div class="col-sm-12">
+                                                                    <textarea rows="5"
+                                                                              class="form-control form-control-line"
+                                                                              id="secondDescription"></textarea>
                                                             </div>
-                                                            <div class="col-sm-3">
-                                                                <input class=" btn btn-success " type="button"
-                                                                       value="计算相似度">
-                                                            </div>
-                                                            <label class="form-control-label col-sm-3">计算结果：</label>
-                                                            <span class=" form-control-label col-sm-2">80%</span>
-
                                                         </div>
-
                                                     </form>
                                                 </div>
 
@@ -433,7 +423,6 @@
                                                    class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
                                         <div class="form-group row">
-
                                             <label class="col-sm-12">备注信息:</label>
                                             <div class="col-sm-12">
                                                 <textarea id="description" rows="5"
@@ -598,6 +587,7 @@
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
+
     /*初始化参数*/
     var data = new Object();
     data.currentPage =${currentPage};
@@ -613,8 +603,87 @@
 
 
     });
+var firstCase=null;
+var secondCase=null;
+    //发送案件的id号过去，实现两个案件的信息具体的比较
+    function compareCase(){
+        if (firstCase!=null&&secondCase!=null){
+            $.ajax({
+                url: '<%=basePath%>admin/caseAdmin/compute',
+                type: "post",
+                dataType: 'json',
+                data:{'firstCase':firstCase,'secondCase':secondCase},
+                success: function (d) {
+                    console.log("成功");
+                    $('#result').text(d.result);
+                    console.log(d);
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+        }
+    }
+    //表示下面的案件框，如果存在了案件，就为1，初始为0；
+    var first = 0;
+    var second = 0;
 
+    function removeCompare(flag) {
+        if(flag==1){
+            $('#firstCaseid').text("");
+            $('#firstCasename').text("");
+            $('#firstCasetype').text("");
+            $('#firstDescription').text("");
+            first=0;
+            firstCaseId=null;
+        }
+        else {
+            $('#secondCaseid').text("");
+            $('#secondCasename').text("");
+            $('#secondCasetype').text("");
+            $('#secondDescription').text("");
+            second=0;
+            secondCaseId=null;
+        }
+        check();
+    }
+    
+    function addCaseCompare(caseid) {
+        $.each(data.cases, function (index, item) {
+            if (item.id == caseid) {
+                if (first == 0) {
+                    $('#firstCaseid').text(item.id);
+                    $('#firstCasename').text(item.casename);
+                    $('#firstCasetype').text(item.casetype);
+                    $('#firstDescription').text(item.description);
+                    firstCase=""+item.description;
+                    first = 1;
+                }
+                else if (second == 0) {
+                    $('#secondCaseid').text(item.id);
+                    $('#secondCasename').text(item.casename);
+                    $('#secondCasetype').text(item.casetype);
+                    $('#secondDescription').text(item.description);
+                    secondCase=""+item.description;
+                    second = 1;
+                }
+            }
+        });
 
+        check();
+    }
+function check() {
+        console.log(first+","+second);
+    //检查一下是否满了，满了就设置按钮为不可使用
+    if(first==1&&second==1){
+        $('#Table').find('.compare').attr('disabled','true');
+        $('#compute').removeAttr('disabled');
+
+    }else {
+        $('#Table').find('.compare').removeAttr('disabled');
+        $('#compute').attr('disabled','true');
+    }
+}
     /*一下是关于更新的操作
         触发更新模态框*/
     function updateModel(id) {
@@ -675,10 +744,14 @@
                 str += "<tr class='row'>";
                 str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.casename + "</td>";
-                str += "<td class=\"col-sm-1\">" + item.casetype + "</td>";
-                str += "<td class=\"col-sm-3\">" + item.begintime + "</td>";
-                str += "<td class=\"col-sm-3\">" + item.endtime + "</td>";
-                str += '<td class="col-sm-2"><button  onclick="deleteModel(' +
+                str += "<td class=\"col-sm-2\">" + item.casetype + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.begintime + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.endtime + "</td>";
+                str += '<td class="col-sm-3">' +
+                    '<button  onclick="addCaseCompare(' +
+                    item.id +
+                    ')" class="btn btn-success compare">添加比较</button>\n' +
+                    '<button  onclick="deleteModel(' +
                     item.id +
                     ')" class="btn btn-danger">删除</button>' +
                     ' <button onclick="updateModel(' +
