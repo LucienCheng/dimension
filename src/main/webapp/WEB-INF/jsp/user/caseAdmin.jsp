@@ -108,8 +108,8 @@
                     </li>
                     <li><a href="javascript:void(0);" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
-                        <li><a href="<%=basePath%>user/message" class="waves-effect"><i
-                                class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
+                    <li><a href="<%=basePath%>user/message" class="waves-effect"><i
+                            class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
 
                     <li><a href="<%=basePath%>user/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
@@ -230,10 +230,10 @@
                                     <tr class="row">
                                         <th class="col-sm-1">#</th>
                                         <th class="col-sm-2">案件名称</th>
-                                        <th class="col-sm-2">案件类型</th>
+                                        <th class="col-sm-1">案件类型</th>
                                         <th class="col-sm-2">案件开始时间</th>
                                         <th class="col-sm-2">案件结束时间</th>
-                                        <th class="col-sm-3">操作</th>
+                                        <th class="col-sm-4">操作</th>
                                     </tr>
                                     </thead>
                                     <tbody id="Table">
@@ -268,8 +268,10 @@
                                     <div class="form-group row">
 
                                         <div class="col-sm-5">
-                                            <button id="compute"class=" btn btn-success " type="button" onclick="compareCase();"
-                                            >计算相似度</button>
+                                            <button id="compute" class=" btn btn-success " type="button"
+                                                    onclick="compareCase();"
+                                            >计算相似度
+                                            </button>
                                             <label class="form-control-label ">计算结果：</label>
                                             <span class=" form-control-label" id="result">0%</span>
                                         </div>
@@ -426,6 +428,65 @@
                         </div><!-- /.modal-dialog -->
                     </div><!-- /.modal -->
                 </div>
+                <%--添加组员的操作--%>
+                <div class="col-sm-12">
+                    <div id="addGroupModel" class="modal fade" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel"
+                         aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">设置组员</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                        <span class="sr-only">Close</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="col-sm-12">
+                                        <div class="hidden alert alert-warning alert-dismissible  in modify"
+                                             role="alert">
+                                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                                <span class="sr-only">Close</span>
+                                            </button>
+                                            <strong>修改成功!</strong> 点位信息已经更改
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label class="col-sm-4 form-control-label">案件名称：</label>
+                                        <label class="col-sm-4 form-control-label">测试</label>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label class="form-control-label col-sm-4 ">组员选择:</label>
+                                        <select id="grouperSelect" name="userid"
+                                                class="selectpicker col-sm-4"
+                                                data-live-search="true">
+                                        </select>
+                                        <div class="col-sm-4">
+                                            <button onclick="addGroupHtml($(this).val());"
+                                                    class=" btn btn-success form-control"
+                                                    id="addUserButton" type="button" class="close pull-left"
+                                                    style="color:#fff">添加
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div id="addGrouperForm">
+
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                </div>
+                            </div>
+                        </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
+                </div>
                 <div class="col-sm-12">
                     <div id="deleteModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
                          aria-hidden="true">
@@ -500,6 +561,126 @@
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
 <script type="text/javascript">
+    Array.prototype.indexOf = function (val) {
+        for (var i = 0; i < this.length; i++) {
+            if (this[i].id == val.id)
+                return i;
+        }
+        return -1;
+    };
+    Array.prototype.remove = function (val) {
+        var index = this.indexOf(val);
+        if (index > -1) {
+            this.splice(index, 1);
+        }
+    };
+    var caseGrouperArray = new Array();
+    var DepartGrouper = new Array();
+
+    function updateGrouper() {
+        console.log(DepartGrouper)
+        var str ="";
+        $.each(caseGrouperArray, function (index, item) {
+           str+= "  <div class=\"form-group row\">\n" +
+                "                                            <label class=\"form-control-label col-sm-4 \">组员" + (index + 1) + ":</label>\n" +
+                "                                            <label class=\"form-control-label col-sm-4 \">" + item.username + "</label>\n" +
+                "                                            <div class=\"col-sm-4\">\n" +
+                "                                                <input type=\"button\" value=\"删除\" class=\" btn btn-danger form-control\"\n" +
+                "                                                       onclick=\"removeTr($(this)," + item.id + ");\" style=\"color:#fff\">\n" +
+                "                                            </div>\n" +
+                "                                        </div>";
+
+
+        });
+        $('#addGrouperForm').html(str);
+    }
+
+    function updateSelectUser() {
+        var str = '';
+        $.each(DepartGrouper, function (index, item) {
+            str += '<option value="' + item.userid + '">' + item.username + '</option>';
+        })
+        $('#grouperSelect').html(str);
+        $('#grouperSelect').selectpicker('refresh');
+        $('#grouperSelect').selectpicker('show');
+    }
+
+    function addGroupModel(caseId, groupid) {
+        $.ajax({
+            url: '<%=basePath%>user/caseAdmin/getGrouperByCaseId/' + caseId,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                caseGrouperArray = d.groupers;
+                DepartGrouper = d.selectUsers;
+                updateGrouper();
+                updateSelectUser();
+                $('#addGroupModel').modal('toggle');
+                $('#addUserButton').val(groupid);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    //删除属性的一块
+    function removeTr(object, groupuserId) {
+        $.ajax({
+            url: '<%=basePath%>user/caseAdmin/deleteUser/' + groupuserId,
+            type: "post",
+            dataType: 'json',
+            success: function (d) {
+                //需要更新一下caseGrouperArray和DepartGrouper
+                var t = new Object();
+                $.each(caseGrouperArray, function (index, item) {
+                    if (item.id ==groupuserId) {
+                        t.userid = item.userid;
+                        t.username = item.username;
+                        t.id = item.id;
+                        t.groupid=item.groupid;
+                        return;
+                    }
+                });
+                caseGrouperArray.remove(t);
+                t.id= t.userid;
+                t.groupid=null;
+                DepartGrouper.push(t);
+                updateGrouper();
+                updateSelectUser();
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    function addGroupHtml(groupid) {
+        var groupUser = new Object();
+        groupUser.groupid = groupid;
+        groupUser.userid = $('#grouperSelect').val();
+        $.ajax({
+            url: '<%=basePath%>user/caseAdmin/addUser/',
+            type: "post",
+            dataType: 'json',
+            data: {"groupid": groupid,"userid":$('#grouperSelect').val()},
+            success: function (d) {
+                d.grouper.username=$('#grouperSelect option:selected').text();
+                console.log(d);
+                caseGrouperArray.push(d.grouper);
+                groupUser.id = $('#grouperSelect').val();
+                DepartGrouper.remove(groupUser);
+                updateGrouper();
+                updateSelectUser();
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
 
     /*初始化参数*/
     var data = new Object();
@@ -508,16 +689,17 @@
     data.cases =${casesJson};
     updateTable(data);
 
-    var firstCase=null;
-    var secondCase=null;
+    var firstCase = null;
+    var secondCase = null;
+
     //发送案件的id号过去，实现两个案件的信息具体的比较
-    function compareCase(){
-        if (firstCase!=null&&secondCase!=null){
+    function compareCase() {
+        if (firstCase != null && secondCase != null) {
             $.ajax({
                 url: '<%=basePath%>user/caseAdmin/compute',
                 type: "post",
                 dataType: 'json',
-                data:{'firstCase':firstCase,'secondCase':secondCase},
+                data: {'firstCase': firstCase, 'secondCase': secondCase},
                 success: function (d) {
                     console.log("成功");
                     $('#result').text(d.result);
@@ -529,26 +711,27 @@
             });
         }
     }
+
     //表示下面的案件框，如果存在了案件，就为1，初始为0；
     var first = 0;
     var second = 0;
 
     function removeCompare(flag) {
-        if(flag==1){
+        if (flag == 1) {
             $('#firstCaseid').text("");
             $('#firstCasename').text("");
             $('#firstCasetype').text("");
             $('#firstDescription').text("");
-            first=0;
-            firstCaseId=null;
+            first = 0;
+            firstCaseId = null;
         }
         else {
             $('#secondCaseid').text("");
             $('#secondCasename').text("");
             $('#secondCasetype').text("");
             $('#secondDescription').text("");
-            second=0;
-            secondCaseId=null;
+            second = 0;
+            secondCaseId = null;
         }
         check();
     }
@@ -561,7 +744,7 @@
                     $('#firstCasename').text(item.casename);
                     $('#firstCasetype').text(item.casetype);
                     $('#firstDescription').text(item.description);
-                    firstCase=""+item.description;
+                    firstCase = "" + item.description;
                     first = 1;
                 }
                 else if (second == 0) {
@@ -569,7 +752,7 @@
                     $('#secondCasename').text(item.casename);
                     $('#secondCasetype').text(item.casetype);
                     $('#secondDescription').text(item.description);
-                    secondCase=""+item.description;
+                    secondCase = "" + item.description;
                     second = 1;
                 }
             }
@@ -577,18 +760,20 @@
 
         check();
     }
+
     function check() {
-        console.log(first+","+second);
+        console.log(first + "," + second);
         //检查一下是否满了，满了就设置按钮为不可使用
-        if(first==1&&second==1){
-            $('#Table').find('.compare').attr('disabled','true');
+        if (first == 1 && second == 1) {
+            $('#Table').find('.compare').attr('disabled', 'true');
             $('#compute').removeAttr('disabled');
 
-        }else {
+        } else {
             $('#Table').find('.compare').removeAttr('disabled');
-            $('#compute').attr('disabled','true');
+            $('#compute').attr('disabled', 'true');
         }
     }
+
     /*一下是关于更新的操作
         触发更新模态框*/
     function updateModel(id) {
@@ -649,16 +834,19 @@
                 str += "<tr class='row'>";
                 str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.casename + "</td>";
-                str += "<td class=\"col-sm-2\">" + item.casetype + "</td>";
+                str += "<td class=\"col-sm-1\">" + item.casetype + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.begintime + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.endtime + "</td>";
-                str += '<td class="col-sm-3">' +
+                str += '<td class="col-sm-4">' +
                     '<button  onclick="addCaseCompare(' +
                     item.id +
                     ')" class="btn btn-success compare">添加比较</button>\n' +
                     '<button  onclick="deleteModel(' +
                     item.id +
-                    ')" class="btn btn-danger">删除</button>' +
+                    ')" class="btn btn-danger">删除</button>\n' +
+                    '<button  onclick="addGroupModel(' +
+                    item.id +
+                    ',' + item.groupid + ')" class="btn btn-success">设置组员</button>' +
                     ' <button onclick="updateModel(' +
                     item.id +
                     ');" class="btn btn-warning" >查看</button></td>';

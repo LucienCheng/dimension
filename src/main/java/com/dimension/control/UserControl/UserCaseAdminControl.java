@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,8 @@ public class UserCaseAdminControl {
     private CaseMapper caseMapper;
     @Resource
     private CaseAssist caseAssist;
+    @Resource
+    private GroupUserMapper groupUserMapper;
     private static final int count = 10;
 
 
@@ -73,6 +76,7 @@ public class UserCaseAdminControl {
         map.put("currentPage", start + 1);
         return map;
     }
+
     @RequestMapping("/deleteCase/{id}")
     @ResponseBody
     public Map<String, Object> deleteCase(@PathVariable int id) {
@@ -80,6 +84,7 @@ public class UserCaseAdminControl {
         caseMapper.deleteByPrimaryKey(id);
         return map;
     }
+
     @RequestMapping("/updateCase")
     @ResponseBody
     public Map<String, Object> updateCase(Case case1) {
@@ -91,9 +96,39 @@ public class UserCaseAdminControl {
 
     @RequestMapping("/caseAdmin/compute")
     @ResponseBody
-    public Map<String, Object> compute(String firstCase,String secondCase) throws IOException {
+    public Map<String, Object> compute(String firstCase, String secondCase) throws IOException {
         Map<String, Object> map = new HashMap<>();
-        map.put("result",caseAssist.computeCompareCase(firstCase,secondCase));
+        map.put("result", caseAssist.computeCompareCase(firstCase, secondCase));
+        return map;
+    }
+    @RequestMapping("/caseAdmin/getGrouperByCaseId/{caseId}")
+    @ResponseBody
+    public Map<String, Object> getGrouperByCaseId(@PathVariable Integer caseId, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        Map<String, Object> map = new HashMap<>();
+        List<GroupUser> groupers=groupUserMapper.getGrouperByCaseId(caseId);
+        GroupUser groupuser=new GroupUser();
+        groupuser.setUserid(user.getId());
+        List<GroupUser> selectUsers=groupUserMapper.getUserByDepartId(user.getDepartmentid());
+        selectUsers.removeAll(groupers);
+        selectUsers.remove(groupuser);
+        map.put("groupers", groupers);
+        map.put("selectUsers", selectUsers);
+        return map;
+    }
+    @RequestMapping("/caseAdmin/deleteUser/{grouperUserid}")
+    @ResponseBody
+    public Map<String, Object> deleteUser(@PathVariable Integer grouperUserid) {
+        Map<String, Object> map = new HashMap<>();
+        groupUserMapper.deleteByPrimaryKey(grouperUserid);
+        return map;
+    }
+    @RequestMapping("/caseAdmin/addUser")
+    @ResponseBody
+    public Map<String, Object> addUser(GroupUser groupUser) {
+        Map<String, Object> map = new HashMap<>();
+        groupUserMapper.insertSelective(groupUser);
+        map.put("grouper",groupUser);
         return map;
     }
 }
