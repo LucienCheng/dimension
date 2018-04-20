@@ -18,7 +18,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16"
           href="<%=basePath %>source/assets/images/favicon.png">
-    <title>管理员点位替换</title>
+    <title>普通用户点位替换</title>
     <!-- Bootstrap Core CSS -->
     <link
             href="<%=basePath %>source/assets/plugins/bootstrap/css/bootstrap.min.css"
@@ -110,7 +110,8 @@
                     </li>
                     <li><a href="<%=basePath%>user/caseAdmin" class="waves-effect"><i
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
-
+                    <li><a href="<%=basePath%>user/message" class="waves-effect"><i
+                            class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
 
                     <li><a href="<%=basePath%>user/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>

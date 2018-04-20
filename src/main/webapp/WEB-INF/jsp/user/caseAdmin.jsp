@@ -19,7 +19,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16"
           href="<%=basePath%>source/assets/images/favicon.png">
-    <title>管理员案件管理</title>
+    <title>普通用户案件管理</title>
     <!-- Bootstrap Core CSS -->
     <link
             href="<%=basePath%>source/assets/plugins/bootstrap/css/bootstrap.min.css"

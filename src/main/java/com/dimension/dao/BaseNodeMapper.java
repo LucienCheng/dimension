@@ -21,6 +21,7 @@ public interface BaseNodeMapper {
     //搜索条件的点位
     List<BaseNode> selectBaseNode(BaseNodeConditon baseNodeConditon);
 
+    int judgeEdited(BaseNodeConditon baseNodeConditon);
     int count(BaseNodeConditon baseNodeConditon);
     
 }

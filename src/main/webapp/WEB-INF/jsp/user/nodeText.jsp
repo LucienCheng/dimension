@@ -18,7 +18,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16"
           href="<%=basePath %>source/assets/images/favicon.png">
-    <title>管理员文本点位搜索</title>
+    <title>普通用户文本点位搜索</title>
     <!-- Bootstrap Core CSS -->
 
     <link

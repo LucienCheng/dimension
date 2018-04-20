@@ -199,6 +199,8 @@
 		LEFT
 		JOIN `case` on
 		`case`.id=case_node.caseId
+		LEFT
+		JOIN `group` on `group`.id=`case`.groupid
 		LEFT JOIN `user` ON
 		`user`.Id=base_node.userId
 		LEFT JOIN department on
@@ -230,26 +232,16 @@
 				<choose>
 					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
 					<when test="roleId == 2">
-						and (userId=#{userId}
-						<if test="grouperIds != null ">
-							or groupId in
-							<foreach collection="grouperIds" item="groupId" open="("
-									 close=")" separator=",">
-								#{groupId}
-							</foreach>
-
-						</if>
-						)
+						and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
 					</when>
 					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
 					<when test="roleId == 4">
 						<if test="DpId != null">
-							and (`user`.departmentId=#{DpId} or userId=#{userId})
+							and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
 						</if>
 					</when>
 					<!-- 超级管理员可以管理全部点位 -->
 					<otherwise>
-
 					</otherwise>
 				</choose>
 			</if>
@@ -265,6 +257,8 @@
 			LEFT
 			JOIN `case` on
 			`case`.id=case_node.caseId
+			LEFT
+			JOIN `group` on `group`.id=`case`.groupid
 			LEFT JOIN `user` ON
 			`user`.Id=base_node.userId
 			LEFT JOIN department on
@@ -296,16 +290,7 @@
 					<choose>
 						<!-- 普通业务员和组长查看不属于自己的基础点或者案件中心点 -->
 						<when test="roleId == 2">
-							and ( userId!=#{userId} and (nodetype='1' or nodetype='3')
-							<if test="groupIds != null">
-								or groupId in
-								<foreach collection="groupIds" item="groupId" open="("
-										 close=")" separator=",">
-									#{groupId}
-								</foreach>
-							</if>
-							)
-
+							and ( base_node.userId!=#{userId} or`group`.grouperid!=#{userId})
 						</when>
 						<!-- 部门管理员 ，查看自己子部门的所有点位 -->
 						<when test="roleId == 4">
@@ -331,7 +316,7 @@
 	</select>
 
 	<select id="count" resultType="int">
-		SELECT count(*) FROM ((select base_node.* ,`user`.departmentId,groupId ,1 as isEdited from
+		SELECT count(*) FROM ((select base_node.* ,`user`.departmentId,`user`.username , groupId ,1 as isEdited ,table_type.chinesename as "table.chinesename" from
 		base_node
 		LEFT
 		JOIN case_node on
@@ -339,10 +324,14 @@
 		LEFT
 		JOIN `case` on
 		`case`.id=case_node.caseId
+		LEFT
+		JOIN `group` on `group`.id=`case`.groupid
 		LEFT JOIN `user` ON
 		`user`.Id=base_node.userId
 		LEFT JOIN department on
 		`user`.departmentId=department.Id
+		LEFT JOIN table_type on
+		base_node.tableid=table_type.Id
 		<trim prefix="where" prefixOverrides="and | or">
 			base_node.isValid='1'
 			<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
@@ -368,26 +357,16 @@
 				<choose>
 					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
 					<when test="roleId == 2">
-						and (userId=#{userId}
-						<if test="grouperIds != null ">
-							or groupId in
-							<foreach collection="grouperIds" item="groupId" open="("
-									 close=")" separator=",">
-								#{groupId}
-							</foreach>
-
-						</if>
-						)
+						and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
 					</when>
 					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
 					<when test="roleId == 4">
 						<if test="DpId != null">
-							and (`user`.departmentId=#{DpId} or userId=#{userId})
+							and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
 						</if>
 					</when>
 					<!-- 超级管理员可以管理全部点位 -->
 					<otherwise>
-
 					</otherwise>
 				</choose>
 			</if>
@@ -395,7 +374,7 @@
 		)
 		<if test="roleId != 3">
 			union ALL
-			(select base_node.* ,`user`.departmentId,groupId ,0 as isEdited from
+			(select base_node.* ,`user`.departmentId,`user`.username,groupId ,0 as isEdited ,table_type.chinesename as "table.chinesename" from
 			base_node
 			LEFT
 			JOIN case_node on
@@ -403,10 +382,14 @@
 			LEFT
 			JOIN `case` on
 			`case`.id=case_node.caseId
+			LEFT
+			JOIN `group` on `group`.id=`case`.groupid
 			LEFT JOIN `user` ON
 			`user`.Id=base_node.userId
 			LEFT JOIN department on
 			`user`.departmentId=department.Id
+			LEFT JOIN table_type on
+			base_node.tableid=table_type.Id
 			<trim prefix="where" prefixOverrides="and | or">
 				base_node.isValid='1'
 				<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
@@ -432,15 +415,7 @@
 					<choose>
 						<!-- 普通业务员和组长查看不属于自己的基础点或者案件中心点 -->
 						<when test="roleId == 2">
-							and ( userId!=#{userId} and (nodetype='1' or nodetype='3')
-							<if test="groupIds != null">
-								or groupId in
-								<foreach collection="groupIds" item="groupId" open="("
-										 close=")" separator=",">
-									#{groupId}
-								</foreach>
-							</if>
-							)
+							and ( base_node.userId!=#{userId} and `group`.grouperid!=#{userId})
 
 						</when>
 						<!-- 部门管理员 ，查看自己子部门的所有点位 -->
@@ -461,5 +436,47 @@
 		</if>
 		) as a
 
+	</select>
+	<select id="judgeEdited" resultType="int">
+		select count(*) from
+		base_node
+		LEFT
+		JOIN case_node on
+		base_node.nodeId=case_node.nodeId
+		LEFT
+		JOIN `case` on
+		`case`.id=case_node.caseId
+		LEFT
+		JOIN `group` on `group`.id=`case`.groupid
+		LEFT JOIN `user` ON
+		`user`.Id=base_node.userId
+		LEFT JOIN department on
+		`user`.departmentId=department.Id
+		LEFT JOIN table_type on
+		base_node.tableid=table_type.Id
+		<trim prefix="where" prefixOverrides="and | or">
+			base_node.isValid='1'
+			and base_node.nodeid=#{nodeId}
+			<if test="nodetype != null">
+				and base_node.nodetype=#{nodetype}
+			</if>
+			<if test="roleId != null">
+				<choose>
+					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
+					<when test="roleId == 2">
+						and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
+					</when>
+					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
+					<when test="roleId == 4">
+						<if test="DpId != null">
+							and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
+						</if>
+					</when>
+					<!-- 超级管理员可以管理全部点位 -->
+					<otherwise>
+					</otherwise>
+				</choose>
+			</if>
+		</trim>
 	</select>
 </mapper>

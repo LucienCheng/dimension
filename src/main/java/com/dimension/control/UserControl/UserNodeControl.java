@@ -1,4 +1,4 @@
-package com.dimension.control.AdminControl;
+package com.dimension.control.UserControl;
 
 import com.dimension.dao.*;
 import com.dimension.pojo.*;
@@ -14,7 +14,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -27,8 +30,8 @@ import java.util.Map;
 
 @Controller
 
-@RequestMapping("/admin")
-public class NodeControl {
+@RequestMapping("/user")
+public class UserNodeControl {
     @Resource
     NodeAssit nodeAssit;
     @Resource
@@ -38,15 +41,15 @@ public class NodeControl {
     @Resource
     MarkNodeMapper markNodeMapper;
     @Resource
-    UserMapper userMapper;
-    @Resource
     TableFieldService tableFieldService;
     @Resource
     CaseNodeMapper caseNodeMapper;
+    @Resource
+    BaseNodeMapper baseNodeMapper;
 
     //检索具体点位的信息
     @RequestMapping("/node/{nodeid}")
-    public String node(@PathVariable Long nodeid, String nodetype, Model model, HttpSession session) throws JsonProcessingException {
+    public String node(@PathVariable Long nodeid, String nodetype,Model model, HttpSession session) throws JsonProcessingException {
         User user = (User) session.getAttribute("user");
         Table table = new Table();
         List<Table> tables = tableMapper.selectByCondition(table, null, null);
@@ -58,9 +61,8 @@ public class NodeControl {
             baseNode = nodeAssit.getBaseNode(nodeid);
             baseNode.setTables(tables);
             model.addAttribute("baseNode", baseNode);
-        } else if("2".equals(nodetype)){
+        } else if ("2".equals(nodetype)) {
             CaseNode caseNode = nodeAssit.getCaseNode(nodeid);
-
             ObjectMapper objectMapper = new ObjectMapper();
             caseNode.getBaseNode().setTables(tables);
             model.addAttribute("casesJson", objectMapper.writeValueAsString(caseMapper.searchCases(caseCondition, null, null)));
@@ -68,51 +70,52 @@ public class NodeControl {
             baseNode = caseNode.getBaseNode();
             model.addAttribute("baseNode", baseNode);
         }
-        MarkNode markNode=new MarkNode();
+        BaseNodeConditon baseNodeConditon=new BaseNodeConditon();
+        baseNodeConditon.setUserId(user.getId());
+        baseNodeConditon.setRoleId(user.getRoleid());
+        baseNodeConditon.setNodetype(Integer.parseInt(nodetype));
+        baseNodeConditon.setNodeId(nodeid);
+        MarkNode markNode = new MarkNode();
         markNode.setUserid(user.getId());
         markNode.setNodeid(baseNode.getNodeid());
         Integer markId = markNodeMapper.selectByNodeIdUser(markNode);
-        int roleid = user.getRoleid();
-        int isEdited = 0;
-       if (roleid == 4) {
-            //只能编辑自己部门的
-            User nodeUser = userMapper.selectByPrimaryKey(baseNode.getUserid());
-            if (nodeUser.getDepartmentid() == user.getDepartmentid()) {
-                isEdited = 1;
-            }
-            System.out.println("部门管理员");
-        } else {
-            isEdited = 1;
-            System.out.println("超级");
-        }
         model.addAttribute("cases", caseMapper.searchCases(caseCondition, null, null));
         model.addAttribute("nodetype", nodetype);
-        model.addAttribute("isEdited", isEdited);
+        model.addAttribute("isEdited", isEdited(baseNodeConditon));
         model.addAttribute("markId", markId);
-        return "admin/node";
+        return "user/node";
     }
 
+    private int isEdited(BaseNodeConditon baseNodeConditon){
+        int flag=0;
+        if(baseNodeMapper.judgeEdited(baseNodeConditon)>0){
+            flag=1;
+        }
+        return flag;
+    }
     @RequestMapping("/node/upgradeNode")
     @ResponseBody
-    public Map<String, Object> upgradeNode(CaseNode caseNode,HttpSession session)  {
-        User user=(User) session.getAttribute("user");
+    public Map<String, Object> upgradeNode(CaseNode caseNode, HttpSession session) {
+        User user = (User) session.getAttribute("user");
         Map<String, Object> map = new HashMap<>();
-        nodeAssit.upgradeNode(caseNode,user);
-        map.put("nodeid",caseNode.getNodeid());
+        nodeAssit.upgradeNode(caseNode, user);
+        map.put("nodeid", caseNode.getNodeid());
         return map;
     }
+
     @RequestMapping("/node/degradeNode/{nodeid}")
     @ResponseBody
-    public Map<String, Object> degradeNode( @PathVariable Long nodeid,HttpSession session)  {
-        User user=(User) session.getAttribute("user");
-        BaseNode baseNode=new BaseNode();
+    public Map<String, Object> degradeNode(@PathVariable Long nodeid, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        BaseNode baseNode = new BaseNode();
         baseNode.setNodeid(nodeid);
         baseNode.setUserid(user.getId());
         Map<String, Object> map = new HashMap<>();
         nodeAssit.degradeNode(baseNode);
-        map.put("nodeid",baseNode.getNodeid());
+        map.put("nodeid", baseNode.getNodeid());
         return map;
     }
+
     @RequestMapping("/node/modifyField")
 
     @ResponseBody
@@ -126,101 +129,106 @@ public class NodeControl {
         BaseNode baseNode = mapper.readValue(baseNodeData, BaseNode.class);
         System.out.println(baseNode);
         nodeAssit.setBaseNode(baseNode);
-        if (!fieldsArray.isEmpty()){
+        if (!fieldsArray.isEmpty()) {
             Map<String, Object> map1 = new HashMap<String, Object>();
-            for (FieldCondition field:fieldsArray) {
-                map1.put(field.getEnglishname(),field.getValue());
+            for (FieldCondition field : fieldsArray) {
+                map1.put(field.getEnglishname(), field.getValue());
             }
             map1.put("nodeid", baseNode.getNodeid());
             tableFieldService.setField(fieldsArray.get(0).getTablename(), map1);
         }
         return map;
     }
+
     @RequestMapping("/node/modifyCaseNode")
     @ResponseBody
-    public Map<String, Object> modifyCaseNode(CaseNode caseNode)  {
+    public Map<String, Object> modifyCaseNode(CaseNode caseNode) {
         Map<String, Object> map = new HashMap<>();
         caseNodeMapper.updateByPrimaryKeySelective(caseNode);
         return map;
     }
+
     @RequestMapping("/node/mark/{nodeid}/{isMark}")
     @ResponseBody
-    public Map<String, Object> mark(@PathVariable Long nodeid,@PathVariable int isMark,Long markId,HttpSession session)  {
+    public Map<String, Object> mark(@PathVariable Long nodeid, @PathVariable int isMark, Long markId, HttpSession session) {
         Map<String, Object> map = new HashMap<>();
-        User user=(User)session.getAttribute("user");
-        MarkNode markNode=new MarkNode();
+        User user = (User) session.getAttribute("user");
+        MarkNode markNode = new MarkNode();
         markNode.setNodeid(nodeid);
         markNode.setUserid(user.getId());
         //进行标记
-        if(isMark==1){
-        markNodeMapper.insertSelective(markNode);
-        map.put("markId",markNode.getMarkid());
-        }else {
-        markNodeMapper.deleteByPrimaryKey(markId);
-        map.put("markId",-1);
+        if (isMark == 1) {
+            markNodeMapper.insertSelective(markNode);
+            map.put("markId", markNode.getMarkid());
+        } else {
+            markNodeMapper.deleteByPrimaryKey(markId);
+            map.put("markId", -1);
         }
         return map;
     }
+
     @RequestMapping("/node/uploadMultipleFile/{nodeid}")
     @ResponseBody
-    public Map<String, Object> uploadMultipleFile(@RequestParam("files") MultipartFile[] files, HttpServletRequest request,@PathVariable Long nodeid) throws Exception {
+    public Map<String, Object> uploadMultipleFile(@RequestParam("files") MultipartFile[] files, HttpServletRequest request, @PathVariable Long nodeid) throws Exception {
         Map<String, Object> map = new HashMap<>();
         for (MultipartFile file : files) {
-            String fileName=file.getOriginalFilename();
+            String fileName = file.getOriginalFilename();
             //如果是视频
-            if(isVideo(fileName)){
-                File file1=new File();
+            if (isVideo(fileName)) {
+                File file1 = new File();
                 file1.setNodeid(nodeid);
                 file1.setFiletype("视频");
                 file1.setFilename(fileName);
-                nodeAssit.addFile(file1,request,file);
+                nodeAssit.addFile(file1, request, file);
             }
             //如果是照片
-            else if(isImage(fileName)){
-                File file1=new File();
+            else if (isImage(fileName)) {
+                File file1 = new File();
                 file1.setNodeid(nodeid);
                 file1.setFiletype("照片");
                 file1.setFilename(fileName);
-                nodeAssit.addFile(file1,request,file);
+                nodeAssit.addFile(file1, request, file);
             }
         }
         map.put("statue", "success");
         return map;
     }
+
     @RequestMapping("/node/deleteFile/{fileId}")
     @ResponseBody
-    public Map<String, Object> deleteFile(@PathVariable Integer fileId,String fileAddress,HttpServletRequest request) throws IOException {
+    public Map<String, Object> deleteFile(@PathVariable Integer fileId, String fileAddress, HttpServletRequest request) throws IOException {
         Map<String, Object> map = new HashMap<>();
-        File file=new File();
+        File file = new File();
         file.setId(fileId);
         file.setFileaddress(fileAddress);
-        nodeAssit.deleteFile(file,request);
+        nodeAssit.deleteFile(file, request);
         return map;
     }
-    @RequestMapping(value="/node/download")
-    public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam("filename") String filename)throws Exception {
 
-        String contentPathString=request.getServletContext().getRealPath("/");
-        java.io.File file = new java.io.File(contentPathString+filename);
+    @RequestMapping(value = "/node/download")
+    public ResponseEntity<byte[]> download(HttpServletRequest request, @RequestParam("filename") String filename) throws Exception {
+
+        String contentPathString = request.getServletContext().getRealPath("/");
+        java.io.File file = new java.io.File(contentPathString + filename);
         HttpHeaders headers = new HttpHeaders();
         //下载显示的文件名，解决中文名称乱码问题
-        String downloadFielName = new String(filename.getBytes("UTF-8"),"iso-8859-1");
+        String downloadFielName = new String(filename.getBytes("UTF-8"), "iso-8859-1");
         //通知浏览器以attachment（下载方式）打开图片
         headers.setContentDispositionFormData("attachment", downloadFielName);
         headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);
         return new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),
                 headers, HttpStatus.CREATED);
     }
-   private boolean isImage(String fileName) {
-        if(fileName.indexOf(".jpg")!=-1||fileName.indexOf(".gif")!=-1||fileName.indexOf(".png")!=-1)
-        {
+
+    private boolean isImage(String fileName) {
+        if (fileName.indexOf(".jpg") != -1 || fileName.indexOf(".gif") != -1 || fileName.indexOf(".png") != -1) {
             return true;
         }
         return false;
     }
+
     private boolean isVideo(String fileName) {
-        if(fileName.indexOf(".mp4")!=-1||fileName.indexOf(".avi")!=-1)
-        {
+        if (fileName.indexOf(".mp4") != -1 || fileName.indexOf(".avi") != -1) {
             return true;
         }
         return false;

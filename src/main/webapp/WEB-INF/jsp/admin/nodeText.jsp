@@ -309,7 +309,7 @@
                 str += "<td class=\"col-sm-2\">" + item.username + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.collecttime + "</td>";
                 str += '<td class="col-sm-1"><button class="btn btn-info"  onclick="window.open(\'/admin/node/' +item.nodeid+
-                    '?nodetype='+item.nodetype+'\')">查看</button><td>';
+                    '?nodetype='+'\')">查看</button><td>';
                 str += ' </tr>';
             });
         }

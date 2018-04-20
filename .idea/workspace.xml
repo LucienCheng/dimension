@@ -7,16 +7,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="93ada600-cd15-4536-8c98-8ef8eb7b5ede" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserCaseAdminControl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserMessageControl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserReplaceControl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserMapControl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserNodeControl.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserNodeSearch.java" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeControl.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/LoginControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/LoginControl.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserControl.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserControl.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/dao/BaseNodeMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/dao/BaseNodeMapper.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/dao/MessageMapper.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/dao/MessageMapper.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/BaseNodeConditon.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/BaseNodeConditon.java" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/Message.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/Message.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/MessageConditon.java" afterPath="$PROJECT_DIR$/src/main/java/com/dimension/pojo/MessageConditon.java" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/BaseNodeMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/BaseNodeMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/BasestationMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/BasestationMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/CaseMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/CaseMapper.xml" />
@@ -28,15 +29,18 @@
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/GroupUserMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/GroupUserMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/LogMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/LogMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MarkNodeMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MarkNodeMapper.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/MessageMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/MessageMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/RoleMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/TableFieldMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/TableFieldMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/TableMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/TableMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/UserMapper.xml" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/WifiMapper.xml" afterPath="$PROJECT_DIR$/src/main/resources/mapper/WifiMapper.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,63 +69,12 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="375">
-      <file leaf-file-name="UserMessageControl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserMessageControl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
-              <caret line="72" column="17" lean-forward="true" selection-start-line="72" selection-start-column="17" selection-end-line="72" selection-end-column="17" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MessageMapper.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/MessageMapper.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="661">
-              <caret line="179" column="17" lean-forward="true" selection-start-line="179" selection-start-column="17" selection-end-line="179" selection-end-column="17" />
-              <folding>
-                <marker date="1524145302596" expanded="true" signature="1253:1366" ph="select from message" />
-                <marker date="1524145302596" expanded="true" signature="1456:1513" ph="delete from message... " />
-                <marker date="1524145302596" expanded="true" signature="1598:2049" ph="insert into message... " />
-                <marker date="1524145302596" expanded="true" signature="4297:5416" ph="update message... " />
-                <marker date="1524145302596" expanded="true" signature="5515:5981" ph="update message... " />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="message.jsp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="216">
-              <caret line="296" column="46" lean-forward="true" selection-start-line="296" selection-start-column="46" selection-end-line="296" selection-end-column="46" />
-              <folding>
-                <element signature="n#div#4;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Message.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/Message.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="459">
-              <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="26" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="caseAdmin.jsp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="caseAdmin.jsp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="260">
-              <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="11" />
-              <folding>
-                <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-                <element signature="n#div#6;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-              </folding>
+            <state relative-caret-position="233">
+              <caret line="515" column="20" lean-forward="true" selection-start-line="515" selection-start-column="20" selection-end-line="515" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -138,11 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>updateButton</find>
-      <find>toggle</find>
-      <find>标记</find>
-      <find>markNodids</find>
-      <find>nodetype</find>
       <find>unma</find>
       <find>searchMarkNode</find>
       <find>标记点位</find>
@@ -156,32 +104,38 @@
       <find>addDocument</find>
       <find>poi</find>
       <find>personInfoModify</find>
-      <find>admin</find>
       <find>user</find>
       <find>addModel</find>
-      <find>searchCases</find>
       <find>添加</find>
       <find>message/addMessage</find>
       <find>selectMessage</find>
       <find>modify</find>
       <find>updateModel</find>
       <find>delete1</find>
-      <find>用户</find>
       <find>deleteModel</find>
+      <find>用户</find>
+      <find>比较</find>
+      <find>selectBaseNode</find>
+      <find>管理员</find>
+      <find>searchCases</find>
+      <find>查看</find>
+      <find>admin</find>
+      <find>searchMapCases</find>
     </findStrings>
     <replaceStrings>
       <replace />
       <replace>form-control</replace>
       <replace>user</replace>
+      <replace>普通用户</replace>
     </replaceStrings>
     <dirStrings>
       <dir>D:\MyWork\project\myEclipseProject\web\dimension\src</dir>
       <dir>D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF</dir>
       <dir>D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\source</dir>
       <dir>D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp</dir>
-      <dir>D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp\user</dir>
       <dir>D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp\admin</dir>
       <dir>D:\MyWork\project\myEclipseProject\web\dimension\src\main\java\com</dir>
+      <dir>D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp\user</dir>
     </dirStrings>
   </component>
   <component name="Git.Settings">
@@ -198,14 +152,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/dimension/dao/ReplaceMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/ReplaceControl.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/ReplaceMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeReplace.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/dao/CaseMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/BaseNodeMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/MapControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/AdminControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/MessageControl.java" />
@@ -221,12 +168,9 @@
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/node.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp" />
-        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/NodeControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/NodeSearch.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/CaseAdminControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/MapControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/MessageControl.java" />
@@ -240,15 +184,25 @@
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/ReplaceControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserReplaceControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/CaseMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserCaseAdminControl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp" />
-        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserControl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/pojo/MessageConditon.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/MessageMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserMessageControl.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserNodeSearch.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeControl.java" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp" />
+        <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/dao/BaseNodeMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/pojo/BaseNodeConditon.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/BaseNodeMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserNodeControl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserControl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserMapControl.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/CaseMapper.xml" />
       </list>
     </option>
   </component>
@@ -311,7 +265,7 @@
     <scope name="Unnamed" pattern="" />
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="952" />
+    <option name="x" value="-8" />
     <option name="width" value="976" />
     <option name="height" value="1038" />
   </component>
@@ -353,6 +307,83 @@
     </navigator>
     <panes>
       <pane id="AndroidView" />
+      <pane id="Scope">
+        <subPane subId="Production">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="dimension" type="cbb8eebc:String" user="dimension" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <subPane subId="Local Unit Tests">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="dimension" type="cbb8eebc:String" user="dimension" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="dimension" type="cbb8eebc:String" user="dimension" />
+              <item name="src/test/java" type="cbb8eebc:String" user="src/test/java" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="dimension" type="cbb8eebc:String" user="dimension" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="dimension" type="cbb8eebc:String" user="dimension" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="dimension" type="cbb8eebc:String" user="dimension" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="main" type="cbb8eebc:String" user="main" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="dimension" type="cbb8eebc:String" user="dimension" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="main" type="cbb8eebc:String" user="main" />
+              <item name="webapp" type="cbb8eebc:String" user="webapp" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="dimension" type="cbb8eebc:String" user="dimension" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="main" type="cbb8eebc:String" user="main" />
+              <item name="webapp" type="cbb8eebc:String" user="webapp" />
+              <item name="WEB-INF" type="cbb8eebc:String" user="WEB-INF" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="dimension" type="58d84e3e:PackageViewProjectNode" />
+              <item name="dimension" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="dimension" type="58d84e3e:PackageViewProjectNode" />
+              <item name="dimension" type="616d4139:PackageViewModuleNode" />
+              <item name="com.dimension.pojo" type="1f31426a:PackageElementNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -488,83 +519,6 @@
         </subPane>
         <option name="show-excluded-files" value="false" />
       </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="dimension" type="58d84e3e:PackageViewProjectNode" />
-              <item name="dimension" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="dimension" type="58d84e3e:PackageViewProjectNode" />
-              <item name="dimension" type="616d4139:PackageViewModuleNode" />
-              <item name="com.dimension.pojo" type="1f31426a:PackageElementNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Production">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="dimension" type="cbb8eebc:String" user="dimension" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <subPane subId="Local Unit Tests">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="dimension" type="cbb8eebc:String" user="dimension" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="dimension" type="cbb8eebc:String" user="dimension" />
-              <item name="src/test/java" type="cbb8eebc:String" user="src/test/java" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="dimension" type="cbb8eebc:String" user="dimension" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="dimension" type="cbb8eebc:String" user="dimension" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="dimension" type="cbb8eebc:String" user="dimension" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="main" type="cbb8eebc:String" user="main" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="dimension" type="cbb8eebc:String" user="dimension" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="main" type="cbb8eebc:String" user="main" />
-              <item name="webapp" type="cbb8eebc:String" user="webapp" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="dimension" type="cbb8eebc:String" user="dimension" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="main" type="cbb8eebc:String" user="main" />
-              <item name="webapp" type="cbb8eebc:String" user="webapp" />
-              <item name="WEB-INF" type="cbb8eebc:String" user="WEB-INF" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -577,24 +531,24 @@
     <property name="project.structure.side.proportion" value="0.30608538" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/main/java/com" />
     <property name="TODO_SCOPE" value="All Places" />
-    <property name="SearchEverywhereHistoryKey" value="message&#9;PSI&#9;JAVA://com.dimension.pojo.Message&#10;caseadmin&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp&#10;messa&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/user/message.jsp&#10;usercon&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/UserControl/UserControl.java&#10;casema&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseMapper.xml&#10;nodemap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp&#10;node.jsp&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/node.jsp&#10;adminc&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/AdminControl.java&#10;markno&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/MarkNodeMapper.xml&#10;basenode&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/BaseNode.java&#10;nodes&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/NodeSearch.java&#10;mapcon&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/MapControl.java&#10;baseno&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/BaseNode.java&#10;file&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/File.java&#10;nodese&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/NodeSearch.java&#10;casemap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseMapper.xml&#10;base&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/BaseNode.java&#10;casem&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseMapper.xml&#10;case&#9;PSI&#9;JAVA://com.dimension.pojo.Case&#10;nodete&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp&#10;nodeass&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/serviceImpl/NodeAssitImpl.java&#10;repla&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/ReplaceControl.java&#10;node&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/node.jsp&#10;replace&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/ReplaceMapper.xml&#10;nodeassi&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/serviceImpl/NodeAssitImpl.java&#10;nodere&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeReplace.jsp&#10;nodecon&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/NodeControl.java&#10;marknod&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/MarkNodeMapper.xml&#10;rep&#9;PSI&#9;JAVA://com.dimension.pojo.Replace&#10;casenodem&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/CaseNodeMapper.java&#10;casenodema&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseNodeMapper.xml&#10;caseNo&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/CaseNode.java&#10;nodety&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp&#10;marknode&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/MarkNodeMapper.xml&#10;markm&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/MarkNodeMapper.xml&#10;mark&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/MarkNodeMapper.java&#10;caseadminc&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java&#10;nodet&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp&#10;nodema&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp&#10;casenode&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseNodeMapper.xml&#10;caseadm&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp&#10;casead&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java&#10;node.js&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/node.jsp&#10;FieldMapper&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/FieldMapper.xml&#10;tablefi&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableFieldMapper.xml&#10;nodeco&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/NodeControl.java&#10;fiel&#9;PSI&#9;JAVA://com.dimension.pojo.Field&#10;casecon&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java&#10;casenod&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseNodeMapper.xml&#10;caseno&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseNodeMapper.xml" />
+    <property name="SearchEverywhereHistoryKey" value="basenodem&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/BaseNodeMapper.java&#10;basenode&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/BaseNodeMapper.xml&#10;nodecon&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/NodeControl.java&#10;nodete&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp&#10;basen&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/BaseNodeMapper.xml&#10;message&#9;PSI&#9;JAVA://com.dimension.pojo.Message&#10;caseadmin&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp&#10;messa&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/user/message.jsp&#10;usercon&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/UserControl/UserControl.java&#10;casema&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseMapper.xml&#10;nodemap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp&#10;node.jsp&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/node.jsp&#10;adminc&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/AdminControl.java&#10;markno&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/MarkNodeMapper.xml&#10;nodes&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/NodeSearch.java&#10;mapcon&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/MapControl.java&#10;baseno&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/BaseNode.java&#10;file&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/File.java&#10;nodese&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/NodeSearch.java&#10;casemap&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseMapper.xml&#10;base&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/BaseNode.java&#10;casem&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseMapper.xml&#10;case&#9;PSI&#9;JAVA://com.dimension.pojo.Case&#10;nodeass&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/serviceImpl/NodeAssitImpl.java&#10;repla&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/ReplaceControl.java&#10;node&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/node.jsp&#10;replace&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/ReplaceMapper.xml&#10;nodeassi&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/serviceImpl/NodeAssitImpl.java&#10;nodere&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeReplace.jsp&#10;marknod&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/MarkNodeMapper.xml&#10;rep&#9;PSI&#9;JAVA://com.dimension.pojo.Replace&#10;casenodem&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/CaseNodeMapper.java&#10;casenodema&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseNodeMapper.xml&#10;caseNo&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/pojo/CaseNode.java&#10;nodety&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp&#10;marknode&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/MarkNodeMapper.xml&#10;markm&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/MarkNodeMapper.xml&#10;mark&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/dao/MarkNodeMapper.java&#10;caseadminc&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java&#10;nodet&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeType.jsp&#10;nodema&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp&#10;casenode&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/CaseNodeMapper.xml&#10;caseadm&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/admin/caseAdmin.jsp&#10;casead&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java&#10;node.js&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/webapp/WEB-INF/jsp/node.jsp&#10;FieldMapper&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/FieldMapper.xml&#10;tablefi&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/resources/mapper/TableFieldMapper.xml&#10;nodeco&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/NodeControl.java&#10;fiel&#9;PSI&#9;JAVA://com.dimension.pojo.Field&#10;casecon&#9;FILE&#9;file://D:/MyWork/project/myEclipseProject/web/dimension/src/main/java/com/dimension/control/AdminControl/CaseAdminControl.java" />
     <property name="ToolWindowDocumentation.ShowToolbar" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp\admin" />
+      <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\resources\mapper" />
+      <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.dimension.control.UserControl" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\java\com\dimension\control\UserControl" />
       <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp\user" />
       <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\source\js" />
       <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\source\css" />
       <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\source" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.dimension.control.UserControl" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp\admin" />
-      <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\resources\mapper" />
-      <recent name="D:\MyWork\project\myEclipseProject\web\dimension\src\main\webapp\WEB-INF\jsp" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1044,7 +998,8 @@
       <workItem from="1524034197659" duration="89000" />
       <workItem from="1524035942514" duration="14412000" />
       <workItem from="1524100702268" duration="23772000" />
-      <workItem from="1524141347868" duration="6555000" />
+      <workItem from="1524141347868" duration="7352000" />
+      <workItem from="1524186167139" duration="7413000" />
     </task>
     <task id="LOCAL-00001" summary="3.23日，关于前端大体框架，control和服务层完成">
       <created>1521788504559</created>
@@ -1172,7 +1127,14 @@
       <option name="project" value="LOCAL" />
       <updated>1524132298264</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="剩下普通用户的点位文本搜索，还有地图搜索。">
+      <created>1524147998188</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1524147998188</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1208,7 +1170,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="570669000" />
+    <option name="totallyTimeSpent" value="578879000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1286,7 +1248,8 @@
     <MESSAGE value="地图上的点位标记功能" />
     <MESSAGE value="完成了管理员的所有功能，包括了相似度的比较，接下来完成普通用户的界面和功能" />
     <MESSAGE value="4.19的数据库" />
-    <option name="LAST_COMMIT_MESSAGE" value="4.19的数据库" />
+    <MESSAGE value="剩下普通用户的点位文本搜索，还有地图搜索。" />
+    <option name="LAST_COMMIT_MESSAGE" value="剩下普通用户的点位文本搜索，还有地图搜索。" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1299,62 +1262,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/serviceImpl/NodeAssitImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="15" column="28" lean-forward="true" selection-start-line="15" selection-start-column="28" selection-end-line="15" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/service/CaseAssist.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="5" column="62" lean-forward="true" selection-start-line="5" selection-start-column="62" selection-end-line="5" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/interceptor/LoginInterceptor.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/hankcs/lda/Vocabulary.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="42" column="19" lean-forward="false" selection-start-line="42" selection-start-column="19" selection-end-line="42" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://E:/program file/maven/repository/org/ansj/ansj_seg/5.1.6/ansj_seg-5.1.6.pom">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="81">
-          <caret line="3" column="30" lean-forward="false" selection-start-line="3" selection-start-column="30" selection-end-line="3" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/program file/maven/repository/org/ansj/ansj_seg/5.1.6/ansj_seg-5.1.6-sources.jar!/org/ansj/splitWord/analysis/ToAnalysis.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="417">
-          <caret line="80" column="24" lean-forward="false" selection-start-line="80" selection-start-column="18" selection-end-line="80" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://E:/program file/maven/repository/org/ansj/ansj_seg/5.1.6/ansj_seg-5.1.6-sources.jar!/org/ansj/domain/Term.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-82">
-          <caret line="89" column="18" lean-forward="false" selection-start-line="89" selection-start-column="18" selection-end-line="89" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/mini/招聘_1850.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="8" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/hankcs/lda/LdaGibbsSampler.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
@@ -1370,54 +1277,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="459">
-          <caret line="17" column="25" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="426" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="609" column="35" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1123" selection-end-column="0" />
-          <folding>
-            <marker date="1524102922471" expanded="true" signature="33918:33950" ph="..." />
-            <marker date="1524102922471" expanded="true" signature="34045:34067" ph="..." />
-            <marker date="1524102922471" expanded="true" signature="34200:34255" ph="..." />
-            <marker date="1524102922471" expanded="true" signature="42915:42947" ph="..." />
-            <marker date="1524102922471" expanded="true" signature="43037:43059" ph="..." />
-            <marker date="1524102922471" expanded="true" signature="43163:43218" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeCompare.jsp" />
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/node.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="854" column="38" lean-forward="false" selection-start-line="854" selection-start-column="38" selection-end-line="854" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="110" column="60" lean-forward="false" selection-start-line="110" selection-start-column="55" selection-end-line="110" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="246">
-          <caret line="110" column="60" lean-forward="false" selection-start-line="110" selection-start-column="55" selection-end-line="110" selection-end-column="60" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/MapControl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/CaseAdminControl.java" />
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/MessageControl.java" />
@@ -1439,13 +1299,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/BaseNode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="91" column="39" lean-forward="false" selection-start-line="91" selection-start-column="29" selection-end-line="91" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/java/com/hankcs/lda/TestCorpus.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="561">
@@ -1457,7 +1310,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="432">
           <caret line="408" column="0" lean-forward="false" selection-start-line="408" selection-start-column="0" selection-end-line="408" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1473,7 +1325,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
           <caret line="683" column="0" lean-forward="false" selection-start-line="683" selection-start-column="0" selection-end-line="683" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1481,9 +1332,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="610">
           <caret line="42" column="5" lean-forward="false" selection-start-line="42" selection-start-column="5" selection-end-line="42" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1491,7 +1339,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="347">
           <caret line="80" column="43" lean-forward="false" selection-start-line="80" selection-start-column="43" selection-end-line="80" selection-end-column="43" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1506,19 +1353,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="27" column="11" lean-forward="false" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://E:/program file/jdk/src.zip!/javax/management/remote/rmi/RMIConnectionImpl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="159">
           <caret line="75" column="0" lean-forward="false" selection-start-line="75" selection-start-column="0" selection-end-line="75" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1527,7 +1365,7 @@
         <state relative-caret-position="532">
           <caret line="32" column="19" lean-forward="true" selection-start-line="32" selection-start-column="19" selection-end-line="32" selection-end-column="19" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1538,24 +1376,6 @@
           <caret line="340" column="41" lean-forward="true" selection-start-line="340" selection-start-column="41" selection-end-line="340" selection-end-column="41" />
           <folding>
             <marker date="1523283617867" expanded="true" signature="14954:14961" ph="×" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="599">
-          <caret line="135" column="62" lean-forward="true" selection-start-line="135" selection-start-column="62" selection-end-line="135" selection-end-column="62" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="530">
-          <caret line="103" column="29" lean-forward="false" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
-          <folding>
-            <marker date="1524123185944" expanded="true" signature="14316:14323" ph="×" />
           </folding>
         </state>
       </provider>
@@ -1584,22 +1404,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/CaseMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="338" column="40" lean-forward="true" selection-start-line="338" selection-start-column="40" selection-end-line="338" selection-end-column="40" />
-          <folding>
-            <marker date="1524144328675" expanded="true" signature="1198:1444" ph="select `case... case" />
-            <marker date="1524144328675" expanded="true" signature="1532:1586" ph="delete from `case`... " />
-            <marker date="1524144328675" expanded="true" signature="1665:2069" ph="insert into `case`... " />
-            <marker date="1524144328675" expanded="true" signature="4224:5256" ph="update `case`... " />
-            <marker date="1524144328675" expanded="true" signature="5350:5772" ph="update `case`... " />
-            <marker date="1524144328675" expanded="true" signature="8439:10973" ph="select count... *" />
-            <marker date="1524144328675" expanded="true" signature="13552:13618" ph="select case_... case_node" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserCaseAdminControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="228">
@@ -1616,28 +1420,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserControl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="23" column="0" lean-forward="true" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/MessageConditon.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
           <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
-          <folding>
-            <element signature="e#845#846#0" expanded="true" />
-            <element signature="e#874#875#0" expanded="true" />
-            <element signature="e#919#920#0" expanded="true" />
-            <element signature="e#955#956#0" expanded="true" />
-            <element signature="e#989#990#0" expanded="true" />
-            <element signature="e#1018#1019#0" expanded="true" />
-            <element signature="e#1063#1064#0" expanded="true" />
-            <element signature="e#1099#1100#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1645,18 +1431,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="20" column="31" lean-forward="false" selection-start-line="20" selection-start-column="18" selection-end-line="20" selection-end-column="31" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="260">
-          <caret line="28" column="11" lean-forward="false" selection-start-line="28" selection-start-column="9" selection-end-line="28" selection-end-column="11" />
-          <folding>
-            <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-            <element signature="n#div#6;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1664,13 +1438,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="661">
           <caret line="179" column="17" lean-forward="true" selection-start-line="179" selection-start-column="17" selection-end-line="179" selection-end-column="17" />
-          <folding>
-            <marker date="1524145302596" expanded="true" signature="1253:1366" ph="select from message" />
-            <marker date="1524145302596" expanded="true" signature="1456:1513" ph="delete from message... " />
-            <marker date="1524145302596" expanded="true" signature="1598:2049" ph="insert into message... " />
-            <marker date="1524145302596" expanded="true" signature="4297:5416" ph="update message... " />
-            <marker date="1524145302596" expanded="true" signature="5515:5981" ph="update message... " />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1686,17 +1453,212 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="459">
           <caret line="18" column="26" lean-forward="false" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/message.jsp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="296" column="46" lean-forward="true" selection-start-line="296" selection-start-column="46" selection-end-line="296" selection-end-column="46" />
+        <state relative-caret-position="206">
+          <caret line="84" column="59" lean-forward="true" selection-start-line="84" selection-start-column="59" selection-end-line="84" selection-end-column="59" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/personInfo.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="488">
+          <caret line="103" column="29" lean-forward="false" selection-start-line="103" selection-start-column="29" selection-end-line="103" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/node.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="354">
+          <caret line="396" column="60" lean-forward="true" selection-start-line="396" selection-start-column="60" selection-end-line="396" selection-end-column="60" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserNodeSearch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-177">
+          <caret line="58" column="20" lean-forward="true" selection-start-line="58" selection-start-column="20" selection-end-line="58" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeReplace.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2040">
+          <caret line="106" column="66" lean-forward="true" selection-start-line="106" selection-start-column="66" selection-end-line="106" selection-end-column="66" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/service/NodeAssit.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="283">
+          <caret line="47" column="19" lean-forward="false" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/serviceImpl/NodeAssitImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="224" column="57" lean-forward="false" selection-start-line="224" selection-start-column="57" selection-end-line="224" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/BaseNode.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="634">
+          <caret line="50" column="24" lean-forward="false" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="24" />
           <folding>
-            <element signature="n#div#4;n#div#1;n#div#0;n#div#0;n#div#1;n#body#0;n#html#0;n#!!top" expanded="false" />
+            <element signature="e#1582#1583#0" expanded="true" />
+            <element signature="e#1615#1616#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserNodeControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1950">
+          <caret line="86" column="5" lean-forward="true" selection-start-line="86" selection-start-column="5" selection-end-line="86" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/dao/BaseNodeMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="23" column="25" lean-forward="false" selection-start-line="23" selection-start-column="25" selection-end-line="23" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/pojo/BaseNodeConditon.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="40" column="33" lean-forward="true" selection-start-line="40" selection-start-column="33" selection-end-line="40" selection-end-column="33" />
+          <folding>
+            <element signature="e#844#845#0" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+            <element signature="e#903#904#0" expanded="true" />
+            <element signature="e#930#931#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeText.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="503">
+          <caret line="300" column="32" lean-forward="true" selection-start-line="300" selection-start-column="32" selection-end-line="300" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeText.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="287">
+          <caret line="312" column="32" lean-forward="true" selection-start-line="312" selection-start-column="32" selection-end-line="312" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/AdminControl/NodeControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="49" column="52" lean-forward="true" selection-start-line="49" selection-start-column="52" selection-end-line="49" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/BaseNodeMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="456" column="56" lean-forward="false" selection-start-line="456" selection-start-column="56" selection-end-line="456" selection-end-column="56" />
+          <folding>
+            <marker date="1524192193883" expanded="true" signature="1364:1491" ph="select base_... base_node" />
+            <marker date="1524192193883" expanded="true" signature="1570:1636" ph="delete from base_node" />
+            <marker date="1524192193883" expanded="true" signature="1716:2252" ph="insert into base_node... " />
+            <marker date="1524192193883" expanded="true" signature="4208:5229" ph="update base_node... " />
+            <marker date="1524192193883" expanded="true" signature="5321:5863" ph="update base_node... " />
+            <marker date="1524192193883" expanded="true" signature="9466:12883" ph="SELECT count... *" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="26" column="0" lean-forward="false" selection-start-line="26" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/admin/nodeMap.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="309">
+          <caret line="609" column="35" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="1123" selection-end-column="0" />
+          <folding>
+            <marker date="1524102922471" expanded="true" signature="33918:33950" ph="..." />
+            <marker date="1524102922471" expanded="true" signature="34045:34067" ph="..." />
+            <marker date="1524102922471" expanded="true" signature="34200:34255" ph="..." />
+            <marker date="1524102922471" expanded="true" signature="42915:42947" ph="..." />
+            <marker date="1524102922471" expanded="true" signature="43037:43059" ph="..." />
+            <marker date="1524102922471" expanded="true" signature="43163:43218" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/CaseMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="742">
+          <caret line="278" column="54" lean-forward="true" selection-start-line="278" selection-start-column="54" selection-end-line="278" selection-end-column="54" />
+          <folding>
+            <marker date="1524193146667" expanded="true" signature="1198:1444" ph="select `case... case" />
+            <marker date="1524193146667" expanded="true" signature="1532:1586" ph="delete from `case`... " />
+            <marker date="1524193146667" expanded="true" signature="1665:2069" ph="insert into `case`... " />
+            <marker date="1524193146667" expanded="true" signature="4224:5256" ph="update `case`... " />
+            <marker date="1524193146667" expanded="true" signature="5350:5772" ph="update `case`... " />
+            <marker date="1524193146667" expanded="true" signature="8443:10976" ph="select count... *" />
+            <marker date="1524193146667" expanded="true" signature="11833:11922" ph="SELECT group... group_user" />
+            <marker date="1524193146667" expanded="true" signature="13623:13689" ph="select case_... case_node" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/dimension/control/UserControl/UserMapControl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="50" column="44" lean-forward="false" selection-start-line="50" selection-start-column="44" selection-end-line="50" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/nodeMap.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="420">
+          <caret line="835" column="33" lean-forward="true" selection-start-line="835" selection-start-column="33" selection-end-line="835" selection-end-column="33" />
+          <folding>
+            <marker date="1524188814284" expanded="true" signature="33339:33371" ph="..." />
+            <marker date="1524188814284" expanded="true" signature="33466:33488" ph="..." />
+            <marker date="1524188814284" expanded="true" signature="33621:33676" ph="..." />
+            <marker date="1524188814284" expanded="true" signature="42331:42363" ph="..." />
+            <marker date="1524188814284" expanded="true" signature="42453:42475" ph="..." />
+            <marker date="1524188814284" expanded="true" signature="42579:42634" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/jsp/user/caseAdmin.jsp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="515" column="20" lean-forward="true" selection-start-line="515" selection-start-column="20" selection-end-line="515" selection-end-column="20" />
+          <folding />
         </state>
       </provider>
     </entry>

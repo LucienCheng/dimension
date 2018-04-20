@@ -26,31 +26,14 @@ public class UserControl {
 
 
 
-    //点位助手，提供案件点位比较
-    @RequestMapping("/nodeCompare")
-    public String nodeCompare() {
-        return "/user/nodeCompare";
-    }
-
-
-
     //地图点位
     @RequestMapping("/nodeMap")
     public String nodeMap(Model model, HttpSession session) throws JsonProcessingException {
         ObjectMapper objectMapper=new ObjectMapper();
         User user=(User)session.getAttribute("user");
-
         model.addAttribute("markNodids",objectMapper.writeValueAsString(markNodeMapper.getMarkByUser(user.getId())));
         return "/user/nodeMap";
     }
-
-
-    //文字展示点位的基本信息
-    @RequestMapping("/nodeText")
-    public String nodeText() {
-        return "/user/nodeText";
-    }
-
 
     //个人信息
     @RequestMapping("/personInfo")

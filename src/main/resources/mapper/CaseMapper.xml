@@ -155,7 +155,8 @@
 
 
     <select id="searchMapCases" resultType="com.dimension.pojo.Case">
-      select * from (   <if test="caseCondition.roleId != 3">
+      select * from (
+       <if test="caseCondition.roleId != 3">
         (SELECT `case`.*,0 as isEdited from `case`
         LEFT JOIN `group` on `case`.groupId=`group`.Id
         <trim prefix="where" prefixOverrides="and | or">
@@ -203,7 +204,7 @@
                 #{caseCondition.endTime}
             </if>
             <if test="caseCondition.roleId == 2">
-                and grouperid == #{caseCondition.userId}
+                and grouperid = #{caseCondition.userId}
             </if>
             <if test="caseCondition.casename != null">
                 and casename like concat("%",#{caseCondition.casename},"%")
@@ -273,7 +274,7 @@
                 #{caseCondition.endTime}
             </if>
             <if test="caseCondition.roleId == 2">
-                and grouperid == #{caseCondition.userId}
+                and grouperid = #{caseCondition.userId}
             </if>
             <if test="caseCondition.casename != null">
                 and casename like concat("%",#{caseCondition.casename},"%")
@@ -290,7 +291,6 @@
     <select id="searchCases" resultType="Case">
         select `case`.* ,1 as isEdited from `case`
         left join `group` on `group`.id=`case`.groupId
-
         <trim prefix="where" prefixOverrides="and | or">
             <if test="caseCondition.roleId == 4 ">
                 <if test="caseCondition.departmentid != null">
@@ -306,7 +306,7 @@
                 #{caseCondition.endTime}
             </if>
             <if test="caseCondition.roleId == 2">
-                and grouperid = #{caseCondition.userId}
+                and `group`.id in(SELECT group_user.groupid from group_user where group_user.userid=#{caseCondition.userId})
             </if>
             <if test="caseCondition.casename != null">
                 and casename like concat("%",#{caseCondition.casename},"%")

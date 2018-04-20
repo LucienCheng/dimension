@@ -11,6 +11,7 @@ import java.util.List;
  * @Description:点位搜索的条件
  */
 public class BaseNodeConditon {
+	private Long nodeId;
 	// 开始时间
 	private String beginTime;
 	// 结束时间
@@ -39,6 +40,14 @@ public class BaseNodeConditon {
 	public void setTime( String beginTime, String endTime) {
 		this.beginTime=beginTime;
 		this.endTime=endTime;
+	}
+
+	public Long getNodeId() {
+		return nodeId;
+	}
+
+	public void setNodeId(Long nodeId) {
+		this.nodeId = nodeId;
 	}
 
 	public Integer getStart() {

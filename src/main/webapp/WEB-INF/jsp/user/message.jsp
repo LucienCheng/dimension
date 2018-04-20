@@ -18,7 +18,7 @@
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16"
           href="<%=basePath %>source/assets/images/favicon.png">
-    <title>管理员消息处理</title>
+    <title>普通用户消息处理</title>
     <!-- Bootstrap Core CSS -->
     <link
             href="<%=basePath %>source/assets/plugins/bootstrap/css/bootstrap.min.css"
@@ -83,8 +83,6 @@
                             class="fa   fa-cog  "></i> <span>点位助手</span><i
                             class="fa  fa-angle-double-down m-l-10 "></i></a>
                         <ul id="submenu1" class="collapse">
-                            <li><a href="<%=basePath%>user/nodeCompare" class="wavesEffect"><i
-                                    class="fa fa-clipboard m-r-10" aria-hidden="true"></i>点位比较服务</a></li>
                             <li><a href="<%=basePath%>user/nodeReplace" class="wavesEffect"><i
                                     class="fa fa-file-text m-r-10" aria-hidden="true"></i>点位替换处理</a></li>
                         </ul>
