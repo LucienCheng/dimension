@@ -12,7 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-@Service
+@Service("CaseAssitImpl")
 public class CaseAssitImpl implements CaseAssist {
     private static  Corpus corpus=null;
     private static double[][] phi=null;
