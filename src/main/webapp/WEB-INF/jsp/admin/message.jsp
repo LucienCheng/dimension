@@ -150,98 +150,200 @@
 
             </div>
 
-            <!-- End Bread crumb and right sidebar toggle -->
-
-
-            <!-- Start Page Content -->
-
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="hidden alert alert-warning alert-dismissible  in modify" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <strong>发送成功!</strong>
+                <c:if test="${flag == 0}">
+                    <div class="col-sm-12">
+                        <div class="hidden alert alert-warning alert-dismissible  in modify" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>发送成功!</strong>
+                        </div>
                     </div>
-                </div>
-                <div class="col-sm-12">
-                    <div class="card">
-                        <div class="card-block">
-                            <h4 class="card-title">消息</h4>
+                </c:if>
+                <c:if test="${flag == 1}">
+                    <div class="col-sm-12">
+                        <div class="hidden alert alert-warning alert-dismissible  in delete" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>删除成功!</strong>
+                        </div>
+                    </div>
+                </c:if>
+                <c:if test="${user.roleid == 4}">
+                    <div class="col-sm-12">
+                        <ul class="nav nav-tabs">
+                            <li class="nav-item">
+                                <a href="<%=basePath%>admin/message"
+                                   class='nav-link <c:if test="${flag == 0}">active</c:if>' rel="self">本部门消息</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<%=basePath%>admin/message/superAdmin"
+                                   class="nav-link <c:if test='${flag == 1}'>active </c:if> "
+                                   rel="superAdmin">超级管理员回复消息</a>
+                            </li>
+                        </ul>
+                    </div>
+                </c:if>
 
-                            <div>
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>关于案件</th>
-                                        <th>案件编号</th>
-                                        <th>请求人</th>
-                                        <th>请求时间</th>
-                                        <th>请求消息内容</th>
-                                        <th>操作</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="Table">
-                                    <c:forEach items="${messages}" var="item" varStatus="status">
+
+                <c:if test='${flag == 0}'>
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-block">
+                                <h4 class="card-title">消息</h4>
+
+                                <div>
+                                    <table class="table table-hover">
+                                        <thead>
                                         <tr>
-                                            <td>${status.index+1}</td>
-                                            <td>${item.casename}</td>
-                                            <td>${item.casecode}</td>
-                                            <td>${item.username}</td>
-                                            <td>${item.submittime}</td>
-                                            <td>${item.content}</td>
-                                            <td>
-                                                <button class="btn btn-warning"
-                                                        onclick="updateModel(${item.id});">回复
-                                                </button>
-                                            </td>
+                                            <th>#</th>
+                                            <th>关于案件</th>
+                                            <th>案件编号</th>
+                                            <th>请求人</th>
+                                            <th>请求时间</th>
+                                            <th>请求消息内容</th>
+                                            <th>操作</th>
                                         </tr>
-                                    </c:forEach>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody id="Table">
+                                        <c:forEach items="${messages}" var="item" varStatus="status">
+                                            <tr>
+                                                <td>${status.index+1}</td>
+                                                <td>${item.casename}</td>
+                                                <td>${item.casecode}</td>
+                                                <td>${item.username}</td>
+                                                <td>${item.submittime}</td>
+                                                <td>${item.content}</td>
+                                                <td>
+                                                    <button class="btn btn-warning"
+                                                            onclick="updateModel(${item.id});">回复
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </c:if>
+
+                <c:if test='${flag == 1}'>
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-block">
+                                <h4 class="card-title">消息</h4>
+
+                                <div>
+                                    <table class="table table-hover">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>关于案件</th>
+                                            <th>案件编号</th>
+                                            <th>回复时间</th>
+                                            <th>回复消息内容</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="Table">
+                                        <c:forEach items="${messages}" var="item" varStatus="status">
+                                            <tr>
+                                                <td>${status.index+1}</td>
+                                                <td>${item.casename}</td>
+                                                <td>${item.casecode}</td>
+                                                <td>${item.replytime}</td>
+                                                <td>${item.replyconten}</td>
+                                                <td>
+                                                    <button class="btn btn-warning"
+                                                            onclick="deleteModel(${item.id});">删除
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </c:if>
+
                 <div class="col-sm-12" id="Page">
                 </div>
                 <%--模态框--%>
-                <div class="col-sm-12">
-                    <div class="modal fade" id="updateModel" tabindex="-1" role="dialog"
-                         aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog " role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title">回复信息</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                        <span class="sr-only">Close</span>
-                                    </button>
-                                </div>
-                                <form id="updateForm">
-                                    <div class="modal-body ">
-                                        <label class="form-control-label">消息内容:</label>
-                                        <div>
+                <c:if test='${flag == 0}'>
+                    <div class="col-sm-12">
+                        <div class="modal fade" id="updateModel" tabindex="-1" role="dialog"
+                             aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog " role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">回复信息</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                    </div>
+                                    <form id="updateForm">
+                                        <div class="modal-body ">
+                                            <label class="form-control-label">消息内容:</label>
+                                            <div>
                                                 <textarea rows="5" class="form-control form-control-line"
                                                           name="replyconten"></textarea>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
-                                        </button>
-                                        <button type="button" class="btn btn-primary" id="updateButton"
-                                                onclick="update($(this).val());">发送
-                                        </button>
-                                    </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                            </button>
+                                            <button type="button" class="btn btn-primary" id="updateButton"
+                                                    onclick="update($(this).val());">发送
+                                            </button>
+                                        </div>
 
-                                </form>
+                                    </form>
 
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </c:if>
+                <c:if test='${flag == 1}'>
+                    <div class="col-sm-12">
+                        <div id="deleteModel" class="modal fade" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">提示</h4>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                            <span class="sr-only">Close</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        确定删除？
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default"
+                                                data-dismiss="modal">关闭
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="deleteButton"
+                                                onclick="delete1($(this).val())">
+                                            删除
+                                        </button>
+                                    </div>
+                                </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                    </div>
+                </c:if>
                 <%--end模态框，展示具体点位--%>
             </div>
 
@@ -278,17 +380,19 @@
 <!--Custom JavaScript -->
 <script src="<%=basePath%>source/js/custom.min.js"></script>
 <script type="text/javascript">
+    <c:if test="${flag == 0}">
     /*初始化参数*/
     var data = new Object();
     data.currentPage =${currentPage};
     data.totalPage =${totalPage};
     data.messages =${messagesJson};
+    var start = 1;
     $(function () {
         updatePage(data);
     })
 
     /*一下是关于更新的操作
-        触发更新模态框*/
+       触发更新模态框*/
     function updateModel(id) {
 
         $('#updateModel').modal('show');
@@ -300,7 +404,7 @@
         var form = new FormData($("#updateForm")[0]);
         form.append("id", id);
         $.ajax({
-            url: '<%=basePath%>admin/message/addMessage',
+            url: '<%=basePath%>admin/message/updateMessage',
             type: "post",
             data: form,
             /* 执行执行的是dom对象 ，不需要转化信息*/
@@ -309,7 +413,9 @@
             /* 指定返回类型为json */
             dataType: 'json',
             success: function (d) {
-                console.log(d);
+                $("#updateModel").modal("toggle");
+                $(".modify").removeClass("hidden");
+                searchPage(start);
             },
             error: function (e) {
                 console.log("失败");
@@ -420,6 +526,7 @@
             dataType: 'json',
             success: function (d) {
                 data = d;
+                start=d.currentPage;
                 updateTable(d);
                 updatePage(d);
             },
@@ -429,6 +536,152 @@
         });
 
     }
+
+    </c:if>
+    <c:if test="${flag == 1}">
+    /*初始化参数*/
+    var start = 1;
+
+    //触发删除模态框
+    function deleteModel(id) {
+        $('#deleteModel').modal('toggle');
+        $('#deleteButton').val(id);
+
+    }
+
+    //发送删除某一个对象请求
+    function delete1(id) {
+        $.ajax({
+            url: '<%=basePath%>admin/message/superAdmin/deleteMessage',
+            type: "post",
+            dataType: 'json',
+            data: {'Id': id},
+            success: function (d) {
+                $("#deleteModel").modal("toggle");
+                $(".delete").removeClass("hidden");
+                searchPage(start);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    /*结束更新ajax请求*/
+    /*异步接收数据之后更新表*/
+    function updateTable(data) {
+        var table = $("#Table");
+        var str = "";
+        if (data.messages.length != 0) {
+            $.each(data.messages, function (index, item) {
+                str += "<tr>";
+                str += "<td>" + (index + 1) + "</td>";
+                str += "<td>" + item.casename + "</td>";
+                str += "<td>" + item.casecode + "</td>";
+                str += "<td>" + item.replytime + "</td>";
+                str += "<td>" + item.replyconten + "</td>";
+                str += '<td> <button class="btn btn-warning" onclick="deleteModel(' + item.id + ')"> 删除 </button> </td>';
+                str += ' </tr>';
+            });
+
+
+        }
+        table.html(str);
+    }
+
+    /*结束更新表*/
+
+
+    /*更新页表*/
+    function updatePage(data) {
+        var currentPage = data.currentPage;
+        var totalPage = data.totalPage;
+
+
+        var s = " <ul class=\"pagination\"> ";
+        if (currentPage == 1)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0) '>上一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage - 1) + ">上一页</a></li>";
+        }
+
+        //如果总的页数在6页只能就可以这样
+        if (totalPage <= 6) {
+            for (var i = 1; i <= totalPage; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled' ><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+
+        }
+        //这个是页面大于6的时候
+        else {
+            var base = 0;
+            if ((currentPage - 3 >= 0) && (currentPage + 3 <= totalPage))
+                base = currentPage - 3;
+            else if ((currentPage + 3) > totalPage) {
+
+                base = totalPage - 6;
+
+            }
+
+            for (var i = base + 1; i <= base + 6; i++) {
+                if (currentPage == i) {
+                    s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>" + i + "</a></li>";
+                } else {
+                    s += "<li class=\"page-item\" ><a class=\"page-link\" href='javascript:void(0)'rel=" + i + ">" + i + "</a></li>";
+                }
+            }
+        }
+
+        if (currentPage >= totalPage)
+            s += "<li class='page-item disabled'><a class=\"page-link\" href='javascript:void(0)'>下一页</a></li>";
+        else {
+            s += "<li class=\"page-item\" ><a  class=\"page-link\" href='javascript:void(0)'rel=" + (currentPage + 1) + ">下一页</a></li>";
+        }
+
+        s += "</ul>";
+        $("#Page").html(s);
+
+        $("#Page ul li a").bind('click', function () {
+            var rel = $(this).attr("rel");
+            window.history.pushState(null, null, "<%=basePath%>admin/message/superAdmin/" + rel);
+            searchPage(rel);
+        });
+    }
+
+    /*结束更新分页*/
+    //按照页面，条件搜索
+    function searchPage(rel) {
+        var form = new FormData($('#searchForm')[0]);
+
+        $.ajax({
+            url: '<%=basePath%>admin/message/superAdmin/' + rel,
+            type: "post",
+            data: form,
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            success: function (d) {
+                data = d;
+                start = d.currentPage;
+                updateTable(d);
+                updatePage(d);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+
+    }
+
+    </c:if>
+
 </script>
 </body>
 

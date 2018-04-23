@@ -39,8 +39,6 @@ public class NodeAssitImpl implements NodeAssit {
     @Resource
     private CaseNodeMapper caseNodeMapper;
     @Resource
-    private MarkNodeMapper markNodeMapper;
-    @Resource
     private NodeComplex nodeComplex;
     @Resource
     ReplaceMapper replaceMapper;
@@ -53,22 +51,6 @@ public class NodeAssitImpl implements NodeAssit {
         return true;
     }
 
-    @Override
-    public boolean setCaseNode(CaseNode caseNode) {
-        caseNodeMapper.updateByPrimaryKeySelective(caseNode);
-        setBaseNode(caseNode.getBaseNode());
-        return true;
-    }
-
-    @Override
-    public boolean markNode(MarkNode markNode, boolean judge) {
-        if (judge) {
-            markNodeMapper.insertSelective(markNode);
-        } else {
-            markNodeMapper.deleteByPrimaryKey(markNode.getMarkid());
-        }
-        return true;
-    }
 
 
     //这个是需要在casenode中设置一下从哪升级过来的，设置一下baseNodeid,默认来说，是不复制文件的
@@ -80,13 +62,12 @@ public class NodeAssitImpl implements NodeAssit {
         baseNode.setCollecttime(new Date());
         baseNode.setUserid(user.getId());
         baseNode.setNodetype("2");
-        BigDecimal lat = caseNodeMapper.countByBaseNodeId(baseNode.getNodeid()) ;
+        BigDecimal lat = caseNodeMapper.countByBaseNodeId(baseNode.getNodeid());
         if (lat==null){
-            baseNode.getLatitude().add(new BigDecimal(Double.valueOf(0.0001)));
+            lat=baseNode.getLatitude();
         }
-        else {
-            baseNode.setLatitude(lat.add(new BigDecimal(Double.valueOf(0.0001))));
-        }
+        lat=lat.add(new BigDecimal(Double.valueOf(0.0001)));
+        baseNode.setLatitude(lat);
         baseNode.setNodeid(null);
         baseNode.setIsvalid("1");
         baseNodeMapper.insertSelective(baseNode);
@@ -154,11 +135,6 @@ public class NodeAssitImpl implements NodeAssit {
         return nodeComplex.constructCaseNode(nodeId);
     }
 
-    @Override
-    public boolean setCase(CaseNode caseNode) {
-        caseNodeMapper.updateByPrimaryKeySelective(caseNode);
-        return true;
-    }
 
     @Override
     public boolean addFile(File file, HttpServletRequest request, MultipartFile multipartFile) throws IOException {
@@ -208,14 +184,6 @@ public class NodeAssitImpl implements NodeAssit {
     }
 
 
-    @Override
-    public boolean dropRecord(BaseNode baseNode) {
-        //设置为无效
-        baseNode.setIsvalid("0");
-        baseNodeMapper.updateByPrimaryKeySelective(baseNode);
-        return true;
-    }
-
     // 获取的是简单点位的信息。这这里需要处理一下相同坐标的点位，会在客户端有个提示，表示这是同一个坐标的点位信息
     @Override
     public List<BaseNode> searchSimpleNode(BaseNodeConditon baseNodeConditon, Integer start, Integer count) {
@@ -259,13 +227,6 @@ public class NodeAssitImpl implements NodeAssit {
     }
 
 
-    // 搜索案件，并且展示案件点。
-    @Override
-    public List<Case> searchCase(CaseCondition caseCondition) {
-        // 搜索案件，案件里包括了案件点
-        List<Case> cases = new ArrayList<Case>();
-        return cases;
-    }
 
 
 }

@@ -465,8 +465,10 @@
                                                                 <div class="form-group">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-4 form-control-label">案件描述：</label>
-                                                                        <span id="casedescript"
-                                                                              class=" col-sm-8 form-control-label"></span>
+                                                                        <textarea rows="5" id="casedescript"
+                                                                                  class="form-control form-control-line "
+                                                                                  name="record" style="margin-left: 15px;"
+                                                                                  disabled>${caseNode.case1.description}</textarea>
                                                                     </div>
                                                                 </div>
                                                             </form>
@@ -537,7 +539,10 @@
                                                                 <div class="form-group">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-4 form-control-label">案件描述：</label>
-                                                                        <span class=" col-sm-8 form-control-label">${caseNode.case1.description}</span>
+                                                                        <textarea rows="5"
+                                                                                  class="form-control form-control-line "
+                                                                                  name="record" style="margin-left: 15px;"
+                                                                                  disabled>${caseNode.case1.description}</textarea>
                                                                     </div>
                                                                 </div>
                                                             </form>

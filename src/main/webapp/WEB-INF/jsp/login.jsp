@@ -13,7 +13,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Bootstrap Admin Theme</title>
+    <title>多维信息查询系统</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="<%=basePath %>/source/bootstrap/css/bootstrap.min.css" rel="stylesheet">

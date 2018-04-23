@@ -352,6 +352,6 @@
     </select>
     <select id="searchCaseNodeBycaseId" resultType="long">
     select  case_node.nodeid from case_node
-    where caseid=#{caseid}
+    where caseid=#{caseid} and case_node.isvalid='1'
 </select>
 </mapper>

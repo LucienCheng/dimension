@@ -126,15 +126,6 @@
             <!-- Start Page Content -->
 
             <div class="row">
-                <div class="col-sm-12">
-                    <div class="hidden alert alert-warning alert-dismissible  in modify" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <strong>发送成功!</strong>
-                    </div>
-                </div>
               <div class="col-sm-12">
                   <div class="hidden alert alert-warning alert-dismissible  in delete" role="alert">
                       <button type="button" class="close" data-dismiss="alert" aria-label="Close">

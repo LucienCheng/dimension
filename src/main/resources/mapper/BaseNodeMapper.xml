@@ -1,39 +1,39 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.dimension.dao.BaseNodeMapper">
-	<resultMap id="BaseResultMap" type="com.dimension.pojo.BaseNode">
-		<id column="nodeId" jdbcType="BIGINT" property="nodeid" />
-		<result column="longitude" jdbcType="DECIMAL" property="longitude" />
-		<result column="latitude" jdbcType="DECIMAL" property="latitude" />
-		<result column="location" jdbcType="CHAR" property="location" />
-		<result column="collectTime"  property="collecttime" />
-		<result column="description" jdbcType="VARCHAR" property="description" />
-		<result column="nodeName" jdbcType="VARCHAR" property="nodename" />
-		<result column="tableId" jdbcType="INTEGER" property="tableid" />
-		<result column="address" jdbcType="VARCHAR" property="address" />
-		<result column="userId" jdbcType="INTEGER" property="userid" />
-		<result column="nodeType" jdbcType="CHAR" property="nodetype" />
-		<result column="isValid" jdbcType="CHAR" property="isvalid" />
-	</resultMap>
-	<sql id="Base_Column_List">
+    <resultMap id="BaseResultMap" type="com.dimension.pojo.BaseNode">
+        <id column="nodeId" jdbcType="BIGINT" property="nodeid"/>
+        <result column="longitude" jdbcType="DECIMAL" property="longitude"/>
+        <result column="latitude" jdbcType="DECIMAL" property="latitude"/>
+        <result column="location" jdbcType="CHAR" property="location"/>
+        <result column="collectTime" property="collecttime"/>
+        <result column="description" jdbcType="VARCHAR" property="description"/>
+        <result column="nodeName" jdbcType="VARCHAR" property="nodename"/>
+        <result column="tableId" jdbcType="INTEGER" property="tableid"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="userId" jdbcType="INTEGER" property="userid"/>
+        <result column="nodeType" jdbcType="CHAR" property="nodetype"/>
+        <result column="isValid" jdbcType="CHAR" property="isvalid"/>
+    </resultMap>
+    <sql id="Base_Column_List">
 		nodeId, longitude, latitude, location, collectTime,
 		description, nodeName,
 		tableId,
 		address, userId, nodeType, isValid
 	</sql>
-	<select id="selectByPrimaryKey" parameterType="java.lang.Long"
-		resultType="com.dimension.pojo.BaseNode">
+    <select id="selectByPrimaryKey" parameterType="java.lang.Long"
+            resultType="com.dimension.pojo.BaseNode">
 		select
 		base_node.*,username
 		from base_node LEFT  JOIN `user` on `user`.id=userid
 		where nodeId = #{nodeid,jdbcType=BIGINT}
 	</select>
-	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
 		delete from
 		base_node
 		where nodeId = #{nodeid,jdbcType=BIGINT}
 	</delete>
-	<insert id="insert" parameterType="com.dimension.pojo.BaseNode">
+    <insert id="insert" parameterType="com.dimension.pojo.BaseNode">
 		insert into base_node (nodeId,
 		longitude, latitude,
 		location, collectTime, description,
@@ -52,125 +52,126 @@
 		#{nodetype,jdbcType=CHAR}, #{isvalid,jdbcType=CHAR}
 		)
 	</insert>
-	<insert id="insertSelective" parameterType="com.dimension.pojo.BaseNode" useGeneratedKeys="true" keyProperty="nodeid" keyColumn="nodeid">
-		insert into base_node
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="nodeid != null">
-				nodeId,
-			</if>
-			<if test="longitude != null">
-				longitude,
-			</if>
-			<if test="latitude != null">
-				latitude,
-			</if>
-			<if test="location != null">
-				location,
-			</if>
-			<if test="collecttime != null">
-				collectTime,
-			</if>
-			<if test="description != null">
-				description,
-			</if>
-			<if test="nodename != null">
-				nodeName,
-			</if>
-			<if test="tableid != null">
-				tableId,
-			</if>
-			<if test="address != null">
-				address,
-			</if>
-			<if test="userid != null">
-				userId,
-			</if>
-			<if test="nodetype != null">
-				nodeType,
-			</if>
-			<if test="isvalid != null">
-				isValid,
-			</if>
-		</trim>
-		<trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="nodeid != null">
-				#{nodeid,jdbcType=BIGINT},
-			</if>
-			<if test="longitude != null">
-				#{longitude,jdbcType=DECIMAL},
-			</if>
-			<if test="latitude != null">
-				#{latitude,jdbcType=DECIMAL},
-			</if>
-			<if test="location != null">
-				#{location,jdbcType=CHAR},
-			</if>
-			<if test="collecttime != null">
-				#{collecttime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="description != null">
-				#{description,jdbcType=VARCHAR},
-			</if>
-			<if test="nodename != null">
-				#{nodename,jdbcType=VARCHAR},
-			</if>
-			<if test="tableid != null">
-				#{tableid,jdbcType=INTEGER},
-			</if>
-			<if test="address != null">
-				#{address,jdbcType=VARCHAR},
-			</if>
-			<if test="userid != null">
-				#{userid,jdbcType=INTEGER},
-			</if>
-			<if test="nodetype != null">
-				#{nodetype,jdbcType=CHAR},
-			</if>
-			<if test="isvalid != null">
-				#{isvalid,jdbcType=CHAR},
-			</if>
-		</trim>
-	</insert>
-	<update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.BaseNode">
-		update base_node
-		<set>
-			<if test="longitude != null">
-				longitude = #{longitude,jdbcType=DECIMAL},
-			</if>
-			<if test="latitude != null">
-				latitude = #{latitude,jdbcType=DECIMAL},
-			</if>
-			<if test="location != null">
-				location = #{location,jdbcType=CHAR},
-			</if>
-			<if test="collecttime != null">
-				collectTime = #{collecttime,jdbcType=TIMESTAMP},
-			</if>
-			<if test="description != null">
-				description = #{description,jdbcType=VARCHAR},
-			</if>
-			<if test="nodename != null">
-				nodeName = #{nodename,jdbcType=VARCHAR},
-			</if>
-			<if test="tableid != null">
-				tableId = #{tableid,jdbcType=INTEGER},
-			</if>
-			<if test="address != null">
-				address = #{address,jdbcType=VARCHAR},
-			</if>
-			<if test="userid != null">
-				userId = #{userid,jdbcType=INTEGER},
-			</if>
-			<if test="nodetype != null">
-				nodeType = #{nodetype,jdbcType=CHAR},
-			</if>
-			<if test="isvalid != null">
-				isValid = #{isvalid,jdbcType=CHAR},
-			</if>
-		</set>
-		where nodeId = #{nodeid,jdbcType=BIGINT}
-	</update>
-	<update id="updateByPrimaryKey" parameterType="com.dimension.pojo.BaseNode">
+    <insert id="insertSelective" parameterType="com.dimension.pojo.BaseNode" useGeneratedKeys="true"
+            keyProperty="nodeid" keyColumn="nodeid">
+        insert into base_node
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="nodeid != null">
+                nodeId,
+            </if>
+            <if test="longitude != null">
+                longitude,
+            </if>
+            <if test="latitude != null">
+                latitude,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="collecttime != null">
+                collectTime,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="nodename != null">
+                nodeName,
+            </if>
+            <if test="tableid != null">
+                tableId,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="userid != null">
+                userId,
+            </if>
+            <if test="nodetype != null">
+                nodeType,
+            </if>
+            <if test="isvalid != null">
+                isValid,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="nodeid != null">
+                #{nodeid,jdbcType=BIGINT},
+            </if>
+            <if test="longitude != null">
+                #{longitude,jdbcType=DECIMAL},
+            </if>
+            <if test="latitude != null">
+                #{latitude,jdbcType=DECIMAL},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=CHAR},
+            </if>
+            <if test="collecttime != null">
+                #{collecttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="nodename != null">
+                #{nodename,jdbcType=VARCHAR},
+            </if>
+            <if test="tableid != null">
+                #{tableid,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="nodetype != null">
+                #{nodetype,jdbcType=CHAR},
+            </if>
+            <if test="isvalid != null">
+                #{isvalid,jdbcType=CHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.BaseNode">
+        update base_node
+        <set>
+            <if test="longitude != null">
+                longitude = #{longitude,jdbcType=DECIMAL},
+            </if>
+            <if test="latitude != null">
+                latitude = #{latitude,jdbcType=DECIMAL},
+            </if>
+            <if test="location != null">
+                location = #{location,jdbcType=CHAR},
+            </if>
+            <if test="collecttime != null">
+                collectTime = #{collecttime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="nodename != null">
+                nodeName = #{nodename,jdbcType=VARCHAR},
+            </if>
+            <if test="tableid != null">
+                tableId = #{tableid,jdbcType=INTEGER},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="userid != null">
+                userId = #{userid,jdbcType=INTEGER},
+            </if>
+            <if test="nodetype != null">
+                nodeType = #{nodetype,jdbcType=CHAR},
+            </if>
+            <if test="isvalid != null">
+                isValid = #{isvalid,jdbcType=CHAR},
+            </if>
+        </set>
+        where nodeId = #{nodeid,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.BaseNode">
 		update base_node
 		set longitude = #{longitude,jdbcType=DECIMAL},
 		latitude =
@@ -190,293 +191,391 @@
 		where nodeId =
 		#{nodeid,jdbcType=BIGINT}
 	</update>
-	<select id="selectBaseNode" resultType="com.dimension.pojo.BaseNode">
-		(select base_node.* ,`user`.departmentId,`user`.username , groupId ,1 as isEdited ,table_type.chinesename as "table.chinesename" from
-		base_node
-		LEFT
-		JOIN case_node on
-		base_node.nodeId=case_node.nodeId
-		LEFT
-		JOIN `case` on
-		`case`.id=case_node.caseId
-		LEFT
-		JOIN `group` on `group`.id=`case`.groupid
-		LEFT JOIN `user` ON
-		`user`.Id=base_node.userId
-		LEFT JOIN department on
-		`user`.departmentId=department.Id
-		LEFT JOIN table_type on
-		base_node.tableid=table_type.Id
-		<trim prefix="where" prefixOverrides="and | or">
-			base_node.isValid='1'
-			<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
-			<if test="nodename != null">
-				and base_node.nodename like CONCAT('%',#{nodename},'%')
-			</if>
-			<if test="beginTime != null ">
-				and base_node.collecttime <![CDATA[ >= ]]>
-				#{beginTime}
-			</if>
-			<if test="endTime != null">
-				and base_node.collecttime <![CDATA[ <= ]]>
-				#{endTime}
-			</if>
-			<if test="address != null">
-				and base_node.address like CONCAT('%',#{address},'%')
-			</if>
-			<if test="nodetype != null">
-				and base_node.nodetype=#{nodetype}
-			</if>
-			<!-- 这里是根据用户的角色和部门来的， -->
-			<if test="roleId != null">
-				<choose>
-					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
-					<when test="roleId == 2">
-						and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
-					</when>
-					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
-					<when test="roleId == 4">
-						<if test="DpId != null">
-							and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
-						</if>
-					</when>
-					<!-- 超级管理员可以管理全部点位 -->
-					<otherwise>
-					</otherwise>
-				</choose>
-			</if>
-		</trim>
-		)
-		<if test="roleId != 3">
-			union ALL
-			(select base_node.* ,`user`.departmentId,`user`.username,groupId ,0 as isEdited ,table_type.chinesename as "table.chinesename" from
-			base_node
-			LEFT
-			JOIN case_node on
-			base_node.nodeId=case_node.nodeId
-			LEFT
-			JOIN `case` on
-			`case`.id=case_node.caseId
-			LEFT
-			JOIN `group` on `group`.id=`case`.groupid
-			LEFT JOIN `user` ON
-			`user`.Id=base_node.userId
-			LEFT JOIN department on
-			`user`.departmentId=department.Id
-			LEFT JOIN table_type on
-			base_node.tableid=table_type.Id
-			<trim prefix="where" prefixOverrides="and | or">
-				base_node.isValid='1'
-				<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
-				<if test="nodename != null">
-					and base_node.nodename like CONCAT('%',#{nodename},'%')
-				</if>
-				<if test="beginTime != null ">
-					and base_node.collecttime <![CDATA[ >= ]]>
-					#{beginTime}
-				</if>
-				<if test="endTime != null">
-					and base_node.collecttime <![CDATA[ <= ]]>
-					#{endTime}
-				</if>
-				<if test="address != null">
-					and base_node.address like CONCAT('%',#{address},'%')
-				</if>
-				<if test="nodetype != null">
-					and base_node.nodetype=#{nodetype}
-				</if>
-				<!-- 这里是根据用户的角色和部门来的， -->
-				<if test="roleId != null">
-					<choose>
-						<!-- 普通业务员和组长查看不属于自己的基础点或者案件中心点 -->
-						<when test="roleId == 2">
-							and ( base_node.userId!=#{userId} or`group`.grouperid!=#{userId})
-						</when>
-						<!-- 部门管理员 ，查看自己子部门的所有点位 -->
-						<when test="roleId == 4">
-							<if test="DpIds != null">
-								and `user`.departmentId in
-								<foreach collection="DpIds" item="subDp" open="(" close=")"
-										 separator=",">
-									#{subDp}
-								</foreach>
-							</if>
-						</when>
-						<!-- 超级管理员可以管理全部点位 -->
-					</choose>
-				</if>
-			</trim>
-			)
-		</if>
+    <select id="selectBaseNode" resultType="com.dimension.pojo.BaseNode">
+        (select base_node.* ,`user`.departmentId,`user`.username , groupId ,1 as isEdited ,table_type.chinesename as
+        "table.chinesename" from
+        base_node
+        LEFT
+        JOIN case_node on
+        base_node.nodeId=case_node.nodeId
+        LEFT
+        JOIN `case` on
+        `case`.id=case_node.caseId
+        LEFT
+        JOIN `group` on `group`.id=`case`.groupid
+        LEFT JOIN `user` ON
+        `user`.Id=base_node.userId
+        LEFT JOIN department on
+        `user`.departmentId=department.Id
+        LEFT JOIN table_type on
+        base_node.tableid=table_type.Id
+        <trim prefix="where" prefixOverrides="and | or">
+            base_node.isValid='1'
+            <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
+            <if test="nodename != null">
+                and base_node.nodename like CONCAT('%',#{nodename},'%')
+            </if>
+            <if test="beginTime != null ">
+                and base_node.collecttime <![CDATA[ >= ]]>
+                #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and base_node.collecttime <![CDATA[ <= ]]>
+                #{endTime}
+            </if>
+            <if test="address != null">
+                and base_node.address like CONCAT('%',#{address},'%')
+            </if>
+            <if test="nodetype != null">
+                and base_node.nodetype=#{nodetype}
+            </if>
+            <choose>
+                <when test="nodetype == 1 ">
+                    <if test="roleId != null">
+                        <choose>
+                            <!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
+                            <when test="roleId == 2">
+                                and (base_node.userId=#{userId})
+                            </when>
+                            <!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
+                            <when test="roleId == 4">
+                                <if test="DpId != null">
+                                    and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
+                                </if>
+                            </when>
+                            <!-- 超级管理员可以管理全部点位 -->
+                            <otherwise>
+                            </otherwise>
+                        </choose>
+                    </if>
+                </when>
+                <when test="nodetype == 2 ">
+                    <choose>
+                        <!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
+                        <when test="roleId == 2">
+                            and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
+                        </when>
+                        <!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
+                        <when test="roleId == 4">
+                            <if test="DpId != null">
+                                and (`user`.departmentId=#{DpId} or base_node.userId=#{userId} )
+                            </if>
+                        </when>
+                        <!-- 超级管理员可以管理全部点位 -->
+                        <otherwise>
+                        </otherwise>
+                    </choose>
+                </when>
+            </choose>
+            <!-- 这里是根据用户的角色和部门来的， -->
 
-		<if test="start != null and count !=null">
-			limit #{start},#{count}
-		</if>
+        </trim>
+        )
+        <if test="roleId == 4 or ( roleId == 2 and nodetype == 1 )">
+            union ALL
+            (select base_node.* ,`user`.departmentId,`user`.username,groupId ,0 as isEdited ,table_type.chinesename as
+            "table.chinesename" from
+            base_node
+            LEFT
+            JOIN case_node on
+            base_node.nodeId=case_node.nodeId
+            LEFT
+            JOIN `case` on
+            `case`.id=case_node.caseId
+            LEFT
+            JOIN `group` on `group`.id=`case`.groupid
+            LEFT JOIN `user` ON
+            `user`.Id=base_node.userId
+            LEFT JOIN department on
+            `user`.departmentId=department.Id
+            LEFT JOIN table_type on
+            base_node.tableid=table_type.Id
+            <trim prefix="where" prefixOverrides="and | or">
+                base_node.isValid='1'
+                <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
+                <if test="nodename != null">
+                    and base_node.nodename like CONCAT('%',#{nodename},'%')
+                </if>
+                <if test="beginTime != null ">
+                    and base_node.collecttime <![CDATA[ >= ]]>
+                    #{beginTime}
+                </if>
+                <if test="endTime != null">
+                    and base_node.collecttime <![CDATA[ <= ]]>
+                    #{endTime}
+                </if>
+                <if test="address != null">
+                    and base_node.address like CONCAT('%',#{address},'%')
+                </if>
+                <if test="nodetype != null">
+                    and base_node.nodetype=#{nodetype}
+                </if>
+                <choose>
+                    <when test="nodetype == 1 ">
+                            <if test="DpId != null">
+                                and (`user`.departmentId!=#{DpId} )
+                            </if>
+                    </when>
+                    <when test="nodetype == 2 ">
+                        <if test="roleId != null">
+                            <choose>
 
-	</select>
+                                <!-- 部门管理员 ，查看自己子部门的所有点位 -->
+                                <when test="roleId == 4">
+                                    <if test="DpIds != null">
+                                        and `user`.departmentId in
+                                        <foreach collection="DpIds" item="subDp" open="(" close=")"
+                                                 separator=",">
+                                            #{subDp}
+                                        </foreach>
+                                    </if>
+                                </when>
+                                <!-- 超级管理员可以管理全部点位 -->
+                            </choose>
+                        </if>
+                    </when>
+                </choose>
+                <!-- 这里是根据用户的角色和部门来的， -->
 
-	<select id="count" resultType="int">
-		SELECT count(*) FROM ((select base_node.* ,`user`.departmentId,`user`.username , groupId ,1 as isEdited ,table_type.chinesename as "table.chinesename" from
-		base_node
-		LEFT
-		JOIN case_node on
-		base_node.nodeId=case_node.nodeId
-		LEFT
-		JOIN `case` on
-		`case`.id=case_node.caseId
-		LEFT
-		JOIN `group` on `group`.id=`case`.groupid
-		LEFT JOIN `user` ON
-		`user`.Id=base_node.userId
-		LEFT JOIN department on
-		`user`.departmentId=department.Id
-		LEFT JOIN table_type on
-		base_node.tableid=table_type.Id
-		<trim prefix="where" prefixOverrides="and | or">
-			base_node.isValid='1'
-			<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
-			<if test="nodename != null">
-				and base_node.nodename like CONCAT('%',#{nodename},'%')
-			</if>
-			<if test="beginTime != null ">
-				and base_node.collecttime <![CDATA[ >= ]]>
-				#{beginTime}
-			</if>
-			<if test="endTime != null">
-				and base_node.collecttime <![CDATA[ <= ]]>
-				#{endTime}
-			</if>
-			<if test="address != null">
-				and base_node.address like CONCAT('%',#{address},'%')
-			</if>
-			<if test="nodetype != null">
-				and base_node.nodetype=#{nodetype}
-			</if>
-			<!-- 这里是根据用户的角色和部门来的， -->
-			<if test="roleId != null">
-				<choose>
-					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
-					<when test="roleId == 2">
-						and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
-					</when>
-					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
-					<when test="roleId == 4">
-						<if test="DpId != null">
-							and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
-						</if>
-					</when>
-					<!-- 超级管理员可以管理全部点位 -->
-					<otherwise>
-					</otherwise>
-				</choose>
-			</if>
-		</trim>
-		)
-		<if test="roleId != 3">
-			union ALL
-			(select base_node.* ,`user`.departmentId,`user`.username,groupId ,0 as isEdited ,table_type.chinesename as "table.chinesename" from
-			base_node
-			LEFT
-			JOIN case_node on
-			base_node.nodeId=case_node.nodeId
-			LEFT
-			JOIN `case` on
-			`case`.id=case_node.caseId
-			LEFT
-			JOIN `group` on `group`.id=`case`.groupid
-			LEFT JOIN `user` ON
-			`user`.Id=base_node.userId
-			LEFT JOIN department on
-			`user`.departmentId=department.Id
-			LEFT JOIN table_type on
-			base_node.tableid=table_type.Id
-			<trim prefix="where" prefixOverrides="and | or">
-				base_node.isValid='1'
-				<!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
-				<if test="nodename != null">
-					and base_node.nodename like CONCAT('%',#{nodename},'%')
-				</if>
-				<if test="beginTime != null ">
-					and base_node.collecttime <![CDATA[ >= ]]>
-					#{beginTime}
-				</if>
-				<if test="endTime != null">
-					and base_node.collecttime <![CDATA[ <= ]]>
-					#{endTime}
-				</if>
-				<if test="address != null">
-					and base_node.address like CONCAT('%',#{address},'%')
-				</if>
-				<if test="nodetype != null">
-					and base_node.nodetype=#{nodetype}
-				</if>
-				<!-- 这里是根据用户的角色和部门来的， -->
-				<if test="roleId != null">
-					<choose>
-						<!-- 普通业务员和组长查看不属于自己的基础点或者案件中心点 -->
-						<when test="roleId == 2">
-							and ( base_node.userId!=#{userId} and `group`.grouperid!=#{userId})
+            </trim>
+            )
+        </if>
 
-						</when>
-						<!-- 部门管理员 ，查看自己子部门的所有点位 -->
-						<when test="roleId == 4">
-							<if test="DpIds != null">
-								and `user`.departmentId in
-								<foreach collection="DpIds" item="subDp" open="(" close=")"
-										 separator=",">
-									#{subDp}
-								</foreach>
-							</if>
-						</when>
-						<!-- 超级管理员可以管理全部点位 -->
-					</choose>
-				</if>
-			</trim>
-			)
-		</if>
-		) as a
+        <if test="start != null and count !=null">
+            limit #{start},#{count}
+        </if>
 
-	</select>
-	<select id="judgeEdited" resultType="int">
-		select count(*) from
-		base_node
-		LEFT
-		JOIN case_node on
-		base_node.nodeId=case_node.nodeId
-		LEFT
-		JOIN `case` on
-		`case`.id=case_node.caseId
-		LEFT
-		JOIN `group` on `group`.id=`case`.groupid
-		LEFT JOIN `user` ON
-		`user`.Id=base_node.userId
-		LEFT JOIN department on
-		`user`.departmentId=department.Id
-		LEFT JOIN table_type on
-		base_node.tableid=table_type.Id
-		<trim prefix="where" prefixOverrides="and | or">
-			base_node.isValid='1'
-			and base_node.nodeid=#{nodeId}
-			<if test="nodetype != null">
-				and base_node.nodetype=#{nodetype}
-			</if>
-			<if test="roleId != null">
-				<choose>
-					<!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
-					<when test="roleId == 2">
-						and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
-					</when>
-					<!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
-					<when test="roleId == 4">
-						<if test="DpId != null">
-							and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
-						</if>
-					</when>
-					<!-- 超级管理员可以管理全部点位 -->
-					<otherwise>
-					</otherwise>
-				</choose>
-			</if>
-		</trim>
-	</select>
+    </select>
+
+    <select id="count" resultType="int">
+        SELECT count(*) FROM ((select base_node.* ,`user`.departmentId,`user`.username , groupId ,1 as isEdited
+        ,table_type.chinesename as "table.chinesename" from
+        base_node
+        LEFT
+        JOIN case_node on
+        base_node.nodeId=case_node.nodeId
+        LEFT
+        JOIN `case` on
+        `case`.id=case_node.caseId
+        LEFT
+        JOIN `group` on `group`.id=`case`.groupid
+        LEFT JOIN `user` ON
+        `user`.Id=base_node.userId
+        LEFT JOIN department on
+        `user`.departmentId=department.Id
+        LEFT JOIN table_type on
+        base_node.tableid=table_type.Id
+        <trim prefix="where" prefixOverrides="and | or">
+            base_node.isValid='1'
+            <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
+            <if test="nodename != null">
+                and base_node.nodename like CONCAT('%',#{nodename},'%')
+            </if>
+            <if test="beginTime != null ">
+                and base_node.collecttime <![CDATA[ >= ]]>
+                #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and base_node.collecttime <![CDATA[ <= ]]>
+                #{endTime}
+            </if>
+            <if test="address != null">
+                and base_node.address like CONCAT('%',#{address},'%')
+            </if>
+            <if test="nodetype != null">
+                and base_node.nodetype=#{nodetype}
+            </if>
+            <choose>
+                <when test="nodetype == 1 ">
+                    <if test="roleId != null">
+                        <choose>
+                            <!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
+                            <when test="roleId == 2">
+                                and (base_node.userId=#{userId})
+                            </when>
+                            <!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
+                            <when test="roleId == 4">
+                                <if test="DpId != null">
+                                    and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
+                                </if>
+                            </when>
+                            <!-- 超级管理员可以管理全部点位 -->
+                            <otherwise>
+                            </otherwise>
+                        </choose>
+                    </if>
+                </when>
+                <when test="nodetype == 2 ">
+                    <choose>
+                        <!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
+                        <when test="roleId == 2">
+                            and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
+                        </when>
+                        <!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
+                        <when test="roleId == 4">
+                            <if test="DpId != null">
+                                and (`user`.departmentId=#{DpId} or base_node.userId=#{userId} )
+                            </if>
+                        </when>
+                        <!-- 超级管理员可以管理全部点位 -->
+                        <otherwise>
+                        </otherwise>
+                    </choose>
+                </when>
+            </choose>
+            <!-- 这里是根据用户的角色和部门来的， -->
+
+        </trim>
+        )
+        <if test="roleId == 4 or ( roleId == 2 and nodetype == 1 )">
+            union ALL
+            (select base_node.* ,`user`.departmentId,`user`.username,groupId ,0 as isEdited ,table_type.chinesename as
+            "table.chinesename" from
+            base_node
+            LEFT
+            JOIN case_node on
+            base_node.nodeId=case_node.nodeId
+            LEFT
+            JOIN `case` on
+            `case`.id=case_node.caseId
+            LEFT
+            JOIN `group` on `group`.id=`case`.groupid
+            LEFT JOIN `user` ON
+            `user`.Id=base_node.userId
+            LEFT JOIN department on
+            `user`.departmentId=department.Id
+            LEFT JOIN table_type on
+            base_node.tableid=table_type.Id
+            <trim prefix="where" prefixOverrides="and | or">
+                base_node.isValid='1'
+                <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
+                <if test="nodename != null">
+                    and base_node.nodename like CONCAT('%',#{nodename},'%')
+                </if>
+                <if test="beginTime != null ">
+                    and base_node.collecttime <![CDATA[ >= ]]>
+                    #{beginTime}
+                </if>
+                <if test="endTime != null">
+                    and base_node.collecttime <![CDATA[ <= ]]>
+                    #{endTime}
+                </if>
+                <if test="address != null">
+                    and base_node.address like CONCAT('%',#{address},'%')
+                </if>
+                <if test="nodetype != null">
+                    and base_node.nodetype=#{nodetype}
+                </if>
+                <choose>
+                    <when test="nodetype == 1 ">
+                        <if test="DpId != null">
+                            and (`user`.departmentId!=#{DpId} )
+                        </if>
+                    </when>
+                    <when test="nodetype == 2 ">
+                        <if test="roleId != null">
+                            <choose>
+
+                                <!-- 部门管理员 ，查看自己子部门的所有点位 -->
+                                <when test="roleId == 4">
+                                    <if test="DpIds != null">
+                                        and `user`.departmentId in
+                                        <foreach collection="DpIds" item="subDp" open="(" close=")"
+                                                 separator=",">
+                                            #{subDp}
+                                        </foreach>
+                                    </if>
+                                </when>
+                                <!-- 超级管理员可以管理全部点位 -->
+                            </choose>
+                        </if>
+                    </when>
+                </choose>
+                <!-- 这里是根据用户的角色和部门来的， -->
+
+            </trim>
+            )
+        </if>
+        ) as a
+
+    </select>
+    <select id="judgeEdited" resultType="int">
+        select count(*) from
+        base_node
+        LEFT
+        JOIN case_node on
+        base_node.nodeId=case_node.nodeId
+        LEFT
+        JOIN `case` on
+        `case`.id=case_node.caseId
+        LEFT
+        JOIN `group` on `group`.id=`case`.groupid
+        LEFT JOIN `user` ON
+        `user`.Id=base_node.userId
+        LEFT JOIN department on
+        `user`.departmentId=department.Id
+        LEFT JOIN table_type on
+        base_node.tableid=table_type.Id
+        <trim prefix="where" prefixOverrides="and | or">
+            base_node.isValid='1'
+            <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
+            <if test="nodename != null">
+                and base_node.nodename like CONCAT('%',#{nodename},'%')
+            </if>
+            <if test="beginTime != null ">
+                and base_node.collecttime <![CDATA[ >= ]]>
+                #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and base_node.collecttime <![CDATA[ <= ]]>
+                #{endTime}
+            </if>
+            <if test="address != null">
+                and base_node.address like CONCAT('%',#{address},'%')
+            </if>
+            <if test="nodetype != null">
+                and base_node.nodetype=#{nodetype}
+            </if>
+            <choose>
+                <when test="nodetype == 1 ">
+                    <if test="roleId != null">
+                        <choose>
+                            <!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
+                            <when test="roleId == 2">
+                                and (base_node.userId=#{userId})
+                            </when>
+                            <!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
+                            <when test="roleId == 4">
+                                <if test="DpId != null">
+                                    and (`user`.departmentId=#{DpId} or base_node.userId=#{userId})
+                                </if>
+                            </when>
+                            <!-- 超级管理员可以管理全部点位 -->
+                            <otherwise>
+                            </otherwise>
+                        </choose>
+                    </if>
+                </when>
+                <when test="nodetype == 2 ">
+                    <choose>
+                        <!-- 普通业务员 ,只可以编辑自己的点位,和自己负责（组长）的案件的所有点 -->
+                        <when test="roleId == 2">
+                            and (base_node.userId=#{userId} or `group`.grouperid=#{userId})
+                        </when>
+                        <!-- 部门管理员 ，编辑自己部门的点位信息以及自己点位信息 -->
+                        <when test="roleId == 4">
+                            <if test="DpId != null">
+                                and (`user`.departmentId=#{DpId} or base_node.userId=#{userId} )
+                            </if>
+                        </when>
+                        <!-- 超级管理员可以管理全部点位 -->
+                        <otherwise>
+                        </otherwise>
+                    </choose>
+                </when>
+            </choose>
+            <!-- 这里是根据用户的角色和部门来的， -->
+
+        </trim>
+    </select>
 </mapper>

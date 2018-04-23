@@ -106,8 +106,13 @@
     where Id = #{id,jdbcType=INTEGER}
   </update>
     <select id="countByBaseNodeId" resultType="java.math.BigDecimal">
-   SELECT base_node.latitude from case_node LEFT JOIN base_node on case_node.baseNodeId=base_node.nodeId
-   where case_node.basenodeid=#{nodeid} and case_node.isvalid="1"
+SELECT base_node.latitude
+FROM
+	case_node
+LEFT JOIN base_node ON case_node.nodeId = base_node.nodeId
+WHERE
+	case_node.baseNodeId = #{nodeId}
+AND case_node.isvalid = "1"
   ORDER BY base_node.latitude DESC
     limit 0,1
   </select>

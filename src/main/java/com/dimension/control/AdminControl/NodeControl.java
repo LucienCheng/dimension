@@ -53,6 +53,7 @@ public class NodeControl {
         CaseCondition caseCondition = new CaseCondition();
         caseCondition.setRoleId(user.getRoleid());
         caseCondition.setUserId(user.getId());
+        caseCondition.setDepartmentid(user.getDepartmentid());
         BaseNode baseNode = null;
         if ("1".equals(nodetype)) {
             baseNode = nodeAssit.getBaseNode(nodeid);

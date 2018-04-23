@@ -46,21 +46,7 @@ public class CaseNodeBuilderImpl implements CaseNodeBuilder {
 		caseNode.setBaseNode(baseNode);
 		this.nodeId = nodeId;
 	}
-	@Override
-	public boolean buildWifi() {
-		return baseNodeBuilder.buildWifi();
-	}
 
-	@Override
-	public boolean buildFile() {
-		return baseNodeBuilder.buildFile();
-	}
-
-	@Override
-	public boolean buildBasestation() {
-
-		return baseNodeBuilder.buildBasestation();
-	}
 
 	
 }

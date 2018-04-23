@@ -140,11 +140,8 @@
                             class="fa fa-columns m-r-10" aria-hidden="true"></i>案件管理</a></li>
                     <li><a href="<%=basePath%>admin/userAdmin" class="waves-effect"><i
                             class="fa fa-address-book m-r-10" aria-hidden="true"></i>用户管理</a></li>
-                    <c:if test="${user.roleid != 3}">
-
                         <li><a href="<%=basePath%>admin/message" class="waves-effect"><i
                                 class="fa fa-columns m-r-10" aria-hidden="true"></i>消息处理</a></li>
-                    </c:if>
                     <li><a href="<%=basePath%>admin/personInfo"
                            class="waves-effect"><i class="fa fa-user m-r-10" aria-hidden="true"></i>个人信息</a></li>
 
@@ -309,7 +306,7 @@
                 str += "<td class=\"col-sm-2\">" + item.username + "</td>";
                 str += "<td class=\"col-sm-2\">" + item.collecttime + "</td>";
                 str += '<td class="col-sm-1"><button class="btn btn-info"  onclick="window.open(\'/admin/node/' +item.nodeid+
-                    '?nodetype='+'\')">查看</button><td>';
+                    '?nodetype='+item.nodetype+'\')">查看</button><td>';
                 str += ' </tr>';
             });
         }

@@ -13,8 +13,8 @@ import com.dimension.pojo.Wifi;
  * @Description:basenodebuild的初步构造
  */
 public interface BaseNodeBuilder {
-	public Long getNodeId() ;
-	public void setNodeId(Long nodeId) ;
+	 Long getNodeId() ;
+	 void setNodeId(Long nodeId) ;
 
 	boolean buildWifi();
 

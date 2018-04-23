@@ -42,6 +42,7 @@ public class MessageControl {
         model.addAttribute("totalPage", totalPage);
         model.addAttribute("messagesJson", messagesJson);
         model.addAttribute("currentPage", 1);
+        model.addAttribute("flag",0);
         return "/admin/message";
 
     }
@@ -73,16 +74,15 @@ public class MessageControl {
 
     }
 
-    @RequestMapping("updateMessage")
+    @RequestMapping("/message/updateMessage")
     @ResponseBody
     public Map<String, Object> updateMessage(Message message,HttpSession session) {
-        Map<String, Object> map = new HashMap<>();
         User user= (User) session.getAttribute("user");
         message.setReplytime(new Date());
         message.setAdminid(user.getId());
         message.setState("1");
         messageMapper.updateByPrimaryKeySelective(message);
-        return map;
+        return new HashMap<>();
     }
     @RequestMapping("message/addMessage")
     @ResponseBody
@@ -99,5 +99,57 @@ public class MessageControl {
         message.setUserid(user.getId());
         messageMapper.insertSelective(message);
         return map;
+    }
+
+    @RequestMapping("/message/superAdmin")
+    public String superAdmin(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        MessageConditon messageConditon = new MessageConditon();
+        messageConditon.setCount(count);
+        messageConditon.setStart(0);
+        messageConditon.setState("1");
+        messageConditon.setUserId(user.getId());
+        List<Message> messages = messageMapper.selectMessage(messageConditon);
+        int totalCount = messageMapper.count(messageConditon);
+        int totalPage = (totalCount + count - 1) / count;
+        JSONArray messagesJson = new JSONArray(messages);
+        model.addAttribute("messages", messages);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("messagesJson", messagesJson);
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("flag",1);
+        return "/admin/message";
+    }
+    @RequestMapping("/message/superAdmin/{start}")
+    @ResponseBody
+    public Map<String, Object> superAdmin(@PathVariable Integer start, HttpSession session) {
+        Map<String, Object> map = new HashMap<>();
+        start--;
+        User user = (User) session.getAttribute("user");
+        MessageConditon messageConditon = new MessageConditon();
+        messageConditon.setCount(count);
+        messageConditon.setStart(0);
+        messageConditon.setState("1");
+        messageConditon.setUserId(user.getId());
+        List<Message> messages = messageMapper.selectMessage(messageConditon);
+        if (messages.size() == 0&& start!=0) {
+            start--;
+            messageConditon.setStart(start);
+            messages = messageMapper.selectMessage(messageConditon);
+        }
+
+        int totalCount = messageMapper.count(messageConditon);
+        int totalPage = (totalCount + count - 1) / count;
+        map.put("messages", messages);
+        map.put("totalPage", totalPage);
+        map.put("currentPage", start+1);
+        return map;
+
+    }
+    @RequestMapping("message/superAdmin/deleteMessage")
+    @ResponseBody
+    public Map<String, Object> deleteMessage(Integer Id) {
+        messageMapper.deleteByPrimaryKey(Id);
+        return new HashMap<>();
     }
 }

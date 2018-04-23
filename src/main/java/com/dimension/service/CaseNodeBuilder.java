@@ -11,20 +11,12 @@ import com.dimension.pojo.CaseNode;
  * @Description:案件点的初步构造
  */
 public interface CaseNodeBuilder {
-	public Long getNodeId();
+	 Long getNodeId();
 
-	public void setNodeId(Long nodeId);
+	 void setNodeId(Long nodeId);
 	
 	boolean buildCase();
 	
 
-	boolean buildWifi();
-
-	
-	boolean buildFile();
-
-	
-	boolean buildBasestation();
-	
 	CaseNode getResult();
 }
