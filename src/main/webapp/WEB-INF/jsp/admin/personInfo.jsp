@@ -240,7 +240,7 @@
                                 <div class="form-group">
                                     <label class="col-md-12">确认密码：</label>
                                     <div class="col-md-12">
-                                        <input type="password" placeholder="123456" id="repassword"
+                                        <input type="password" placeholder="123456" id="repassword"  name="repassword"
                                                class="form-control form-control-line" value="${user.password}">
                                     </div>
                                 </div>
@@ -253,7 +253,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
-                                        <input class="btn btn-success" onclick="sendModify()" value="更改">
+                                        <input class="btn btn-success" onclick="sendModify()" value="更改" id="modifyButton">
                                     </div>
                                 </div>
                                 <input type="hidden" value="${user.id}" name="id">
@@ -298,11 +298,16 @@
         src="<%=basePath %>source/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
 <!--Custom JavaScript -->
 <script src="<%=basePath %>source/js/custom.min.js"></script>
-
-<!-- Style switcher -->
-
+<script src="<%=basePath %>/source/js/jquery.validate.js"></script>
+<script src="<%=basePath %>/source/js/additional-methods.js"></script>
+<script src="<%=basePath %>/source/js/messages_zh.js"></script>
+</body>
+<style>
+    .error {
+        color: red;
+    }
+</style>
 <script type="text/javascript">
-
 
     $("#repassword").keyup(function () {
 
@@ -331,40 +336,91 @@
 
     });
     function sendModify() {
-        if ($("#repassword").val() == $("#password").val()) {
-            var form = new FormData(document.getElementById("personInfo"));
+        var validator = $("#personInfo").validate();
+        var flag = validator.form();
+        if (flag){
+            if ($("#repassword").val() == $("#password").val()) {
+                var form = new FormData(document.getElementById("personInfo"));
 
-            $.ajax({
-                url: '/admin/personInfoModify',
-                type: "post",
-                data: form,
-                /* 执行执行的是dom对象 ，不需要转化信息*/
-                processData: false,
-                contentType: false,
-                /* 指定返回类型为json */
-                dataType: 'json',
-                success: function (data) {
-                    $("#username").val(data.username);
-                    $("#password").val(data.password);
-                    $(".modify").removeClass('hidden');
-                    $("#alert").append(" <div class=\"hidden alert alert-warning alert-dismissible  in modify\" role=\"alert\">\n" +
-                        "                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
-                        "                            <span aria-hidden=\"true\">&times;</span>\n" +
-                        "                            <span class=\"sr-only\">Close</span>\n" +
-                        "                        </button>\n" +
-                        "                        <strong>修改成功!</strong> 用户已经更新。\n" +
-                        "                    </div>");
-                },
-                error: function (e) {
-                    console.log("失败");
-                }
-            });
+                $.ajax({
+                    url: '/admin/personInfoModify',
+                    type: "post",
+                    data: form,
+                    /* 执行执行的是dom对象 ，不需要转化信息*/
+                    processData: false,
+                    contentType: false,
+                    /* 指定返回类型为json */
+                    dataType: 'json',
+                    success: function (data) {
+                        $("#username").val(data.username);
+                        $("#password").val(data.password);
+                        $(".modify").removeClass('hidden');
+                        $("#alert").append(" <div class=\"hidden alert alert-warning alert-dismissible  in modify\" role=\"alert\">\n" +
+                            "                        <button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\">\n" +
+                            "                            <span aria-hidden=\"true\">&times;</span>\n" +
+                            "                            <span class=\"sr-only\">Close</span>\n" +
+                            "                        </button>\n" +
+                            "                        <strong>修改成功!</strong> 用户已经更新。\n" +
+                            "                    </div>");
+                    },
+                    error: function (e) {
+                        console.log("失败");
+                    }
+                });
+            }
+        }else {
+            alert('请输入正确的格式');
+            return false;
         }
+
 
 
     }
 
+/*以下是认证*/
 
+    $.validator.addMethod("checkPwd",function(value,element,params){
+        var checkPwd = /^\w{6,16}$/g;
+        return this.optional(element)||(checkPwd.test(value));
+    },"只允许6-16位英文字母、数字或者下画线！");
+    validateRule();
+    function validateRule() {
+        var rule = {
+            onkeyup: function(element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: {
+                password: {
+                    checkPwd: true
+                },
+                username: {
+                    required: true
+                },
+                repassword: {
+                    equalTo: password
+                },
+
+            },
+            messages: {
+                username: {
+                    required: "请输入用户名"
+                },
+                repassword: {
+                    equalTo: "两次输入的不一样"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is('select')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        };
+        $("#personInfo").validate(rule);
+    }
 </script>
 </body>
 

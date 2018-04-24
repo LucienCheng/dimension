@@ -53,7 +53,7 @@
                         </button>
                         <strong>登录失败!</strong>检查一下你的密码以及用户级别
                     </div>
-                    <form role="form" method="post" action="verifyLogin">
+                    <form role="form" method="post" action="verifyLogin" id="form">
                         <fieldset>
 
                             <div class="form-group" id="identityid-group">
@@ -70,7 +70,7 @@
                                 </label>
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
-                            <input class="btn btn-lg btn-success btn-block" value="登陆" type="submit">
+                            <input class="btn btn-lg btn-success btn-block" value="登陆" type="submit" id="submit">
                         </fieldset>
                     </form>
                 </div>
@@ -91,7 +91,16 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="<%=basePath %>/source/assets/plugins/dist/js/sb-admin-2.js"></script>
+
+<script src="<%=basePath %>/source/js/jquery.validate.js"></script>
+<script src="<%=basePath %>/source/js/additional-methods.js"></script>
+<script src="<%=basePath %>/source/js/messages_zh.js"></script>
 </body>
+<style>
+    .error {
+        color: red;
+    }
+</style>
 <script type="text/javascript">
     var judge='${error}';
     if(judge=="error"){
@@ -99,6 +108,50 @@
         $("#password-group").addClass("has-error");
         $(".alert").removeClass("hidden");
         $(".alert").addClass("show");
+    }
+
+    $.validator.addMethod("checkPwd",function(value,element,params){
+        var checkPwd = /^\w{6,16}$/g;
+        return this.optional(element)||(checkPwd.test(value));
+    },"只允许6-16位英文字母、数字或者下画线！");
+    validateRule();
+    function validateRule() {
+        var rule={
+            onkeyup: function(element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: {
+                identityid: {
+                    required: true,
+                    minlength: 1,
+                    maxlength: 10
+                },
+                password: {
+                    required: true,
+                    checkPwd:true
+                }
+            },
+            messages: {
+                identityid: {
+                    required: "请输入用户名",
+                    minlength: "用户名长度不能少于{0}个字符",
+                    maxlength: "用户名长度不能超过{0}个字符"
+                },
+                password: {
+                    required: "请输入密码"
+                }
+            },
+            errorPlacement: function(error, element) { //指定错误信息位置
+                if (element.is(':radio') || element.is(':checkbox')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        }
+        $("#form").validate(rule);
     }
 </script>
 </html>

@@ -57,13 +57,13 @@ public class UserNodeControl {
         caseCondition.setRoleId(user.getRoleid());
         caseCondition.setUserId(user.getId());
         BaseNode baseNode = null;
+        ObjectMapper objectMapper = new ObjectMapper();
         if ("1".equals(nodetype)) {
             baseNode = nodeAssit.getBaseNode(nodeid);
             baseNode.setTables(tables);
             model.addAttribute("baseNode", baseNode);
         } else if ("2".equals(nodetype)) {
             CaseNode caseNode = nodeAssit.getCaseNode(nodeid);
-            ObjectMapper objectMapper = new ObjectMapper();
             caseNode.getBaseNode().setTables(tables);
             model.addAttribute("casesJson", objectMapper.writeValueAsString(caseMapper.searchCases(caseCondition, null, null)));
             model.addAttribute("caseNode", caseNode);
@@ -80,6 +80,7 @@ public class UserNodeControl {
         markNode.setNodeid(baseNode.getNodeid());
         Integer markId = markNodeMapper.selectByNodeIdUser(markNode);
         model.addAttribute("cases", caseMapper.searchCases(caseCondition, null, null));
+        model.addAttribute("othersJson", objectMapper.writeValueAsString(baseNode.getOther()));
         model.addAttribute("nodetype", nodetype);
         model.addAttribute("isEdited", isEdited(baseNodeConditon));
         model.addAttribute("markId", markId);

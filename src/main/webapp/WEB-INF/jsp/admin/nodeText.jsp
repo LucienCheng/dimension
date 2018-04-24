@@ -416,7 +416,9 @@
         console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss') );
         $('#beginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#endTime').val(end.format('YYYY-MM-DD h:mm:ss'));
-    });
+    }).attr("readonly","readonly");
+
+
 </script>
 </body>
 

@@ -560,6 +560,16 @@
 
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
+
+<script src="<%=basePath %>/source/js/jquery.validate.js"></script>
+<script src="<%=basePath %>/source/js/additional-methods.js"></script>
+<script src="<%=basePath %>/source/js/messages_zh.js"></script>
+</body>
+<style>
+    .error {
+        color: red;
+    }
+</style>
 <script type="text/javascript">
     Array.prototype.indexOf = function (val) {
         for (var i = 0; i < this.length; i++) {
@@ -791,35 +801,41 @@
 
     /*发送更新某一个对象的ajax的请求*/
     function update(id) {
-        var form = new FormData($("#updateForm")[0]);
-        form.append("id", id);
-        $.ajax({
-            url: '<%=basePath%>user/updateCase',
-            type: "post",
-            data: form,
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            /* 指定返回类型为json */
-            dataType: 'json',
-            success: function (d) {
-                //更新data中case的内容，重新刷新一遍
-                $.each(data.cases, function (index, case1) {
-                    if (case1.id == d.case1.id) {
-                        case1.casename = d.case1.casename;
-                        case1.casetype = d.case1.casetype;
-                        case1.description = d.case1.description;
-                    }
-                });
-                updateTable(data);
-                //更新模态框隐藏
-                $("#updateModel").modal("hide");
-                $(".modify").removeClass("hidden");
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
+        if($("#updateForm").validate().form()){
+            var form = new FormData($("#updateForm")[0]);
+            form.append("id", id);
+            $.ajax({
+                url: '<%=basePath%>user/updateCase',
+                type: "post",
+                data: form,
+                /* 执行执行的是dom对象 ，不需要转化信息*/
+                processData: false,
+                contentType: false,
+                /* 指定返回类型为json */
+                dataType: 'json',
+                success: function (d) {
+                    //更新data中case的内容，重新刷新一遍
+                    $.each(data.cases, function (index, case1) {
+                        if (case1.id == d.case1.id) {
+                            case1.casename = d.case1.casename;
+                            case1.casetype = d.case1.casetype;
+                            case1.description = d.case1.description;
+                        }
+                    });
+                    updateTable(data);
+                    //更新模态框隐藏
+                    $("#updateModel").modal("hide");
+                    $(".modify").removeClass("hidden");
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+
+        }
+        else {
+            alert("请输入正确的格式");
+        }
 
     }
 
@@ -1004,8 +1020,42 @@
         console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
         $('#beginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#endTime').val(end.format('YYYY-MM-DD h:mm:ss'));
-    });
+    }).attr("readonly","readonly");
 
+    validateRule();
+    function validateRule() {
+        var rule = {
+            onkeyup: function(element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: {
+                casename: {
+                    required: true
+                },
+                casetype: {
+                    required: true
+                }
+            },
+            messages: {
+                casename: {
+                    required: "请输入案件名"
+                },
+                casetype: {
+                    required: "请输入案件类型"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is('select')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        };
+        $("#updateForm").validate(rule);
+    }
 </script>
 </body>
 

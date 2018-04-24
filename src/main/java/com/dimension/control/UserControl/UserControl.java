@@ -22,10 +22,6 @@ public class UserControl {
     MarkNodeMapper markNodeMapper;
     private static final int count = 10;
 
-
-
-
-
     //地图点位
     @RequestMapping("/nodeMap")
     public String nodeMap(Model model, HttpSession session) throws JsonProcessingException {

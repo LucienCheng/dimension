@@ -84,13 +84,13 @@
             <div id="myTabContent" class="tab-content">
                 <div class="tab-pane fade in active show" id="info">
                     <div class="col-sm-12">
-                    <div class="hidden alert alert-warning alert-dismissible  in modifyInfo" role="alert">
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                            <span class="sr-only">Close</span>
-                        </button>
-                        <strong>修改成功!</strong> 点位基础信息更新
-                    </div>
+                        <div class="hidden alert alert-warning alert-dismissible  in modifyInfo" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                <span class="sr-only">Close</span>
+                            </button>
+                            <strong>修改成功!</strong> 点位基础信息更新
+                        </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="card">
@@ -99,7 +99,8 @@
                                     <div class="row" style="margin-bottom: 15px;">
                                         <c:if test="${nodetype==1}">
                                             <input class=" btn btn-info" type="button" value="升级为案件点"
-                                                   style="margin-left: 15px;" data-toggle="modal" data-target="#addModel">
+                                                   style="margin-left: 15px;" data-toggle="modal"
+                                                   data-target="#addModel">
                                         </c:if>
                                         <c:if test="${nodetype==2}">
                                             <input class=" btn btn-info" type="button" value="降级为基础点"
@@ -176,37 +177,40 @@
                                             <div class="card">
                                                 <c:if test="${isEdited==1}">
                                                     <div class="card-block">
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-3 form-control-label">点位名称：</label>
+                                                        <form id="base">
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-3 form-control-label">点位名称：</label>
 
-                                                            <input type="text" class="form-control col-sm-9"
-                                                                   id="nodename"
-                                                                   value="${baseNode.nodename}">
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-3 form-control-label">地址位置：</label>
+                                                                <input type="text" class="form-control col-sm-9"
+                                                                       id="nodename"
+                                                                       value="${baseNode.nodename}">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-3 form-control-label">地址位置：</label>
 
-                                                            <input type="text" class="form-control col-sm-9"
-                                                                   id="address"
-                                                                   value="${baseNode.address}">
-                                                        </div>
-                                                        <div class="form-group row">
-                                                            <label class="col-sm-3 form-control-label">点位的方向：</label>
+                                                                <input type="text" class="form-control col-sm-9"
+                                                                       id="address"
+                                                                       value="${baseNode.address}">
+                                                            </div>
+                                                            <div class="form-group row">
+                                                                <label class="col-sm-3 form-control-label">点位的方向：</label>
 
-                                                            <input type="text" class="form-control col-sm-9"
-                                                                   id="location"
-                                                                   value="${baseNode.location}">
-                                                        </div>
+                                                                <input type="text" class="form-control col-sm-9"
+                                                                       id="location"
+                                                                       value="${baseNode.location}">
+                                                            </div>
 
-                                                        <input id="nodeid"type="hidden" value="${baseNode.nodeid}"
+                                                        </form>
+
+                                                        <input id="nodeid" type="hidden" value="${baseNode.nodeid}"
                                                                name="nodeid">
-                                                        <div id="field">
+                                                        <form id="field">
                                                             <c:forEach items="${baseNode.other}" var="item">
                                                                 <c:if test="${item.englishname != 'nodeId'}">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-3 form-control-label">${item.chinesename}：</label>
                                                                         <input type="text"
-                                                                               class="form-control col-sm-9 value"
+                                                                               class="form-control col-sm-9 value" name="${item.englishname}"
                                                                                value="${item.value}">
                                                                         <input type="hidden" value="${item.englishname}"
                                                                                class="englishname">
@@ -220,7 +224,7 @@
                                                                 </c:if>
 
                                                             </c:forEach>
-                                                        </div>
+                                                        </form>
 
                                                         <div class="form-group row">
                                                             <label class="col-md-12">备注信息：</label>
@@ -297,7 +301,8 @@
                                     <form enctype="multipart/form-data">
                                         <div class="form-group">
                                             <div class="file-loading">
-                                                <input id="file-1" type="file" multiple class="file-loading" name="files"
+                                                <input id="file-1" type="file" multiple class="file-loading"
+                                                       name="files"
                                                        data-overwrite-initial="false" data-min-file-count="1">
                                             </div>
                                         </div>
@@ -314,16 +319,20 @@
                                                 </c:if>
                                                 <c:if test='${file.filetype=="视频"}'>
                                                     <video class="card-video-top" controls
-                                                         style="height: 300px; width: 100%; display: block;">
-                                                        <source src="<%=basePath%>${file.fileaddress}" >
+                                                           style="height: 300px; width: 100%; display: block;">
+                                                        <source src="<%=basePath%>${file.fileaddress}">
                                                     </video>
                                                 </c:if>
                                                 <div class="card-block">
                                                     <h4 class="card-title">${file.filename}</h4>
                                                     <p class="card-text">${file.filetype}</p>
-                                                    <a href="/user/node/download?filename=${file.fileaddress}" class="btn btn-primary">下载</a>
+                                                    <a href="/user/node/download?filename=${file.fileaddress}"
+                                                       class="btn btn-primary">下载</a>
                                                     <c:if test="${isEdited==1}">
-                                                        <button type="button" onclick="deleteFile(${file.id},'${file.fileaddress}');" class="btn btn-danger">删除</button>
+                                                        <button type="button"
+                                                                onclick="deleteFile(${file.id},'${file.fileaddress}');"
+                                                                class="btn btn-danger">删除
+                                                        </button>
                                                     </c:if>
                                                 </div>
                                             </div>
@@ -467,7 +476,8 @@
                                                                         <label class="col-sm-4 form-control-label">案件描述：</label>
                                                                         <textarea rows="5" id="casedescript"
                                                                                   class="form-control form-control-line "
-                                                                                  name="record" style="margin-left: 15px;"
+                                                                                  name="record"
+                                                                                  style="margin-left: 15px;"
                                                                                   disabled>${caseNode.case1.description}</textarea>
 
                                                                     </div>
@@ -496,7 +506,9 @@
                                                             </div>
                                                             <div class="form-group row">
                                                                 <div class="col-sm-12">
-                                                                    <button class="btn btn-success" type="button" onclick="modifyCaseNode(${caseNode.id})">更改</button>
+                                                                    <button class="btn btn-success" type="button"
+                                                                            onclick="modifyCaseNode(${caseNode.id})">更改
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -542,7 +554,8 @@
                                                                         <label class="col-sm-12 form-control-label">案件描述：</label>
                                                                         <textarea rows="5"
                                                                                   class="form-control form-control-line "
-                                                                                  name="record" style="margin-left: 15px;"
+                                                                                  name="record"
+                                                                                  style="margin-left: 15px;"
                                                                                   disabled>${caseNode.case1.description}</textarea>
 
                                                                     </div>
@@ -607,9 +620,10 @@
                                             <input name="alarmid" type="text"
                                                    class="col-sm-8 form-control" placeholder="465855245">
                                         </div>
-                                        <div id="department"  class="form-group row">
+                                        <div id="department" class="form-group row">
                                             <label class="col-sm-3 form-control-label ">案件选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8"  name="caseid" data-live-search="true" >
+                                            <select class="selectpicker form-control c-select col-sm-8" name="caseid"
+                                                    data-live-search="true">
                                                 <c:forEach items="${cases}" var="case1">
                                                     <option value="${case1.id}">${case1.casename}</option>
                                                 </c:forEach>
@@ -630,7 +644,8 @@
                                         <button type="button" class="btn btn-default"
                                                 data-dismiss="modal">关闭
                                         </button>
-                                        <button type="button" class="btn btn-primary" id="addButton" onclick="upgradeNode();">
+                                        <button type="button" class="btn btn-primary" id="addButton"
+                                                onclick="upgradeNode();">
                                             添加
                                         </button>
                                     </div>
@@ -663,12 +678,22 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="<%=basePath %>source/js/bootstrap-select.min.js"></script>
 
+<script src="<%=basePath %>/source/js/jquery.validate.js"></script>
+<script src="<%=basePath %>/source/js/additional-methods.js"></script>
+<script src="<%=basePath %>/source/js/messages_zh.js"></script>
+</body>
+<style>
+    .error {
+        color: red;
+    }
+</style>
 
 <script type="text/javascript">
     <c:if test="${nodetype==1}">
+
     function upgradeNode() {
         var form = new FormData($('#addForm')[0]);
-        form.append('baseNodeId',${baseNode.nodeid})
+        form.append('baseNodeId', ${baseNode.nodeid})
         $.ajax({
             url: '<%=basePath%>user/node/upgradeNode',
             type: "post",
@@ -679,15 +704,17 @@
             data: form,
             success: function (d) {
                 console.log("升级成功");
-                window.open("<%=basePath%>user/node/"+d.nodeid+"?nodetype=2","_self");
+                window.open("<%=basePath%>user/node/" + d.nodeid + "?nodetype=2", "_self");
             },
             error: function (e) {
                 console.log("失败");
             }
         });
     }
+
     </c:if>
     <c:if test="${nodetype==2}">
+
     function degradeNode() {
         $.ajax({
             url: '<%=basePath%>user/node/degradeNode/${baseNode.nodeid}',
@@ -696,20 +723,22 @@
             dataType: 'json',
             success: function (d) {
                 console.log("降级成功");
-                window.open("<%=basePath%>user/node/"+d.nodeid+"?nodetype=1","_self");
+                window.open("<%=basePath%>user/node/" + d.nodeid + "?nodetype=1", "_self");
             },
             error: function (e) {
                 console.log("失败");
             }
         });
     }
+
     </c:if>
 
-    var markId=null;
+    var markId = null;
     <c:if test="${not empty markId}">
-    markId=${markId};
+    markId =${markId};
     </c:if>
     var fields = [];
+
     function change(object) {
         if (object.val() == '标记') {
             object.val('取消标记');
@@ -720,16 +749,17 @@
 
 
     }
+
     function mark(object) {
         //标记
-        if(markId==null){
+        if (markId == null) {
             $.ajax({
-                url: '<%=basePath%>user/node/mark/'+'${baseNode.nodeid}'+'/1',
+                url: '<%=basePath%>user/node/mark/' + '${baseNode.nodeid}' + '/1',
                 type: "post",
                 dataType: 'json',
                 success: function (d) {
-                    markId=d.markId;
-                change(object);
+                    markId = d.markId;
+                    change(object);
                 },
                 error: function (e) {
                     console.log("失败");
@@ -738,12 +768,12 @@
         }
         else {
             $.ajax({
-                url: '<%=basePath%>user/node/mark/'+'${baseNode.nodeid}'+'/0',
+                url: '<%=basePath%>user/node/mark/' + '${baseNode.nodeid}' + '/0',
                 type: "post",
                 dataType: 'json',
-                data:{"markId":markId},
+                data: {"markId": markId},
                 success: function (d) {
-                    markId=null;
+                    markId = null;
                     change(object);
                 },
                 error: function (e) {
@@ -754,74 +784,89 @@
 
 
     }
-    function modifyCaseNode(id){
-        var form=new FormData($("#caseNodeForm")[0]);
-        form.append("id", id);
-        $.ajax({
-            url: '<%=basePath%>user/node/modifyCaseNode',
-            type: "post",
-            data: form,
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            /* 指定返回类型为json */
-            dataType: 'json',
-            success: function (d) {
-                console.log("成功");
-                $(".modifyCaseNode").removeClass("hidden");
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
+
+    function modifyCaseNode(id) {
+        if ($("#caseNodeForm").validate().form()) {
+            var form = new FormData($("#caseNodeForm")[0]);
+            form.append("id", id);
+            $.ajax({
+                url: '<%=basePath%>user/node/modifyCaseNode',
+                type: "post",
+                data: form,
+                /* 执行执行的是dom对象 ，不需要转化信息*/
+                processData: false,
+                contentType: false,
+                /* 指定返回类型为json */
+                dataType: 'json',
+                success: function (d) {
+                    console.log("成功");
+                    $(".modifyCaseNode").removeClass("hidden");
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+        }else {
+            alert("请输入正确的格式")
+        }
+
     }
-    function deleteFile(fileId,fileAddress){
+
+    function deleteFile(fileId, fileAddress) {
         $.ajax({
-            url: '<%=basePath%>user/node/deleteFile/'+fileId+"?fileAddress="+fileAddress,
+            url: '<%=basePath%>user/node/deleteFile/' + fileId + "?fileAddress=" + fileAddress,
             type: "post",
             dataType: 'json',
             success: function (d) {
                 console.log("删除成功");
-                $("#"+fileId).remove();
+                $("#" + fileId).remove();
             },
             error: function (e) {
                 console.log("失败");
             }
         });
     }
+
     function modifyField() {
+        var flag = $('#base').validate().form();
+        var flag2 = $('#field').validate().form();
+        if (flag && flag2) {
+            $.each($("#field").children('.row'), function (index, item) {
+                var data = new Object();
+                data.englishname = $(item).find('.englishname').val();
+                data.value = $(item).find('.value').val();
+                data.tablename = $(item).find('.tablename').val();
+                data.nodeid = $(item).find('.nodeid').val();
+                fields.push(data);
+            });
+            var baseNodeData = new Object();
+            baseNodeData.nodename = $('#nodename').val();
+            baseNodeData.address = $('#address').val();
+            baseNodeData.description = $('#description').val();
+            baseNodeData.tableid = $('#tableid').val();
+            baseNodeData.location = $('#location').val();
+            baseNodeData.nodeid = $('#nodeid').val();
 
-        $.each($("#field").children('.row'), function (index, item) {
-            var data = new Object();
-            data.englishname = $(item).find('.englishname').val();
-            data.value = $(item).find('.value').val();
-            data.tablename = $(item).find('.tablename').val();
-            data.nodeid = $(item).find('.nodeid').val();
-            fields.push(data);
-        });
-        var baseNodeData = new Object();
-        baseNodeData.nodename = $('#nodename').val();
-        baseNodeData.address = $('#address').val();
-        baseNodeData.description = $('#description').val();
-        baseNodeData.tableid = $('#tableid').val();
-        baseNodeData.location = $('#location').val();
-        baseNodeData.nodeid = $('#nodeid').val();
+            $.ajax({
+                url: '<%=basePath%>user/node/modifyField/',
+                type: "post",
+                data: {"baseNodeData": JSON.stringify(baseNodeData), "fields": JSON.stringify(fields)},
 
-        $.ajax({
-            url: '<%=basePath%>user/node/modifyField/',
-            type: "post",
-            data: {"baseNodeData": JSON.stringify(baseNodeData), "fields": JSON.stringify(fields)},
+                dataType: 'json',
+                success: function (d) {
+                    console.log("修改成功");
+                    $(".modifyInfo").removeClass("hidden");
+                    fields = [];
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
 
-            dataType: 'json',
-            success: function (d) {
-                console.log("修改成功");
-                $(".modifyInfo").removeClass("hidden");
-                fields = [];
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
+        }
+        else {
+            alert("请输入正确的格式")
+        }
 
     }
 
@@ -870,16 +915,138 @@
             return filename.replace('(', '_').replace(']', '_');
         }
     });
-//上传发生异常
-    $('#file-1').on('fileuploaderror', function(event, data) {
+    //上传发生异常
+    $('#file-1').on('fileuploaderror', function (event, data) {
         console.log(data);
         console.log('File upload error');
     });
-//上传成功
-    $('#file-1').on('fileuploaded', function(event, data, previewId, index) {
+    //上传成功
+    $('#file-1').on('fileuploaded', function (event, data, previewId, index) {
         $(".uoloadFile").removeClass("hidden");
         console.log('File uploaded triggered');
     });
+    $.each(${othersJson},function (index,item) {
+        if(item.englishname!='nodeId'){
+            $.validator.addMethod(""+item.regexid, function(value, element, params) {
+                var str=""+item.regexp.regex;
+                var check = new RegExp(str);
+                return this.optional(element) || (check.test(value));
+            }, item.regexp.description);
+        }
+    })
+    var othersJson = ${othersJson};
+    validateRule();
+    validField();
+console.log(othersJson);
+    function validField() {
+        rule = "{";
+        $.each(othersJson, function (index, item) {
+            if (item.englishname != 'nodeId') {
+                rule += "\"" + item.englishname + "\"" + ":{\"required\":true,\"" + item.regexid + "\":true}";
+                if (index != othersJson.length - 2) {
+                    rule += ","
+                }
+            }
+        });
+        rule += "}"
+        messages = "{"
+        $.each(othersJson, function (index, item) {
+            if (item.englishname != 'nodeId') {
+                messages += "\"" + item.englishname + "\":{\"required\":\"不能为空\"}";
+                if (index != othersJson.length - 2) {
+                    messages += ","
+                }
+            }
+        });
+        messages += "}";
+        var ruless = {
+            onkeyup: function (element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: JSON.parse(rule),
+            messages: JSON.parse(messages),
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is('select')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        };
+        $("#field").validate(ruless);
+    }
+
+    function validateRule() {
+        var rule = {
+            onkeyup: function (element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: {
+                nodename: {
+                    required: true
+                },
+                address: {
+                    required: true
+                },
+                location: {
+                    required: true
+                }
+            },
+            messages: {
+                nodename: {
+                    required: "请输入点位名称"
+                },
+                address: {
+                    required: "请输入地址"
+                },
+                location: {
+                    required: "请输入方向"
+                }
+
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is('select')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        };
+        var rule2 = {
+            onkeyup: function (element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: {
+                alarmid: {
+                    required: true,
+                    digits: true,
+                    rangelength: [1, 11]
+                }
+            },
+            messages: {
+                alarmid: {
+                    required: "请输入接处警编号"
+                }
+
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is('select')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        };
+        $("#base").validate(rule);
+        $("#caseNodeForm").validate(rule2);
+    }
+
 </script>
 
 

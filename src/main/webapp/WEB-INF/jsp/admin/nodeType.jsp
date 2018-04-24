@@ -396,6 +396,7 @@
 <script src="<%=basePath %>source/js/jquery.cxselect.min.js"></script>
 
 
+
 <script type="text/javascript">
 
     var i = 0;
@@ -794,7 +795,54 @@
 
     }
 
-    //end ajax
+    validateRule();
+    function validateRule() {
+        var rule = {
+            onkeyup: function(element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: {
+                casename: {
+                    required: true
+                },
+                casetype: {
+                    required: true
+                },
+                groupname: {
+                    required: true
+                },
+                grouperid: {
+                    required: true
+                }
+            },
+            messages: {
+                casename: {
+                    required: "请输入案件名"
+                },
+                casetype: {
+                    required: "请输入案件类型"
+                },
+                groupname: {
+                    required: "请输入小组名称"
+                },
+                grouperid: {
+                    required: "请输入选择组长"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is('select')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        };
+        $("#addForm").validate(rule);
+        $("#updateForm").validate(rule);
+
+    }
 </script>
 </body>
 

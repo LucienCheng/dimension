@@ -300,18 +300,15 @@
                                                 <option value="4">部门管理员</option>
                                             </select>
                                         </div>
-                                        <%--本部门--%>
-                                        <div class="hidden row" id="updateDepart">
+                                        <div class=" row" id="updateDepart">
                                             <label class="form-control-label col-sm-3 ">部门选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8" id="updateDepartSelect"  data-live-search="true" title="部门选择">
+                                            <select class="selectpicker form-control c-select col-sm-8"
+                                                    id="updateDepartSelect" name="departmentid" data-live-search="true"
+                                                    title="部门选择">
+                                                <option value="${user.departmentid}"
+                                                        selected>${user.department.departmentname}</option>
                                             </select>
 
-                                        </div>
-                                        <%--下级部门--%>
-                                        <div class="hidden row" id="updateSubDepart">
-                                            <label class="form-control-label col-sm-3 ">部门选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8" id="updateSubDepartSelect" data-live-search="true" title="部门选择">
-                                            </select>
                                         </div>
 
                                     </div>
@@ -370,6 +367,7 @@
                                             <span class="sr-only">Close</span>
                                         </button>
                                     </div>
+
                                     <div class="modal-body">
                                         <div class="form-group row">
                                             <label class=" form-control-label col-sm-3">用户名</label>
@@ -404,17 +402,15 @@
                                             </select>
                                         </div>
                                         <%--本部门--%>
-                                        <div class="hidden row" id="depart">
+                                        <div class=" row" id="depart">
                                             <label class="form-control-label col-sm-3 ">部门选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8" id="departSelect" data-live-search="true" title="部门选择">
+                                            <select class="selectpicker form-control c-select col-sm-8"
+                                                    name="departmentid" id="departSelect" data-live-search="true"
+                                                    title="部门选择">
+                                                <option value="${user.departmentid}"
+                                                        selected>${user.department.departmentname}</option>
                                             </select>
 
-                                        </div>
-                                        <%--下级部门--%>
-                                        <div class="hidden row" id="subDepart">
-                                            <label class=" form-control-label col-sm-3 ">部门选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8" id="subDepartSelect"  data-live-search="true" title="部门选择">
-                                            </select>
                                         </div>
 
 
@@ -473,7 +469,15 @@
 <!--Custom JavaScript -->
 <script src="<%=basePath %>source/js/custom.min.js"></script>
 
-
+<script src="<%=basePath %>/source/js/jquery.validate.js"></script>
+<script src="<%=basePath %>/source/js/additional-methods.js"></script>
+<script src="<%=basePath %>/source/js/messages_zh.js"></script>
+</body>
+<style>
+    .error {
+        color: red;
+    }
+</style>
 <script type="text/javascript">
     var data = new Object();
     var adminDepartment =${user.departmentid};
@@ -481,32 +485,48 @@
     data.totalPage =${totalPage};
     data.users =${usersJson};
     var role =${user.roleid};
+    var subDepartSelect = "";
+    var departSelect = '<option value="' + adminDepartment + '"> ${user.department.departmentname}</option>';
+    $.each(${subDepartmentJson}, function (index, item) {
+        var option = '<option value="' + item.id + '">' + item.departmentname + '</option>';
+        subDepartSelect += option;
+    });
+
+    function showAddDepart(flag) {
+        //展示本部门
+        if (flag == 1) {
+            $('#departSelect').html(departSelect);
+            $('#departSelect').selectpicker('refresh');
+            $('#departSelect').selectpicker('render');
+        }
+        else {
+            console.log(subDepartSelect);
+            $('#departSelect').html(subDepartSelect);
+            $('#departSelect').selectpicker('refresh');
+            $('#departSelect').selectpicker('render');
+        }
+    }
+
+    function showUpdateDepart(flag) {
+        //展示本部门
+        if (flag == 1) {
+            $('#updateDepartSelect').html(departSelect);
+            $('#updateDepartSelect').selectpicker('refresh');
+        }
+        else {
+            $('#updateDepartSelect').html(subDepartSelect);
+            $('#updateDepartSelect').selectpicker('refresh');
+        }
+    }
+
     $(function () {
-        //初始化下级部门
-        $.each(${subDepartmentJson}, function (index, item) {
-            var option = $("<option>").val(item.id).text(item.departmentname);
-            $("#subDepartSelect").append(option);
-
-        });
-        $.each(${subDepartmentJson}, function (index, item) {
-            var option = $("<option>").val(item.id).text(item.departmentname);
-            $("#updateSubDepartSelect").append(option);
-
-        });
-
-        //初始化本部门
-        var option = $("<option>").val(adminDepartment).text("${user.department.departmentname}");
-        var option1 = $("<option>").val(adminDepartment).text("${user.department.departmentname}");
-        $("#departSelect").append(option);
-        $("#updateDepartSelect").append(option1);
         $("#add1").bind("click", function () {
             addUser();
         });
         updatePage(data);
         //超级管理员
         if (role == 3) {
-            $("#subDepart").removeClass("hidden");
-            $("#updateSubDepart").removeClass("hidden");
+            showAddDepart(0);
         }
 
         //部门管理员，如果是本部门，就只有一个选项
@@ -515,22 +535,18 @@
                 var roleid = $(this).val();
                 //如果选择的角色时本部门
                 if (roleid == 2) {
-                    $("#subDepart").addClass("hidden");
-                    $("#depart").removeClass("hidden");
+                    showAddDepart(1);
                 } else {
-                    $("#depart").addClass("hidden");
-                    $("#subDepart").removeClass("hidden");
+                    showAddDepart(0);
                 }
             });
             $("#updateRoleid").bind("click", function () {
                 var roleid = $(this).val();
                 //如果选择的角色时本部门
                 if (roleid == 2) {
-                    $("#updateSubDepart").addClass("hidden");
-                    $("#updateDepart").removeClass("hidden");
+                    showUpdateDepart(1);
                 } else {
-                    $("#updateDepart").addClass("hidden");
-                    $("#updateSubDepart").removeClass("hidden");
+                    showUpdateDepart(0);
                 }
             })
         }
@@ -678,43 +694,42 @@
     }
 
     function updateUser(id) {
-        var form = new FormData($("#updateUserForm")[0]);
-        //本部门
-        if ($('#updateRoleid').val()==2){
-            form.append("departmentid",$('#updateDepartSelect').val());
+        var flag = $("#updateUserForm").validate().form();
+        if (flag) {
+            var form = new FormData($("#updateUserForm")[0]);
+            form.append("id", id);
+            $.ajax({
+                url: '<%=basePath%>admin/updateUser',
+                type: "post",
+                data: form,
+                /* 执行执行的是dom对象 ，不需要转化信息*/
+                processData: false,
+                contentType: false,
+                /* 指定返回类型为json */
+                dataType: 'json',
+                success: function (d) {
+                    //更新data中user的内容，重新刷新一遍
+                    $.each(data.users, function (index, user) {
+                        if (user.id == d.user.id) {
+                            user.password = d.user.password;
+                            user.username = d.user.username;
+                            user.roleid = d.user.roleid;
+                            user.departmentid = d.user.departmentid;
+                            user.department.departmentname = d.user.department.departmentname;
+                        }
+                    });
+                    updateTable(data);
+                    $("#personInfo").modal("hide");
+                    $(".modify").removeClass("hidden");
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
         }
         else {
-            form.append("departmentid",$('#updateSubDepartSelect').val());
+            alert("请输入正确的格式");
         }
-        form.append("id", id);
-        $.ajax({
-            url: '<%=basePath%>admin/updateUser',
-            type: "post",
-            data: form,
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            /* 指定返回类型为json */
-            dataType: 'json',
-            success: function (d) {
-                //更新data中user的内容，重新刷新一遍
-                $.each(data.users, function (index, user) {
-                    if (user.id == d.user.id) {
-                        user.password = d.user.password;
-                        user.username = d.user.username;
-                        user.roleid = d.user.roleid;
-                        user.departmentid = d.user.departmentid;
-                        user.department.departmentname = d.user.department.departmentname;
-                    }
-                });
-                updateTable(data);
-                $("#personInfo").modal("hide");
-                $(".modify").removeClass("hidden");
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
 
     }
 
@@ -739,37 +754,107 @@
 
     }
 
+    validateRule();
+
     function addUser() {
-        var form = new FormData($("#addUserForm")[0]);
-        //本部门
-        if ($('#roleid').val()==2){
-            form.append("departmentid",$('#departSelect').val());
+        var flag = $("#addUserForm").validate().form();
+        if (flag) {
+            var form = new FormData($("#addUserForm")[0]);
+            $.ajax({
+                url: '<%=basePath%>admin/addUser',
+                type: "post",
+                /* 执行执行的是dom对象 ，不需要转化信息*/
+                processData: false,
+                contentType: false,
+                data: form,
+                /* 指定返回类型为json */
+                dataType: 'json',
+                success: function (d) {
+                    $("#addUser").modal("hide");
+                    $(".add").removeClass("hidden");
+                    sendAjaxPage(data.currentPage);
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
         }
         else {
-            form.append("departmentid",$('#subDepartSelect').val());
+            alert("请输入正确的格式")
         }
 
-        $.ajax({
-            url: '<%=basePath%>admin/addUser',
-            type: "post",
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            data: form,
-            /* 指定返回类型为json */
-            dataType: 'json',
-            success: function (d) {
-                $("#addUser").modal("hide");
-                $(".add").removeClass("hidden");
-                sendAjaxPage(data.currentPage);
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
 
     }
 
+    $.validator.addMethod("checkPhone", function (value, element, params) {
+        var checkPhone = new RegExp("/^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/");
+        return this.optional(element) || (checkPhone.test(value));
+    }, "请输入正确的手机号");
+    $.validator.addMethod("checkPwd", function (value, element, params) {
+        var checkPwd = /^\w{6,16}$/g;
+        return this.optional(element) || (checkPwd.test(value));
+    }, "只允许6-16位英文字母、数字或者下画线！");
+
+    function validateRule() {
+        var rule = {
+            onkeyup: function (element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: {
+                "username": {
+                    required: true
+                },
+                password: {
+                    required: true,
+                    checkPwd: true
+                },
+                identityid: {
+                    required: true
+                },
+                telephone: {
+                    required: true,
+                    checkPhone: true
+                },
+                roleid: {
+                    required: true
+                },
+                departmentid: {
+                    required: true
+                }
+            },
+            messages: {
+                username: {
+                    required: "请输入用户名"
+                },
+                password: {
+                    required: "请输入密码"
+                },
+                identityid: {
+                    required: "请输入身份证号"
+                },
+                telephone: {
+                    required: "请输入电话号码"
+                },
+                roleid: {
+                    required: "请选择角色"
+                },
+                departmentid: {
+                    required: "请选择部门"
+                }
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is('select')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        }
+        $("#addUserForm").validate(rule);
+        $("#updateUserForm").validate(rule);
+    }
 </script>
 </body>
 

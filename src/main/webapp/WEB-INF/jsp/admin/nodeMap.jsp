@@ -1079,7 +1079,7 @@
         console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
         $('#nodeBeginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#nodeEndTime').val(end.format('YYYY-MM-DD h:mm:ss'));
-    });
+    }).attr("readonly","readonly");
     $('#caseDaterange').daterangepicker({
         timePicker: true,
         timePickerIncrement: 30,
@@ -1090,7 +1090,7 @@
         console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
         $('#caseBeginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#caseEndTime').val(end.format('YYYY-MM-DD h:mm:ss'));
-    });
+    }).attr("readonly","readonly");
 
     function getValue(obj) {
         map.clearOverlays();

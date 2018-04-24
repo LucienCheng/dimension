@@ -54,6 +54,7 @@ public class NodeControl {
         caseCondition.setRoleId(user.getRoleid());
         caseCondition.setUserId(user.getId());
         caseCondition.setDepartmentid(user.getDepartmentid());
+        ObjectMapper objectMapper = new ObjectMapper();
         BaseNode baseNode = null;
         if ("1".equals(nodetype)) {
             baseNode = nodeAssit.getBaseNode(nodeid);
@@ -62,13 +63,14 @@ public class NodeControl {
         } else if("2".equals(nodetype)){
             CaseNode caseNode = nodeAssit.getCaseNode(nodeid);
 
-            ObjectMapper objectMapper = new ObjectMapper();
+
             caseNode.getBaseNode().setTables(tables);
             model.addAttribute("casesJson", objectMapper.writeValueAsString(caseMapper.searchCases(caseCondition, null, null)));
             model.addAttribute("caseNode", caseNode);
             baseNode = caseNode.getBaseNode();
             model.addAttribute("baseNode", baseNode);
         }
+        String othersJson=objectMapper.writeValueAsString(baseNode.getOther());
         MarkNode markNode=new MarkNode();
         markNode.setUserid(user.getId());
         markNode.setNodeid(baseNode.getNodeid());
@@ -86,6 +88,7 @@ public class NodeControl {
             isEdited = 1;
             System.out.println("超级");
         }
+        model.addAttribute("othersJson", othersJson);
         model.addAttribute("cases", caseMapper.searchCases(caseCondition, null, null));
         model.addAttribute("nodetype", nodetype);
         model.addAttribute("isEdited", isEdited);
