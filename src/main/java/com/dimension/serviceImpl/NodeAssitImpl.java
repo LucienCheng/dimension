@@ -143,7 +143,6 @@ public class NodeAssitImpl implements NodeAssit {
         String fileName = multipartFile.getOriginalFilename();
         file.setUpdatetime(date);
         fileName = date.getTime() + "_" + fileName;
-
         //将传送到指定的位置
         String contentPathString = request.getServletContext().getRealPath("/");
         java.io.File dir = null;

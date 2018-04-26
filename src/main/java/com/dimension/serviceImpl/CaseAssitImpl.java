@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 @Service("CaseAssitImpl")
@@ -39,7 +40,8 @@ public class CaseAssitImpl implements CaseAssist {
         double sumLength=Math.sqrt(sumText1)*Math.sqrt(sumText2);
         result=sum/sumLength;
         //直接计算
-        return result;
+
+        return new BigDecimal(Double.valueOf(result)).setScale(6,BigDecimal.ROUND_HALF_UP ).doubleValue();
     }
 
     public  void computeUseLDA() throws IOException {

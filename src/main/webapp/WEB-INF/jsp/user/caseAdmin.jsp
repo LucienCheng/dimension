@@ -273,7 +273,8 @@
                                             >计算相似度
                                             </button>
                                             <label class="form-control-label ">计算结果：</label>
-                                            <span class=" form-control-label" id="result">0%</span>
+                                            <span class=" form-control-label" id="result"></span>
+                                            <span id="loading"></span>
                                         </div>
 
 
@@ -710,7 +711,11 @@
                 type: "post",
                 dataType: 'json',
                 data: {'firstCase': firstCase, 'secondCase': secondCase},
+                beforeSend:function(XMLHttpRequest){
+                    $("#loading").html("<i class=\"fa fa-spinner fa-spin\"></i>"); //在后台返回success之前显示loading图标
+                },
                 success: function (d) {
+                    $("#loading").empty(); //ajax返回成功，清除loading图标
                     console.log("成功");
                     $('#result').text(d.result);
                     console.log(d);
