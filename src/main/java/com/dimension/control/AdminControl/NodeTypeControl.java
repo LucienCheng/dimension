@@ -46,7 +46,7 @@ public class NodeTypeControl {
                 table1.setCount(0);
             }
             else{
-                table1.setCount(table1.getId());
+                table1.setCount(map.get(table1.getId()));
             }
 
         }
@@ -149,8 +149,6 @@ public class NodeTypeControl {
     /**
      * 将要构造表，初始会有一个nodeid.这是唯一的检索，初始的时候插入到table_type中，构造的表名字的规则为table_id.
      * 然后构造每个字段。字段的构造规则为这个表中，id最大的那个字段为起始。{tablename}_id
-     * @param start
-     * @param table
      * @param conditon
      * @param json
      * @return

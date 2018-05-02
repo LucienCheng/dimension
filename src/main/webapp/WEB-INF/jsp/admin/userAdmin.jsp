@@ -787,7 +787,7 @@
     }
 
     $.validator.addMethod("checkPhone", function (value, element, params) {
-        var checkPhone = new RegExp("/^0?(13[0-9]|15[012356789]|17[013678]|18[0-9]|14[57])[0-9]{8}$/");
+        var checkPhone = new RegExp("^1[34578]\\d{9}$");
         return this.optional(element) || (checkPhone.test(value));
     }, "请输入正确的手机号");
     $.validator.addMethod("checkPwd", function (value, element, params) {

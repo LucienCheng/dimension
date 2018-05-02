@@ -92,7 +92,7 @@ public class NodeAssitImpl implements NodeAssit {
         for (Field field : fields) {
             map.put(field.getEnglishname(), field.getValue());
         }
-        map.put("nodeId", baseNode.getNodeid());
+        map.put("nodeid", baseNode.getNodeid());
         tableFieldService.insertRecord(baseNode.getTable().getEnglishname(), map);
         return true;
     }

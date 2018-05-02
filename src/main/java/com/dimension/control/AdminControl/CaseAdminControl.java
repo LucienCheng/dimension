@@ -11,19 +11,22 @@ import com.dimension.service.NodeComplex;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Controller
 @RequestMapping("/admin")
@@ -39,7 +42,12 @@ public class CaseAdminControl {
     private CaseAssist caseAssist;
     private static final int count = 10;
 
-
+    @InitBinder
+    protected void initBinder(HttpServletRequest request, ServletRequestDataBinder binder) throws Exception {
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        CustomDateEditor editor = new CustomDateEditor(df, true);//true表示允许为空，false反之
+        binder.registerCustomEditor(Date.class, editor);
+    }
     @RequestMapping("/caseAdmin")
     public String caseAdmin(CaseCondition caseCondition, HttpSession session, Model model) throws JsonProcessingException {
         User user = (User) session.getAttribute("user");
@@ -115,15 +123,16 @@ public class CaseAdminControl {
         case1.setDepartmentId(user.getDepartmentid());
         //插入案件和插入用户案件
         groupUserMapper.insertSelective(groupUser);
+        case1.setBegintime(new Date());
         caseMapper.insertSelective(case1);
         return map;
     }
 
     @RequestMapping("/caseAdmin/compute")
     @ResponseBody
-    public Map<String, Object> compute(String firstCase,String secondCase) throws IOException {
+    public Map<String, Object> compute(String firstCaseid,String secondCaseid) throws IOException {
         Map<String, Object> map = new HashMap<>();
-        map.put("result",caseAssist.computeCompareCase(firstCase,secondCase));
+        map.put("result",caseAssist.computeCompareCase(firstCaseid,secondCaseid));
         return map;
     }
 }

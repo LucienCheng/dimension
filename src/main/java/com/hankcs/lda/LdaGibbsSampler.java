@@ -61,13 +61,13 @@ public class LdaGibbsSampler {
      * Dirichlet parameter (document--topic associations)<br>
      * 文档——主题参数
      */
-    double alpha = 2.0;
+    double alpha = 10.0;
 
     /**
      * Dirichlet parameter (topic--term associations)<br>
      * 主题——词语参数
      */
-    double beta = 0.5;
+    double beta = 0.01;
 
     /**
      * topic assignments for each word.<br>
@@ -196,7 +196,7 @@ public class LdaGibbsSampler {
     }
 
     public void gibbs(int K) {
-        gibbs(K, 2.0, 0.5);
+        gibbs(K, 2.0, 0.01);
     }
 
     /**

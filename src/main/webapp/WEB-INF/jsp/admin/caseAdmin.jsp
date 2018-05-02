@@ -32,6 +32,8 @@
 
     <link rel="stylesheet" href="<%=basePath %>/source/css/bootstrap-select.min.css">
     <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/daterangepicker.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=basePath%>source/css/bootstrap-datetimepicker.min.css"/>
+    <link rel="icon" type="text/css" href="<%=basePath%>source/font/glyphicons-halflings-regular.woff"/>
 </head>
 
 <body class="fix-header card-no-border">
@@ -216,9 +218,9 @@
 
                                             <label
                                                     class="col-sm-2 form-control-label">选择时间</label>
-                                            <div class=" col-sm-10">
+                                            <div class=" col-sm-10 ">
                                                 <input id="daterange" type="text" class="form-control "
-                                                       placeholder="选择起始时间和终止时间" >
+                                                       placeholder="选择起始时间和终止时间">
                                             </div>
                                             <input type="hidden" value="" id="beginTime">
                                             <input type="hidden" value="" id="endTime">
@@ -288,8 +290,10 @@
                                     <div class="form-group row">
 
                                         <div class="col-sm-5">
-                                            <button id="compute"class=" btn btn-success " type="button" onclick="compareCase();"
-                                            >计算相似度</button>
+                                            <button id="compute" class=" btn btn-success " type="button"
+                                                    onclick="compareCase();"
+                                            >计算相似度
+                                            </button>
                                             <label class="form-control-label ">计算结果：</label>
                                             <span class=" form-control-label" id="result"></span>
                                             <span id="loading"></span>
@@ -423,6 +427,15 @@
                                             <input id="casetype" name="casetype" type="text"
                                                    class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-3 form-control-label">结案时间</label>
+                                            <div class="input-group date form_datetime col-sm-8" data-date="2018-01-01" data-date-format="yyyy-MM-dd HH:ii p" data-link-field="updateEndTime">
+                                                <input id="updateEndTime"class="form-control" size="16" type="text" name="endtime" value="">
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+                                                <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row">
                                             <label class="col-sm-12">备注信息:</label>
                                             <div class="col-sm-12">
@@ -588,7 +601,7 @@
 
 <script type="text/javascript" src="<%=basePath%>source/js/moment.min.js"></script>
 <script type="text/javascript" src="<%=basePath%>source/js/daterangepicker.js"></script>
-
+<script type="text/javascript" src="<%=basePath%>source/js/bootstrap-datetimepicker.min.js"></script>
 <script src="<%=basePath %>/source/js/jquery.validate.js"></script>
 <script src="<%=basePath %>/source/js/additional-methods.js"></script>
 <script src="<%=basePath %>/source/js/messages_zh.js"></script>
@@ -600,6 +613,9 @@
 </style>
 <script type="text/javascript">
 
+    $('#updateEndTime').bind('click',function () {
+        console.log($(this).val())
+    })
     /*初始化参数*/
     var data = new Object();
     data.currentPage =${currentPage};
@@ -623,17 +639,18 @@
 
 
     });
-var firstCase=null;
-var secondCase=null;
+    var firstCase = null;
+    var secondCase = null;
+
     //发送案件的id号过去，实现两个案件的信息具体的比较
-    function compareCase(){
-        if (firstCase!=null&&secondCase!=null){
+    function compareCase() {
+        if (firstCase != null && secondCase != null) {
             $.ajax({
                 url: '<%=basePath%>admin/caseAdmin/compute',
                 type: "post",
                 dataType: 'json',
-                data:{'firstCase':firstCase,'secondCase':secondCase},
-                beforeSend:function(XMLHttpRequest){
+                data: {'firstCaseid':  $('#firstCaseid').text(), 'secondCaseid':  $('#secondCaseid').text()},
+                beforeSend: function (XMLHttpRequest) {
                     $("#loading").html("<i class=\"fa fa-spinner fa-spin\"></i>"); //在后台返回success之前显示loading图标
                 },
                 success: function (d) {
@@ -648,30 +665,31 @@ var secondCase=null;
             });
         }
     }
+
     //表示下面的案件框，如果存在了案件，就为1，初始为0；
     var first = 0;
     var second = 0;
 
     function removeCompare(flag) {
-        if(flag==1){
+        if (flag == 1) {
             $('#firstCaseid').text("");
             $('#firstCasename').text("");
             $('#firstCasetype').text("");
             $('#firstDescription').text("");
-            first=0;
-            firstCaseId=null;
+            first = 0;
+            firstCaseId = null;
         }
         else {
             $('#secondCaseid').text("");
             $('#secondCasename').text("");
             $('#secondCasetype').text("");
             $('#secondDescription').text("");
-            second=0;
-            secondCaseId=null;
+            second = 0;
+            secondCaseId = null;
         }
         check();
     }
-    
+
     function addCaseCompare(caseid) {
         $.each(data.cases, function (index, item) {
             if (item.id == caseid) {
@@ -680,7 +698,7 @@ var secondCase=null;
                     $('#firstCasename').text(item.casename);
                     $('#firstCasetype').text(item.casetype);
                     $('#firstDescription').text(item.description);
-                    firstCase=""+item.description;
+                    firstCase = "" + item.description;
                     first = 1;
                 }
                 else if (second == 0) {
@@ -688,7 +706,7 @@ var secondCase=null;
                     $('#secondCasename').text(item.casename);
                     $('#secondCasetype').text(item.casetype);
                     $('#secondDescription').text(item.description);
-                    secondCase=""+item.description;
+                    secondCase = "" + item.description;
                     second = 1;
                 }
             }
@@ -696,18 +714,25 @@ var secondCase=null;
 
         check();
     }
-function check() {
-        console.log(first+","+second);
-    //检查一下是否满了，满了就设置按钮为不可使用
-    if(first==1&&second==1){
-        $('#Table').find('.compare').attr('disabled','true');
-        $('#compute').removeAttr('disabled');
 
-    }else {
-        $('#Table').find('.compare').removeAttr('disabled');
-        $('#compute').attr('disabled','true');
+    check();
+
+    function check() {
+        console.log(first + "," + second);
+        if ((first == null && second == null) || (first == 0 && second == 0)) {
+            $('#compute').attr('disabled', 'true');
+        }
+        //检查一下是否满了，满了就设置按钮为不可使用
+        if (first == 1 && second == 1) {
+            $('#Table').find('.compare').attr('disabled', 'true');
+            $('#compute').removeAttr('disabled');
+
+        } else {
+            $('#Table').find('.compare').removeAttr('disabled');
+            $('#compute').attr('disabled', 'true');
+        }
     }
-}
+
     /*一下是关于更新的操作
         触发更新模态框*/
     function updateModel(id) {
@@ -716,6 +741,7 @@ function check() {
                 $("#casename").val(item.casename);
                 $("#casetype").val(item.casetype);
                 $("#description").val(item.description);
+                $("#updateEndTime").val(item.endtime==null||item.endtime==""?"":item.endtime);
                 return false;
             }
         })
@@ -725,9 +751,9 @@ function check() {
 
     /*发送更新某一个对象的ajax的请求*/
     function update(id) {
-        var validator=$('#updateForm').validate();
+        var validator = $('#updateForm').validate();
         var flag = validator.form();
-        if(flag){
+        if (flag) {
             var form = new FormData($("#updateForm")[0]);
             form.append("id", id);
             $.ajax({
@@ -746,6 +772,7 @@ function check() {
                             case1.casename = d.case1.casename;
                             case1.casetype = d.case1.casetype;
                             case1.description = d.case1.description;
+                            case1.endtime = d.case1.endtime;
                         }
                     });
                     updateTable(data);
@@ -962,6 +989,15 @@ function check() {
 
     }
 
+    $('.form_datetime').datetimepicker({
+        weekStart: 1,
+        todayBtn:  1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 2,
+        forceParse: 0,
+        showMeridian: 1
+    });
     $('#daterange').daterangepicker({
         timePicker: true,
         timePickerIncrement: 30,
@@ -972,13 +1008,14 @@ function check() {
         console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
         $('#beginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#endTime').val(end.format('YYYY-MM-DD h:mm:ss'));
-    }).attr("readonly","readonly");
-/*以下为认证表单*/
+    }).attr("readonly", "readonly");
+    /*以下为认证表单*/
 
     validateRule();
+
     function validateRule() {
         var rule = {
-            onkeyup: function(element, event) {
+            onkeyup: function (element, event) {
                 //去除左侧空格
                 var value = this.elementValue(element).replace(/^\s+/g, "");
                 $(element).val(value);

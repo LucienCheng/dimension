@@ -211,6 +211,7 @@
         base_node.tableid=table_type.Id
         <trim prefix="where" prefixOverrides="and | or">
             base_node.isValid='1'
+            and table_type.isvalid='1'
             <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
             <if test="nodename != null">
                 and base_node.nodename like CONCAT('%',#{nodename},'%')
@@ -292,6 +293,7 @@
             base_node.tableid=table_type.Id
             <trim prefix="where" prefixOverrides="and | or">
                 base_node.isValid='1'
+                and table_type.isvalid='1'
                 <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
                 <if test="nodename != null">
                     and base_node.nodename like CONCAT('%',#{nodename},'%')
@@ -319,7 +321,6 @@
                     <when test="nodetype == 2 ">
                         <if test="roleId != null">
                             <choose>
-
                                 <!-- 部门管理员 ，查看自己子部门的所有点位 -->
                                 <when test="roleId == 4">
                                     <if test="DpIds != null">
@@ -328,6 +329,9 @@
                                                  separator=",">
                                             #{subDp}
                                         </foreach>
+                                    </if>
+                                    <if test="DpIds == null">
+                                        and `user`.departmentId is null
                                     </if>
                                 </when>
                                 <!-- 超级管理员可以管理全部点位 -->
@@ -367,6 +371,7 @@
         base_node.tableid=table_type.Id
         <trim prefix="where" prefixOverrides="and | or">
             base_node.isValid='1'
+            and table_type.isvalid='1'
             <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
             <if test="nodename != null">
                 and base_node.nodename like CONCAT('%',#{nodename},'%')
@@ -416,6 +421,7 @@
                             <if test="DpId != null">
                                 and (`user`.departmentId=#{DpId} or base_node.userId=#{userId} )
                             </if>
+
                         </when>
                         <!-- 超级管理员可以管理全部点位 -->
                         <otherwise>
@@ -448,6 +454,7 @@
             base_node.tableid=table_type.Id
             <trim prefix="where" prefixOverrides="and | or">
                 base_node.isValid='1'
+                and table_type.isvalid='1'
                 <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
                 <if test="nodename != null">
                     and base_node.nodename like CONCAT('%',#{nodename},'%')
@@ -485,6 +492,9 @@
                                             #{subDp}
                                         </foreach>
                                     </if>
+                                    <if test="DpIds == null">
+                                       and `user`.departmentId is null
+                                    </if>
                                 </when>
                                 <!-- 超级管理员可以管理全部点位 -->
                             </choose>
@@ -518,6 +528,7 @@
         base_node.tableid=table_type.Id
         <trim prefix="where" prefixOverrides="and | or">
             base_node.isValid='1'
+            and table_type.isvalid='1'
             <!-- 这里是固定的，也就是无论哪个角色都是一样的 -->
             <if test="nodename != null">
                 and base_node.nodename like CONCAT('%',#{nodename},'%')

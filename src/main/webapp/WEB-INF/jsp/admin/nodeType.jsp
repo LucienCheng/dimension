@@ -516,10 +516,13 @@
         $.each(data.tables, function (index, item) {
             if (item.id == id) {
                 var str = '';
+                console.log(item.fields);
                 $.each(item.fields, function (index, item) {
-                    if (item.englishname == 'nodeId') {
+
+                    if (item.englishname == 'nodeid') {
                         return;
                     } else {
+
                         str += '<tr class="updateAttr"id="' + item.id + '">';
                         str += '<td><input name="chinesename" type="text" value="' + item.chinesename + '"></td>';
                         str += '<td><lable>' + item.fieldtype + '</lable></td>';
@@ -531,6 +534,7 @@
                         }
                         else {
                             str += '<option  value="2"> 认证是否为手机号</option>'
+                            str += '<option  value="4"> 只能为数字</option>'
                         }
                         str += '</select></td>';
                         if (item.isvalid == "0") {
@@ -541,10 +545,11 @@
                         str += ' <input value="'+item.id+'" type="hidden" name="id" /></tr>';
                     }
                     $("#city_custom").append(str);
+                    $("#city_custom").find('select:last').val(item.regexp.id)
                     str = '';
-                    $('#city_custom').find("select").val(item.regexp.id);
                 });
                 $("#chinesename").val(item.chinesename);
+
                 return false;
             }
         })
@@ -795,54 +800,7 @@
 
     }
 
-    validateRule();
-    function validateRule() {
-        var rule = {
-            onkeyup: function(element, event) {
-                //去除左侧空格
-                var value = this.elementValue(element).replace(/^\s+/g, "");
-                $(element).val(value);
-            },
-            rules: {
-                casename: {
-                    required: true
-                },
-                casetype: {
-                    required: true
-                },
-                groupname: {
-                    required: true
-                },
-                grouperid: {
-                    required: true
-                }
-            },
-            messages: {
-                casename: {
-                    required: "请输入案件名"
-                },
-                casetype: {
-                    required: "请输入案件类型"
-                },
-                groupname: {
-                    required: "请输入小组名称"
-                },
-                grouperid: {
-                    required: "请输入选择组长"
-                }
-            },
-            errorPlacement: function (error, element) { //指定错误信息位置
-                if (element.is('select')) { //如果是radio或checkbox
-                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
-                } else {
-                    error.insertAfter(element);
-                }
-            }
-        };
-        $("#addForm").validate(rule);
-        $("#updateForm").validate(rule);
 
-    }
 </script>
 </body>
 

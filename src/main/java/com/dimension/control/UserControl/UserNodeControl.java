@@ -54,6 +54,7 @@ public class UserNodeControl {
         Table table = new Table();
         List<Table> tables = tableMapper.selectByCondition(table, null, null);
         CaseCondition caseCondition = new CaseCondition();
+        caseCondition.setIsGrouper(0);
         caseCondition.setRoleId(user.getRoleid());
         caseCondition.setUserId(user.getId());
         BaseNode baseNode = null;

@@ -590,9 +590,9 @@
 
     function updateGrouper() {
         console.log(DepartGrouper)
-        var str ="";
+        var str = "";
         $.each(caseGrouperArray, function (index, item) {
-           str+= "  <div class=\"form-group row\">\n" +
+            str += "  <div class=\"form-group row\">\n" +
                 "                                            <label class=\"form-control-label col-sm-4 \">组员" + (index + 1) + ":</label>\n" +
                 "                                            <label class=\"form-control-label col-sm-4 \">" + item.username + "</label>\n" +
                 "                                            <div class=\"col-sm-4\">\n" +
@@ -646,17 +646,17 @@
                 //需要更新一下caseGrouperArray和DepartGrouper
                 var t = new Object();
                 $.each(caseGrouperArray, function (index, item) {
-                    if (item.id ==groupuserId) {
+                    if (item.id == groupuserId) {
                         t.userid = item.userid;
                         t.username = item.username;
                         t.id = item.id;
-                        t.groupid=item.groupid;
+                        t.groupid = item.groupid;
                         return;
                     }
                 });
                 caseGrouperArray.remove(t);
-                t.id= t.userid;
-                t.groupid=null;
+                t.id = t.userid;
+                t.groupid = null;
                 DepartGrouper.push(t);
                 updateGrouper();
                 updateSelectUser();
@@ -676,9 +676,9 @@
             url: '<%=basePath%>user/caseAdmin/addUser/',
             type: "post",
             dataType: 'json',
-            data: {"groupid": groupid,"userid":$('#grouperSelect').val()},
+            data: {"groupid": groupid, "userid": $('#grouperSelect').val()},
             success: function (d) {
-                d.grouper.username=$('#grouperSelect option:selected').text();
+                d.grouper.username = $('#grouperSelect option:selected').text();
                 console.log(d);
                 caseGrouperArray.push(d.grouper);
                 groupUser.id = $('#grouperSelect').val();
@@ -699,7 +699,7 @@
     data.totalPage =${totalPage};
     data.cases =${casesJson};
     updateTable(data);
-
+    updatePage(data)
     var firstCase = null;
     var secondCase = null;
 
@@ -710,8 +710,8 @@
                 url: '<%=basePath%>user/caseAdmin/compute',
                 type: "post",
                 dataType: 'json',
-                data: {'firstCase': firstCase, 'secondCase': secondCase},
-                beforeSend:function(XMLHttpRequest){
+                data: {'firstCaseid':  $('#firstCaseid').text(), 'secondCaseid':  $('#secondCaseid').text()},
+                beforeSend: function (XMLHttpRequest) {
                     $("#loading").html("<i class=\"fa fa-spinner fa-spin\"></i>"); //在后台返回success之前显示loading图标
                 },
                 success: function (d) {
@@ -775,9 +775,12 @@
 
         check();
     }
-
+    check();
     function check() {
         console.log(first + "," + second);
+        if ((first == null && second == null) || (first == 0 && second == 0)) {
+            $('#compute').attr('disabled', 'true');
+        }
         //检查一下是否满了，满了就设置按钮为不可使用
         if (first == 1 && second == 1) {
             $('#Table').find('.compare').attr('disabled', 'true');
@@ -806,7 +809,7 @@
 
     /*发送更新某一个对象的ajax的请求*/
     function update(id) {
-        if($("#updateForm").validate().form()){
+        if ($("#updateForm").validate().form()) {
             var form = new FormData($("#updateForm")[0]);
             form.append("id", id);
             $.ajax({
@@ -1025,12 +1028,13 @@
         console.log('New date range selected: ' + start.format('YYYY-MM-DD h:mm:ss') + ' to ' + end.format('YYYY-MM-DD h:mm:ss'));
         $('#beginTime').val(start.format('YYYY-MM-DD h:mm:ss'));
         $('#endTime').val(end.format('YYYY-MM-DD h:mm:ss'));
-    }).attr("readonly","readonly");
+    }).attr("readonly", "readonly");
 
     validateRule();
+
     function validateRule() {
         var rule = {
-            onkeyup: function(element, event) {
+            onkeyup: function (element, event) {
                 //去除左侧空格
                 var value = this.elementValue(element).replace(/^\s+/g, "");
                 $(element).val(value);

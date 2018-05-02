@@ -207,7 +207,7 @@
                                                                name="nodeid">
                                                         <form id="field">
                                                             <c:forEach items="${baseNode.other}" var="item">
-                                                                <c:if test="${item.englishname != 'nodeId'}">
+                                                                <c:if test="${item.englishname != 'nodeid' and item.isvalid!='0'}">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-3 form-control-label">${item.chinesename}：</label>
                                                                         <input type="text" name="${item.englishname}"
@@ -877,9 +877,6 @@
         str += "<option value='" + item.id + "'>" + item.casename + "</option>";
     });
     </c:if>
-    <c:if test="${user.id!=caseNode.case1.grouperid and user.roleid==2}">
-    str += "<option value='${caseNode.case1.id}'>${caseNode.case1.casename}</option>";
-    </c:if>
     $("#caseselect").append(str);
     $("#caseselect").val(${caseNode.case1.id});
     $("#casecode").text('${caseNode.case1.casecode}');
@@ -925,7 +922,7 @@
     });
     console.log(${othersJson});
     $.each(${othersJson},function (index,item) {
-        if(item.englishname!='nodeId'){
+        if(item.englishname!='nodeid'){
             $.validator.addMethod(""+item.regexid, function(value, element, params) {
                 var str=""+item.regexp.regex;
                 var check = new RegExp(str);
@@ -940,7 +937,7 @@
 function validField() {
     rule="{";
     $.each(othersJson,function (index,item) {
-        if(item.englishname!='nodeId') {
+        if(item.englishname!='nodeid') {
             rule += "\"" + item.englishname + "\"" + ":{\"required\":true,\"" + item.regexid + "\":true}";
             if(index!=othersJson.length-2){
                 rule+=","
@@ -950,7 +947,7 @@ function validField() {
     rule+="}"
     messages="{"
     $.each(othersJson,function (index,item) {
-        if(item.englishname!='nodeId') {
+        if(item.englishname!='nodeid') {
             messages += "\"" + item.englishname + "\":{\"required\":\"不能为空\"}";
             if(index!=othersJson.length-2){
                 messages+=","

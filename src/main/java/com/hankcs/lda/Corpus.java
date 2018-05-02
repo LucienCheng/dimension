@@ -136,4 +136,21 @@ public class Corpus
         }
         return result;
     }
+    public static int[] loadCorpus( List<String> docs, Vocabulary vocabulary)
+    {
+        List<Integer> wordList = new LinkedList<Integer>();
+            for (String word : docs) {
+                if (word.trim().length() < 2) continue;
+                Integer id = vocabulary.getId(word);
+                if (id != null)
+                    wordList.add(id);
+            }
+        int[] result = new int[wordList.size()];
+        int i = 0;
+        for (Integer integer : wordList)
+        {
+            result[i++] = integer;
+        }
+        return result;
+    }
 }

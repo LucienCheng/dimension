@@ -36,7 +36,7 @@
 <style>
 </style>
 <head>
-    <title>点位具体信息</title>
+    <title>点位具体信息${nodetype}</title>
 </head>
 <body>
 <div class="container-fluid">
@@ -444,7 +444,7 @@
                                                                 <div class="form-group row">
                                                                     <label class="form-control-label col-sm-4 ">案件选择:</label>
                                                                     <select id="caseselect" name="caseid"
-                                                                            class="selectpicker col-sm-8"
+                                                                            class="selectpicker col-sm-8" title="未选择"
                                                                             data-live-search="true">
                                                                     </select>
                                                                 </div>
@@ -478,7 +478,7 @@
                                                                                   class="form-control form-control-line "
                                                                                   name="record"
                                                                                   style="margin-left: 15px;"
-                                                                                  disabled>${caseNode.case1.description}</textarea>
+                                                                                  disabled></textarea>
 
                                                                     </div>
                                                                 </div>
@@ -617,12 +617,12 @@
                                     <div class="modal-body">
                                         <div class="form-group row">
                                             <label class="col-sm-3 form-control-label">接处警编号：</label>
-                                            <input name="alarmid" type="text"
+                                            <input name="alarmid" type="text" id="addAlarmid"
                                                    class="col-sm-8 form-control" placeholder="465855245">
                                         </div>
                                         <div id="department" class="form-group row">
                                             <label class="col-sm-3 form-control-label ">案件选择:</label>
-                                            <select class="selectpicker form-control c-select col-sm-8" name="caseid"
+                                            <select class="selectpicker form-control c-select col-sm-8" name="caseid" id="addCaseid"
                                                     data-live-search="true">
                                                 <c:forEach items="${cases}" var="case1">
                                                     <option value="${case1.id}">${case1.casename}</option>
@@ -692,24 +692,30 @@
     <c:if test="${nodetype==1}">
 
     function upgradeNode() {
-        var form = new FormData($('#addForm')[0]);
-        form.append('baseNodeId', ${baseNode.nodeid})
-        $.ajax({
-            url: '<%=basePath%>user/node/upgradeNode',
-            type: "post",
-            dataType: 'json',
-            /* 执行执行的是dom对象 ，不需要转化信息*/
-            processData: false,
-            contentType: false,
-            data: form,
-            success: function (d) {
-                console.log("升级成功");
-                window.open("<%=basePath%>user/node/" + d.nodeid + "?nodetype=2", "_self");
-            },
-            error: function (e) {
-                console.log("失败");
-            }
-        });
+
+        if($('#addForm').validate().form()){
+            var form = new FormData($('#addForm')[0]);
+            form.append('baseNodeId', ${baseNode.nodeid})
+            $.ajax({
+                url: '<%=basePath%>user/node/upgradeNode',
+                type: "post",
+                dataType: 'json',
+                /* 执行执行的是dom对象 ，不需要转化信息*/
+                processData: false,
+                contentType: false,
+                data: form,
+                success: function (d) {
+                    console.log("升级成功");
+                    window.open("<%=basePath%>user/node/" + d.nodeid + "?nodetype=2", "_self");
+                },
+                error: function (e) {
+                    console.log("失败");
+                }
+            });
+        }else {
+            alert("请输入正确的格式");
+        }
+
     }
 
     </c:if>
@@ -873,21 +879,22 @@
     <c:if test="${nodetype==2}">
     var casesJson =${casesJson};
     var str = "";
-    <c:if test="${user.id==caseNode.case1.grouperid or user.roleid!=2}">
-    //组长或管理员可以设置案件信息
+    var flagCase=0;
     $.each(casesJson, function (index, item) {
         str += "<option value='" + item.id + "'>" + item.casename + "</option>";
-    });
-    </c:if>
-    <c:if test="${user.id!=caseNode.case1.grouperid and user.roleid==2}">
-    str += "<option value='${caseNode.case1.id}'>${caseNode.case1.casename}</option>";
-    </c:if>
+        if(item.id==${caseNode.case1.id}){
+            flagCase=1;
+            $("#caseselect").val(item.id);
+            $("#casecode").text(item.casecode);
+            $("#casedescript").text(item.description);
+            $("#casename").text(item.casename);
+            $("#casetype").text(item.casetype);
+        }
+    })
+
+
     $("#caseselect").append(str);
-    $("#caseselect").val(${caseNode.case1.id});
-    $("#casecode").text('${caseNode.case1.casecode}');
-    $("#casedescript").text('${caseNode.case1.description}');
-    $("#casename").text('${caseNode.case1.casename}');
-    $("#casetype").text('${caseNode.case1.casetype}');
+
     $("#caseselect").bind('change', function () {
         var value = $(this).val();
         console.log(value);
@@ -926,7 +933,7 @@
         console.log('File uploaded triggered');
     });
     $.each(${othersJson},function (index,item) {
-        if(item.englishname!='nodeId'){
+        if(item.englishname!='nodeid'){
             $.validator.addMethod(""+item.regexid, function(value, element, params) {
                 var str=""+item.regexp.regex;
                 var check = new RegExp(str);
@@ -937,11 +944,10 @@
     var othersJson = ${othersJson};
     validateRule();
     validField();
-console.log(othersJson);
     function validField() {
         rule = "{";
         $.each(othersJson, function (index, item) {
-            if (item.englishname != 'nodeId') {
+            if (item.englishname != 'nodeid') {
                 rule += "\"" + item.englishname + "\"" + ":{\"required\":true,\"" + item.regexid + "\":true}";
                 if (index != othersJson.length - 2) {
                     rule += ","
@@ -951,7 +957,7 @@ console.log(othersJson);
         rule += "}"
         messages = "{"
         $.each(othersJson, function (index, item) {
-            if (item.englishname != 'nodeId') {
+            if (item.englishname != 'nodeid') {
                 messages += "\"" + item.englishname + "\":{\"required\":\"不能为空\"}";
                 if (index != othersJson.length - 2) {
                     messages += ","
@@ -1016,6 +1022,39 @@ console.log(othersJson);
                 }
             }
         };
+        var rule3={
+            onkeyup: function (element, event) {
+                //去除左侧空格
+                var value = this.elementValue(element).replace(/^\s+/g, "");
+                $(element).val(value);
+            },
+            rules: {
+                alarmid: {
+                    required: true,
+                    digits: true,
+                    rangelength: [1, 11]
+                },
+                caseid :{
+                    required: true
+                }
+            },
+            messages: {
+                alarmid: {
+                    required: "请输入接处警编号"
+                },
+                caseid :{
+                    required: "选择案件"
+                }
+
+            },
+            errorPlacement: function (error, element) { //指定错误信息位置
+                if (element.is('select')) { //如果是radio或checkbox
+                    error.appendTo(element.parent().parent()); //将错误信息添加当前元素的父元素的父元素后面
+                } else {
+                    error.insertAfter(element);
+                }
+            }
+        };
         var rule2 = {
             onkeyup: function (element, event) {
                 //去除左侧空格
@@ -1027,11 +1066,18 @@ console.log(othersJson);
                     required: true,
                     digits: true,
                     rangelength: [1, 11]
+                },
+                caseid : {
+                    required: true
+
                 }
             },
             messages: {
                 alarmid: {
                     required: "请输入接处警编号"
+                },
+                caseid : {
+                    required: "选择案件"
                 }
 
             },
@@ -1045,6 +1091,7 @@ console.log(othersJson);
         };
         $("#base").validate(rule);
         $("#caseNodeForm").validate(rule2);
+        $('#addForm').validate(rule3)
     }
 
 </script>

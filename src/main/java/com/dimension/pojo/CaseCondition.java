@@ -21,7 +21,6 @@ public class CaseCondition {
 	// 案子结束时间
 	private String endTime;
 
-	
 	// 查询用户的角色
 	private Integer roleId;
 
@@ -39,6 +38,16 @@ public class CaseCondition {
 	
 	// 所在的小组（是组长的）
 	private List<Integer> grouperIds;
+
+	private Integer isGrouper;
+
+	public Integer getIsGrouper() {
+		return isGrouper;
+	}
+
+	public void setIsGrouper(Integer isGrouper) {
+		this.isGrouper = isGrouper;
+	}
 
 	public Integer getUserId() {
 		return userId;

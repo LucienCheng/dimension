@@ -17,6 +17,8 @@ public class Case implements Serializable {
 
     private String description;
 
+    private String abstracts;
+
     private Integer groupid;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date begintime;
@@ -29,6 +31,14 @@ public class Case implements Serializable {
 
     private Integer grouperid;
     private static final long serialVersionUID = 1L;
+
+    public String getAbstracts() {
+        return abstracts;
+    }
+
+    public void setAbstracts(String abstracts) {
+        this.abstracts = abstracts;
+    }
 
     public Integer getId() {
         return id;
@@ -126,11 +136,13 @@ public class Case implements Serializable {
                 ", casename='" + casename + '\'' +
                 ", casetype='" + casetype + '\'' +
                 ", description='" + description + '\'' +
+                ", abstracts='" + abstracts + '\'' +
                 ", groupid=" + groupid +
                 ", begintime=" + begintime +
                 ", endtime=" + endtime +
                 ", departmentId=" + departmentId +
                 ", isEdited=" + isEdited +
+                ", grouperid=" + grouperid +
                 '}';
     }
 }

@@ -45,6 +45,8 @@ public class UserImpl implements UserService {
 				for (Department department:departments) {
 					list.add(department.getId());
 				}
+				if(list.size()==0)
+					list=null;
 				user1.setSubDepartment(list);
 
 				//设置department的json对象

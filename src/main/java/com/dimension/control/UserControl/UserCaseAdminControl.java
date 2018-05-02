@@ -39,6 +39,7 @@ public class UserCaseAdminControl {
         User user = (User) session.getAttribute("user");
         if (user.getRoleid() != 3)
             caseCondition.setDepartmentid(user.getDepartmentid());
+        caseCondition.setIsGrouper(1);
         caseCondition.setRoleId(user.getRoleid());
         caseCondition.setUserId(user.getId());
         List<Case> cases = caseMapper.searchCases(caseCondition, 0, count);
@@ -58,6 +59,7 @@ public class UserCaseAdminControl {
     public Map<String, Object> caseAdminAjax(CaseCondition caseCondition, HttpSession session, @PathVariable int start) {
         start--;
         User user = (User) session.getAttribute("user");
+        caseCondition.setIsGrouper(1);
         caseCondition.setRoleId(user.getRoleid());
         caseCondition.setUserId(user.getId());
         if (user.getRoleid() != 3)
@@ -96,9 +98,9 @@ public class UserCaseAdminControl {
 
     @RequestMapping("/caseAdmin/compute")
     @ResponseBody
-    public Map<String, Object> compute(String firstCase, String secondCase) throws IOException {
+    public Map<String, Object> compute(String firstCaseid, String secondCaseid) throws IOException {
         Map<String, Object> map = new HashMap<>();
-        map.put("result", caseAssist.computeCompareCase(firstCase, secondCase));
+        map.put("result", caseAssist.computeCompareCase(firstCaseid, secondCaseid));
         return map;
     }
     @RequestMapping("/caseAdmin/getGrouperByCaseId/{caseId}")

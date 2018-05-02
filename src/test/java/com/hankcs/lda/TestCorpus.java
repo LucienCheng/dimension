@@ -26,13 +26,11 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.junit.Test;
 import org.springframework.web.multipart.MultipartFile;
 
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -86,6 +84,40 @@ public class TestCorpus extends TestCase {
         CaseAssitImpl caseAssit = new CaseAssitImpl();
         caseAssit.computeUseLDA();
         System.out.println(caseAssit.computeCompareCase(str, str1));
+
+    }
+
+    public void testuser()  {
+        File file=new File("C:\\Users\\acer\\Desktop\\636608653599531250.txt");
+        StringBuilder stringBuilder=new StringBuilder();
+        try(BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream(file)))) {
+            String s=null;
+            int count=1;
+            while ((s=br.readLine())!=null){
+                String ss[]=s.split(":  ");
+                if (ss.length==1){
+                    count++;
+                    if(count==2){
+                        count=1;
+                        stringBuilder.append("\r\n");
+                    }
+                    continue;
+                }
+                stringBuilder.append(" "+ss[1]);
+            }
+            System.out.println(stringBuilder);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try(BufferedWriter bw=new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)))){
+            bw.write(stringBuilder.toString().replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 

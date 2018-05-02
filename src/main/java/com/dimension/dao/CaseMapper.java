@@ -2,10 +2,8 @@ package com.dimension.dao;
 
 import java.util.List;
 
-import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.Case;
 import com.dimension.pojo.CaseCondition;
-import com.dimension.pojo.CaseNode;
 import org.apache.ibatis.annotations.Param;
 
 public interface CaseMapper {

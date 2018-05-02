@@ -11,19 +11,20 @@
         <result column="beginTime" jdbcType="TIMESTAMP" property="begintime"/>
         <result column="endTime" jdbcType="TIMESTAMP" property="endtime"/>
         <result column="departmentId" jdbcType="BIGINT" property="departmentId"/>
+        <result column="abstract" jdbcType="VARCHAR" property="abstracts"/>
     </resultMap>
 
     <sql id="Base_Column_List">
 		Id, caseCode, caseName, caseType, description, groupId,
 		beginTime,
-		endTime,departmentId
+		endTime,departmentId,abstract
 	</sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer"
             resultType="Case">
         select
         `case`.Id, caseCode, caseName, caseType, `case`.description, groupId,
 		beginTime,
-		endTime,departmentId,grouperid
+		endTime,departmentId,grouperid,abstract
         from `case` LEFT JOIN `group` on `group`.id=`case`.groupid
         where `case`.Id = #{id,jdbcType=INTEGER}
     </select>
@@ -35,12 +36,12 @@
 		insert into `case` (Id,
 		caseCode, caseName,
 		caseType, description, groupId,
-		beginTime, endTime,departmentId)
+		beginTime, endTime,departmentId,abstract)
 		values (#{id,jdbcType=INTEGER}, #{casecode,jdbcType=VARCHAR},
 		#{casename,jdbcType=VARCHAR},
 		#{casetype,jdbcType=VARCHAR},
 		#{description,jdbcType=VARCHAR}, #{groupid,jdbcType=INTEGER},
-		#{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP},#(departmentId,jdbcType=BIGINT))
+		#{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP},#(departmentId,jdbcType=BIGINT),#{abstracts,jdbcType=VARCHAR})
 	</insert>
     <insert id="insertSelective" parameterType="com.dimension.pojo.Case" keyColumn="id" keyProperty="id"
             useGeneratedKeys="true">
@@ -73,6 +74,9 @@
             <if test="departmentId != null">
                 departmentId,
             </if>
+            <if test="abstracts != null">
+                abstract
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -102,6 +106,10 @@
             <if test="departmentId != null">
                 #{departmentId,jdbcType=BIGINT},
             </if>
+            <if test="abstracts != null">
+                #{abstracts,jdbcType=VARCHAR}
+            </if>
+
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Case">
@@ -131,6 +139,9 @@
             <if test="departmentId != null">
                 departmentId = #{departmentId,jdbcType=BIGINT}
             </if>
+            <if test="abstracts != null">
+                abstract=#{abstracts,jdbcType=VARCHAR}
+            </if>
         </set>
         where Id = #{id,jdbcType=INTEGER}
     </update>
@@ -149,7 +160,8 @@
 		endTime =
 		#{endtime,jdbcType=TIMESTAMP}
 		departmentId =
-		#{departmentId,jdbcType=BIGINT}
+		#{departmentId,jdbcType=BIGINT},
+		  abstract = #{abstracts,jdbcType=VARCHAR},
 		where Id = #{id,jdbcType=INTEGER}
 	</update>
 
@@ -305,8 +317,20 @@
                 and endTime <![CDATA[ <= ]]>
                 #{caseCondition.endTime}
             </if>
-            <if test="caseCondition.roleId == 2">
-                and `group`.id in(SELECT group_user.groupid from group_user where group_user.userid=#{caseCondition.userId})
+            <if test="caseCondition.roleId == 2  ">
+                <if test="caseCondition.isGrouper == 1">
+                    and 	`group`.grouperId=#{caseCondition.userId}
+                </if>
+                <if test="caseCondition.isGrouper == 0">
+                    and `case`.groupId IN (
+                    SELECT
+                    group_user.groupid
+                    FROM
+                    group_user
+                    WHERE
+                    group_user.userid =#{caseCondition.userId}
+                    )
+                </if>
             </if>
             <if test="caseCondition.casename != null">
                 and casename like concat("%",#{caseCondition.casename},"%")
@@ -352,6 +376,8 @@
     </select>
     <select id="searchCaseNodeBycaseId" resultType="long">
     select  case_node.nodeid from case_node
-    where caseid=#{caseid} and case_node.isvalid='1'
+    LEFT JOIN base_node on base_node.nodeid=case_node.nodeid
+    LEFT join table_type on table_type.id=base_node.tableid
+    where caseid=#{caseid} and case_node.isvalid='1' and table_type.isvalid='1'
 </select>
 </mapper>
