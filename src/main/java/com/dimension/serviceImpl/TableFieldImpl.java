@@ -52,9 +52,8 @@ private TableFieldMapper tableFieldMapper;
 	}
 
 	@Override
-	public boolean setField(String tableName, Map<String , Object> fields) {
-		tableFieldMapper.setFieldVariable(fields, tableName);
-		return true;
+	public int setField(String tableName, Map<String , Object> fields) {
+		return tableFieldMapper.setFieldVariable(fields, tableName);
 	}
 
 	@Override
@@ -77,9 +76,8 @@ private TableFieldMapper tableFieldMapper;
 	}
 
 	@Override
-	public boolean insertRecord(String tableName, Map<String, Object> fields) {
-		tableFieldMapper.insertRecord(fields, tableName);
-		return true;
+	public int insertRecord(String tableName, Map<String, Object> fields) {
+		return tableFieldMapper.insertRecord(fields, tableName);
 	}
 
 }

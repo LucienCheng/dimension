@@ -206,7 +206,7 @@
                                                                name="nodeid">
                                                         <form id="field">
                                                             <c:forEach items="${baseNode.other}" var="item">
-                                                                <c:if test="${item.englishname != 'nodeId'}">
+                                                                <c:if test="${item.englishname != 'nodeid'}">
                                                                     <div class="form-group row">
                                                                         <label class="col-sm-3 form-control-label">${item.chinesename}：</label>
                                                                         <input type="text"
@@ -229,8 +229,8 @@
                                                         <div class="form-group row">
                                                             <label class="col-md-12">备注信息：</label>
                                                             <textarea rows="5" class="form-control form-control-line "
-                                                                      name="description"
-                                                                      style="margin-left: 15px;">${table.description}</textarea>
+                                                                      name="description" id="description"
+                                                                      style="margin-left: 15px;">${baseNode.description}</textarea>
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-sm-12">
@@ -266,7 +266,7 @@
                                                             <label class="col-md-12">备注信息：</label>
                                                             <textarea rows="5" class="form-control form-control-line "
                                                                       name="description" style="margin-left: 15px;"
-                                                                      disabled>${table.description}</textarea>
+                                                                      disabled>${baseNode.description}</textarea>
                                                         </div>
 
                                                     </div>
@@ -884,17 +884,15 @@
         str += "<option value='" + item.id + "'>" + item.casename + "</option>";
         if(item.id==${caseNode.case1.id}){
             flagCase=1;
-            $("#caseselect").val(item.id);
+
             $("#casecode").text(item.casecode);
             $("#casedescript").text(item.description);
             $("#casename").text(item.casename);
             $("#casetype").text(item.casetype);
         }
     })
-
-
     $("#caseselect").append(str);
-
+    $('#caseselect').selectpicker('val',${caseNode.case1.id});
     $("#caseselect").bind('change', function () {
         var value = $(this).val();
         console.log(value);

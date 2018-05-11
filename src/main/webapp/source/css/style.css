@@ -2076,10 +2076,13 @@ form label {
 }
 
 .card-no-border .left-sidebar {
-    box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08)
+
+    box-shadow: 1px 0px 20px rgba(0, 0, 0, 0.08);
+
 }
 
 .card-no-border .left-sidebar, .card-no-border .sidebar-nav {
+    position: fixed;
     background: #ffffff
 }
 

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dimension.dao.ReplaceMapper">
+  <resultMap id="BaseResultMap" type="com.dimension.pojo.Replace">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="baseNodeId" jdbcType="BIGINT" property="basenodeid" />
+    <result column="needReplace" jdbcType="BIGINT" property="needreplace" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, baseNodeId, needReplace
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from `replace`
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByNoid" >
+    delete from `replace`
+    where `replace`.basenodeid=#{nodeId}
+  </delete>
+  <insert id="insert" parameterType="com.dimension.pojo.Replace">
+    insert into `replace` (id, baseNodeId, needReplace
+      )
+    values (#{id,jdbcType=INTEGER}, #{basenodeid,jdbcType=BIGINT}, #{needreplace,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.dimension.pojo.Replace">
+    insert into `replace`
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="basenodeid != null">
+        baseNodeId,
+      </if>
+      <if test="needreplace != null">
+        needReplace,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="basenodeid != null">
+        #{basenodeid,jdbcType=BIGINT},
+      </if>
+      <if test="needreplace != null">
+        #{needreplace,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dimension.pojo.Replace">
+    update `replace`
+    <set>
+      <if test="basenodeid != null">
+        baseNodeId = #{basenodeid,jdbcType=BIGINT},
+      </if>
+      <if test="needreplace != null">
+        needReplace = #{needreplace,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dimension.pojo.Replace">
+    update `replace`
+    set baseNodeId = #{basenodeid,jdbcType=BIGINT},
+      needReplace = #{needreplace,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getRepalceNode" resultType="com.dimension.pojo.BaseNode">
+    select base_node.* ,table_type.chinesename as "table.chinesename" FROM base_node
+    LEFT JOIN table_type on
+	base_node.tableid=table_type.Id
+    WHERE
+     base_node.nodeId in (SELECT `replace`.baseNodeId from `replace`)
+     and base_node.userid=#{userId}
+  </select>
+  <select id="getNeedRepalcedNode" resultType="com.dimension.pojo.BaseNode">
+   select base_node.* ,username FROM `replace`
+    LEFT JOIN base_node on
+   base_node.nodeId=`replace`.needReplace
+    LEFT JOIN `user` on
+   `user`.id=`base_node`.userid
+WHERE `replace`.baseNodeId=#{nodeId}
+  </select>
+</mapper>

@@ -26,6 +26,8 @@ public class ContextListener implements ServletContextListener  {
 			caseAssit.computeUseLDA();
 		} catch (IOException e) {
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 

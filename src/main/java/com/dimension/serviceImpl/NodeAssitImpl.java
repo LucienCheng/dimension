@@ -211,15 +211,25 @@ public class NodeAssitImpl implements NodeAssit {
 
     @Override
     public boolean replaceNode(Long originNodeId, Long desNodeId) {
+
         //获取源，获取目标，选择替换
-        BaseNode originNode=baseNodeMapper.selectByPrimaryKey(originNodeId);
-        BaseNode desNode=baseNodeMapper.selectByPrimaryKey(desNodeId);
+        BaseNode originNode=getBaseNode(originNodeId);
+        BaseNode desNode=getBaseNode(desNodeId);
         originNode.setLocation(desNode.getLocation());
         originNode.setCollecttime(desNode.getCollecttime());
         originNode.setDescription(desNode.getDescription());
         originNode.setNodename(desNode.getNodename());
         originNode.setAddress(desNode.getAddress());
         baseNodeMapper.updateByPrimaryKeySelective(originNode);
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        for (Field field:desNode.getOther()) {
+            map1.put(field.getEnglishname(),field.getValue());
+        }
+        map1.put("nodeid", originNode.getNodeid());
+        int i=tableFieldService.setField(originNode.getTable().getEnglishname(), map1);
+        if (i==0){
+            tableFieldService.insertRecord(originNode.getTable().getEnglishname(),map1);
+        }
         //然后删除replace里的记录
         ignoreNode(originNodeId);
         return false;

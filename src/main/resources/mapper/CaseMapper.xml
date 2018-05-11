@@ -28,10 +28,15 @@
         from `case` LEFT JOIN `group` on `group`.id=`case`.groupid
         where `case`.Id = #{id,jdbcType=INTEGER}
     </select>
-    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-		delete from `case`
-		where Id = #{id,jdbcType=INTEGER}
-	</delete>
+    <update id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		 update `case`
+		 SET   `case`.isvalid=0
+		where Id = #{id,jdbcType=INTEGER};
+		 update case_node INNER JOIN base_node on case_node.nodeId=base_node.nodeId
+		 SET   case_node.isvalid=0,
+                base_node.isValid=0
+		where case_node.caseId = #{id,jdbcType=INTEGER};
+	</update>
     <insert id="insert" parameterType="com.dimension.pojo.Case">
 		insert into `case` (Id,
 		caseCode, caseName,
@@ -167,41 +172,43 @@
 
 
     <select id="searchMapCases" resultType="com.dimension.pojo.Case">
-      select * from (
-       <if test="caseCondition.roleId != 3">
-        (SELECT `case`.*,0 as isEdited from `case`
-        LEFT JOIN `group` on `case`.groupId=`group`.Id
-        <trim prefix="where" prefixOverrides="and | or">
-            <if test="caseCondition.roleId == 4 ">
-                <if test="caseCondition.departmentid != null">
-                    and departmentid !=#{caseCondition.departmentid}
+        select * from (
+        <if test="caseCondition.roleId != 3">
+            (SELECT `case`.*,0 as isEdited from `case`
+            LEFT JOIN `group` on `case`.groupId=`group`.Id
+            <trim prefix="where" prefixOverrides="and | or">
+                `case`.isvalid='1'
+                <if test="caseCondition.roleId == 4 ">
+                    <if test="caseCondition.departmentid != null">
+                        and departmentid !=#{caseCondition.departmentid}
+                    </if>
                 </if>
-            </if>
-            <if test="caseCondition.beginTime != null ">
-                and begintime <![CDATA[ >= ]]>
-                #{caseCondition.beginTime}
-            </if>
-            <if test="caseCondition.endTime != null">
-                and endTime <![CDATA[ <= ]]>
-                #{caseCondition.endTime}
-            </if>
-            <if test="caseCondition.roleId == 2">
-                and grouperid != #{caseCondition.userId}
-            </if>
-            <if test="caseCondition.casename != null">
-                and casename like concat("%",#{caseCondition.casename},"%")
-            </if>
-            <if test="caseCondition.casetype != null">
-                and casetype like concat("%",#{caseCondition.casetype},"%")
-            </if>
-        </trim>
-        )
-        UNION
-    </if>
+                <if test="caseCondition.beginTime != null ">
+                    and begintime <![CDATA[ >= ]]>
+                    #{caseCondition.beginTime}
+                </if>
+                <if test="caseCondition.endTime != null">
+                    and endTime <![CDATA[ <= ]]>
+                    #{caseCondition.endTime}
+                </if>
+                <if test="caseCondition.roleId == 2">
+                    and grouperid != #{caseCondition.userId}
+                </if>
+                <if test="caseCondition.casename != null">
+                    and casename like concat("%",#{caseCondition.casename},"%")
+                </if>
+                <if test="caseCondition.casetype != null">
+                    and casetype like concat("%",#{caseCondition.casetype},"%")
+                </if>
+            </trim>
+            )
+            UNION
+        </if>
         ( select `case`.* ,1 as isEdited from `case`
         left join `group` on `group`.id=`case`.groupId
 
         <trim prefix="where" prefixOverrides="and | or">
+            `case`.isvalid='1'
             <if test="caseCondition.roleId == 4 ">
                 <if test="caseCondition.departmentid != null">
                     and departmentid=#{caseCondition.departmentid}
@@ -233,13 +240,13 @@
     </select>
 
 
-
-    <select id="mapCount" resultType="int" >
+    <select id="mapCount" resultType="int">
         select count(*) from (
         <if test="caseCondition.roleId != 3">
             (SELECT `case`.*,0 as isEdited from `case`
             LEFT JOIN `group` on `case`.groupId=`group`.Id
             <trim prefix="where" prefixOverrides="and | or">
+                `case`.isvalid='1'
                 <if test="caseCondition.roleId == 4 ">
                     <if test="caseCondition.departmentid != null">
                         and departmentid !=#{caseCondition.departmentid}
@@ -272,6 +279,7 @@
         left join `group` on `group`.id=`case`.groupId
 
         <trim prefix="where" prefixOverrides="and | or">
+            `case`.isvalid='1'
             <if test="caseCondition.roleId == 4 ">
                 <if test="caseCondition.departmentid != null">
                     and departmentid=#{caseCondition.departmentid}
@@ -304,6 +312,7 @@
         select `case`.* ,1 as isEdited from `case`
         left join `group` on `group`.id=`case`.groupId
         <trim prefix="where" prefixOverrides="and | or">
+            `case`.isvalid='1'
             <if test="caseCondition.roleId == 4 ">
                 <if test="caseCondition.departmentid != null">
                     and departmentid=#{caseCondition.departmentid}
@@ -319,7 +328,7 @@
             </if>
             <if test="caseCondition.roleId == 2  ">
                 <if test="caseCondition.isGrouper == 1">
-                    and 	`group`.grouperId=#{caseCondition.userId}
+                    and `group`.grouperId=#{caseCondition.userId}
                 </if>
                 <if test="caseCondition.isGrouper == 0">
                     and `case`.groupId IN (
@@ -349,6 +358,7 @@
         left join `group` on `group`.id=`case`.groupId
 
         <trim prefix="where" prefixOverrides="and | or">
+            `case`.isvalid='1'
             <if test="caseCondition.roleId == 4 ">
                 <if test="caseCondition.departmentid != null">
                     and departmentid=#{caseCondition.departmentid}
@@ -378,6 +388,6 @@
     select  case_node.nodeid from case_node
     LEFT JOIN base_node on base_node.nodeid=case_node.nodeid
     LEFT join table_type on table_type.id=base_node.tableid
-    where caseid=#{caseid} and case_node.isvalid='1' and table_type.isvalid='1'
+    where  `case`.isvalid='1' and caseid=#{caseid} and case_node.isvalid='1' and table_type.isvalid='1'
 </select>
 </mapper>

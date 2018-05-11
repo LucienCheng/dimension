@@ -22,9 +22,9 @@ import java.util.List;
  *
  * @author hankcs
  */
-public class Corpus
-{
+public class Corpus implements Serializable{
 
+    private static final long serialVersionUID = 901161968628684928L;
     List<int[]> documentList;
     Vocabulary vocabulary;
 

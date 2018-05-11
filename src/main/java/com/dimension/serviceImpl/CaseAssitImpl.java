@@ -14,8 +14,7 @@ import org.ansj.splitWord.analysis.ToAnalysis;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -29,24 +28,24 @@ public class CaseAssitImpl implements CaseAssist {
     private static double[][] phi = null;
 
     @Override
-    public double computeCompareCase(String firstText, String secondText) throws IOException {
-        int firstId=Integer.parseInt(firstText);
-        int secondId=Integer.parseInt(secondText);
-        Case firstCase=caseMapper.selectByPrimaryKey(firstId);
-        Case secondCase=caseMapper.selectByPrimaryKey(secondId);
+    public double computeCompareCase(String firstText, String secondText) throws IOException, ClassNotFoundException {
+        int firstId = Integer.parseInt(firstText);
+        int secondId = Integer.parseInt(secondText);
+        Case firstCase = caseMapper.selectByPrimaryKey(firstId);
+        Case secondCase = caseMapper.selectByPrimaryKey(secondId);
         double result = 0.0;
         if (corpus == null) {
             //否则就需要初始化
             computeUseLDA();
         }
-        double text1[] = computeText(firstCase.getAbstracts()+firstCase.getCasetype()+firstCase.getDescription());
-        double text2[] = computeText(secondCase.getAbstracts()+secondCase.getCasetype()+secondCase.getDescription());
-        for (double first : text1)
+        double text1[] = computeText(firstCase.getAbstracts() + firstCase.getCasetype() + firstCase.getDescription());
+        double text2[] = computeText(secondCase.getAbstracts() + secondCase.getCasetype() + secondCase.getDescription());
+       for (double first : text1)
             System.out.println(first);
         System.out.println("-------------");
         for (double first : text2)
             System.out.println(first);
-        double sum = 0.0;
+        /* double sum = 0.0;
         for (int i = 0; i < text1.length; i++) {
             sum += text1[i] * text2[i];
         }
@@ -57,26 +56,39 @@ public class CaseAssitImpl implements CaseAssist {
             sumText2 += text2[i] * text2[i];
         }
         double sumLength = Math.sqrt(sumText1) * Math.sqrt(sumText2);
-        System.out.println(sum);
-        System.out.println("-------------");
-        System.out.println(sumLength);
         result = sum / sumLength;
         //直接计算
 
-        return new BigDecimal(Double.valueOf(result)).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
+        return new BigDecimal(Double.valueOf(result)).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();*/
 
-       /* return JsDistance(text1,text2).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();*/
+         return JsDistance(text1,text2).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
-    public void computeUseLDA() throws IOException {
-        // 1. Load corpus from disk
-        corpus = Corpus.load("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\mini");
-        // 2. Create a LDA sampler（Gibbs）
-        LdaGibbsSampler ldaGibbsSampler = new LdaGibbsSampler(corpus.getDocument(), corpus.getVocabularySize());
-        // 3. 训练为10个主题
-        ldaGibbsSampler.gibbs(20);
-        // 4. The phi matrix is a LDA model, you can use LdaUtil to explain it.
-        phi = ldaGibbsSampler.getPhi();
+    public void computeUseLDA() throws IOException, ClassNotFoundException {
+
+        File file = new File("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model.txt");
+        if(!file.exists() ||(file.length() == 0)) {
+            // 1. Load corpus from disk
+            corpus = Corpus.load("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\mini");
+            // 2. Create a LDA sampler（Gibbs）
+            LdaGibbsSampler ldaGibbsSampler = new LdaGibbsSampler(corpus.getDocument(), corpus.getVocabularySize());
+            // 3. 训练为10个主题
+            ldaGibbsSampler.gibbs(10);
+            // 4. The phi matrix is a LDA model, you can use LdaUtil to explain it.
+            phi = ldaGibbsSampler.getPhi();
+            ObjectOutputStream os = new ObjectOutputStream(
+                    new FileOutputStream("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model.txt"));
+            os.writeObject(corpus);// 将User对象写进文件
+            os.writeObject(phi);// 将List列表写进文件
+            os.close();
+        }
+        else {
+            FileInputStream fis=new FileInputStream("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model.txt");
+            ObjectInputStream oi=new ObjectInputStream(fis);
+            corpus=(Corpus) oi.readObject();
+            phi=(double[][]) oi.readObject();
+            oi.close();
+        }
     }
 
     /**
@@ -90,21 +102,21 @@ public class CaseAssitImpl implements CaseAssist {
 
         List<Term> terms = result.getTerms();
         for (Term term : terms) {
-            if (term.getName().length() >=2) {
+            if (term.getName().length() >= 2) {
                 doc1.add(term.getName());
             }
         }
 
-        System.out.println(doc1);
-        if(doc1.size()==0){
-            doc1.add(Text);
-        }
+
        /* KeyWordComputer kwc = new KeyWordComputer(100);
-        List<Keyword> keywords=kwc.computeArticleTfidf(Text);
-        List<String> doc1 = new ArrayList<String>();
+        List<Keyword> keywords=kwc.computeArticleTfidf(replaceBlank(Text));
         for(Keyword k:keywords){
             doc1.add(k.getName());
         }*/
+        System.out.println(doc1);
+        if (doc1.size() == 0) {
+            doc1.add(Text);
+        }
         int[] document = Corpus.loadCorpus(doc1, corpus.getVocabulary());
         return LdaGibbsSampler.inference(phi, document);
     }
@@ -112,25 +124,31 @@ public class CaseAssitImpl implements CaseAssist {
     public double KLDistance(double[] first, double[] second) {
         double sum = 0.0;
         for (int i = 0; i < first.length; i++) {
-            sum += (first[i] * Math.log(first[i] / second[i]));
+            double t=log(first[i] / second[i],2);
+            sum += (first[i] * t);
         }
         return sum;
     }
 
-    public BigDecimal JsDistance(double[] first, double[] second) {
-        double[] medians=new double[first.length];
-        for(int i=0;i<first.length;i++){
-            medians[i]=((first[i]*0.5+second[i]*0.5));
-        }
-       return new BigDecimal(Double.valueOf((KLDistance(first,medians)*0.5+KLDistance(second,medians)*0.5))) ;
+    public double log(double value, double base) {
+        return Math.log(value)/Math.log(base);
     }
+
+    public BigDecimal JsDistance(double[] first, double[] second) {
+        double[] medians = new double[first.length];
+        for (int i = 0; i < first.length; i++) {
+            medians[i] = ((first[i] * 0.5 + second[i] * 0.5));
+        }
+        return new BigDecimal(Double.valueOf(1.0-(KLDistance(first, medians) * 0.5 + KLDistance(second, medians) * 0.5)));
+    }
+
     public static String replaceBlank(String str) {
         String dest = "";
-        if (str!=null) {
+        if (str != null) {
             Pattern p = Pattern.compile("\\s*|\t|\r|\n");
             Matcher m = p.matcher(str);
             dest = m.replaceAll("");
         }
-        return dest.replaceAll( "[\\p{P}+~$`^=|<>～｀＄＾＋＝｜＜＞￥×]" , "");
+        return dest.replaceAll("[\\p{P}+~$`^=|<>～｀＄＾＋＝｜＜＞￥×]", "");
     }
 }

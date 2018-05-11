@@ -5,6 +5,10 @@ import com.dimension.dao.CaseMapper;
 import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.Case;
 import com.dimension.pojo.CaseCondition;
+import com.dimension.service.CaseAssist;
+import org.ansj.domain.Result;
+import org.ansj.domain.Term;
+import org.ansj.splitWord.analysis.NlpAnalysis;
 import org.apache.pdfbox.cos.COSDocument;
 import org.apache.pdfbox.io.RandomAccessFile;
 import org.apache.pdfbox.io.RandomAccessRead;
@@ -35,10 +39,13 @@ import java.util.*;
         "classpath:spring-mybatis.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestUser {
+
     @Resource
     CaseMapper caseMapper;
     @Resource
     BaseNodeMapper baseNodeMapper;
+    @Resource
+    CaseAssist caseAssist;
 
     @Test
     public void user() {
@@ -97,7 +104,7 @@ public class TestUser {
         }
     }
 
-    private static final String location = "C:\\Users\\acer\\Desktop\\论文\\案件\\第三个-刑事案件";
+    private static final String location = "C:\\Users\\acer\\Desktop\\论文\\案件\\第四个";
 
     public Date changDate(String s) throws ParseException {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -107,8 +114,30 @@ public class TestUser {
     @Test
     public void testuser() throws ParseException {
         File input = new File(location);
-
+        StringBuilder sb = new StringBuilder();
         if (input.isDirectory()) {
+            String[] fileList = input.list();
+            PDFTextParser ptp = new PDFTextParser();
+            for (String f : fileList) {
+                if (f.indexOf(".pdf") != -1) {
+                    String pdfTxt = ptp.pdftoText(location + "\\" + f);
+                    if (pdfTxt == null) {
+                        System.out.println("PDF to Text Conversion failed.");
+                    } else {
+                        pdfTxt = TestImport.replaceBlank(pdfTxt);
+                        Result result = NlpAnalysis.parse(pdfTxt);
+                        List<Term> terms = result.getTerms();
+                        for (Term term : terms) {
+                            if (term.getName().length() >= 2) {
+                                sb.append(term.getName() + " ");
+                            }
+                        }
+                        f=f.substring(0,f.indexOf(".pdf"));
+                        ptp.writeTexttoFile(sb.toString(), "data/mini/" + f + ".txt");
+                    }
+                }
+            }
+        /*if (input.isDirectory()) {
             String[] fileList = input.list();
             String[] CaseName = null;
             PDFTextParser ptp = new PDFTextParser();
@@ -124,8 +153,9 @@ public class TestUser {
                     PDF.add(f);
                 }
             }
-            int i = 0;
-            for (String ss : CaseName) {
+
+           int i = 0;
+           for (String ss : fileList) {
 
                 String[] strings = ss.split(" ");
                 String pdfTxt = ptp.pdftoText(location + "\\" + PDF.get(i));
@@ -144,15 +174,13 @@ public class TestUser {
                     case1.setDepartmentId(new Long(1));
                     cases.add(case1);
                 }
-
             }
             for (Case case1 : cases) {
-                caseMapper.insertSelective(case1);
                 ptp.writeTexttoFile(case1.getDescription(), "data/mini/" + case1.getCasename()+".txt");
             }
+        }*/
         }
     }
-
 
     public String openFile(String fileName) {
         File file = new File(location + "\\" + fileName);
@@ -182,6 +210,38 @@ public class TestUser {
 
     }
 
+    @Test
+    public void testKMean() throws IOException {
+        int start = 26;
+        int end = 57;
+        double similarity[][] = new double[end - start ][end - start ];
+        for(int i=0;i<31;i++){
+            for(int j=0;j<31;j++){
+                try {
+                    similarity[i][j]= caseAssist.computeCompareCase(Integer.toString(i+26),Integer.toString(j+26));
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+                if(j!=30){
+                    System.out.print(similarity[i][j]+",");
+                }
+            }
+        }
+        for(int i=0;i<31;i++){
+            for(int j=0;j<31;j++){
+                similarity[i][j]=similarity[j][i]= (similarity[i][j]+similarity[j][i])/2.0;
+            }
+        }
+        for(int i=0;i<31;i++){
+            for(int j=0;j<31;j++){
+                if(j!=30){
+                    System.out.print(similarity[i][j]+",");
+                }else {
+                    System.out.println(similarity[i][j]);
+                }
+            }
+        }
+    }
 
 }
 

@@ -25,6 +25,7 @@
  */
 package com.hankcs.lda;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
@@ -37,8 +38,9 @@ import java.text.NumberFormat;
  *
  * @author heinrich
  */
-public class LdaGibbsSampler {
+public class LdaGibbsSampler implements Serializable{
 
+    private static final long serialVersionUID = -6916426941373773424L;
     /**
      * document data (term lists)<br>
      * 文档
@@ -55,7 +57,7 @@ public class LdaGibbsSampler {
      * number of topics<br>
      * 主题数目
      */
-    int K;
+    static int K;
 
     /**
      * Dirichlet parameter (document--topic associations)<br>
@@ -196,7 +198,7 @@ public class LdaGibbsSampler {
     }
 
     public void gibbs(int K) {
-        gibbs(K, 2.0, 0.01);
+        gibbs(K, (50.0 / K), 0.01);
     }
 
     /**

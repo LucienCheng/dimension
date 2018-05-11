@@ -16,13 +16,13 @@ public interface TableFieldService {
     boolean dropTable(Table table);
 
     //设置某个文本域
-    boolean setField(String tableName, Map<String, Object> fields);
+    int setField(String tableName, Map<String, Object> fields);
 
     //删除某个文本域
     boolean dropRecord(String tableName, Long nodeId);
 
     //插入某个记录
-    boolean insertRecord(String tableName, Map<String, Object> fields);
+    int insertRecord(String tableName, Map<String, Object> fields);
 
     //获取某个点位
     List<Field> getFieldValue(Table table, Long nodeId);

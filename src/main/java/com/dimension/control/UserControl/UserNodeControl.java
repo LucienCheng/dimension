@@ -137,7 +137,10 @@ public class UserNodeControl {
                 map1.put(field.getEnglishname(), field.getValue());
             }
             map1.put("nodeid", baseNode.getNodeid());
-            tableFieldService.setField(fieldsArray.get(0).getTablename(), map1);
+            int i=tableFieldService.setField(fieldsArray.get(0).getTablename(), map1);
+            if (i==0){
+                tableFieldService.insertRecord(fieldsArray.get(0).getTablename(), map1);
+            }
         }
         return map;
     }

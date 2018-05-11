@@ -73,7 +73,7 @@ public class TestCorpus extends TestCase {
         LdaUtil.explain(topic);
     }
 
-    public void testAnsj() throws IOException {
+    public void testAnsj() throws IOException, ClassNotFoundException {
         String str = "老板 一定会 积极 乐观 心态 老板 老板 心态 影响 企业 风格 老板 中庸 企业 经营 必定 不瘟不火 有功 但求无过 老板 激进 企业 员工 缺乏 足够 安全感 \n" +
                 " 以前 老板 事情 嘴边 遇到 事情 必定 反面 论证 得出 结论 原因 可能会 成功 员工 保持 冷静 不免 员工 嘀咕 看来 可能 \n" +
                 " 积极 乐观 心态 传递 心态 老板 员工 安全感 觉得 没什么 大不了 放开 手脚 一页       一页";

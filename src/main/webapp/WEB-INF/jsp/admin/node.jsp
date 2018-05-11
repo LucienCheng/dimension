@@ -229,9 +229,9 @@
 
                                                         <div class="form-group row">
                                                             <label class="col-md-12">备注信息：</label>
-                                                            <textarea rows="5" class="form-control form-control-line "
+                                                            <textarea rows="5" class="form-control form-control-line " id="description"
                                                                       name="description"
-                                                                      style="margin-left: 15px;">${table.description}</textarea>
+                                                                      style="margin-left: 15px;">${baseNode.description}</textarea>
                                                         </div>
                                                         <div class="form-group row">
                                                             <div class="col-sm-12">
@@ -267,7 +267,7 @@
                                                             <label class="col-md-12">备注信息：</label>
                                                             <textarea rows="5" class="form-control form-control-line "
                                                                       name="description" style="margin-left: 15px;"
-                                                                      disabled>${table.description}</textarea>
+                                                                      disabled>${baseNode.description}</textarea>
                                                         </div>
 
                                                     </div>
@@ -878,9 +878,8 @@
     });
     </c:if>
     $("#caseselect").append(str);
-    $("#caseselect").val(${caseNode.case1.id});
+    $('#caseselect').selectpicker('val',${caseNode.case1.id});
     $("#casecode").text('${caseNode.case1.casecode}');
-    $("#casedescript").text('${caseNode.case1.description}');
     $("#casename").text('${caseNode.case1.casename}');
     $("#casetype").text('${caseNode.case1.casetype}');
     $("#caseselect").bind('change', function () {

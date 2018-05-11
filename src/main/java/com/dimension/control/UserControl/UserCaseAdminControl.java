@@ -98,7 +98,7 @@ public class UserCaseAdminControl {
 
     @RequestMapping("/caseAdmin/compute")
     @ResponseBody
-    public Map<String, Object> compute(String firstCaseid, String secondCaseid) throws IOException {
+    public Map<String, Object> compute(String firstCaseid, String secondCaseid) throws IOException, ClassNotFoundException {
         Map<String, Object> map = new HashMap<>();
         map.put("result", caseAssist.computeCompareCase(firstCaseid, secondCaseid));
         return map;

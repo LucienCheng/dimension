@@ -11,6 +11,7 @@
  */
 package com.hankcs.lda;
 
+import java.io.Serializable;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -19,8 +20,9 @@ import java.util.TreeMap;
  *
  * @author hankcs
  */
-public class Vocabulary
+public class Vocabulary implements Serializable
 {
+    private static final long serialVersionUID = -6619914052932520643L;
     Map<String, Integer> word2idMap;
     String[] id2wordMap;
 
