@@ -588,7 +588,7 @@
     var caseGrouperArray = new Array();
     var DepartGrouper = new Array();
 
-    function updateGrouper() {
+    function updateGrouper(caseId) {
         console.log(DepartGrouper)
         var str = "";
         $.each(caseGrouperArray, function (index, item) {
@@ -597,7 +597,7 @@
                 "                                            <label class=\"form-control-label col-sm-4 \">" + item.username + "</label>\n" +
                 "                                            <div class=\"col-sm-4\">\n" +
                 "                                                <input type=\"button\" value=\"删除\" class=\" btn btn-danger form-control\"\n" +
-                "                                                       onclick=\"removeTr($(this)," + item.id + ");\" style=\"color:#fff\">\n" +
+                "                                                       onclick=\"removeTr($(this)," + item.id + "+","+caseId);\" style=\"color:#fff\">\n" +
                 "                                            </div>\n" +
                 "                                        </div>";
 
@@ -624,7 +624,7 @@
             success: function (d) {
                 caseGrouperArray = d.groupers;
                 DepartGrouper = d.selectUsers;
-                updateGrouper();
+                updateGrouper(caseId);
                 updateSelectUser();
                 $('#addGroupModel').modal('toggle');
                 $('#addUserButton').val(groupid);
@@ -637,9 +637,9 @@
     }
 
     //删除属性的一块
-    function removeTr(object, groupuserId) {
+    function removeTr(object, groupuserId,caseId) {
         $.ajax({
-            url: '<%=basePath%>user/caseAdmin/deleteUser/' + groupuserId,
+            url: '<%=basePath%>user/caseAdmin/deleteUser/' + groupuserId+"/"+caseId,
             type: "post",
             dataType: 'json',
             success: function (d) {

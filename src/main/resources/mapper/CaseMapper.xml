@@ -388,6 +388,6 @@
     select  case_node.nodeid from case_node
     LEFT JOIN base_node on base_node.nodeid=case_node.nodeid
     LEFT join table_type on table_type.id=base_node.tableid
-    where  `case`.isvalid='1' and caseid=#{caseid} and case_node.isvalid='1' and table_type.isvalid='1'
+    where   caseid=#{caseid} and case_node.isvalid='1' and table_type.isvalid='1'
 </select>
 </mapper>

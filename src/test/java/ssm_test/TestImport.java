@@ -31,23 +31,30 @@ public class TestImport {
         }
         System.out.println("Done.");
     }
+
     @Test
-public void change(){
-    File file=new File("data\\mini");
-    StringBuilder sb=new StringBuilder();
-    for (String filename:file.list()){
-        String s=openFile(filename);
-        Result result = NlpAnalysis.parse(replaceBlank(s));
-        List<Term> terms = result.getTerms();
-        for (Term term : terms) {
-            if (term.getName().length() >= 2) {
-             sb.append(term.getName()+" ");
+    public void change() {
+        File file = new File("data\\mini");
+        StringBuilder sb = new StringBuilder();
+        for (String filename : file.list()) {
+            String s = openFile(filename);
+            Result result = NlpAnalysis.parse(replaceBlank(s));
+            List<Term> terms = result.getTerms();
+            for (Term term : terms) {
+                if (term.getName().length() >= 2) {
+                    sb.append(term.getName() + " ");
+                }
             }
+            writeTexttoFile(sb.toString(), "data\\mini\\" + filename);
+            sb.delete(0, sb.length());
         }
-        writeTexttoFile(sb.toString(),"data\\mini\\"+filename);
-        sb.delete(0,sb.length());
     }
-}
+    @Test
+    public void testDouble(){
+        double[] i=new double[10];
+        for (int t=0;t<i.length;t++)
+        System.out.print(i[t]==0.0);
+    }
 
     public String openFile(String fileName) {
         File file = new File("data\\mini" + "\\" + fileName);
@@ -64,6 +71,7 @@ public void change(){
         }
         return stringBuilder.toString().replaceAll("((\r\n)|\n)[\\s\t ]*(\\1)+", "$1");
     }
+
     public static String replaceBlank(String str) {
         String dest = "";
         if (str != null) {

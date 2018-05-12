@@ -1,5 +1,6 @@
 package com.dimension.control.UserControl;
 
+import com.dimension.dao.BaseNodeMapper;
 import com.dimension.dao.CaseMapper;
 import com.dimension.dao.GroupMapper;
 import com.dimension.dao.GroupUserMapper;
@@ -24,7 +25,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/user")
 public class UserCaseAdminControl {
-
+@Resource
+private BaseNodeMapper baseNodeMapper;
     @Resource
     private CaseMapper caseMapper;
     @Resource
@@ -118,10 +120,19 @@ public class UserCaseAdminControl {
         map.put("selectUsers", selectUsers);
         return map;
     }
-    @RequestMapping("/caseAdmin/deleteUser/{grouperUserid}")
+    @RequestMapping("/caseAdmin/deleteUser/{grouperUserid}/{caseId}")
     @ResponseBody
-    public Map<String, Object> deleteUser(@PathVariable Integer grouperUserid) {
+    public Map<String, Object> deleteUser(@PathVariable Integer grouperUserid,@PathVariable Integer caseId,HttpSession session) {
         Map<String, Object> map = new HashMap<>();
+        User user=(User)session.getAttribute("user");
+        List<Long> nodeids=caseMapper.searchCaseNodeBycaseId(caseId);
+        for (int i=0;i<nodeids.size();i++){
+            BaseNode baseNode=baseNodeMapper.selectByPrimaryKey(nodeids.get(i));
+            if(baseNode.getUserid()==grouperUserid){
+                baseNode.setUserid(user.getId());
+                baseNodeMapper.updateByPrimaryKeySelective(baseNode);
+            }
+        }
         groupUserMapper.deleteByPrimaryKey(grouperUserid);
         return map;
     }

@@ -26,13 +26,22 @@ public class CaseAssitImpl implements CaseAssist {
     CaseMapper caseMapper;
     private static Corpus corpus = null;
     private static double[][] phi = null;
+    public static Map<Integer,Case> map=new HashMap<>();
 
     @Override
     public double computeCompareCase(String firstText, String secondText) throws IOException, ClassNotFoundException {
         int firstId = Integer.parseInt(firstText);
         int secondId = Integer.parseInt(secondText);
-        Case firstCase = caseMapper.selectByPrimaryKey(firstId);
-        Case secondCase = caseMapper.selectByPrimaryKey(secondId);
+        Case firstCase =map.get(firstId);
+        Case secondCase =map.get(secondId);
+        if(firstCase==null){
+            firstCase=caseMapper.selectByPrimaryKey(firstId);
+            map.put(firstId,firstCase);
+        }
+        if(secondCase==null){
+            secondCase=caseMapper.selectByPrimaryKey(secondId);
+            map.put(secondId,secondCase);
+        }
         double result = 0.0;
         if (corpus == null) {
             //否则就需要初始化
@@ -66,24 +75,29 @@ public class CaseAssitImpl implements CaseAssist {
 
     public void computeUseLDA() throws IOException, ClassNotFoundException {
 
-        File file = new File("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model.txt");
+        File file = new File("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model50.txt");
         if(!file.exists() ||(file.length() == 0)) {
             // 1. Load corpus from disk
             corpus = Corpus.load("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\mini");
             // 2. Create a LDA sampler（Gibbs）
-            LdaGibbsSampler ldaGibbsSampler = new LdaGibbsSampler(corpus.getDocument(), corpus.getVocabularySize());
+            LdaGibbsSampler ldaGibbsSampler = new
+
+
+
+
+                    LdaGibbsSampler(corpus.getDocument(), corpus.getVocabularySize());
             // 3. 训练为10个主题
-            ldaGibbsSampler.gibbs(10);
+            ldaGibbsSampler.gibbs(50);
             // 4. The phi matrix is a LDA model, you can use LdaUtil to explain it.
             phi = ldaGibbsSampler.getPhi();
             ObjectOutputStream os = new ObjectOutputStream(
-                    new FileOutputStream("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model.txt"));
+                    new FileOutputStream(file));
             os.writeObject(corpus);// 将User对象写进文件
             os.writeObject(phi);// 将List列表写进文件
             os.close();
         }
         else {
-            FileInputStream fis=new FileInputStream("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model.txt");
+            FileInputStream fis=new FileInputStream(file);
             ObjectInputStream oi=new ObjectInputStream(fis);
             corpus=(Corpus) oi.readObject();
             phi=(double[][]) oi.readObject();

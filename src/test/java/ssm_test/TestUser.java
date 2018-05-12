@@ -132,7 +132,7 @@ public class TestUser {
                                 sb.append(term.getName() + " ");
                             }
                         }
-                        f=f.substring(0,f.indexOf(".pdf"));
+                        f = f.substring(0, f.indexOf(".pdf"));
                         ptp.writeTexttoFile(sb.toString(), "data/mini/" + f + ".txt");
                     }
                 }
@@ -212,35 +212,153 @@ public class TestUser {
 
     @Test
     public void testKMean() throws IOException {
+
+
         int start = 26;
         int end = 57;
-        double similarity[][] = new double[end - start ][end - start ];
-        for(int i=0;i<31;i++){
-            for(int j=0;j<31;j++){
-                try {
-                    similarity[i][j]= caseAssist.computeCompareCase(Integer.toString(i+26),Integer.toString(j+26));
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+
+        File file = new File("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\similarity50.txt");
+        double similarity[][] = new double[end - start][end - start];
+        if (!file.exists() || (file.length() == 0)) {
+            for (int i = 0; i < 31; i++) {
+                for (int j = 0; j < 31; j++) {
+                    try {
+                        if (similarity[i][j] == 0.0) {
+                            similarity[i][j] = caseAssist.computeCompareCase(Integer.toString(i + 26), Integer.toString(j + 26));
+                            similarity[j][i] = caseAssist.computeCompareCase(Integer.toString(j + 26), Integer.toString(i + 26));
+                            similarity[i][j] = similarity[j][i] = (similarity[j][i] + similarity[j][i]) / 2.0;
+                        }
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
                 }
-                if(j!=30){
-                    System.out.print(similarity[i][j]+",");
+            }
+            ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(file));
+            os.writeObject(similarity);
+            os.close();
+        } else {
+            ObjectInputStream oi = new ObjectInputStream(new FileInputStream(file));
+            try {
+                similarity=(double[][]) oi.readObject();
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
+            finally {
+                oi.close();
+            }
+        }
+        //初始化
+
+        int[] Rabbit = new int[4];
+        for (int i = 0; i < Rabbit.length; i++) {//外循环用于获取随机数0-4
+            Rabbit[i] = new Random().nextInt(25);//获取随机数并放入数组中
+            for (int j = 0; j < i; j++) {//用于判断是否有相同的随机数
+                if (Rabbit[i] == Rabbit[j]) {//若果相同，本次的随机数即从新获取
+                    i--;
+                    break;
                 }
             }
         }
-        for(int i=0;i<31;i++){
-            for(int j=0;j<31;j++){
-                similarity[i][j]=similarity[j][i]= (similarity[i][j]+similarity[j][i])/2.0;
-            }
-        }
-        for(int i=0;i<31;i++){
-            for(int j=0;j<31;j++){
-                if(j!=30){
-                    System.out.print(similarity[i][j]+",");
-                }else {
-                    System.out.println(similarity[i][j]);
+        int first = Rabbit[0];
+        int second = Rabbit[1];
+        int third = Rabbit[2];
+        int four = Rabbit[3];
+        List<Integer> firstArray = new LinkedList<>();
+        List<Integer> secondArray = new LinkedList<>();
+        List<Integer> thirdArray = new LinkedList<>();
+        List<Integer> fourArray = new LinkedList<>();
+        boolean firstFlag = false;
+        boolean secondFlag = false;
+        boolean thirdFlag = false;
+        boolean fourFlag = false;
+        //找到聚类
+        while (true) {
+            //分类
+            for (int i = 0; i < 25; i++) {
+                int maxFlag = Double.compare(similarity[i][first], similarity[i][second]) > 0 ? first : second;
+                maxFlag = Double.compare(similarity[i][maxFlag], similarity[i][third]) > 0 ? maxFlag : third;
+                maxFlag = Double.compare(similarity[i][maxFlag], similarity[i][four]) > 0 ? maxFlag : four;
+                if (maxFlag == first) {
+                    firstArray.add(i);
+                } else if (maxFlag == second) {
+                    secondArray.add(i);
+                } else if (maxFlag == third) {
+                    thirdArray.add(i);
+                } else {
+                    fourArray.add(i);
                 }
             }
+            //判断下一个点。
+            //第一个
+            //计算平均数
+            int firstNext = getNext(firstArray, first, similarity);
+            if (firstNext == first) {
+                firstFlag = true;
+            } else {
+                first = firstNext;
+            }
+            int secondNext = getNext(secondArray, second, similarity);
+            if (secondNext == second) {
+                secondFlag = true;
+            } else {
+                second = secondNext;
+            }
+            int thirdNext = getNext(thirdArray, third, similarity);
+            if (thirdNext == third) {
+                thirdFlag = true;
+            } else {
+                third = thirdNext;
+            }
+            int fourNext = getNext(fourArray, four, similarity);
+            if (fourNext == four) {
+                fourFlag = true;
+            } else {
+                four = fourNext;
+            }
+            if (firstFlag && secondFlag && thirdFlag && fourFlag) {
+                break;
+            } else {
+                firstArray.clear();
+                secondArray.clear();
+                thirdArray.clear();
+                fourArray.clear();
+            }
         }
+        translate(firstArray);
+        translate(secondArray);
+        translate(thirdArray);
+        translate(fourArray);
+    }
+
+    void translate(List<Integer> array) {
+        System.out.print("[");
+        for (int i = 0; i < array.size(); i++) {
+            System.out.print((array.get(i) + 26) + ",");
+        }
+        System.out.println("]");
+    }
+
+    double computeAver(List<Integer> LocaArray, int x, double[][] similarity) {
+        double sum = 0.0;
+        for (int i = 0; i < LocaArray.size(); i++) {
+            sum += similarity[x][LocaArray.get(i)];
+        }
+        double average = sum / LocaArray.size();
+
+        return average;
+    }
+
+    int getNext(List<Integer> LocaArray, int x, double[][] similarity) {
+        double max = 0.0;
+        int next = x;
+        for (int i = 0; i < LocaArray.size(); i++) {
+            if (Double.compare(max, computeAver(LocaArray, LocaArray.get(i), similarity)) < 0) {
+                max = computeAver(LocaArray, LocaArray.get(i), similarity);
+                next = LocaArray.get(i);
+            }
+        }
+        return next;
+
     }
 
 }
