@@ -597,7 +597,7 @@
                 "                                            <label class=\"form-control-label col-sm-4 \">" + item.username + "</label>\n" +
                 "                                            <div class=\"col-sm-4\">\n" +
                 "                                                <input type=\"button\" value=\"删除\" class=\" btn btn-danger form-control\"\n" +
-                "                                                       onclick=\"removeTr($(this)," + item.id + "+","+caseId);\" style=\"color:#fff\">\n" +
+                "                                                       onclick=\"removeTr($(this)," + item.id + ","+caseId+");\" style=\"color:#fff\">\n" +
                 "                                            </div>\n" +
                 "                                        </div>";
 
