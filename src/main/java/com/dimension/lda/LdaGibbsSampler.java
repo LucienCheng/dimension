@@ -23,7 +23,7 @@
 /*
  * Created on Mar 6, 2005
  */
-package com.hankcs.lda;
+package com.dimension.lda;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;

@@ -427,6 +427,17 @@
                                             <input id="casetype" name="casetype" type="text"
                                                    class="col-sm-8 form-control" placeholder="案件类型">
                                         </div>
+                                        <input type="hidden"  id="originGrouperid">
+                                        <input type="hidden"  name="groupid"id="groupid">
+                                        <div  class="form-group row">
+                                            <label class="col-sm-3 form-control-label ">组长选择:</label>
+                                            <select class="selectpicker form-control c-select col-sm-8" id="updateGrouperid"
+                                                    name="grouperid" data-live-search="true" title="选择组长">
+                                                <c:forEach items="${groupUsers}" var="user">
+                                                    <<option value="${user.id}">${user.username}</option>>
+                                                </c:forEach>
+                                            </select>
+                                        </div>
                                         <div class="form-group row">
                                             <label class="col-sm-3 form-control-label">结案时间</label>
                                             <div class="input-group date form_datetime col-sm-8" data-date="2018-01-01" data-date-format="yyyy-MM-dd HH:ii p" data-link-field="updateEndTime">
@@ -523,7 +534,7 @@
                                             <input name="groupname" type="text"
                                                    class="col-sm-8 form-control" placeholder="小组名称">
                                         </div>
-                                        <div id="department" class="form-group row">
+                                        <div  class="form-group row">
                                             <label class="col-sm-3 form-control-label ">组长选择:</label>
                                             <select class="selectpicker form-control c-select col-sm-8" id="grouperid"
                                                     name="grouperid" data-live-search="true" title="选择组长">
@@ -737,10 +748,14 @@
         触发更新模态框*/
     function updateModel(id) {
         $.each(data.cases, function (index, item) {
+            console.log(item);
             if (item.id == id) {
                 $("#casename").val(item.casename);
                 $("#casetype").val(item.casetype);
                 $("#description").val(item.description);
+                $("#updateGrouperid").selectpicker('val',item.grouperid)
+                $("#originGrouperid").val(item.grouperid);
+                $("#groupid").val(item.groupid);
                 $("#updateEndTime").val(item.endtime==null||item.endtime==""?"":item.endtime);
                 return false;
             }
@@ -753,11 +768,12 @@
     function update(id) {
         var validator = $('#updateForm').validate();
         var flag = validator.form();
+        var originGrouperid=$("#originGrouperid").val();
         if (flag) {
             var form = new FormData($("#updateForm")[0]);
             form.append("id", id);
             $.ajax({
-                url: '<%=basePath%>admin/updateCase',
+                url: '<%=basePath%>admin/updateCase/'+originGrouperid,
                 type: "post",
                 data: form,
                 /* 执行执行的是dom对象 ，不需要转化信息*/
@@ -773,6 +789,7 @@
                             case1.casetype = d.case1.casetype;
                             case1.description = d.case1.description;
                             case1.endtime = d.case1.endtime;
+                            case1.grouperid = d.case1.grouperid;
                         }
                     });
                     updateTable(data);

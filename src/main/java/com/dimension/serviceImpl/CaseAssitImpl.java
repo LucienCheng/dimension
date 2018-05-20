@@ -3,14 +3,11 @@ package com.dimension.serviceImpl;
 import com.dimension.dao.CaseMapper;
 import com.dimension.pojo.Case;
 import com.dimension.service.CaseAssist;
-import com.hankcs.lda.Corpus;
-import com.hankcs.lda.LdaGibbsSampler;
-import org.ansj.app.keyword.KeyWordComputer;
-import org.ansj.app.keyword.Keyword;
+import com.dimension.lda.Corpus;
+import com.dimension.lda.LdaGibbsSampler;
 import org.ansj.domain.Result;
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.NlpAnalysis;
-import org.ansj.splitWord.analysis.ToAnalysis;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -74,20 +71,15 @@ public class CaseAssitImpl implements CaseAssist {
     }
 
     public void computeUseLDA() throws IOException, ClassNotFoundException {
-
-        File file = new File("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model50.txt");
+        int K=30;
+        File file = new File("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\model"+K+".txt");
         if(!file.exists() ||(file.length() == 0)) {
             // 1. Load corpus from disk
             corpus = Corpus.load("D:\\MyWork\\project\\myEclipseProject\\web\\dimension\\data\\mini");
             // 2. Create a LDA sampler（Gibbs）
-            LdaGibbsSampler ldaGibbsSampler = new
-
-
-
-
-                    LdaGibbsSampler(corpus.getDocument(), corpus.getVocabularySize());
+            LdaGibbsSampler ldaGibbsSampler = new LdaGibbsSampler(corpus.getDocument(), corpus.getVocabularySize());
             // 3. 训练为10个主题
-            ldaGibbsSampler.gibbs(50);
+            ldaGibbsSampler.gibbs(K);
             // 4. The phi matrix is a LDA model, you can use LdaUtil to explain it.
             phi = ldaGibbsSampler.getPhi();
             ObjectOutputStream os = new ObjectOutputStream(

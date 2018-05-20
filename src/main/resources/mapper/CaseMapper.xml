@@ -309,7 +309,7 @@
     </select>
 
     <select id="searchCases" resultType="Case">
-        select `case`.* ,1 as isEdited from `case`
+        select `case`.* ,1 as isEdited ,`group`.grouperid as grouperid from `case`
         left join `group` on `group`.id=`case`.groupId
         <trim prefix="where" prefixOverrides="and | or">
             `case`.isvalid='1'

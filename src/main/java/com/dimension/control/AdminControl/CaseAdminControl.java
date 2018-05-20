@@ -1,5 +1,6 @@
 package com.dimension.control.AdminControl;
 
+import com.dimension.dao.BaseNodeMapper;
 import com.dimension.dao.CaseMapper;
 import com.dimension.dao.GroupMapper;
 import com.dimension.dao.GroupUserMapper;
@@ -13,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.json.JSONArray;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -40,6 +42,8 @@ public class CaseAdminControl {
     private GroupUserMapper groupUserMapper;
     @Resource
     private CaseAssist caseAssist;
+    @Resource
+    private BaseNodeMapper baseNodeMapper;
     private static final int count = 10;
 
     @InitBinder
@@ -100,9 +104,21 @@ public class CaseAdminControl {
     }
 
 
-    @RequestMapping("/updateCase")
+    @RequestMapping("/updateCase/{originGrouperid}")
     @ResponseBody
-    public Map<String, Object> updateCase(Case case1) {
+    @Transactional
+    public Map<String, Object> updateCase(Case case1,@PathVariable Integer originGrouperid) {
+        Group group=new Group();
+        GroupUser groupUser=new GroupUser();
+        group.setGrouperid(case1.getGrouperid());
+        group.setId(case1.getGroupid());
+        groupUser.setUserid(originGrouperid);
+        groupUser.setGroupid(case1.getGroupid());
+        groupUser=groupUserMapper.selectByUserIdAndGroupId(groupUser);
+        groupUser.setUserid(case1.getGrouperid());
+        groupUserMapper.updateByPrimaryKey(groupUser);
+        groupMapper.updateByPrimaryKeySelective(group);
+        baseNodeMapper.updateUserIdByCaseId(case1.getGrouperid(),case1.getId(),originGrouperid);
         Map<String, Object> map = new HashMap<>();
         caseMapper.updateByPrimaryKeySelective(case1);
         map.put("case1", case1);

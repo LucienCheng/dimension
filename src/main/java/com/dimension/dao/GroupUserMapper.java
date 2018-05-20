@@ -1,6 +1,7 @@
 package com.dimension.dao;
 
 import com.dimension.pojo.GroupUser;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -19,4 +20,5 @@ public interface GroupUserMapper {
 
     List<GroupUser> getGrouperByCaseId(Integer caseId);
     List<GroupUser> getUserByDepartId(Long departmentId);
+    GroupUser selectByUserIdAndGroupId( GroupUser groupUser);
 }

@@ -11,6 +11,8 @@ public class GroupUser implements Serializable {
 private  String username;
     private static final long serialVersionUID = 1L;
 
+
+
     public Integer getId() {
         return id;
     }

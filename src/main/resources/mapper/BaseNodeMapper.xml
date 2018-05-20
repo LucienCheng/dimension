@@ -314,9 +314,9 @@
                 </if>
                 <choose>
                     <when test="nodetype == 1 ">
-                            <if test="DpId != null">
-                                and (`user`.departmentId!=#{DpId} )
-                            </if>
+                        <if test="DpId != null">
+                            and (`user`.departmentId!=#{DpId} )
+                        </if>
                     </when>
                     <when test="nodetype == 2 ">
                         <if test="roleId != null">
@@ -493,7 +493,7 @@
                                         </foreach>
                                     </if>
                                     <if test="DpIds == null">
-                                       and `user`.departmentId is null
+                                        and `user`.departmentId is null
                                     </if>
                                 </when>
                                 <!-- 超级管理员可以管理全部点位 -->
@@ -589,4 +589,8 @@
 
         </trim>
     </select>
+    <update id="updateUserIdByCaseId">
+    UPDATE base_node LEFT JOIN case_node on base_node.nodeid=case_node.nodeid
+SET base_node.userId=#{userId} WHERE base_node.userId=#{originUserId} and case_node.caseId=#{caseId}
+    </update>
 </mapper>

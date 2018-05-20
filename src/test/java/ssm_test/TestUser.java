@@ -239,95 +239,99 @@ public class TestUser {
         } else {
             ObjectInputStream oi = new ObjectInputStream(new FileInputStream(file));
             try {
-                similarity=(double[][]) oi.readObject();
+                similarity = (double[][]) oi.readObject();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
-            }
-            finally {
+            } finally {
                 oi.close();
             }
         }
         //初始化
-
-        int[] Rabbit = new int[4];
-        for (int i = 0; i < Rabbit.length; i++) {//外循环用于获取随机数0-4
-            Rabbit[i] = new Random().nextInt(25);//获取随机数并放入数组中
-            for (int j = 0; j < i; j++) {//用于判断是否有相同的随机数
-                if (Rabbit[i] == Rabbit[j]) {//若果相同，本次的随机数即从新获取
-                    i--;
-                    break;
+        int count = 10;
+        while (count != 0) {
+            int[] Rabbit = new int[4];
+            for (int i = 0; i < Rabbit.length; i++) {//外循环用于获取随机数0-4
+                Rabbit[i] = new Random().nextInt(31);//获取随机数并放入数组中
+                for (int j = 0; j < i; j++) {//用于判断是否有相同的随机数
+                    if (Rabbit[i] == Rabbit[j]) {//若果相同，本次的随机数即从新获取
+                        i--;
+                        break;
+                    }
                 }
             }
-        }
-        int first = Rabbit[0];
-        int second = Rabbit[1];
-        int third = Rabbit[2];
-        int four = Rabbit[3];
-        List<Integer> firstArray = new LinkedList<>();
-        List<Integer> secondArray = new LinkedList<>();
-        List<Integer> thirdArray = new LinkedList<>();
-        List<Integer> fourArray = new LinkedList<>();
-        boolean firstFlag = false;
-        boolean secondFlag = false;
-        boolean thirdFlag = false;
-        boolean fourFlag = false;
-        //找到聚类
-        while (true) {
-            //分类
-            for (int i = 0; i < 25; i++) {
-                int maxFlag = Double.compare(similarity[i][first], similarity[i][second]) > 0 ? first : second;
-                maxFlag = Double.compare(similarity[i][maxFlag], similarity[i][third]) > 0 ? maxFlag : third;
-                maxFlag = Double.compare(similarity[i][maxFlag], similarity[i][four]) > 0 ? maxFlag : four;
-                if (maxFlag == first) {
-                    firstArray.add(i);
-                } else if (maxFlag == second) {
-                    secondArray.add(i);
-                } else if (maxFlag == third) {
-                    thirdArray.add(i);
+            int first = Rabbit[0];
+            int second = Rabbit[1];
+            int third = Rabbit[2];
+            int four = Rabbit[3];
+            List<Integer> firstArray = new LinkedList<>();
+            List<Integer> secondArray = new LinkedList<>();
+            List<Integer> thirdArray = new LinkedList<>();
+            List<Integer> fourArray = new LinkedList<>();
+            boolean firstFlag = false;
+            boolean secondFlag = false;
+            boolean thirdFlag = false;
+            boolean fourFlag = false;
+            //找到聚类
+            while (true) {
+                //分类
+                for (int i = 0; i < 31; i++) {
+                    int maxFlag = Double.compare(similarity[i][first], similarity[i][second]) > 0 ? first : second;
+                    maxFlag = Double.compare(similarity[i][maxFlag], similarity[i][third]) > 0 ? maxFlag : third;
+                    maxFlag = Double.compare(similarity[i][maxFlag], similarity[i][four]) > 0 ? maxFlag : four;
+                    if (maxFlag == first) {
+                        firstArray.add(i);
+                    } else if (maxFlag == second) {
+                        secondArray.add(i);
+                    } else if (maxFlag == third) {
+                        thirdArray.add(i);
+                    } else {
+                        fourArray.add(i);
+                    }
+                }
+                //判断下一个点。
+                //第一个
+                //计算平均数
+                int firstNext = getNext(firstArray, first, similarity);
+                if (firstNext == first) {
+                    firstFlag = true;
                 } else {
-                    fourArray.add(i);
+                    first = firstNext;
+                }
+                int secondNext = getNext(secondArray, second, similarity);
+                if (secondNext == second) {
+                    secondFlag = true;
+                } else {
+                    second = secondNext;
+                }
+                int thirdNext = getNext(thirdArray, third, similarity);
+                if (thirdNext == third) {
+                    thirdFlag = true;
+                } else {
+                    third = thirdNext;
+                }
+                int fourNext = getNext(fourArray, four, similarity);
+                if (fourNext == four) {
+                    fourFlag = true;
+                } else {
+                    four = fourNext;
+                }
+                if (firstFlag && secondFlag && thirdFlag && fourFlag) {
+                    break;
+                } else {
+                    firstArray.clear();
+                    secondArray.clear();
+                    thirdArray.clear();
+                    fourArray.clear();
                 }
             }
-            //判断下一个点。
-            //第一个
-            //计算平均数
-            int firstNext = getNext(firstArray, first, similarity);
-            if (firstNext == first) {
-                firstFlag = true;
-            } else {
-                first = firstNext;
-            }
-            int secondNext = getNext(secondArray, second, similarity);
-            if (secondNext == second) {
-                secondFlag = true;
-            } else {
-                second = secondNext;
-            }
-            int thirdNext = getNext(thirdArray, third, similarity);
-            if (thirdNext == third) {
-                thirdFlag = true;
-            } else {
-                third = thirdNext;
-            }
-            int fourNext = getNext(fourArray, four, similarity);
-            if (fourNext == four) {
-                fourFlag = true;
-            } else {
-                four = fourNext;
-            }
-            if (firstFlag && secondFlag && thirdFlag && fourFlag) {
-                break;
-            } else {
-                firstArray.clear();
-                secondArray.clear();
-                thirdArray.clear();
-                fourArray.clear();
-            }
+            translate(firstArray);
+            translate(secondArray);
+            translate(thirdArray);
+            translate(fourArray);
+            System.out.println();
+            count--;
         }
-        translate(firstArray);
-        translate(secondArray);
-        translate(thirdArray);
-        translate(fourArray);
+
     }
 
     void translate(List<Integer> array) {

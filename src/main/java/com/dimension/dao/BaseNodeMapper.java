@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.dimension.pojo.BaseNode;
 import com.dimension.pojo.BaseNodeConditon;
+import org.apache.ibatis.annotations.Param;
 
 public interface BaseNodeMapper {
     int deleteByPrimaryKey(Long nodeid);
@@ -23,5 +24,6 @@ public interface BaseNodeMapper {
 
     int judgeEdited(BaseNodeConditon baseNodeConditon);
     int count(BaseNodeConditon baseNodeConditon);
+    int updateUserIdByCaseId(@Param("userId") Integer userId,@Param("caseId") Integer caseId,@Param("originUserId") Integer originUserId);
     
 }

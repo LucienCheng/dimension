@@ -10,6 +10,7 @@ import org.junit.Test;
 import java.io.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -51,9 +52,14 @@ public class TestImport {
     }
     @Test
     public void testDouble(){
-        double[] i=new double[10];
-        for (int t=0;t<i.length;t++)
-        System.out.print(i[t]==0.0);
+        List<Double> first= Arrays.asList(3.0,4.0,4.0,8.0);
+        List<Double> second= Arrays.asList(8.0,7.0,8.0,8.0);
+        List<Double> third=Arrays.asList(4.0,8.0,9.0,10.0);
+        double sum=0.0;
+        for (int i=0;i<first.size();i++){
+            sum+=(2*first.get(i)/second.get(i)*first.get(i)/third.get(i))/(first.get(i)/second.get(i)+first.get(i)/third.get(i))*third.get(i);
+        }
+        System.out.println(sum/31.0);
     }
 
     public String openFile(String fileName) {

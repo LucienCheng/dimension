@@ -493,6 +493,7 @@
     });
 
     function showAddDepart(flag) {
+        console.log(flag);
         //展示本部门
         if (flag == 1) {
             $('#departSelect').html(departSelect);
@@ -500,7 +501,7 @@
             $('#departSelect').selectpicker('render');
         }
         else {
-            console.log(subDepartSelect);
+
             $('#departSelect').html(subDepartSelect);
             $('#departSelect').selectpicker('refresh');
             $('#departSelect').selectpicker('render');
@@ -508,12 +509,14 @@
     }
 
     function showUpdateDepart(flag) {
+        console.log(flag);
         //展示本部门
         if (flag == 1) {
             $('#updateDepartSelect').html(departSelect);
             $('#updateDepartSelect').selectpicker('refresh');
         }
         else {
+
             $('#updateDepartSelect').html(subDepartSelect);
             $('#updateDepartSelect').selectpicker('refresh');
         }
@@ -527,6 +530,7 @@
         //超级管理员
         if (role == 3) {
             showAddDepart(0);
+            showUpdateDepart(0);
         }
 
         //部门管理员，如果是本部门，就只有一个选项
@@ -556,8 +560,11 @@
     function personInfo(id) {
         $.each(data.users, function (index, item) {
             if (item.id == id) {
+                console.log(item);
                 $("#infoUsername").val(item.username);
                 $("#infoPassword").val(item.password);
+                $('#updateDepartSelect').selectpicker('val',item.departmentid);
+                $('#updateRoleid').selectpicker('val',item.roleid);
                 return false;
             }
         });

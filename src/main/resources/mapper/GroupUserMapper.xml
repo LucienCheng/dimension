@@ -80,4 +80,8 @@ WHERE `case`.id=#{caseId} and grouperId!=`user`.id
         select `user`.id,`user`.id as 'userid',`user`.username from `user`
         where `user`.departmentId=#{departmentId}
     </select>
+    <select id="selectByUserIdAndGroupId" resultType="GroupUser">
+        select * from group_user
+        where userid=#{userid} and groupid=#{groupid}
+    </select>
 </mapper>

@@ -1,7 +1,7 @@
 /*
  * <summary></summary>
  * <author>He Han</author>
- * <email>hankcs.cn@gmail.com</email>
+ * <email>dimension.cn@gmail.com</email>
  * <create-date>2015/1/29 17:03</create-date>
  *
  * <copyright file="Corpus.java" company="上海林原信息科技有限公司">
@@ -9,7 +9,7 @@
  * This source is subject to the LinrunSpace License. Please contact 上海林原信息科技有限公司 to get more information.
  * </copyright>
  */
-package com.hankcs.lda;
+package com.dimension.lda;
 
 import java.io.*;
 import java.util.Arrays;
@@ -20,7 +20,7 @@ import java.util.List;
  * a set of documents
  * 语料库，也就是文档集合
  *
- * @author hankcs
+ * @author dimension
  */
 public class Corpus implements Serializable{
 
