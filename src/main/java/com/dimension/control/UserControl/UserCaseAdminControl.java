@@ -144,4 +144,32 @@ private BaseNodeMapper baseNodeMapper;
         map.put("grouper",groupUser);
         return map;
     }
+    @RequestMapping("/getSimilarCase/{caseId}")
+    @ResponseBody
+    public Map<String, Object> getSimilarCase(@PathVariable String caseId, HttpSession session) throws IOException, ClassNotFoundException {
+        Map<String, Object> map = new HashMap<>();
+        List<Case> similarCases=new ArrayList<>();
+        User user = (User) session.getAttribute("user");
+        CaseCondition caseCondition=new CaseCondition();
+        caseCondition.setIsGrouper(1);
+        caseCondition.setRoleId(user.getRoleid());
+        caseCondition.setUserId(user.getId());
+        if (user.getRoleid() != 3)
+            caseCondition.setDepartmentid(user.getDepartmentid());
+        Case firstCase=caseMapper.selectByPrimaryKey(Integer.parseInt(caseId));
+        List<Case> cases = caseMapper.searchCases(caseCondition, null,null);
+        for (Case case1:cases) {
+            if(case1.getId()!=Integer.parseInt(caseId)){
+                double result=caseAssist.computeCompareCaseText(firstCase,case1);
+                if(result>=0.8){
+                    case1.setSimilar(result);
+                    similarCases.add(case1);
+                }
+            }
+
+        }
+        map.put("similarCases",similarCases);
+        map.put("baseCase",firstCase);
+        return map;
+    }
 }

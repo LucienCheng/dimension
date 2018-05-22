@@ -20,12 +20,6 @@ public class AdminControl {
     @Resource
     MarkNodeMapper markNodeMapper;
     private static final int count = 10;
-
-
-
-
-
-
     //地图点位
     @RequestMapping("/nodeMap")
     public String nodeMap(Model model,HttpSession session) throws JsonProcessingException {
@@ -35,10 +29,6 @@ public class AdminControl {
         model.addAttribute("markNodids",objectMapper.writeValueAsString(markNodeMapper.getMarkByUser(user.getId())));
         return "/admin/nodeMap";
     }
-
-
-
-
     //个人信息
     @RequestMapping("/personInfo")
     public String personInfo() {

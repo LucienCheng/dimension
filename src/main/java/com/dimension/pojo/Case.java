@@ -29,8 +29,18 @@ public class Case implements Serializable {
     //是否可以编辑这个案件
     private int isEdited;
 
+    private double similar;
+
     private Integer grouperid;
     private static final long serialVersionUID = 1L;
+
+    public double getSimilar() {
+        return similar;
+    }
+
+    public void setSimilar(double similar) {
+        this.similar = similar;
+    }
 
     public String getAbstracts() {
         return abstracts;

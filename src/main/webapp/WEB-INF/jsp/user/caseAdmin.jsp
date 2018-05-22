@@ -380,6 +380,55 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-sm-12">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h4 class="panel-title">
+                                普通点位查询
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#common" style="color:#0f1111;">
+                                    <i class="fa  fa-angle-double-down m-l-10 pull-right"></i>
+                                </a>
+
+                            </h4>
+                        </div>
+                        <div id="common" class="panel-collapse collapse ">
+                            <div class="panel-body">
+                                <div class="card-block">
+                                    <div id="caseLoading" style="text-align: center">
+
+                                    </div>
+                                    <div>
+                                        <table class="table table-hover">
+                                            <thead>
+                                            <tr class="row">
+                                                <th class="col-sm-1">#</th>
+                                                <th class="col-sm-2">案件名称</th>
+                                                <th class="col-sm-2">案件类型</th>
+                                                <th class="col-sm-2">案件开始时间</th>
+                                                <th class="col-sm-2">案件结束时间</th>
+                                                <th class="col-sm-1">相似程度</th>
+                                                <th class="col-sm-2">操作</th>
+                                            </tr>
+
+
+                                            </thead>
+                                            <tbody id="similarCase">
+
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <nav class="text-center" id="similarPage">
+
+
+                                    </nav>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <%--下面都是模态框--%>
                 <div class="col-sm-12">
                     <div id="updateModel" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
@@ -794,15 +843,37 @@
 
     /*一下是关于更新的操作
         触发更新模态框*/
-    function updateModel(id) {
-        $.each(data.cases, function (index, item) {
-            if (item.id == id) {
-                $("#casename").val(item.casename);
-                $("#casetype").val(item.casetype);
-                $("#description").val(item.description);
-                return false;
-            }
-        })
+    function updateModel(id,flag) {
+        if(flag==1){
+            $.each(data.cases, function (index, item) {
+                console.log(item);
+                if (item.id == id) {
+                    $("#casename").val(item.casename);
+                    $("#casetype").val(item.casetype);
+                    $("#description").val(item.description);
+                    $("#updateGrouperid").selectpicker('val', item.grouperid)
+                    $("#originGrouperid").val(item.grouperid);
+                    $("#groupid").val(item.groupid);
+                    $("#updateEndTime").val(item.endtime == null || item.endtime == "" ? "" : item.endtime);
+                    return false;
+                }
+            })
+        }else {
+            $.each(similarCases, function (index, item) {
+                console.log(item);
+                if (item.id == id) {
+                    $("#casename").val(item.casename);
+                    $("#casetype").val(item.casetype);
+                    $("#description").val(item.description);
+                    $("#updateGrouperid").selectpicker('val', item.grouperid)
+                    $("#originGrouperid").val(item.grouperid);
+                    $("#groupid").val(item.groupid);
+                    $("#updateEndTime").val(item.endtime == null || item.endtime == "" ? "" : item.endtime);
+                    return false;
+                }
+            })
+        }
+
         $('#updateModel').modal('show');
         $('#updateButton').val(id);
     }
@@ -864,16 +935,19 @@
                 str += '<td class="col-sm-4">' +
                     '<button  onclick="addCaseCompare(' +
                     item.id +
-                    ')" class="btn btn-success compare">添加比较</button>\n' +
+                    ')" class="btn btn-success compare">比较</button>\n' +
                     '<button  onclick="deleteModel(' +
                     item.id +
                     ')" class="btn btn-danger">删除</button>\n' +
+                    '<button  onclick="similarCase(' +
+                    item.id +
+                    ')" class="btn btn-info">类似案件</button>\n' +
                     '<button  onclick="addGroupModel(' +
                     item.id +
                     ',' + item.groupid + ')" class="btn btn-success">设置组员</button>' +
                     ' <button onclick="updateModel(' +
                     item.id +
-                    ');" class="btn btn-warning" >查看</button></td>';
+                    ',1);" class="btn btn-warning" >详情</button></td>';
                 str += ' </tr>';
             });
 
@@ -1064,6 +1138,65 @@
             }
         };
         $("#updateForm").validate(rule);
+    }
+    function similarCase(id) {
+        $.ajax({
+            url: '<%=basePath%>user/getSimilarCase/' + id,
+            type: "post",
+            /* 执行执行的是dom对象 ，不需要转化信息*/
+            processData: false,
+            contentType: false,
+            /* 指定返回类型为json */
+            dataType: 'json',
+            beforeSend: function (XMLHttpRequest) {
+                $("#caseLoading").html("<i class=\"fa fa-spinner fa-spin\"></i>"); //在后台返回success之前显示loading图标
+            },
+            success: function (d) {
+                console.log(d);
+                $("#caseLoading").empty();
+                similarCases=d.similarCases;
+                updateSimilarTable(d);
+            },
+            error: function (e) {
+                console.log("失败");
+            }
+        });
+    }
+    function updateSimilarTable(data) {
+        var baseCase=data.baseCase;
+        var table = $("#similarCase");
+        var str = "";
+        str += "<tr class='row'>";
+        str += "<td class=\"col-sm-1\">基准案件</td>";
+        str += "<td class=\"col-sm-2\">" + baseCase.casename + "</td>";
+        str += "<td class=\"col-sm-2\">" + baseCase.casetype + "</td>";
+        str += "<td class=\"col-sm-2\">" + baseCase.begintime + "</td>";
+        str += "<td class=\"col-sm-2\">" + baseCase.endtime + "</td>";
+        str += "<td class=\"col-sm-1\"></td>";
+        str += '<td class="col-sm-2">' +
+            ' <button onclick="updateModel(' +
+            baseCase.id +
+            ',1);" class="btn btn-info" >详情</button></td>';
+        str += ' </tr>';
+        if (data.similarCases.length != 0) {
+            $.each(data.similarCases, function (index, item) {
+                str += "<tr class='row'>";
+                str += "<td class=\"col-sm-1\">" + (index + 1) + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.casename + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.casetype + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.begintime + "</td>";
+                str += "<td class=\"col-sm-2\">" + item.endtime + "</td>";
+                str += "<td class=\"col-sm-1\">" + item.similar + "</td>";
+                str += '<td class="col-sm-2">' +
+                    ' <button onclick="updateModel(' +
+                    item.id +
+                    ',0);" class="btn btn-info" >详情</button></td>';
+                str += ' </tr>';
+            });
+
+
+        }
+        table.html(str);
     }
 </script>
 </body>

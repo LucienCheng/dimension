@@ -23,14 +23,18 @@ public class CaseAssitImpl implements CaseAssist {
     CaseMapper caseMapper;
     private static Corpus corpus = null;
     private static double[][] phi = null;
-    public static Map<Integer,Case> map=new HashMap<>();
+    //public static Map<Integer,Case> map=new HashMap<>();
 
     @Override
     public double computeCompareCase(String firstText, String secondText) throws IOException, ClassNotFoundException {
         int firstId = Integer.parseInt(firstText);
         int secondId = Integer.parseInt(secondText);
-        Case firstCase =map.get(firstId);
-        Case secondCase =map.get(secondId);
+        Case firstCase =null;
+        Case secondCase =null;
+        firstCase=caseMapper.selectByPrimaryKey(firstId);
+        secondCase=caseMapper.selectByPrimaryKey(secondId);
+       /* firstCase=map.get(firstId);
+        secondCase=map.get(secondId);
         if(firstCase==null){
             firstCase=caseMapper.selectByPrimaryKey(firstId);
             map.put(firstId,firstCase);
@@ -38,7 +42,7 @@ public class CaseAssitImpl implements CaseAssist {
         if(secondCase==null){
             secondCase=caseMapper.selectByPrimaryKey(secondId);
             map.put(secondId,secondCase);
-        }
+        }*/
         double result = 0.0;
         if (corpus == null) {
             //否则就需要初始化
@@ -68,6 +72,18 @@ public class CaseAssitImpl implements CaseAssist {
         return new BigDecimal(Double.valueOf(result)).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();*/
 
          return JsDistance(text1,text2).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
+    }
+
+    @Override
+    public double computeCompareCaseText(Case firstCase, Case secondCase) throws IOException, ClassNotFoundException {
+        double text1[] = computeText(firstCase.getAbstracts() + firstCase.getCasetype() + firstCase.getDescription());
+        double text2[] = computeText(secondCase.getAbstracts() + secondCase.getCasetype() + secondCase.getDescription());
+        for (double first : text1)
+            System.out.println(first);
+        System.out.println("-------------");
+        for (double first : text2)
+            System.out.println(first);
+        return JsDistance(text1,text2).setScale(6, BigDecimal.ROUND_HALF_UP).doubleValue();
     }
 
     public void computeUseLDA() throws IOException, ClassNotFoundException {

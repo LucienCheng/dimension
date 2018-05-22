@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.jms.Session;
+import javax.net.ssl.HttpsURLConnection;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
@@ -149,6 +151,33 @@ public class CaseAdminControl {
     public Map<String, Object> compute(String firstCaseid,String secondCaseid) throws IOException, ClassNotFoundException {
         Map<String, Object> map = new HashMap<>();
         map.put("result",caseAssist.computeCompareCase(firstCaseid,secondCaseid));
+        return map;
+    }
+
+    @RequestMapping("/getSimilarCase/{caseId}")
+    @ResponseBody
+    public Map<String, Object> getSimilarCase(@PathVariable String caseId, HttpSession session) throws IOException, ClassNotFoundException {
+        Map<String, Object> map = new HashMap<>();
+        List<Case> similarCases=new ArrayList<>();
+        User user = (User) session.getAttribute("user");
+        CaseCondition caseCondition=new CaseCondition();
+        caseCondition.setRoleId(user.getRoleid());
+        if (user.getRoleid() != 3)
+            caseCondition.setDepartmentid(user.getDepartmentid());
+        Case firstCase=caseMapper.selectByPrimaryKey(Integer.parseInt(caseId));
+        List<Case> cases = caseMapper.searchCases(caseCondition, null,null);
+        for (Case case1:cases) {
+            if(case1.getId()!=Integer.parseInt(caseId)){
+                double result=caseAssist.computeCompareCaseText(firstCase,case1);
+                if(result>=0.8){
+                    case1.setSimilar(result);
+                    similarCases.add(case1);
+                }
+            }
+
+        }
+        map.put("similarCases",similarCases);
+        map.put("baseCase",firstCase);
         return map;
     }
 }
